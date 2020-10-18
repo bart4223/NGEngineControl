@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For LedControl
+# Syntax Coloring Map For NGEngineControl
 #######################################
 
 #######################################
@@ -12,6 +12,12 @@ NGEngineControl    KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
+run                KEYWORD2
+setSpeed           KEYWORD2
+
 #######################################
 # Constants (LITERAL1)
 #######################################
+
+BACKWARD           LITERAL1
+FORWARD            LITERAL1

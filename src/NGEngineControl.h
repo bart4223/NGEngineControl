@@ -8,19 +8,21 @@
 #ifndef NGEngineControl_h
 #define NGEngineControl_h
 
+enum direction { FORWARD, BACKWARD };
+
 class NGEngineControl {
    
 private:
     int _forwardPin;
     int _backwardPin;
-    int _Speed;
+    int _speed;
     
 public:
     NGEngineControl(int forwardPin, int backwardPin);
     
-    void setSpeed(int Speed);
+    void setSpeed(int speed);
     
-    void Run();
+    void run(direction direction);
 };
 
 #endif /* NGEngineControl_h */
