@@ -10,12 +10,14 @@
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		29647BC6253C4AFD003CBA13 /* library.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = library.properties; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		29647BBA253C42A5003CBA13 = {
 			isa = PBXGroup;
 			children = (
+				29647BC6253C4AFD003CBA13 /* library.properties */,
 				29647BC5253C4A53003CBA13 /* LICENSE */,
 				29647BC4253C449A003CBA13 /* README.md */,
 				29647BC3253C43B2003CBA13 /* keywords.txt */,
