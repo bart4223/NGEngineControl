@@ -13,10 +13,10 @@ NGEngineControl::NGEngineControl(int forwardPin, int backwardPin) {
     _Speed = 0;
 }
 
-void setSpeed(int Speed) {
+void NGEngineControl::setSpeed(int Speed) {
     _Speed = Speed;
 }
 
-void Run() {
+void NGEngineControl::Run() {
     
 }
