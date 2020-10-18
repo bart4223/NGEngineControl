@@ -1,0 +1,91 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXFileReference section */
+		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
+		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		29647BBA253C42A5003CBA13 = {
+			isa = PBXGroup;
+			children = (
+				29647BC4253C449A003CBA13 /* README.md */,
+				29647BC3253C43B2003CBA13 /* keywords.txt */,
+				29647BC2253C430C003CBA13 /* examples */,
+				29647BC1253C42E8003CBA13 /* src */,
+			);
+			sourceTree = "<group>";
+		};
+		29647BC1253C42E8003CBA13 /* src */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		29647BC2253C430C003CBA13 /* examples */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = examples;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		29647BBB253C42A5003CBA13 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1200;
+			};
+			buildConfigurationList = 29647BBE253C42A5003CBA13 /* Build configuration list for PBXProject "NGEngineControl" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 29647BBA253C42A5003CBA13;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		29647BBF253C42A5003CBA13 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		29647BC0253C42A5003CBA13 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		29647BBE253C42A5003CBA13 /* Build configuration list for PBXProject "NGEngineControl" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				29647BBF253C42A5003CBA13 /* Debug */,
+				29647BC0253C42A5003CBA13 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29647BBB253C42A5003CBA13 /* Project object */;
+}
