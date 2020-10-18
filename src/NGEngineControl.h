@@ -37,6 +37,8 @@ public:
     void setSpeed(int speed);
     
     bool run(direction direction);
+    
+    bool stop();
 };
 
 #endif /* NGEngineControl_h */

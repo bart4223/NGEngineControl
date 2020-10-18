@@ -38,7 +38,23 @@ void NGEngineControl::setSpeed(int speed) {
 bool NGEngineControl::run(direction direction) {
     bool res = _initialized;
     if (res) {
-        
+        char log[100];
+        sprintf(log,"Engine %d run...",_engine);
+        Serial.println(log);
+    } else {
+        char log[100];
+        sprintf(log,"NGEngineControl with engine %d not initialized!",_engine);
+        Serial.println(log);
+    }
+    return res;
+}
+
+bool NGEngineControl::stop() {
+    bool res = _initialized;
+    if (res) {
+        char log[100];
+        sprintf(log,"...Engine %d stopped",_engine);
+        Serial.println(log);
     } else {
         char log[100];
         sprintf(log,"NGEngineControl with engine %d not initialized!",_engine);

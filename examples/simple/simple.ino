@@ -1,12 +1,15 @@
 #include <NGEngineControl.h>
 
-NGEngineControl Engine0 = NGEngineControl(ENGINE_0);
+NGEngineControl engine0 = NGEngineControl(ENGINE_0);
 
 void setup() {
-  Engine0.initialize();
+  engine0.initialize();
 }
 
 void loop() {
-  Engine0.setSpeed(42);
-  Engine0.run(FORWARD);
+  engine0.setSpeed(42);
+  engine0.run(FORWARD);
+  delay(4000);
+  engine0.stop();
+  delay(2000);
 }

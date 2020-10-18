@@ -15,6 +15,7 @@ NGEngineControl    KEYWORD1
 initialize         KEYWORD2
 run                KEYWORD2
 setSpeed           KEYWORD2
+stop               KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
