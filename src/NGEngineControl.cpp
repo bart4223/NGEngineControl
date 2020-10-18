@@ -16,8 +16,9 @@ NGEngineControl::NGEngineControl(int forwardPin, int backwardPin) {
 
 void NGEngineControl::initialize() {
     Serial.begin(9600);
+    Serial.println("Start initialzation of NGEngineControl...");
     _initialized = true;
-    Serial.print("NGEngineControl successfully initialized");
+    Serial.println("...NGEngineControl successfully initialized");
 }
 
 void NGEngineControl::setSpeed(int speed) {
@@ -29,7 +30,7 @@ bool NGEngineControl::run(direction direction) {
     if (res) {
         
     } else {
-        Serial.print("NGEngineControl not initialized!");
+        Serial.println("NGEngineControl not initialized!");
     }
     return res;
 }
