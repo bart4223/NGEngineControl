@@ -14,12 +14,14 @@
 		29647BC7253C515C003CBA13 /* NGEngineControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGEngineControl.h; sourceTree = "<group>"; };
 		29647BC8253C5273003CBA13 /* NGEngineControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGEngineControl.cpp; sourceTree = "<group>"; };
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
+		29647BCD253C77BC003CBA13 /* EngineShield.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = EngineShield.jpeg; path = "../../../../../../Pictures/Fotos Library.photoslibrary/resources/renders/9/EngineShield.jpeg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		29647BBA253C42A5003CBA13 = {
 			isa = PBXGroup;
 			children = (
+				29647BCB253C7783003CBA13 /* docs */,
 				29647BC6253C4AFD003CBA13 /* library.properties */,
 				29647BC5253C4A53003CBA13 /* LICENSE */,
 				29647BC4253C449A003CBA13 /* README.md */,
@@ -52,6 +54,22 @@
 				29647BCA253C5F97003CBA13 /* simple.ino */,
 			);
 			path = simple;
+			sourceTree = "<group>";
+		};
+		29647BCB253C7783003CBA13 /* docs */ = {
+			isa = PBXGroup;
+			children = (
+				29647BCC253C7794003CBA13 /* images */,
+			);
+			path = docs;
+			sourceTree = "<group>";
+		};
+		29647BCC253C7794003CBA13 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				29647BCD253C77BC003CBA13 /* EngineShield.jpeg */,
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
