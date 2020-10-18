@@ -12,6 +12,7 @@ NGEngineControl    KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
+initialize         KEYWORD2
 run                KEYWORD2
 setSpeed           KEYWORD2
 
