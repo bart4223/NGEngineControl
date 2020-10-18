@@ -21,6 +21,6 @@ public:
     void setSpeed(int Speed);
     
     void Run();
-}
+};
 
 #endif /* NGEngineControl_h */
