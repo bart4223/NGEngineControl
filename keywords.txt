@@ -20,5 +20,6 @@ setSpeed           KEYWORD2
 # Constants (LITERAL1)
 #######################################
 
+ENGINE_0           LITERAL1
 BACKWARD           LITERAL1
 FORWARD            LITERAL1

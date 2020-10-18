@@ -7,18 +7,28 @@
 
 #include "NGEngineControl.h"
 
-NGEngineControl::NGEngineControl(int forwardPin, int backwardPin) {
+NGEngineControl::NGEngineControl(int engine) {
     _initialized = false;
-    _forwardPin = forwardPin;
-    _backwardPin = backwardPin;
+    _engine = engine;
+    switch (_engine) {
+        case ENGINE_0:
+            _forwardPin = ENGINE_0_FORWARD;
+            _backwardPin = ENGINE_0_BACKWARD;
+            break;
+        default:
+            break;
+    }
     _speed = 0;
 }
 
 void NGEngineControl::initialize() {
     Serial.begin(9600);
-    Serial.println("Start initialzation of NGEngineControl...");
+    char log[100];
+    sprintf(log,"Start initialzation of NGEngineControl with engine %d...",_engine);
+    Serial.println(log);
     _initialized = true;
-    Serial.println("...NGEngineControl successfully initialized");
+    sprintf(log,"...NGEngineControl with engine %d successfully initialized",_engine);
+    Serial.println(log);
 }
 
 void NGEngineControl::setSpeed(int speed) {
@@ -30,7 +40,9 @@ bool NGEngineControl::run(direction direction) {
     if (res) {
         
     } else {
-        Serial.println("NGEngineControl not initialized!");
+        char log[100];
+        sprintf(log,"NGEngineControl with engine %d not initialized!",_engine);
+        Serial.println(log);
     }
     return res;
 }

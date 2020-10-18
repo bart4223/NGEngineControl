@@ -14,18 +14,23 @@
 #include <WProgram.h>
 #endif
 
+#define ENGINE_0           0
+#define ENGINE_0_FORWARD  10
+#define ENGINE_0_BACKWARD 11
+
 enum direction { FORWARD, BACKWARD };
 
 class NGEngineControl {
    
 private:
+    int _engine;
     int _forwardPin;
     int _backwardPin;
     int _speed;
     bool _initialized;
     
 public:
-    NGEngineControl(int forwardPin, int backwardPin);
+    NGEngineControl(int engine);
     
     void initialize();
     
