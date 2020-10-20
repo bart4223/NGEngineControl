@@ -8,8 +8,13 @@
 #include "NGEngineControl.h"
 
 NGEngineControl::NGEngineControl(int engine) {
+    NGEngineControl(engine,9600);
+}
+
+NGEngineControl::NGEngineControl(int engine, int serialRate) {
     _initialized = false;
     _engine = engine;
+    _serialRate = serialRate;
     switch (_engine) {
         case ENGINE_0:
             _forwardPin = ENGINE_0_FORWARD;
@@ -22,8 +27,8 @@ NGEngineControl::NGEngineControl(int engine) {
 }
 
 void NGEngineControl::initialize() {
-    Serial.begin(9600);
     char log[100];
+    Serial.begin(_serialRate);
     sprintf(log,"Start initialzation of NGEngineControl with engine %d...",_engine);
     Serial.println(log);
     _initialized = true;
@@ -37,12 +42,11 @@ void NGEngineControl::setSpeed(int speed) {
 
 bool NGEngineControl::run(direction direction) {
     bool res = _initialized;
+    char log[100];
     if (res) {
-        char log[100];
         sprintf(log,"Engine %d run...",_engine);
         Serial.println(log);
     } else {
-        char log[100];
         sprintf(log,"NGEngineControl with engine %d not initialized!",_engine);
         Serial.println(log);
     }
@@ -51,12 +55,11 @@ bool NGEngineControl::run(direction direction) {
 
 bool NGEngineControl::stop() {
     bool res = _initialized;
+    char log[100];
     if (res) {
-        char log[100];
         sprintf(log,"...Engine %d stopped",_engine);
         Serial.println(log);
     } else {
-        char log[100];
         sprintf(log,"NGEngineControl with engine %d not initialized!",_engine);
         Serial.println(log);
     }

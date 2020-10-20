@@ -27,10 +27,13 @@ private:
     int _forwardPin;
     int _backwardPin;
     int _speed;
+    int _serialRate;
     bool _initialized;
     
 public:
     NGEngineControl(int engine);
+    
+    NGEngineControl(int engine, int serialRate);
     
     void initialize();
     
