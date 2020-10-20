@@ -7,7 +7,15 @@
 
 #include "NGEngineControl.h"
 
+NGEngineControl::NGEngineControl(int engine) {
+    _create(engine,9600);
+}
+
 NGEngineControl::NGEngineControl(int engine, int serialRate) {
+    _create(engine,serialRate);
+}
+
+void NGEngineControl::_create(int engine, int serialRate) {
     _initialized = false;
     _engine = engine;
     _serialRate = serialRate;

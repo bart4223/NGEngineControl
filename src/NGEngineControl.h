@@ -29,8 +29,13 @@ private:
     int _speed;
     int _serialRate;
     bool _initialized;
+
+protected:
+    void _create(int engine, int serialRate);
     
 public:
+    NGEngineControl(int engine);
+    
     NGEngineControl(int engine, int serialRate);
     
     void initialize();

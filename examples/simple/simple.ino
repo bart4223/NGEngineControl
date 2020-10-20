@@ -1,6 +1,6 @@
 #include <NGEngineControl.h>
 
-NGEngineControl engine0 = NGEngineControl(ENGINE_0,9600);
+NGEngineControl engine0 = NGEngineControl(ENGINE_0);
 
 void setup() {
   engine0.initialize();
