@@ -31,8 +31,6 @@ private:
     bool _initialized;
     
 public:
-    NGEngineControl(int engine);
-    
     NGEngineControl(int engine, int serialRate);
     
     void initialize();

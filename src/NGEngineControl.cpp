@@ -7,10 +7,6 @@
 
 #include "NGEngineControl.h"
 
-NGEngineControl::NGEngineControl(int engine) {
-    NGEngineControl(engine,9600);
-}
-
 NGEngineControl::NGEngineControl(int engine, int serialRate) {
     _initialized = false;
     _engine = engine;
