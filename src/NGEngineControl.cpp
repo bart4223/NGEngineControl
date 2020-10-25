@@ -33,10 +33,12 @@ void NGEngineControl::_create(int engine, int serialRate) {
 void NGEngineControl::initialize() {
     char log[100];
     Serial.begin(_serialRate);
-    sprintf(log,"Start initialzation of NGEngineControl with engine %d...",_engine);
+    sprintf(log, "Start initialzation of NGEngineControl with engine %d...", _engine);
     Serial.println(log);
+    pinMode(_forwardPin, OUTPUT);
+    pinMode(_backwardPin, OUTPUT);
     _initialized = true;
-    sprintf(log,"...NGEngineControl with engine %d successfully initialized",_engine);
+    sprintf(log, "...NGEngineControl with engine %d successfully initialized", _engine);
     Serial.println(log);
 }
 
@@ -48,10 +50,18 @@ bool NGEngineControl::run(direction direction) {
     bool res = _initialized;
     char log[100];
     if (res) {
-        sprintf(log,"Engine %d run...",_engine);
+        switch (direction) {
+            case FORWARD:
+                analogWrite(_forwardPin, _speed);
+                break;
+            case BACKWARD:
+                analogWrite(_backwardPin, _speed);
+                break;
+        }
+        sprintf(log, "Engine %d run with speed %d...", _engine, _speed);
         Serial.println(log);
     } else {
-        sprintf(log,"NGEngineControl with engine %d not initialized!",_engine);
+        sprintf(log, "NGEngineControl with engine %d not initialized!", _engine);
         Serial.println(log);
     }
     return res;
@@ -61,10 +71,12 @@ bool NGEngineControl::stop() {
     bool res = _initialized;
     char log[100];
     if (res) {
-        sprintf(log,"...Engine %d stopped",_engine);
+        analogWrite(_forwardPin, 0);
+        analogWrite(_backwardPin, 0);
+        sprintf(log, "...Engine %d stopped", _engine);
         Serial.println(log);
     } else {
-        sprintf(log,"NGEngineControl with engine %d not initialized!",_engine);
+        sprintf(log, "NGEngineControl with engine %d not initialized!", _engine);
         Serial.println(log);
     }
     return res;
