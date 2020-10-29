@@ -14,6 +14,7 @@ NGEngineControl    KEYWORD1
 
 initialize         KEYWORD2
 run                KEYWORD2
+setLogging         KEYWORD2
 setSpeed           KEYWORD2
 stop               KEYWORD2
 

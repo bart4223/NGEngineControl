@@ -36,6 +36,7 @@ private:
     int _interval;
     bool _initialized;
     bool _running;
+    bool _logging;
     direction _direction;
 
 protected:
@@ -51,6 +52,8 @@ public:
     void initialize();
     
     void initialize(int speed);
+    
+    void setLogging(bool logging);
     
     void setSpeed(int speed);
 

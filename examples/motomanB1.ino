@@ -8,6 +8,8 @@ const int _highRad = 600;
 
 void setup() {
   engine0.initialize();
+  Serial.print("Current Radiant = ");
+  Serial.println(analogRead(transducerBasePin));
 }
 
 void loop() {
@@ -26,11 +28,26 @@ void loop() {
     Serial.print(analogRead(transducerBasePin));
     Serial.print(", Duration: ");
     Serial.print(duration);
-    Serial.println(")");
+    Serial.println(" ms)");
   } else
     Serial.println("Radiant is invalid");
 }
 
-void rotate(int rad) {
-  delay(200);
+void rotate(int targetRad) {
+  int currentRad = analogRead(transducerBasePin);
+  engine0.setSpeed(MAXSPEED);
+  while (currentRad <= (targetRad - 3) || (targetRad + 3) <= currentRad) {
+    if (currentRad < targetRad) {
+      engine0.setLogging(false);
+      engine0.run(BACKWARD);
+      engine0.setLogging(true);
+    } else if (currentRad > targetRad) {
+      engine0.setLogging(false);
+      engine0.run(FORWARD);
+      engine0.setLogging(true);
+    }
+    currentRad = analogRead(transducerBasePin);
+    delay(50);
+  }
+  engine0.stop();
 }

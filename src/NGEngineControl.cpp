@@ -29,6 +29,7 @@ void NGEngineControl::_create(int engine, int serialRate) {
     _interval = 0;
     _direction = NONE;
     _running = false;
+    _logging = true;
 }
 
 void NGEngineControl::initialize() {
@@ -38,15 +39,24 @@ void NGEngineControl::initialize() {
 void NGEngineControl::initialize(int speed) {
     char log[100];
     Serial.begin(_serialRate);
-    sprintf(log, "Start initialzation of NGEngineControl with engine %d...", _engine);
-    Serial.println(log);
+    if (_logging) {
+        sprintf(log, "Start initialzation of NGEngineControl with engine %d...", _engine);
+        Serial.println(log);
+    }
     pinMode(_forwardPin, OUTPUT);
     pinMode(_backwardPin, OUTPUT);
     _speed = speed;
     _initialized = true;
-    sprintf(log, "...NGEngineControl with engine %d successfully initialized", _engine);
-    Serial.println(log);
+    if (_logging) {
+        sprintf(log, "...NGEngineControl with engine %d successfully initialized", _engine);
+        Serial.println(log);
+    }
 }
+
+void NGEngineControl::setLogging(bool logging) {
+    _logging = logging;
+}
+
 void NGEngineControl::setSpeed(int speed) {
     setSpeed(speed, 0);
 }
@@ -85,7 +95,7 @@ bool NGEngineControl::run(direction direction) {
             _speedUp(MINSPEED, _speed);
             _running = true;
         }
-    } else {
+    } else if (_logging) {
         sprintf(log, "NGEngineControl with engine %d not initialized!", _engine);
         Serial.println(log);
     }
@@ -128,8 +138,10 @@ void NGEngineControl::_speedUp(int startSpeed, int targetSpeed) {
             analogWrite(_backwardPin, targetSpeed);
             break;
     }
-    sprintf(log, "Engine %d now run with speed %d %s...", _engine, targetSpeed, dir);
-    Serial.println(log);
+    if (_logging) {
+        sprintf(log, "Engine %d now run with speed %d %s...", _engine, targetSpeed, dir);
+        Serial.println(log);
+    }
 }
 
 bool NGEngineControl::stop() {
@@ -149,7 +161,7 @@ bool NGEngineControl::stop(int interval) {
             _running = false;
             _interval = 0;
         }
-    } else {
+    } else if (_logging) {
         sprintf(log, "NGEngineControl with engine %d not initialized!", _engine);
         Serial.println(log);
     }
@@ -200,5 +212,7 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
     } else {
         sprintf(log, "Engine %d now run with speed %d %s...", _engine, targetSpeed, dir);
     }
-    Serial.println(log);
+    if (_logging) {
+        Serial.println(log);
+    }
 }
