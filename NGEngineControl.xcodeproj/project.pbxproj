@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		29165F2F2544B45E001D9497 /* motoman.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motoman.ino; sourceTree = "<group>"; };
+		29165F2F2544B45E001D9497 /* motomanB1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motomanB1.ino; sourceTree = "<group>"; };
+		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
+		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -15,16 +17,25 @@
 		29647BC7253C515C003CBA13 /* NGEngineControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGEngineControl.h; sourceTree = "<group>"; };
 		29647BC8253C5273003CBA13 /* NGEngineControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGEngineControl.cpp; sourceTree = "<group>"; };
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
-		29647BD3253C7D68003CBA13 /* EngineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngineShield.png; sourceTree = "<group>"; };
+		29647BD3253C7D68003CBA13 /* eNGineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShield.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		29165F2E2544B43D001D9497 /* motoman */ = {
 			isa = PBXGroup;
 			children = (
-				29165F2F2544B45E001D9497 /* motoman.ino */,
+				29165F2F2544B45E001D9497 /* motomanB1.ino */,
 			);
 			name = motoman;
+			sourceTree = "<group>";
+		};
+		29165F302549692B001D9497 /* profiles */ = {
+			isa = PBXGroup;
+			children = (
+				29165F3125496946001D9497 /* profile1.ino */,
+				29165F32254B5C14001D9497 /* profile2.ino */,
+			);
+			path = profiles;
 			sourceTree = "<group>";
 		};
 		29647BBA253C42A5003CBA13 = {
@@ -52,6 +63,7 @@
 		29647BC2253C430C003CBA13 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				29165F302549692B001D9497 /* profiles */,
 				29165F2E2544B43D001D9497 /* motoman */,
 				29647BC9253C5F85003CBA13 /* simple */,
 			);
@@ -77,7 +89,7 @@
 		29647BCC253C7794003CBA13 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				29647BD3253C7D68003CBA13 /* EngineShield.png */,
+				29647BD3253C7D68003CBA13 /* eNGineShield.png */,
 			);
 			path = images;
 			sourceTree = "<group>";

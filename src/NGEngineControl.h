@@ -18,7 +18,12 @@
 #define ENGINE_0_FORWARD  10
 #define ENGINE_0_BACKWARD 11
 
-enum direction { FORWARD, BACKWARD };
+#define STEPWIDTH 10
+#define NULLSPEED  0
+#define MINSPEED  20
+#define MAXSPEED 255
+
+enum direction { NONE, FORWARD, BACKWARD };
 
 class NGEngineControl {
    
@@ -28,11 +33,16 @@ private:
     int _backwardPin;
     int _speed;
     int _serialRate;
+    int _interval;
     bool _initialized;
+    bool _running;
+    direction _direction;
 
 protected:
     void _create(int engine, int serialRate);
-    
+    void _slowDown(int startSpeed, int targetSpeed, int interval);
+    void _speedUp(int startSpeed, int targetSpeed);
+
 public:
     NGEngineControl(int engine);
     
@@ -40,11 +50,17 @@ public:
     
     void initialize();
     
-    void setSpeed(int speed);
+    void initialize(int speed);
     
+    void setSpeed(int speed);
+
+    void setSpeed(int speed, int interval);
+
     bool run(direction direction);
     
     bool stop();
+
+    bool stop(int interval);
 };
 
 #endif /* NGEngineControl_h */
