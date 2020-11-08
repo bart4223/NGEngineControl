@@ -159,7 +159,6 @@ bool NGEngineControl::stop(int interval) {
         if (_direction != NONE) {
             _slowDown(_speed, NULLSPEED, __interval);
             _running = false;
-            _interval = 0;
         }
     } else if (_logging) {
         sprintf(log, "NGEngineControl with engine %d not initialized!", _engine);
