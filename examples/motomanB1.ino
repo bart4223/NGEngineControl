@@ -47,7 +47,7 @@ void rotate(int targetRad) {
       engine0.setLogging(true);
     }
     currentRad = analogRead(transducerBasePin);
-    delay(50);
+    delay(20);
   }
   engine0.stop();
 }
