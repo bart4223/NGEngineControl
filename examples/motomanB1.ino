@@ -2,38 +2,62 @@
 
 NGEngineControl engine0 = NGEngineControl(ENGINE_0);
 
-const byte transducerBasePin = 3;
-const int _lowRad = 42;
-const int _highRad = 600;
+enum mode { Normal, Simulate, TransducerBase };
 
+const byte transducerBasePin = 3;
+const int _lowRad = 570;
+const int _highRad = 1020;
+const mode _mode = Simulate;
+ 
 void setup() {
   engine0.initialize();
-  Serial.print("Current Radiant = ");
+  Serial.print("Current Mode = ");
+  Serial.println(_mode);
+  Serial.print("Current Transducer Base Radiant = ");
   Serial.println(analogRead(transducerBasePin));
 }
 
 void loop() {
-  Serial.print("Rotate to Radiant = ");
-  while (Serial.available() == 0);
-  int radiant = Serial.parseInt();
-  Serial.read();
-  Serial.println(radiant);
-  if (radiant >= _lowRad && radiant <= _highRad) {
-    Serial.println("Rotation start...");
-    unsigned long start = millis();
-    rotate(radiant);
-    unsigned long duration = millis() - start;
-    Serial.print("...Rotation end (");
-    Serial.print("Rad: ");
-    Serial.print(analogRead(transducerBasePin));
-    Serial.print(", Duration: ");
-    Serial.print(duration);
-    Serial.println(" ms)");
-  } else
-    Serial.println("Radiant is invalid");
+  int radiant = analogRead(transducerBasePin);
+  switch (_mode) {
+    case Normal:
+      Serial.print("Rotate transducer base to Radiant = ");
+      while (Serial.available() == 0);
+      radiant = Serial.parseInt();
+      Serial.read();
+      Serial.println(radiant);
+      break;
+    case Simulate:
+      if (radiant >= _highRad - ((_highRad - _lowRad) / 2)) {
+        radiant = _lowRad;
+      }
+      else {
+        radiant = _highRad;
+      }
+      break;
+    case TransducerBase:
+      Serial.println(radiant);
+      delay(500);
+      break;
+  }
+  if (_mode == Normal || _mode == Simulate) {
+    if (radiant >= _lowRad && radiant <= _highRad) {
+      Serial.println("Rotation of transducer base start...");
+      unsigned long start = millis();
+      rotateTransducerBase(radiant);
+      unsigned long duration = millis() - start;
+      Serial.print("...Rotation of transducer base end (");
+      Serial.print("Rad: ");
+      Serial.print(analogRead(transducerBasePin));
+      Serial.print(", Duration: ");
+      Serial.print(duration);
+      Serial.println(" ms)");
+    } else
+      Serial.println("Radiant of transducer base is invalid");
+  }
 }
 
-void rotate(int targetRad) {
+void rotateTransducerBase(int targetRad) {
   int currentRad = analogRead(transducerBasePin);
   engine0.setSpeed(MAXSPEED);
   while (currentRad <= (targetRad - 3) || (targetRad + 3) <= currentRad) {
