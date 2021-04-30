@@ -19,17 +19,10 @@
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
 		29647BD3253C7D68003CBA13 /* eNGineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShield.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
+		29E6BA5A263C6070007BCE9F /* motomanB1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		29165F2E2544B43D001D9497 /* motoman */ = {
-			isa = PBXGroup;
-			children = (
-				29165F2F2544B45E001D9497 /* motomanB1.ino */,
-			);
-			name = motoman;
-			sourceTree = "<group>";
-		};
 		29165F302549692B001D9497 /* profiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -64,8 +57,8 @@
 		29647BC2253C430C003CBA13 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				29E6BA59263C6030007BCE9F /* motoman */,
 				29165F302549692B001D9497 /* profiles */,
-				29165F2E2544B43D001D9497 /* motoman */,
 				29647BC9253C5F85003CBA13 /* simple */,
 			);
 			path = examples;
@@ -92,6 +85,23 @@
 			children = (
 				298A66D12565501F00393741 /* eNGineShieldSchema.png */,
 				29647BD3253C7D68003CBA13 /* eNGineShield.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		29E6BA59263C6030007BCE9F /* motoman */ = {
+			isa = PBXGroup;
+			children = (
+				29E6BA5B263C6098007BCE9F /* images */,
+				29165F2F2544B45E001D9497 /* motomanB1.ino */,
+			);
+			path = motoman;
+			sourceTree = "<group>";
+		};
+		29E6BA5B263C6098007BCE9F /* images */ = {
+			isa = PBXGroup;
+			children = (
+				29E6BA5A263C6070007BCE9F /* motomanB1.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
