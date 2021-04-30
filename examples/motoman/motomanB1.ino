@@ -5,7 +5,7 @@ NGEngineControl engine0 = NGEngineControl(ENGINE_0);
 enum mode { Normal, Simulate, TransducerBase };
 
 const byte transducerBasePin = 3;
-const int _lowRad = 570;
+const int _lowRad = 560;
 const int _highRad = 1020;
 const mode _mode = Simulate;
  
