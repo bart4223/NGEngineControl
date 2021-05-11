@@ -1,50 +1,71 @@
 #include <NGEngineControl.h>
 
-NGEngineControl engine0 = NGEngineControl(ENGINE_0);
+NGEngineControl engineBase = NGEngineControl(ENGINE_0);
 
-enum mode { Normal, Simulate, TransducerBase };
+enum mode { MoveEngineBase, SimulateEngineBase, ReadTransducerBase, ReadTransducerShoulder, ReadTransducerElbow };
 
 const byte transducerBasePin = 3;
-const int _lowRad = 560;
-const int _highRad = 1020;
-const mode _mode = Simulate;
+const byte transducerShoulderPin = 4;
+const byte transducerElbowPin = 5;
+const int _lowTransducerBaseRad = 560;
+const int _highTransducerBaseRad = 1020;
+const int _lowTransducerShoulderRad = 560;
+const int _highTransducerShoulderRad = 1020;
+const int _lowTransducerElbowRad = 560;
+const int _highTransducerElbowRad = 1020;
+const int _sleepReadTransducer = 500;
+const mode _mode = SimulateEngineBase;
  
 void setup() {
-  engine0.initialize();
+  engineBase.initialize();
   Serial.print("Current Mode = ");
   Serial.println(_mode);
   Serial.print("Current Transducer Base Radiant = ");
   Serial.println(analogRead(transducerBasePin));
+  Serial.print("Current Transducer Shoulder Radiant = ");
+  Serial.println(analogRead(transducerShoulderPin));
+  Serial.print("Current Transducer Elbow Radiant = ");
+  Serial.println(analogRead(transducerElbowPin));
 }
 
 void loop() {
-  int radiant = analogRead(transducerBasePin);
+  int radiantTransducerBase = analogRead(transducerBasePin);
+  int radiantTransducerShoulder = analogRead(transducerShoulderPin);
+  int radiantTransducerElbow = analogRead(transducerElbowPin);
   switch (_mode) {
-    case Normal:
+    case ReadTransducerBase:
+      Serial.println(radiantTransducerBase);
+      delay(_sleepReadTransducer);
+      break;
+    case ReadTransducerShoulder:
+      Serial.println(radiantTransducerShoulder);
+      delay(_sleepReadTransducer);
+      break;
+    case ReadTransducerElbow:
+      Serial.println(radiantTransducerElbow);
+      delay(_sleepReadTransducer);
+      break;
+    case MoveEngineBase:
       Serial.print("Rotate transducer base to Radiant = ");
       while (Serial.available() == 0);
-      radiant = Serial.parseInt();
+      radiantTransducerBase = Serial.parseInt();
       Serial.read();
-      Serial.println(radiant);
+      Serial.println(radiantTransducerBase);
       break;
-    case Simulate:
-      if (radiant >= _highRad - ((_highRad - _lowRad) / 2)) {
-        radiant = _lowRad;
+    case SimulateEngineBase:
+      if (radiantTransducerBase >= _highTransducerBaseRad - ((_highTransducerBaseRad - _lowTransducerBaseRad) / 2)) {
+        radiantTransducerBase = _lowTransducerBaseRad;
       }
       else {
-        radiant = _highRad;
+        radiantTransducerBase = _highTransducerBaseRad;
       }
       break;
-    case TransducerBase:
-      Serial.println(radiant);
-      delay(500);
-      break;
   }
-  if (_mode == Normal || _mode == Simulate) {
-    if (radiant >= _lowRad && radiant <= _highRad) {
+  if (_mode == MoveEngineBase || _mode == SimulateEngineBase) {
+    if (radiantTransducerBase >= _lowTransducerBaseRad && radiantTransducerBase <= _highTransducerBaseRad) {
       Serial.println("Rotation of transducer base start...");
       unsigned long start = millis();
-      rotateTransducerBase(radiant);
+      movingEngineBase(radiantTransducerBase);
       unsigned long duration = millis() - start;
       Serial.print("...Rotation of transducer base end (");
       Serial.print("Rad: ");
@@ -57,21 +78,21 @@ void loop() {
   }
 }
 
-void rotateTransducerBase(int targetRad) {
+void movingEngineBase(int targetRad) {
   int currentRad = analogRead(transducerBasePin);
-  engine0.setSpeed(MAXSPEED);
+  engineBase.setSpeed(MAXSPEED);
   while (currentRad <= (targetRad - 3) || (targetRad + 3) <= currentRad) {
     if (currentRad < targetRad) {
-      engine0.setLogging(false);
-      engine0.run(BACKWARD);
-      engine0.setLogging(true);
+      engineBase.setLogging(false);
+      engineBase.run(BACKWARD);
+      engineBase.setLogging(true);
     } else if (currentRad > targetRad) {
-      engine0.setLogging(false);
-      engine0.run(FORWARD);
-      engine0.setLogging(true);
+      engineBase.setLogging(false);
+      engineBase.run(FORWARD);
+      engineBase.setLogging(true);
     }
     currentRad = analogRead(transducerBasePin);
     delay(20);
   }
-  engine0.stop();
+  engineBase.stop();
 }
