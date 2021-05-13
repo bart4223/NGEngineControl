@@ -23,7 +23,7 @@
 #define MINSPEED  20
 #define MAXSPEED 255
 
-enum direction { NONE, FORWARD, BACKWARD };
+enum engineDirection { edNone, edForward, edBackward };
 
 class NGEngineControl {
    
@@ -37,7 +37,7 @@ private:
     bool _initialized;
     bool _running;
     bool _logging;
-    direction _direction;
+    engineDirection _direction;
 
 protected:
     void _create(int engine, int serialRate);
@@ -45,6 +45,8 @@ protected:
     void _speedUp(int startSpeed, int targetSpeed);
 
 public:
+    NGEngineControl();
+    
     NGEngineControl(int engine);
     
     NGEngineControl(int engine, int serialRate);
@@ -59,11 +61,12 @@ public:
 
     void setSpeed(int speed, int interval);
 
-    bool run(direction direction);
+    bool run(engineDirection direction);
     
     bool stop();
 
     bool stop(int interval);
+    
 };
 
 #endif /* NGEngineControl_h */

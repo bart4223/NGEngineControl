@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		2905F11F264AD273001B4A56 /* NGJointControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJointControl.h; sourceTree = "<group>"; };
+		2905F120264AD58E001B4A56 /* NGJointControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJointControl.cpp; sourceTree = "<group>"; };
 		29165F2F2544B45E001D9497 /* motomanB1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motomanB1.ino; sourceTree = "<group>"; };
 		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
 		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
@@ -50,6 +52,8 @@
 			children = (
 				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
 				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
+				2905F11F264AD273001B4A56 /* NGJointControl.h */,
+				2905F120264AD58E001B4A56 /* NGJointControl.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";

@@ -7,6 +7,10 @@
 
 #include "NGEngineControl.h"
 
+NGEngineControl::NGEngineControl() {
+    
+}
+
 NGEngineControl::NGEngineControl(int engine) {
     _create(engine, 9600);
 }
@@ -27,7 +31,7 @@ void NGEngineControl::_create(int engine, int serialRate) {
     }
     _speed = NULLSPEED;
     _interval = 0;
-    _direction = NONE;
+    _direction = edNone;
     _running = false;
     _logging = true;
 }
@@ -40,7 +44,7 @@ void NGEngineControl::initialize(int speed) {
     char log[100];
     Serial.begin(_serialRate);
     if (_logging) {
-        sprintf(log, "Start initialzation of NGEngineControl with engine %d...", _engine);
+        sprintf(log, "Start initialization of NGEngineControl with engine %d...", _engine);
         Serial.println(log);
     }
     pinMode(_forwardPin, OUTPUT);
@@ -86,12 +90,12 @@ void NGEngineControl::setSpeed(int speed, int interval) {
     }
 }
 
-bool NGEngineControl::run(direction direction) {
+bool NGEngineControl::run(engineDirection direction) {
     bool res = _initialized;
     char log[100];
     _direction = direction;
     if (res) {
-        if (direction != NONE && _speed > NULLSPEED) {
+        if (direction != edNone && _speed > NULLSPEED) {
             _speedUp(MINSPEED, _speed);
             _running = true;
         }
@@ -111,7 +115,7 @@ void NGEngineControl::_speedUp(int startSpeed, int targetSpeed) {
     }
     int steps = (targetSpeed - __startSpeed) / STEPWIDTH;
     switch (_direction) {
-        case FORWARD:
+        case edForward:
             analogWrite(_backwardPin, NULLSPEED);
             dir = "forward";
             if (_interval > 0) {
@@ -124,7 +128,7 @@ void NGEngineControl::_speedUp(int startSpeed, int targetSpeed) {
             }
             analogWrite(_forwardPin, targetSpeed);
             break;
-        case BACKWARD:
+        case edBackward:
             analogWrite(_forwardPin, NULLSPEED);
             dir = "backward";
             if (_interval > 0) {
@@ -156,7 +160,7 @@ bool NGEngineControl::stop(int interval) {
         __interval = _interval;
     }
     if (res) {
-        if (_direction != NONE) {
+        if (_direction != edNone) {
             _slowDown(_speed, NULLSPEED, __interval);
             _running = false;
         }
@@ -164,7 +168,7 @@ bool NGEngineControl::stop(int interval) {
         sprintf(log, "NGEngineControl with engine %d not initialized!", _engine);
         Serial.println(log);
     }
-    _direction = NONE;
+    _direction = edNone;
     return res;
 }
 
@@ -178,7 +182,7 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
         }
         int steps = (startSpeed - __targetSpeed) / STEPWIDTH;
         switch(_direction) {
-            case FORWARD:
+            case edForward:
                 dir = "forward";
                 for (int i = startSpeed; i >= __targetSpeed; i = i - STEPWIDTH) {
                     analogWrite(_forwardPin, i);
@@ -190,7 +194,7 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
                     analogWrite(_forwardPin, targetSpeed);
                 }
                 break;
-            case BACKWARD:
+            case edBackward:
                 dir = "backward";
                 for (int i = startSpeed; i >= __targetSpeed; i = i - STEPWIDTH) {
                     analogWrite(_backwardPin, i);
