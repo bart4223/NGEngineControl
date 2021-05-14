@@ -23,6 +23,9 @@
 #define JOINT_2             2
 #define JOINT_2_TRANSDUCER  5
 
+#define TRANSDUCERTHRESHOLD  3
+#define ENGINEMOVEDELAY     20
+
 enum jointDirection { jdNone, jdLeft, jdRight };
 
 class NGJointControl {
@@ -33,13 +36,13 @@ private:
     int _minJointRad;
     int _maxJointRad;
     int _currentJointRad;
-    int _transducerThreshold = 3;
+    int _transducerThreshold = TRANSDUCERTHRESHOLD;
     int _maxSpeed;
     bool _initialized;
     bool _logging;
     char* _name;
     NGEngineControl _engine = NGEngineControl();
-    int _engineMoveDelay = 20;
+    int _engineMoveDelay = ENGINEMOVEDELAY;
     
 protected:
     void _create(int joint, int serialRate);

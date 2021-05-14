@@ -10,6 +10,7 @@
 		2905F11F264AD273001B4A56 /* NGJointControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJointControl.h; sourceTree = "<group>"; };
 		2905F120264AD58E001B4A56 /* NGJointControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJointControl.cpp; sourceTree = "<group>"; };
 		2905F121264D385A001B4A56 /* NGMachineControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMachineControl.h; sourceTree = "<group>"; };
+		2905F125264F0143001B4A56 /* stop.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = stop.ino; sourceTree = "<group>"; };
 		29165F2F2544B45E001D9497 /* motomanB1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motomanB1.ino; sourceTree = "<group>"; };
 		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
 		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
@@ -40,6 +41,14 @@
 				29165F32254B5C14001D9497 /* profile2.ino */,
 			);
 			path = profile2;
+			sourceTree = "<group>";
+		};
+		2905F124264F011D001B4A56 /* stop */ = {
+			isa = PBXGroup;
+			children = (
+				2905F125264F0143001B4A56 /* stop.ino */,
+			);
+			path = stop;
 			sourceTree = "<group>";
 		};
 		29165F302549692B001D9497 /* profiles */ = {
@@ -79,6 +88,7 @@
 		29647BC2253C430C003CBA13 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				2905F124264F011D001B4A56 /* stop */,
 				29647BC9253C5F85003CBA13 /* simple */,
 				29165F302549692B001D9497 /* profiles */,
 				29E6BA59263C6030007BCE9F /* motoman */,

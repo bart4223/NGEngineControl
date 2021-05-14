@@ -24,12 +24,17 @@
 #define ENGINE_2_FORWARD   5
 #define ENGINE_2_BACKWARD  6
 
-#define STEPWIDTH 10
-#define NULLSPEED  0
-#define MINSPEED  20
-#define MAXSPEED 255
+#define STEPWIDTH              10
+#define NULLSPEED               0
+#define MINSPEED               20
+#define MAXSPEED              255
+#define NULLINTERVAL            0
+#define NULLSTEPS               0
+#define DEFAULTSERIALRATE    9600
 
 enum engineDirection { edNone, edForward, edBackward };
+
+bool static _serialStarted = false;
 
 class NGEngineControl {
    

@@ -8,7 +8,7 @@
 #include "NGJointControl.h"
 
 NGJointControl::NGJointControl(int joint) {
-    _create(joint, 9600);
+    _create(joint, DEFAULTSERIALRATE);
 }
 
 NGJointControl::NGJointControl(int joint, int serialRate) {

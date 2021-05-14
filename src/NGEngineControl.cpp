@@ -12,7 +12,7 @@ NGEngineControl::NGEngineControl() {
 }
 
 NGEngineControl::NGEngineControl(int engine) {
-    _create(engine, 9600);
+    _create(engine, DEFAULTSERIALRATE);
 }
 
 NGEngineControl::NGEngineControl(int engine, int serialRate) {
@@ -38,19 +38,22 @@ void NGEngineControl::_create(int engine, int serialRate) {
             break;
     }
     _speed = NULLSPEED;
-    _interval = 0;
+    _interval = NULLINTERVAL;
     _direction = edNone;
     _running = false;
     _logging = true;
 }
 
 void NGEngineControl::initialize() {
-    initialize(0);
+    initialize(NULLSPEED);
 }
 
 void NGEngineControl::initialize(int speed) {
     char log[100];
-    Serial.begin(_serialRate);
+    if (!_serialStarted) {
+        Serial.begin(_serialRate);
+        _serialStarted = true;
+    }
     if (_logging) {
         sprintf(log, "Start initialization of NGEngineControl with engine %d...", _engine);
         Serial.println(log);
@@ -70,7 +73,7 @@ void NGEngineControl::setLogging(bool logging) {
 }
 
 void NGEngineControl::setSpeed(int speed) {
-    setSpeed(speed, 0);
+    setSpeed(speed, NULLINTERVAL);
 }
 
 void NGEngineControl::setSpeed(int speed, int interval) {
@@ -94,7 +97,7 @@ void NGEngineControl::setSpeed(int speed, int interval) {
     } else if (_running) {
         _slowDown(_speed, NULLSPEED, interval);
         _running = false;
-        _interval = 0;
+        _interval = NULLINTERVAL;
     }
 }
 
@@ -126,10 +129,10 @@ void NGEngineControl::_speedUp(int startSpeed, int targetSpeed) {
         case edForward:
             analogWrite(_backwardPin, NULLSPEED);
             dir = "forward";
-            if (_interval > 0) {
+            if (_interval > NULLINTERVAL) {
                 for (int i = __startSpeed; i <= targetSpeed; i = i + STEPWIDTH) {
                     analogWrite(_forwardPin, i);
-                    if (steps > 0) {
+                    if (steps > NULLSTEPS) {
                         delay(_interval / steps);
                     }
                 }
@@ -139,10 +142,10 @@ void NGEngineControl::_speedUp(int startSpeed, int targetSpeed) {
         case edBackward:
             analogWrite(_forwardPin, NULLSPEED);
             dir = "backward";
-            if (_interval > 0) {
+            if (_interval > NULLINTERVAL) {
                 for (int i = __startSpeed; i <= targetSpeed; i = i + STEPWIDTH) {
                     analogWrite(_backwardPin, i);
-                    if (steps > 0) {
+                    if (steps > NULLSTEPS) {
                         delay(_interval / steps);
                     }
                 }
@@ -157,14 +160,14 @@ void NGEngineControl::_speedUp(int startSpeed, int targetSpeed) {
 }
 
 bool NGEngineControl::stop() {
-    stop(0);
+    stop(NULLINTERVAL);
 }
     
 bool NGEngineControl::stop(int interval) {
     bool res = _initialized;
     char log[100];
     int __interval = interval;
-    if (__interval == 0) {
+    if (__interval == NULLINTERVAL) {
         __interval = _interval;
     }
     if (res) {
@@ -183,7 +186,7 @@ bool NGEngineControl::stop(int interval) {
 void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
     char log[100];
     char* dir;
-    if (interval > 0) {
+    if (interval > NULLINTERVAL) {
         int __targetSpeed = targetSpeed;
         if (__targetSpeed < MINSPEED) {
             __targetSpeed = MINSPEED;
@@ -194,7 +197,7 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
                 dir = "forward";
                 for (int i = startSpeed; i >= __targetSpeed; i = i - STEPWIDTH) {
                     analogWrite(_forwardPin, i);
-                    if (steps > 0) {
+                    if (steps > NULLSTEPS) {
                         delay(interval / steps);
                     }
                 }
@@ -206,7 +209,7 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
                 dir = "backward";
                 for (int i = startSpeed; i >= __targetSpeed; i = i - STEPWIDTH) {
                     analogWrite(_backwardPin, i);
-                    if (steps > 0) {
+                    if (steps > NULLSTEPS) {
                         delay(interval / steps);
                     }
                 }
