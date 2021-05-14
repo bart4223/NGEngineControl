@@ -4,16 +4,16 @@ NGEngineControl engine = NGEngineControl(ENGINE_0);
 
 void setup() {
   engine.initialize();
-  engine.setSpeed(255,2000);
 }
 
 void loop() {
+  engine.setSpeed(100,2000);
   engine.run(edForward);
-  delay(8000);
-  engine.stop();
   delay(2000);
-  engine.run(edBackward);
-  delay(8000);
-  engine.stop();
+  engine.setSpeed(MAXSPEED,1000);
   delay(2000);
+  engine.setSpeed(150,3000);
+  delay(2000);
+  engine.stop(1000);
+  delay(1000);
 }

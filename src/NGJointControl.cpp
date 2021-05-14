@@ -25,6 +25,14 @@ void NGJointControl::_create(int joint, int serialRate) {
             engine = ENGINE_0;
             _transducerPin = JOINT_0_TRANSDUCER;
             break;
+        case JOINT_1:
+            engine = ENGINE_1;
+            _transducerPin = JOINT_1_TRANSDUCER;
+            break;
+        case JOINT_2:
+            engine = ENGINE_2;
+            _transducerPin = JOINT_2_TRANSDUCER;
+            break;
     }
     _engine = NGEngineControl(engine, serialRate);
     _engine.setLogging(_logging);

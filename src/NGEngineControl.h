@@ -17,6 +17,12 @@
 #define ENGINE_0           0
 #define ENGINE_0_FORWARD  10
 #define ENGINE_0_BACKWARD 11
+#define ENGINE_1           1
+#define ENGINE_1_FORWARD   3
+#define ENGINE_1_BACKWARD  9
+#define ENGINE_2           2
+#define ENGINE_2_FORWARD   5
+#define ENGINE_2_BACKWARD  6
 
 #define STEPWIDTH 10
 #define NULLSPEED  0

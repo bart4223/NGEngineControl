@@ -18,6 +18,10 @@
 
 #define JOINT_0             0
 #define JOINT_0_TRANSDUCER  3
+#define JOINT_1             1
+#define JOINT_1_TRANSDUCER  4
+#define JOINT_2             2
+#define JOINT_2_TRANSDUCER  5
 
 enum jointDirection { jdNone, jdLeft, jdRight };
 

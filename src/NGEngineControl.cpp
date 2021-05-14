@@ -28,6 +28,14 @@ void NGEngineControl::_create(int engine, int serialRate) {
             _forwardPin = ENGINE_0_FORWARD;
             _backwardPin = ENGINE_0_BACKWARD;
             break;
+        case ENGINE_1:
+            _forwardPin = ENGINE_1_FORWARD;
+            _backwardPin = ENGINE_1_BACKWARD;
+            break;
+        case ENGINE_2:
+            _forwardPin = ENGINE_2_FORWARD;
+            _backwardPin = ENGINE_2_BACKWARD;
+            break;
     }
     _speed = NULLSPEED;
     _interval = 0;
