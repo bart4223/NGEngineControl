@@ -7,6 +7,10 @@
 
 #include "NGJointControl.h"
 
+NGJointControl::NGJointControl() {
+    
+}
+
 NGJointControl::NGJointControl(int joint) {
     _create(joint, DEFAULTSERIALRATE);
 }
@@ -36,6 +40,10 @@ void NGJointControl::_create(int joint, int serialRate) {
     }
     _engine = NGEngineControl(engine, serialRate);
     _engine.setLogging(_logging);
+}
+
+void NGJointControl::initialize(int minRad, int maxRad, int maxSpeed) {
+    initialize(NONAME, minRad, maxRad, maxSpeed);
 }
 
 void NGJointControl::initialize(char* name, int minRad, int maxRad, int maxSpeed) {
@@ -124,4 +132,8 @@ int NGJointControl::getMaxJointRad() {
 
 void NGJointControl::setMaxSpeed(int value) {
     _maxSpeed = value;
+}
+
+int NGJointControl::getMaxSpeed() {
+    return _maxSpeed;
 }

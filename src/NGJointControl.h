@@ -23,6 +23,7 @@
 #define JOINT_2             2
 #define JOINT_2_TRANSDUCER  5
 
+#define NONAME              ""
 #define TRANSDUCERTHRESHOLD  3
 #define ENGINEMOVEDELAY     20
 
@@ -48,9 +49,13 @@ protected:
     void _create(int joint, int serialRate);
 
 public:
+    NGJointControl();
+    
     NGJointControl(int joint);
     
     NGJointControl(int joint, int serialRate);
+    
+    void initialize(int minRad, int maxRad, int maxSpeed);
     
     void initialize(char* name, int minRad, int maxRad, int maxSpeed);
     
@@ -63,6 +68,8 @@ public:
     int getMaxJointRad();
     
     void setMaxSpeed(int value);
+    
+    int getMaxSpeed();
     
     void setLogging(bool logging);
     
