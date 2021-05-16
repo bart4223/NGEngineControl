@@ -7,17 +7,18 @@ The code only works with eNGine Shield.
 
 ### NGEngineControl
 
-The NGEngineControl class can controls 3 engines in cooperation with eNGine Shield.
+The NGEngineControl class can controls 4 engines in cooperation with eNGine Shield.
 
 #### Constructors
 
 * NGEngineControl(int engine)
 
-The parameter engine indicates the respective engine, possible values are ENGINE_0, ENGINE_1 and ENGINE_2. The default serialRate is DEFAULTSERIALRATE.
+The parameter engine indicates the respective engine, possible values are ENGINE_0, ENGINE_1, ENGINE_2 and ENGINE_3. The default serialRate is DEFAULTSERIALRATE.
 
 * NGEngineControl(int engine, int serialRate)
 
-The parameter engine indicates the respective engine, possible values are ENGINE_0, ENGINE_1 and ENGINE_2.
+The parameter engine indicates the respective engine, possible values are ENGINE_0, ENGINE_1, ENGINE_2 and ENGINE_3.
+ENGINE_3 controlled only speed 0(stop) or 255(fullspeed).
 
 #### Methods
 

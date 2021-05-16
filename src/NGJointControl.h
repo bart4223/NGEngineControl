@@ -55,7 +55,11 @@ public:
     
     NGJointControl(int joint, int serialRate);
     
+    void initialize(int minRad, int maxRad);
+    
     void initialize(int minRad, int maxRad, int maxSpeed);
+    
+    void initialize(char* name, int minRad, int maxRad);
     
     void initialize(char* name, int minRad, int maxRad, int maxSpeed);
     

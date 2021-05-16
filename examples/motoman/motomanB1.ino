@@ -8,7 +8,7 @@ const int _sleepJointRead = 500;
 const mode _mode = None;
  
 void setup() {
-  jointBase.initialize((char*)"Base", 560, 1020, MAXSPEED);
+  jointBase.initialize((char*)"Base", 560, 1020);
   Serial.print("Current mode = ");
   Serial.println(_mode);
 }

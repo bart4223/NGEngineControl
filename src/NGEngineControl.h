@@ -23,6 +23,9 @@
 #define ENGINE_2           2
 #define ENGINE_2_FORWARD   5
 #define ENGINE_2_BACKWARD  6
+#define ENGINE_3           3
+#define ENGINE_3_FORWARD   7
+#define ENGINE_3_BACKWARD  8
 
 #define STEPWIDTH              10
 #define NULLSPEED               0
@@ -54,6 +57,7 @@ protected:
     void _create(int engine, int serialRate);
     void _slowDown(int startSpeed, int targetSpeed, int interval);
     void _speedUp(int startSpeed, int targetSpeed);
+    void _setSpeed(int pin, int speed);
 
 public:
     NGEngineControl();

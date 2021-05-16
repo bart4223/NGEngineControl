@@ -4,7 +4,7 @@ NGEngineControl engine = NGEngineControl(ENGINE_0);
 
 void setup() {
   engine.initialize();
-  engine.setSpeed(255,2000);
+  engine.setSpeed(MAXSPEED,2000);
 }
 
 void loop() {

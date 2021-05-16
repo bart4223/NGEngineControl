@@ -44,6 +44,18 @@ void NGEngineControl::_create(int engine, int serialRate) {
     _logging = true;
 }
 
+void NGEngineControl::_setSpeed(int pin, int speed) {
+    if (_engine = ENGINE_3) {
+        if (speed < MAXSPEED / 2 + 1) {
+            digitalWrite(pin, LOW);
+        } else {
+            digitalWrite(pin, HIGH);
+        }
+    } else {
+        analogWrite(pin, speed);
+    }
+}
+
 void NGEngineControl::initialize() {
     initialize(NULLSPEED);
 }
@@ -127,30 +139,30 @@ void NGEngineControl::_speedUp(int startSpeed, int targetSpeed) {
     int steps = (targetSpeed - __startSpeed) / STEPWIDTH;
     switch (_direction) {
         case edForward:
-            analogWrite(_backwardPin, NULLSPEED);
+            _setSpeed(_backwardPin, NULLSPEED);
             dir = "forward";
             if (_interval > NULLINTERVAL) {
                 for (int i = __startSpeed; i <= targetSpeed; i = i + STEPWIDTH) {
-                    analogWrite(_forwardPin, i);
+                    _setSpeed(_forwardPin, i);
                     if (steps > NULLSTEPS) {
                         delay(_interval / steps);
                     }
                 }
             }
-            analogWrite(_forwardPin, targetSpeed);
+            _setSpeed(_forwardPin, targetSpeed);
             break;
         case edBackward:
-            analogWrite(_forwardPin, NULLSPEED);
+            _setSpeed(_forwardPin, NULLSPEED);
             dir = "backward";
             if (_interval > NULLINTERVAL) {
                 for (int i = __startSpeed; i <= targetSpeed; i = i + STEPWIDTH) {
-                    analogWrite(_backwardPin, i);
+                    _setSpeed(_backwardPin, i);
                     if (steps > NULLSTEPS) {
                         delay(_interval / steps);
                     }
                 }
             }
-            analogWrite(_backwardPin, targetSpeed);
+            _setSpeed(_backwardPin, targetSpeed);
             break;
     }
     if (_logging) {
@@ -196,32 +208,32 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
             case edForward:
                 dir = "forward";
                 for (int i = startSpeed; i >= __targetSpeed; i = i - STEPWIDTH) {
-                    analogWrite(_forwardPin, i);
+                    _setSpeed(_forwardPin, i);
                     if (steps > NULLSTEPS) {
                         delay(interval / steps);
                     }
                 }
                 if (targetSpeed != NULLSPEED) {
-                    analogWrite(_forwardPin, targetSpeed);
+                    _setSpeed(_forwardPin, targetSpeed);
                 }
                 break;
             case edBackward:
                 dir = "backward";
                 for (int i = startSpeed; i >= __targetSpeed; i = i - STEPWIDTH) {
-                    analogWrite(_backwardPin, i);
+                    _setSpeed(_backwardPin, i);
                     if (steps > NULLSTEPS) {
                         delay(interval / steps);
                     }
                 }
                 if (targetSpeed != NULLSPEED) {
-                    analogWrite(_backwardPin, targetSpeed);
+                    _setSpeed(_backwardPin, targetSpeed);
                 }
                 break;
         }
     }
     if (targetSpeed == NULLSPEED) {
-        analogWrite(_forwardPin, targetSpeed);
-        analogWrite(_backwardPin, targetSpeed);
+        _setSpeed(_forwardPin, targetSpeed);
+        _setSpeed(_backwardPin, targetSpeed);
         sprintf(log, "...Engine %d stopped", _engine);
     } else {
         sprintf(log, "Engine %d now run with speed %d %s...", _engine, targetSpeed, dir);

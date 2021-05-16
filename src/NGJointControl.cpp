@@ -42,8 +42,16 @@ void NGJointControl::_create(int joint, int serialRate) {
     _engine.setLogging(_logging);
 }
 
+void NGJointControl::initialize(int minRad, int maxRad) {
+    initialize(minRad, maxRad, MAXSPEED);
+}
+
 void NGJointControl::initialize(int minRad, int maxRad, int maxSpeed) {
     initialize(NONAME, minRad, maxRad, maxSpeed);
+}
+
+void NGJointControl::initialize(char* name, int minRad, int maxRad) {
+    initialize(NONAME, minRad, maxRad, MAXSPEED);
 }
 
 void NGJointControl::initialize(char* name, int minRad, int maxRad, int maxSpeed) {
