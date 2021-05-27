@@ -12,7 +12,7 @@ unsigned long _start;
  
 void setup() {
   jointBase.initialize((char*)"Base", 560, 1020);
-  jointBase.setMaxMoveTicks(10);
+  jointBase.setMaxMoveTicks(20);
   Serial.print("Current workMode = ");
   Serial.println(_workMode);
 }
