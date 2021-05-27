@@ -107,6 +107,7 @@ int NGJointControl::read() {
 }
 
 bool NGJointControl::move(int targetRad) {
+    setLogging(false);
     read();
     _engine.setSpeed(_maxSpeed);
     int ticks = 0;
@@ -126,9 +127,11 @@ bool NGJointControl::move(int targetRad) {
         }
     }
     _engine.stop();
-    setLogging(true);
+    bool res = (targetRad - _transducerThreshold) <= _currentJointRad && _currentJointRad <= (targetRad + _transducerThreshold);
+    setLogging(res);
     read();
-    return (targetRad - _transducerThreshold) <= _currentJointRad && _currentJointRad <= (targetRad + _transducerThreshold);
+    setLogging(true);
+    return res;
 }
 
 void NGJointControl::simulate() {
