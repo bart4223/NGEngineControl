@@ -32,9 +32,13 @@ void loop() {
         sprintf(log, "Rotation of joint %2 start...", jointBase.getName());
         Serial.println(log);
         unsigned long start = millis();
-        jointBase.move(targetRad);
+        bool reached = jointBase.move(targetRad);
         unsigned long duration = millis() - start;
-        sprintf(log, "...Rotation of joint %s end (duration: %d ms)", jointBase.getName(), duration);
+        if (reached) {
+          sprintf(log, "...Rotation of joint %s end (duration: %d ms)...target reached", jointBase.getName(), duration);
+        } else {
+          sprintf(log, "...Rotation of joint %s end (duration: %d ms)...target NOT reached", jointBase.getName(), duration);
+        }
         Serial.println(log);
       } else {
         sprintf(log, "Radiant of joint %s is invalid", jointBase.getName());

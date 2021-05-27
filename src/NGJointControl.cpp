@@ -60,7 +60,7 @@ void NGJointControl::initialize(int minRad, int maxRad, int maxSpeed) {
 }
 
 void NGJointControl::initialize(char* name, int minRad, int maxRad) {
-    initialize(NONAME, minRad, maxRad, MAXSPEED);
+    initialize(name, minRad, maxRad, MAXSPEED);
 }
 
 void NGJointControl::initialize(char* name, int minRad, int maxRad, int maxSpeed) {
@@ -68,7 +68,12 @@ void NGJointControl::initialize(char* name, int minRad, int maxRad, int maxSpeed
     _name = name;
     _engine.initialize();
     if (_logging) {
-        sprintf(log, "Start initialization of NGJointControl from joint %s...", _name);
+        if (_name != "" ) {
+            sprintf(log, "Start initialization of NGJointControl from joint %s with engine %d...", _name, _engine);
+        }
+        else {
+            sprintf(log, "Start initialization of NGJointControl from joint %d with engine %d...", _joint, _engine);
+        }
         Serial.println(log);
     }
     _minJointRad = minRad;
@@ -76,7 +81,11 @@ void NGJointControl::initialize(char* name, int minRad, int maxRad, int maxSpeed
     _maxSpeed = maxSpeed;
     _initialized = true;
     if (_logging) {
-        sprintf(log, "...NGJointControl from joint %s successfully initialized", _name);
+        if (_name != "" ) {
+            sprintf(log, "...NGJointControl from joint %s with engine %d successfully initialized", _name, _engine);
+        } else {
+            sprintf(log, "...NGJointControl from joint %d with engine %d successfully initialized", _joint, _engine);
+        }
         Serial.println(log);
     }
     read();
@@ -86,7 +95,12 @@ int NGJointControl::read() {
     char log[100];
     _currentJointRad = analogRead(_transducerPin);
     if (_logging) {
-        sprintf(log, "Current rad of joint %s is %d", _name, _currentJointRad);
+        if (_name != "" ) {
+            sprintf(log, "Current rad of joint %s is %d", _name, _currentJointRad);
+        }
+        else {
+            sprintf(log, "Current rad of joint %d is %d", _joint, _currentJointRad);
+        }
         Serial.println(log);
     }
     return _currentJointRad;
