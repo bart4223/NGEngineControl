@@ -1,18 +1,22 @@
 #include <NGJointControl.h>
+#include <NGGripperControl.h>
 
 NGJointControl jointBase = NGJointControl(JOINT_0, ENGINE_3);
+NGGripperControl gripper = NGGripperControl(ENGINE_0);
 
-enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase };
+enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmToggleGripper };
 
 const int _sleepJointRead = 500;
 const workMode _workMode = wmNone;
 bool _reached = true;
 int _targetRad;
 unsigned long _start;
+bool _gripperToggle = false;
  
 void setup() {
   jointBase.initialize((char*)"Base", 560, 1020);
   jointBase.setMaxMoveTicks(20);
+  gripper.initialize(60,150);
   Serial.print("Current workMode = ");
   Serial.println(_workMode);
 }
@@ -20,6 +24,15 @@ void setup() {
 void loop() {
   char log[100];
   switch (_workMode) {
+    case wmToggleGripper:
+      if (_gripperToggle) {
+        gripper.grip();
+      } else {
+        gripper.release();
+      }
+      _gripperToggle = !_gripperToggle;
+      delay(3000);
+      break;
     case wmReadJointBase:
       jointBase.read();
       delay(_sleepJointRead);
