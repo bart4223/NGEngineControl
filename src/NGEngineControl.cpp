@@ -36,6 +36,10 @@ void NGEngineControl::_create(int engine, int serialRate) {
             _forwardPin = ENGINE_2_FORWARD;
             _backwardPin = ENGINE_2_BACKWARD;
             break;
+        case ENGINE_3:
+            _forwardPin = ENGINE_3_FORWARD;
+            _backwardPin = ENGINE_3_BACKWARD;
+            break;
     }
     _speed = NULLSPEED;
     _interval = NULLINTERVAL;
@@ -45,7 +49,7 @@ void NGEngineControl::_create(int engine, int serialRate) {
 }
 
 void NGEngineControl::_setSpeed(int pin, int speed) {
-    if (_engine = ENGINE_3) {
+    if (_engine == ENGINE_3) {
         if (speed < MAXSPEED / 2 + 1) {
             digitalWrite(pin, LOW);
         } else {
