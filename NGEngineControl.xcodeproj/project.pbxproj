@@ -22,6 +22,7 @@
 		29647BC8253C5273003CBA13 /* NGEngineControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGEngineControl.cpp; sourceTree = "<group>"; };
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
+		29AF3EC1265F77370055A9FC /* EngineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngineShield.png; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +115,7 @@
 		29647BCC253C7794003CBA13 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				29AF3EC1265F77370055A9FC /* EngineShield.png */,
 				298A66D12565501F00393741 /* eNGineShieldSchema.png */,
 			);
 			path = images;
