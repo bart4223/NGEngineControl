@@ -27,6 +27,7 @@
 #define TRANSDUCERTHRESHOLD  3
 #define ENGINEMOVEDELAY     20
 #define DEFAULTENGINE       -1
+#define DEFAULTMAXMOVETICKS  0
 
 enum jointDirection { jdNone, jdLeft, jdRight };
 
@@ -45,6 +46,7 @@ private:
     char* _name;
     NGEngineControl _engine = NGEngineControl();
     int _engineMoveDelay = ENGINEMOVEDELAY;
+    int _maxMoveTicks = DEFAULTMAXMOVETICKS;
     
 protected:
     void _create(int joint, int engine, int serialRate);
@@ -76,6 +78,8 @@ public:
     
     void setMaxSpeed(int value);
     
+    void setMaxMoveTicks(int value);
+
     int getMaxSpeed();
     
     void setLogging(bool logging);
