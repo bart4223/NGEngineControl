@@ -12,29 +12,38 @@ NGJointControl::NGJointControl() {
 }
 
 NGJointControl::NGJointControl(int joint) {
-    _create(joint, DEFAULTSERIALRATE);
+    _create(joint, DEFAULTENGINE, DEFAULTSERIALRATE);
 }
 
-NGJointControl::NGJointControl(int joint, int serialRate) {
-    _create(joint, serialRate);
+NGJointControl::NGJointControl(int joint, int engine) {
+    _create(joint, engine, DEFAULTSERIALRATE);
 }
 
-void NGJointControl::_create(int joint, int serialRate) {
+NGJointControl::NGJointControl(int joint, int engine, int serialRate) {
+    _create(joint, engine, serialRate);
+}
+
+void NGJointControl::_create(int joint, int engine, int serialRate) {
     _joint = joint;
     _initialized = false;
     _logging = true;
-    int engine;
     switch (_joint) {
         case JOINT_0:
-            engine = ENGINE_0;
+            if (engine == DEFAULTENGINE) {
+                engine = ENGINE_0;
+            }
             _transducerPin = JOINT_0_TRANSDUCER;
             break;
         case JOINT_1:
-            engine = ENGINE_1;
+            if (engine == DEFAULTENGINE) {
+                engine = ENGINE_1;
+            }
             _transducerPin = JOINT_1_TRANSDUCER;
             break;
         case JOINT_2:
-            engine = ENGINE_2;
+            if (engine == DEFAULTENGINE) {
+                engine = ENGINE_2;
+            }
             _transducerPin = JOINT_2_TRANSDUCER;
             break;
     }

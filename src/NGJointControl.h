@@ -26,6 +26,7 @@
 #define NONAME              ""
 #define TRANSDUCERTHRESHOLD  3
 #define ENGINEMOVEDELAY     20
+#define DEFAULTENGINE       -1
 
 enum jointDirection { jdNone, jdLeft, jdRight };
 
@@ -46,14 +47,16 @@ private:
     int _engineMoveDelay = ENGINEMOVEDELAY;
     
 protected:
-    void _create(int joint, int serialRate);
+    void _create(int joint, int engine, int serialRate);
 
 public:
     NGJointControl();
     
     NGJointControl(int joint);
     
-    NGJointControl(int joint, int serialRate);
+    NGJointControl(int joint, int engine);
+    
+    NGJointControl(int joint, int engine, int serialRate);
     
     void initialize(int minRad, int maxRad);
     

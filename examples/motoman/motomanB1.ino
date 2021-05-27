@@ -1,27 +1,27 @@
 #include <NGJointControl.h>
 
-NGJointControl jointBase = NGJointControl(JOINT_0);
+NGJointControl jointBase = NGJointControl(JOINT_0, ENGINE_3);
 
-enum mode { None, ReadJointBase, MoveJointBase, SimulateJointBase };
+enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase };
 
 const int _sleepJointRead = 500;
-const mode _mode = None;
+const workMode _workMode = wmNone;
  
 void setup() {
   jointBase.initialize((char*)"Base", 560, 1020);
-  Serial.print("Current mode = ");
-  Serial.println(_mode);
+  Serial.print("Current workMode = ");
+  Serial.println(_workMode);
 }
 
 void loop() {
   int targetRad;
   char log[100];
-  switch (_mode) {
-    case ReadJointBase:
+  switch (_workMode) {
+    case wmReadJointBase:
       jointBase.read();
       delay(_sleepJointRead);
       break;
-    case MoveJointBase:
+    case wmMoveJointBase:
       sprintf(log, "Rotate joint %s to radiant = ", jointBase.getName());
       Serial.print(log);
       while (Serial.available() == 0);
@@ -41,7 +41,7 @@ void loop() {
         Serial.println(log);
       }
       break;
-    case SimulateJointBase:
+    case wmSimulateJointBase:
       jointBase.simulate();
       break;
   }
