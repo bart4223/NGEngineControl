@@ -84,7 +84,7 @@ public:
     
     int read();
     
-    void move(int targetRad);
+    bool move(int targetRad);
     
     void simulate();
    
