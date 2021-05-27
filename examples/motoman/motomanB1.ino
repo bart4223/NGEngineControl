@@ -6,15 +6,17 @@ enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase };
 
 const int _sleepJointRead = 500;
 const workMode _workMode = wmNone;
+bool _reached = true;
+int _targetRad;
  
 void setup() {
   jointBase.initialize((char*)"Base", 560, 1020);
+  jointBase.setMaxMoveTicks(20);
   Serial.print("Current workMode = ");
   Serial.println(_workMode);
 }
 
 void loop() {
-  int targetRad;
   char log[100];
   switch (_workMode) {
     case wmReadJointBase:
@@ -22,27 +24,31 @@ void loop() {
       delay(_sleepJointRead);
       break;
     case wmMoveJointBase:
-      sprintf(log, "Rotate joint %s to radiant = ", jointBase.getName());
-      Serial.print(log);
-      while (Serial.available() == 0);
-      targetRad = Serial.parseInt();
-      Serial.read();
-      Serial.println(targetRad);
-      if (targetRad >= jointBase.getMinJointRad() && targetRad <= jointBase.getMaxJointRad()) {
-        sprintf(log, "Rotation of joint %2 start...", jointBase.getName());
-        Serial.println(log);
-        unsigned long start = millis();
-        bool reached = jointBase.move(targetRad);
-        unsigned long duration = millis() - start;
-        if (reached) {
-          sprintf(log, "...Rotation of joint %s end (duration: %d ms)...target reached", jointBase.getName(), duration);
-        } else {
-          sprintf(log, "...Rotation of joint %s end (duration: %d ms)...target NOT reached", jointBase.getName(), duration);
-        }
-        Serial.println(log);
+      if (!_reached) {
+          _reached = jointBase.move(_targetRad);
       } else {
-        sprintf(log, "Radiant of joint %s is invalid", jointBase.getName());
-        Serial.println(log);
+        sprintf(log, "Rotate joint %s to radiant = ", jointBase.getName());
+        Serial.print(log);
+        while (Serial.available() == 0);
+        _targetRad = Serial.parseInt();
+        Serial.read();
+        Serial.println(_targetRad);
+        if (_targetRad >= jointBase.getMinJointRad() && _targetRad <= jointBase.getMaxJointRad()) {
+          sprintf(log, "Rotation of joint %2 start...", jointBase.getName());
+          Serial.println(log);
+          unsigned long start = millis();
+          _reached = jointBase.move(_targetRad);
+          unsigned long duration = millis() - start;
+          if (_reached) {
+            sprintf(log, "...Rotation of joint %s end (duration: %d ms)...target reached", jointBase.getName(), duration);
+          } else {
+            sprintf(log, "...Rotation of joint %s end (duration: %d ms)...target NOT reached", jointBase.getName(), duration);
+          }
+          Serial.println(log);
+        } else {
+          sprintf(log, "Radiant of joint %s is invalid", jointBase.getName());
+          Serial.println(log);
+        }
       }
       break;
     case wmSimulateJointBase:
