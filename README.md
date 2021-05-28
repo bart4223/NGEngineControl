@@ -62,11 +62,15 @@ The NGJointControl class can controls 3 joints in cooperation with eNGine Shield
 
 * NGJointControl(int joint)
 
-The parameter joint indicates the respective joint, possible values are JOINT_0, JOINT_1 and JOINT_2. The default serialRate is DEFAULTSERIALRATE.
+The parameter joint indicates the respective joint, possible values are JOINT_0, JOINT_1 and JOINT_2. The corresponding engine ist ENGINE_0, ENGINE_1 and ENGINE_2. The default serialRate is DEFAULTSERIALRATE.
 
-* NGJointControl(int joint, int serialRate)
+* NGJointControl(int joint, int engine)
 
-The parameter joint indicates the respective jointe, possible values are JOINT_0, JOINT_1 and JOINT_2.
+The parameter joint indicates the respective joint, possible values are JOINT_0, JOINT_1 and JOINT_2 and the corresponding engine. The default serialRate is DEFAULTSERIALRATE.
+
+* NGJointControl(int joint, int engine, int serialRate)
+
+The parameter joint indicates the respective jointe, possible values are JOINT_0, JOINT_1 and JOINT_2 and the corresponding engine.
 
 #### Methods
 
@@ -121,6 +125,42 @@ This method move the joint to given radiant.
 * simulate()
 
 This method move the joint to the minimum or maximum.
+
+### NGGripperControl
+
+The NGGripperControl class can controls a gripper in cooperation with eNGine Shield. A gripper required an engine.
+
+#### Constructors
+
+* NGGripperControl(int engine)
+
+The parameter engine indicates the respective engine, possible values are ENGINE_0, ENGINE_1 and ENGINE_3. The default serialRate is DEFAULTSERIALRATE.
+
+* NGGripperControl(int engine, int serialRate)
+
+The parameter engine indicates the respective engine, possible values are ENGINE_0, ENGINE_1 and ENGINE_3.
+
+#### Methods
+
+* initialize(int minSpeed, int maxSpeed)
+
+This method initialize the gripper control with min and max speed.
+
+* grip
+
+This method grip the gripper. The default delay is DEFAULTGRIPDELAYONE and DEFAULTGRIPDELAYTWO.
+
+* grip(unsigned long delayOne, unsigned long delayTwo)
+
+This method grip the gripper. 
+
+* release
+
+This method release the gripper. The default delay is DEFAULTRELEASEDELAYONE and DEFAULTRELEASEDELAYTWO.
+
+* release(unsigned long delayOne, unsigned long delayTwo)
+
+This method release the gripper.
 
 ## Download
 

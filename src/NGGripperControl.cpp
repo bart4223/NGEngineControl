@@ -44,19 +44,26 @@ void NGGripperControl::initialize(int minSpeed, int maxSpeed) {
 }
 
 void NGGripperControl::grip() {
-    _engine.setSpeed(_maxSpeed);
-    _engine.run(edForward);
-    delay(900);
-    _engine.setSpeed(_minSpeed);
-    delay(3000);
-    _engine.stop();
+    grip(DEFAULTGRIPDELAYONE, DEFAULTGRIPDELAYTWO);
 }
 
+void NGGripperControl::grip(unsigned long delayOne, unsigned long delayTwo) {
+    _engine.setSpeed(_maxSpeed);
+    _engine.run(edForward);
+    delay(delayOne);
+    _engine.setSpeed(_minSpeed);
+    delay(delayTwo);
+    _engine.stop();
+}
 void NGGripperControl::release() {
+    release(DEFAULTRELEASEDELAYONE, DEFAULTRELEASEDELAYTWO);
+}
+                               
+void NGGripperControl::release(unsigned long delayOne, unsigned long delayTwo) {
     _engine.setSpeed(_maxSpeed);
     _engine.run(edBackward);
-    delay(900);
+    delay(delayOne);
     _engine.setSpeed(_minSpeed);
-    delay(1600);
+    delay(delayTwo);
     _engine.stop();
 }

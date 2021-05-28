@@ -16,6 +16,11 @@
 
 #include <NGEngineControl.h>
 
+#define DEFAULTGRIPDELAYONE      900
+#define DEFAULTGRIPDELAYTWO     3000
+#define DEFAULTRELEASEDELAYONE   900
+#define DEFAULTRELEASEDELAYTWO  1600
+
 class NGGripperControl {
 
 private:
@@ -36,10 +41,14 @@ public:
     NGGripperControl(int engine, int serialRate);
     
     void initialize(int minSpeed, int maxSpeed);
-    
+
     void grip();
     
+    void grip(unsigned long delayOne, unsigned long delayTwo);
+    
     void release();
+    
+    void release(unsigned long delayOne, unsigned long delayTwo);
     
 };
     
