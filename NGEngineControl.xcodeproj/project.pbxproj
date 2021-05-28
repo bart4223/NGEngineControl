@@ -11,7 +11,7 @@
 		2905F120264AD58E001B4A56 /* NGJointControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJointControl.cpp; sourceTree = "<group>"; };
 		2905F121264D385A001B4A56 /* NGMachineControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMachineControl.h; sourceTree = "<group>"; };
 		2905F125264F0143001B4A56 /* stop.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = stop.ino; sourceTree = "<group>"; };
-		29165F2F2544B45E001D9497 /* motomanB1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motomanB1.ino; sourceTree = "<group>"; };
+		29165F2F2544B45E001D9497 /* motomanB4.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motomanB4.ino; sourceTree = "<group>"; };
 		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
 		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
@@ -25,7 +25,7 @@
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		29AF3EC1265F77370055A9FC /* EngineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngineShield.png; sourceTree = "<group>"; };
-		29E6BA5A263C6070007BCE9F /* motomanB1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB1.png; sourceTree = "<group>"; };
+		29E6BA5A263C6070007BCE9F /* motomanB4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB4.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -129,7 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				29E6BA5B263C6098007BCE9F /* images */,
-				29165F2F2544B45E001D9497 /* motomanB1.ino */,
+				29165F2F2544B45E001D9497 /* motomanB4.ino */,
 			);
 			path = motoman;
 			sourceTree = "<group>";
@@ -137,7 +137,7 @@
 		29E6BA5B263C6098007BCE9F /* images */ = {
 			isa = PBXGroup;
 			children = (
-				29E6BA5A263C6070007BCE9F /* motomanB1.png */,
+				29E6BA5A263C6070007BCE9F /* motomanB4.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
