@@ -1,10 +1,11 @@
-#include <NGJointControl.h>
-#include <NGGripperControl.h>
+#include <NGMachineControl.h>
 
 NGJointControl jointBase = NGJointControl(JOINT_0, ENGINE_3);
+NGJointControl jointShoulder = NGJointControl(JOINT_1);
+NGJointControl jointElbow = NGJointControl(JOINT_2);
 NGGripperControl gripper = NGGripperControl(ENGINE_0);
 
-enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmToggleGripper };
+enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmToggleGripper, wmReadJointElbow, wmReadJointShoulder };
 
 const int _sleepJointRead = 500;
 const workMode _workMode = wmNone;
@@ -16,6 +17,8 @@ bool _gripperToggle = false;
 void setup() {
   jointBase.initialize((char*)"Base", 560, 1020);
   jointBase.setMaxMoveTicks(20);
+  jointShoulder.initialize((char*)"Shoulder", 550, 800);
+  jointElbow.initialize((char*)"Elbow", 500, 870);
   gripper.initialize(60,150);
   Serial.print("Current workMode = ");
   Serial.println(_workMode);
@@ -24,6 +27,18 @@ void setup() {
 void loop() {
   char log[100];
   switch (_workMode) {
+    case wmReadJointBase:
+      jointBase.read();
+      delay(_sleepJointRead);
+      break;
+    case wmReadJointShoulder:
+      jointShoulder.read();
+      delay(_sleepJointRead);
+      break;
+    case wmReadJointElbow:
+      jointElbow.read();
+      delay(_sleepJointRead);
+      break;
     case wmToggleGripper:
       if (_gripperToggle) {
         gripper.grip();
@@ -32,10 +47,6 @@ void loop() {
       }
       _gripperToggle = !_gripperToggle;
       delay(3000);
-      break;
-    case wmReadJointBase:
-      jointBase.read();
-      delay(_sleepJointRead);
       break;
     case wmMoveJointBase:
       if (!_reached) {
