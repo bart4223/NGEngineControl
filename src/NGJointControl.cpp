@@ -136,11 +136,17 @@ bool NGJointControl::move(int targetRad) {
 
 void NGJointControl::simulate() {
     read();
+    bool reached;
     if (_currentJointRad >= _maxJointRad - ((_maxJointRad - _minJointRad) / 2)) {
-        move(_minJointRad);
+        do {
+            reached = move(_minJointRad);
+
+        } while (reached);
     }
     else {
-        move(_maxJointRad);
+        do {
+            reached = move(_maxJointRad);
+        } while (reached);
     }
 }
 

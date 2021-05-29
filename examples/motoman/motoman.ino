@@ -15,9 +15,7 @@ bool _gripperToggle = false;
  
 void setup() {
   jointBase.initialize((char*)"Base", 560, 1020);
-  if (_workMode != wmSimulateJointBase) {
-    jointBase.setMaxMoveTicks(20);
-  }
+  jointBase.setMaxMoveTicks(20);
   gripper.initialize(60,150);
   Serial.print("Current workMode = ");
   Serial.println(_workMode);
