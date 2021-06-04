@@ -9,14 +9,14 @@
 /* Begin PBXFileReference section */
 		2905F11F264AD273001B4A56 /* NGJointControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJointControl.h; sourceTree = "<group>"; };
 		2905F120264AD58E001B4A56 /* NGJointControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJointControl.cpp; sourceTree = "<group>"; };
-		2905F121264D385A001B4A56 /* NGMachineControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMachineControl.h; sourceTree = "<group>"; };
+		2905F121264D385A001B4A56 /* NGUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUnitControl.h; sourceTree = "<group>"; };
 		2905F125264F0143001B4A56 /* stop.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = stop.ino; sourceTree = "<group>"; };
 		29165F2F2544B45E001D9497 /* motoman.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motoman.ino; sourceTree = "<group>"; };
 		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
 		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
-		292E8FF526620C690042F249 /* NGMachineControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMachineControl.cpp; sourceTree = "<group>"; };
+		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -83,8 +83,8 @@
 				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
 				2905F11F264AD273001B4A56 /* NGJointControl.h */,
 				2905F120264AD58E001B4A56 /* NGJointControl.cpp */,
-				2905F121264D385A001B4A56 /* NGMachineControl.h */,
-				292E8FF526620C690042F249 /* NGMachineControl.cpp */,
+				2905F121264D385A001B4A56 /* NGUnitControl.h */,
+				292E8FF526620C690042F249 /* NGUnitControl.cpp */,
 				292E8FF3265FFAF50042F249 /* NGGripperControl.h */,
 				292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */,
 			);

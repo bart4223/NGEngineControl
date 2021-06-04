@@ -1,12 +1,12 @@
 //
-//  NGMachineControl.h
-//  NGEngineControl
+//  NGUnitControl.h
+//  NGUnitControl
 //
 //  Created by Nils Grimmer on 13.05.21.
 //
 
-#ifndef NGMachineControl_h
-#define NGMachineControl_h
+#ifndef NGUnitControl_h
+#define NGUnitControl_h
 
 #if (ARDUINO >= 100)
 #include <Arduino.h>
@@ -26,26 +26,29 @@ struct gripperDataStruct
 };
 typedef struct gripperDataStruct gripperData;
 
-class NGMachineControl {
+class NGUnitControl {
     
 private:
     bool _initialized;
     bool _logging;
     int _serialRate;
-    NGJointControl *_joints[3];
+    char* _name;
+    NGJointControl _joints[3];
     unsigned int _jointsCount = 0;
     NGGripperControl _grippers[3];
     gripperData _gripperData[3];
     unsigned int _grippersCount = 0;
     
 protected:
-    void _create(int serialRate);
+    void _create(char* name, int serialRate);
     int getGripperIndex(char* name);
     
 public:
-    NGMachineControl();
+    NGUnitControl();
     
-    NGMachineControl(int serialRate);
+    NGUnitControl(char* name);
+    
+    NGUnitControl(char* name, int serialRate);
 
     void initialize();
     
@@ -57,4 +60,4 @@ public:
 
 };
 
-#endif /* NGMachineControl_h */
+#endif /* NGUnitControl_h */

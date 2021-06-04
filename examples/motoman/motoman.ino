@@ -1,9 +1,9 @@
-#include <NGMachineControl.h>
+#include <NGUnitControl.h>
 
 NGJointControl jointBase = NGJointControl(JOINT_0, ENGINE_3);
 NGJointControl jointShoulder = NGJointControl(JOINT_1);
 NGJointControl jointElbow = NGJointControl(JOINT_2);
-NGGripperControl gripper = NGGripperControl(ENGINE_0);
+NGUnitControl unitTool = NGUnitControl((char*)"Tool");
 
 enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmToggleGripper, wmReadJointElbow, wmReadJointShoulder };
 
@@ -19,8 +19,9 @@ void setup() {
   jointBase.setMaxMoveTicks(20);
   jointShoulder.initialize((char*)"Shoulder", 550, 800);
   jointElbow.initialize((char*)"Elbow", 500, 870);
-  gripper.initialize(60,150);
-  Serial.print("Current workMode = ");
+  unitTool.registerGripper((char*)"Gripper", ENGINE_0, 60, 150);
+  unitTool.initialize();
+  Serial.print("Current workMode is ");
   Serial.println(_workMode);
 }
 
@@ -41,9 +42,9 @@ void loop() {
       break;
     case wmToggleGripper:
       if (_gripperToggle) {
-        gripper.grip();
+          unitTool.gripperGrip((char*)"Gripper");
       } else {
-        gripper.release();
+          unitTool.gripperRelease((char*)"Gripper");
       }
       _gripperToggle = !_gripperToggle;
       delay(3000);
