@@ -26,6 +26,14 @@ struct gripperDataStruct
 };
 typedef struct gripperDataStruct gripperData;
 
+struct jointDataStruct
+{
+    char* name;
+    int minRad;
+    int maxRad;
+};
+typedef struct jointDataStruct jointData;
+
 class NGUnitControl {
     
 private:
@@ -34,6 +42,7 @@ private:
     int _serialRate;
     char* _name;
     NGJointControl *_joints[3];
+    jointData _jointData[3];
     int _jointsCount = 0;
     NGGripperControl *_grippers[3];
     gripperData _gripperData[3];
@@ -42,6 +51,7 @@ private:
 protected:
     void _create(char* name, int serialRate);
     int getGripperIndex(char* name);
+    int getJointIndex(char* name);
     
 public:
     NGUnitControl();
@@ -51,6 +61,12 @@ public:
     NGUnitControl(char* name, int serialRate);
 
     void initialize();
+    
+    void registerJoint(char* name, int joint, int minRad, int maxRad);
+    
+    void registerJoint(char* name, int joint, int minRad, int maxRad, int engine);
+    
+    void jointRead(char* name);
     
     void registerGripper(char* name, int engine, int minSpeed, int maxSpeed);
     
