@@ -47,7 +47,7 @@ void NGUnitControl::initialize() {
         sprintf(log, "Start initialization of Gripper \"%s.%s\"...", _name, gd.name);
         Serial.println(log);
         _grippers[i]->initialize(gd.minSpeed, gd.maxSpeed);
-        sprintf(log, "...Gripper \"%s.%s\" successfully initialized", _name, gd.name);
+        sprintf(log, "...Gripper \"%s.%s\" of NGUnitControl successfully initialized", _name, gd.name);
         Serial.println(log);
     }
     _initialized = true;

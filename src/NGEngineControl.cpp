@@ -206,6 +206,11 @@ bool NGEngineControl::stop(int interval) {
 void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
     char log[100];
     char* dir;
+    if (_direction == edForward) {
+        dir = (char*)"forward";
+    } else {
+        dir = (char*)"backward";
+    }
     if (interval > NULLINTERVAL) {
         int __targetSpeed = targetSpeed;
         if (__targetSpeed < MINSPEED) {
@@ -214,7 +219,6 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
         int steps = (startSpeed - __targetSpeed) / STEPWIDTH;
         switch(_direction) {
             case edForward:
-                dir = (char*)"forward";
                 for (int i = startSpeed; i >= __targetSpeed; i = i - STEPWIDTH) {
                     _setSpeed(_forwardPin, i);
                     if (steps > NULLSTEPS) {
@@ -225,8 +229,7 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
                     _setSpeed(_forwardPin, targetSpeed);
                 }
                 break;
-            case edBackward:
-                dir = (char*)"backward";
+            case edBackward:               
                 for (int i = startSpeed; i >= __targetSpeed; i = i - STEPWIDTH) {
                     _setSpeed(_backwardPin, i);
                     if (steps > NULLSTEPS) {
