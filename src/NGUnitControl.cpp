@@ -51,20 +51,20 @@ void NGUnitControl::initialize() {
         sprintf(log, "Start initialization of NGUnitControl \"%s\" with %d joints and %d grippers...", _name, _jointsCount, _grippersCount);
         Serial.println(log);
     }
-    for (int i = 0; i < _grippersCount; i++) {
-        gripperData gd = _gripperData[i];
-        sprintf(log, "Start initialization of gripper \"%s.%s\"...", _name, gd.name);
-        Serial.println(log);
-        _grippers[i]->initialize(gd.minSpeed, gd.maxSpeed);
-        sprintf(log, "...gripper \"%s.%s\" of NGUnitControl successfully initialized", _name, gd.name);
-        Serial.println(log);
-    }
     for (int i = 0; i < _jointsCount; i++) {
         jointData jd = _jointData[i];
         sprintf(log, "Start initialization of joint \"%s.%s\"...", _name, jd.name);
         Serial.println(log);
         _joints[i]->initialize(jd.name, jd.minRad, jd.maxRad);
         sprintf(log, "...joint \"%s.%s\" of NGUnitControl successfully initialized", _name, jd.name);
+        Serial.println(log);
+    }
+    for (int i = 0; i < _grippersCount; i++) {
+        gripperData gd = _gripperData[i];
+        sprintf(log, "Start initialization of gripper \"%s.%s\"...", _name, gd.name);
+        Serial.println(log);
+        _grippers[i]->initialize(gd.minSpeed, gd.maxSpeed);
+        sprintf(log, "...gripper \"%s.%s\" of NGUnitControl successfully initialized", _name, gd.name);
         Serial.println(log);
     }
     _initialized = true;
