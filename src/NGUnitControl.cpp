@@ -37,6 +37,7 @@ int NGUnitControl::getGripperIndex(char* name) {
 
 void NGUnitControl::initialize() {
     char log[100];
+    _ensureGlobalSerial(_serialRate);
     if (_logging) {
         sprintf(log, "Start initialization of NGUnitControl \"%s\" with %d joints and %d grippers...", _name, _jointsCount, _grippersCount);
         Serial.println(log);
@@ -45,7 +46,7 @@ void NGUnitControl::initialize() {
         gripperData gd = _gripperData[i];
         sprintf(log, "Start initialization of Gripper \"%s.%s\"...", _name, gd.name);
         Serial.println(log);
-        _grippers[i].initialize(gd.minSpeed, gd.maxSpeed);
+        _grippers[i]->initialize(gd.minSpeed, gd.maxSpeed);
         sprintf(log, "...Gripper \"%s.%s\" successfully initialized", _name, gd.name);
         Serial.println(log);
     }
@@ -57,25 +58,31 @@ void NGUnitControl::initialize() {
 }
 
 void NGUnitControl::registerGripper(char* name, int engine, int minSpeed, int maxSpeed) {
+    char log[100];
+    _ensureGlobalSerial(_serialRate);
     gripperData gd;
     gd.name = name;
     gd.minSpeed = minSpeed;
     gd.maxSpeed = maxSpeed;
     _gripperData[_grippersCount] = gd;
-    _grippers[_grippersCount] = NGGripperControl(engine, _serialRate);
+    _grippers[_grippersCount] = new NGGripperControl(engine, _serialRate);
     _grippersCount++;
+    if (_logging) {
+        sprintf(log, "Gripper \"%s.%s\" successfully registered", _name, name);
+        Serial.println(log);
+    }
 }
 
 void NGUnitControl::gripperGrip(char* name) {
     int index = getGripperIndex(name);
     if (index >= 0) {
-        _grippers[index].grip();
+        _grippers[index]->grip();
     }
 }
 
 void NGUnitControl::gripperRelease(char* name) {
     int index = getGripperIndex(name);
     if (index >= 0) {
-        _grippers[index].release();
+        _grippers[index]->release();
     }
 }

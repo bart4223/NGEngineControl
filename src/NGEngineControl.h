@@ -37,7 +37,9 @@
 
 enum engineDirection { edNone, edForward, edBackward };
 
-bool static _serialStarted = false;
+bool static _globalSerialStarted = false;
+
+void _ensureGlobalSerial(int serialRate);
 
 class NGEngineControl {
    

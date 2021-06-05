@@ -33,11 +33,11 @@ private:
     bool _logging;
     int _serialRate;
     char* _name;
-    NGJointControl _joints[3];
-    unsigned int _jointsCount = 0;
-    NGGripperControl _grippers[3];
+    NGJointControl *_joints[3];
+    int _jointsCount = 0;
+    NGGripperControl *_grippers[3];
     gripperData _gripperData[3];
-    unsigned int _grippersCount = 0;
+    int _grippersCount = 0;
     
 protected:
     void _create(char* name, int serialRate);

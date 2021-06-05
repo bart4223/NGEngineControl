@@ -7,6 +7,13 @@
 
 #include "NGEngineControl.h"
 
+void _ensureGlobalSerial(int serialRate) {
+    if (!_globalSerialStarted) {
+        Serial.begin(serialRate);
+        _globalSerialStarted = true;
+    }
+}
+
 NGEngineControl::NGEngineControl() {
     
 }
@@ -66,10 +73,7 @@ void NGEngineControl::initialize() {
 
 void NGEngineControl::initialize(int speed) {
     char log[100];
-    if (!_serialStarted) {
-        Serial.begin(_serialRate);
-        _serialStarted = true;
-    }
+    _ensureGlobalSerial(_serialRate);
     if (_logging) {
         sprintf(log, "Start initialization of NGEngineControl with engine %d...", _engine);
         Serial.println(log);
