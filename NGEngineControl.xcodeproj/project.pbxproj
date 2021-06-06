@@ -25,8 +25,8 @@
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		29AF3EC1265F77370055A9FC /* EngineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngineShield.png; sourceTree = "<group>"; };
-		29D7EC2F266BF4E400009403 /* NGMemoryFree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMemoryFree.cpp; sourceTree = "<group>"; };
-		29D7EC30266BF4E400009403 /* NGMemoryFree.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMemoryFree.h; sourceTree = "<group>"; };
+		29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMemoryObserver.cpp; sourceTree = "<group>"; };
+		29D7EC30266BF4E400009403 /* NGMemoryObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMemoryObserver.h; sourceTree = "<group>"; };
 		29D7EC32266CE63000009403 /* toolunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = toolunit.ino; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -89,8 +89,8 @@
 				292E8FF526620C690042F249 /* NGUnitControl.cpp */,
 				292E8FF3265FFAF50042F249 /* NGGripperControl.h */,
 				292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */,
-				29D7EC30266BF4E400009403 /* NGMemoryFree.h */,
-				29D7EC2F266BF4E400009403 /* NGMemoryFree.cpp */,
+				29D7EC30266BF4E400009403 /* NGMemoryObserver.h */,
+				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
