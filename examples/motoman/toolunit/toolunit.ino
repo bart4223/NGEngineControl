@@ -1,11 +1,15 @@
 #include <NGUnitControl.h>
+#include <NGMemoryObserver.h>
 
 NGJointControl jointBase = NGJointControl(JOINT_0, ENGINE_3);
-NGUnitControl unitTool = NGUnitControl((char*)"Tool");
+NGJointControl jointShoulder = NGJointControl(JOINT_1);
+NGJointControl jointElbow = NGJointControl(JOINT_2);
+NGGripperControl gripper = NGGripperControl(ENGINE_0);
+//NGUnitControl unitTool = NGUnitControl((char*)"Tool");
 
 enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmToggleGripper, wmReadJointElbow, wmReadJointShoulder };
 
-const int _sleepJointRead = 500;
+const int _sleepJointRead = 1000;
 const workMode _workMode = wmNone;
 bool _reached = true;
 int _targetRad;
@@ -15,10 +19,14 @@ bool _gripperToggle = false;
 void setup() {
   jointBase.initialize((char*)"Base", 560, 1020);
   jointBase.setMaxMoveTicks(20);
-  unitTool.registerJoint((char*)"Shoulder", JOINT_1, 550, 800);
-  unitTool.registerJoint((char*)"Elbow", JOINT_2, 500, 870);
-  unitTool.registerGripper((char*)"Gripper", ENGINE_0, 60, 150);
-  unitTool.initialize();
+  jointShoulder.initialize((char*)"Shoulder", 550, 800);
+  jointElbow.initialize((char*)"Elbow", 500, 870);
+  gripper.initialize(60, 150);
+  //unitTool.registerJoint((char*)"Base", JOINT_0, ENGINE_3, 550, 800);
+  //unitTool.registerJoint((char*)"Shoulder", JOINT_1, 550, 800);
+  //unitTool.registerJoint((char*)"Elbow", JOINT_2, 500, 870);
+  //unitTool.registerGripper((char*)"Gripper", ENGINE_0, 60, 150);
+  //unitTool.initialize();
   Serial.print("Current workMode is ");
   Serial.println(_workMode);
 }
@@ -26,26 +34,33 @@ void setup() {
 void loop() {
   char log[100];
   switch (_workMode) {
+    case wmNone:
+      observeMemory(5000);
+      break;
     case wmReadJointBase:
       jointBase.read();
-      delay(_sleepJointRead);
+      observeMemory(_sleepJointRead);
       break;
     case wmReadJointShoulder:
-      unitTool.jointRead((char*)"Shoulder");
-      delay(_sleepJointRead);
+      jointShoulder.read();
+      //unitTool.jointRead((char*)"Shoulder");
+      observeMemory(_sleepJointRead);
       break;
     case wmReadJointElbow:
-      unitTool.jointRead((char*)"Elbow");
-      delay(_sleepJointRead);
+      jointElbow.read();
+      //unitTool.jointRead((char*)"Elbow");
+      observeMemory(_sleepJointRead);
       break;
     case wmToggleGripper:
       if (_gripperToggle) {
-          unitTool.gripperGrip((char*)"Gripper");
+          gripper.grip();
+          //unitTool.gripperGrip((char*)"Gripper");
       } else {
-          unitTool.gripperRelease((char*)"Gripper");
+          gripper.release();
+          //unitTool.gripperRelease((char*)"Gripper");
       }
       _gripperToggle = !_gripperToggle;
-      delay(3000);
+      observeMemory(3000);
       break;
     case wmMoveJointBase:
       if (!_reached) {
@@ -78,4 +93,3 @@ void loop() {
       break;
   }
 }
-
