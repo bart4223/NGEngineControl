@@ -14,7 +14,6 @@
 #include <WProgram.h>
 #endif
 
-#include <NGEngineControl.h>
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
@@ -62,13 +61,13 @@ public:
 
     void initialize();
     
-    void registerJoint(char* name, int joint, int minRad, int maxRad);
+    void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad);
     
-    void registerJoint(char* name, int joint, int minRad, int maxRad, int engine);
+    void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int engine);
     
     void jointRead(char* name);
     
-    void registerGripper(char* name, int engine, int minSpeed, int maxSpeed);
+    void registerGripper(char* name, NGGripperControl *gripper, int minSpeed, int maxSpeed);
     
     void gripperGrip(char* name);
     

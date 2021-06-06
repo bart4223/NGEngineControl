@@ -5,7 +5,7 @@ NGJointControl jointBase = NGJointControl(JOINT_0, ENGINE_3);
 NGJointControl jointShoulder = NGJointControl(JOINT_1);
 NGJointControl jointElbow = NGJointControl(JOINT_2);
 NGGripperControl gripper = NGGripperControl(ENGINE_0);
-//NGUnitControl unitTool = NGUnitControl((char*)"Tool");
+NGUnitControl unitTool = NGUnitControl((char*)"Tool");
 
 enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmToggleGripper, wmReadJointElbow, wmReadJointShoulder };
 
@@ -19,14 +19,11 @@ bool _gripperToggle = false;
 void setup() {
   jointBase.initialize((char*)"Base", 560, 1020);
   jointBase.setMaxMoveTicks(20);
-  jointShoulder.initialize((char*)"Shoulder", 550, 800);
-  jointElbow.initialize((char*)"Elbow", 500, 870);
-  gripper.initialize(60, 150);
   //unitTool.registerJoint((char*)"Base", JOINT_0, ENGINE_3, 550, 800);
-  //unitTool.registerJoint((char*)"Shoulder", JOINT_1, 550, 800);
-  //unitTool.registerJoint((char*)"Elbow", JOINT_2, 500, 870);
-  //unitTool.registerGripper((char*)"Gripper", ENGINE_0, 60, 150);
-  //unitTool.initialize();
+  unitTool.registerJoint((char*)"Shoulder", &jointShoulder, 550, 800);
+  unitTool.registerJoint((char*)"Elbow", &jointElbow, 500, 870);
+  unitTool.registerGripper((char*)"Gripper", &gripper, 60, 150);
+  unitTool.initialize();
   Serial.print("Current workMode is ");
   Serial.println(_workMode);
 }
@@ -42,22 +39,18 @@ void loop() {
       observeMemory(_sleepJointRead);
       break;
     case wmReadJointShoulder:
-      jointShoulder.read();
-      //unitTool.jointRead((char*)"Shoulder");
+      unitTool.jointRead((char*)"Shoulder");
       observeMemory(_sleepJointRead);
       break;
     case wmReadJointElbow:
-      jointElbow.read();
-      //unitTool.jointRead((char*)"Elbow");
+      unitTool.jointRead((char*)"Elbow");
       observeMemory(_sleepJointRead);
       break;
     case wmToggleGripper:
       if (_gripperToggle) {
-          gripper.grip();
-          //unitTool.gripperGrip((char*)"Gripper");
+          unitTool.gripperGrip((char*)"Gripper");
       } else {
-          gripper.release();
-          //unitTool.gripperRelease((char*)"Gripper");
+          unitTool.gripperRelease((char*)"Gripper");
       }
       _gripperToggle = !_gripperToggle;
       observeMemory(3000);
