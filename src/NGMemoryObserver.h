@@ -19,6 +19,7 @@ extern "C" {
 #endif
 
 int freeMemory();
+void observeMemory(unsigned int sleep);
 
 #ifdef  __cplusplus
 }
