@@ -74,16 +74,12 @@ void NGEngineControl::initialize() {
 void NGEngineControl::initialize(int speed) {
     char log[100];
     _ensureGlobalSerial(_serialRate);
-    if (_logging) {
-        sprintf(log, "Start initialization of NGEngineControl with engine %d...", _engine);
-        Serial.println(log);
-    }
     pinMode(_forwardPin, OUTPUT);
     pinMode(_backwardPin, OUTPUT);
     _speed = speed;
     _initialized = true;
     if (_logging) {
-        sprintf(log, "...NGEngineControl with engine %d successfully initialized", _engine);
+        sprintf(log, "Engine %d initialized", _engine);
         Serial.println(log);
     }
 }
@@ -131,7 +127,7 @@ bool NGEngineControl::run(engineDirection direction) {
             _running = true;
         }
     } else if (_logging) {
-        sprintf(log, "NGEngineControl with engine %d not initialized!", _engine);
+        sprintf(log, "Engine %d not initialized!", _engine);
         Serial.println(log);
     }
     return res;
@@ -174,7 +170,7 @@ void NGEngineControl::_speedUp(int startSpeed, int targetSpeed) {
             break;
     }
     if (_logging) {
-        sprintf(log, "Engine %d now run with speed %d %s...", _engine, targetSpeed, dir);
+        sprintf(log, "Engine %d speed %d %s...", _engine, targetSpeed, dir);
         Serial.println(log);
     }
 }
@@ -196,7 +192,7 @@ bool NGEngineControl::stop(int interval) {
             _running = false;
         }
     } else if (_logging) {
-        sprintf(log, "NGEngineControl with engine %d not initialized!", _engine);
+        sprintf(log, "Engine %d not initialized!", _engine);
         Serial.println(log);
     }
     _direction = edNone;
@@ -247,7 +243,7 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
         _setSpeed(_backwardPin, targetSpeed);
         sprintf(log, "...Engine %d stopped", _engine);
     } else {
-        sprintf(log, "Engine %d now run with speed %d %s...", _engine, targetSpeed, dir);
+        sprintf(log, "Engine %d speed %d %s...", _engine, targetSpeed, dir);
     }
     if (_logging) {
         Serial.println(log);

@@ -31,14 +31,10 @@ void NGGripperControl::initialize(int minSpeed, int maxSpeed) {
     char log[100];
     _minSpeed = minSpeed;
     _maxSpeed = maxSpeed;
-    if (_logging) {
-        sprintf(log, "Start initialization of NGGripperControl with engine %d...", _engine);
-        Serial.println(log);
-    }
     _engine.initialize();
     _initialized = true;
     if (_logging) {
-        sprintf(log, "...NGGripperControl with engine %d successfully initialized", _engine);
+        sprintf(log, "Gripper with engine %d initialized", _engine);
         Serial.println(log);
     }
 }

@@ -46,7 +46,7 @@ int freeMemory() {
 
 void observeMemory(unsigned int sleep) {
     char log[100];
-    sprintf(log, "Memory has %d free bytes", freeMemory());
+    sprintf(log, "free Memory %d bytes", freeMemory());
     Serial.println(log);
     if (sleep > 0) {
         delay(sleep);

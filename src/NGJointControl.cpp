@@ -67,24 +67,15 @@ void NGJointControl::initialize(char* name, int minRad, int maxRad, int maxSpeed
     char log[100];
     _name = name;
     _engine.initialize();
-    if (_logging) {
-        if (_name != "" ) {
-            sprintf(log, "Start initialization of NGJointControl from joint %s with engine %d...", _name, _engine);
-        }
-        else {
-            sprintf(log, "Start initialization of NGJointControl from joint %d with engine %d...", _joint, _engine);
-        }
-        Serial.println(log);
-    }
     _minJointRad = minRad;
     _maxJointRad = maxRad;
     _maxSpeed = maxSpeed;
     _initialized = true;
     if (_logging) {
         if (_name != "" ) {
-            sprintf(log, "...NGJointControl from joint %s with engine %d successfully initialized", _name, _engine);
+            sprintf(log, "Joint %s with engine %d initialized", _name, _engine);
         } else {
-            sprintf(log, "...NGJointControl from joint %d with engine %d successfully initialized", _joint, _engine);
+            sprintf(log, "Joint %d with engine %d initialized", _joint, _engine);
         }
         Serial.println(log);
     }
@@ -96,10 +87,10 @@ int NGJointControl::read() {
     _currentJointRad = analogRead(_transducerPin);
     if (_logging) {
         if (_name != "" ) {
-            sprintf(log, "Current rad of joint %s is %d", _name, _currentJointRad);
+            sprintf(log, "Rad of joint %s is %d", _name, _currentJointRad);
         }
         else {
-            sprintf(log, "Current rad of joint %d is %d", _joint, _currentJointRad);
+            sprintf(log, "Rad of joint %d is %d", _joint, _currentJointRad);
         }
         Serial.println(log);
     }

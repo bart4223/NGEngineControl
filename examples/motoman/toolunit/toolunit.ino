@@ -12,7 +12,7 @@
 #define JOINTELBOW            (char*)"Elbow"
 #define JOINTELBOWMINRAD      500
 #define JOINTELBOWMAXRAD      870
-#define GRIPPER               (char*)"Base"
+#define GRIPPER               (char*)"Gripper"
 #define GRIPPERMINSPEED       60
 #define GRIPPERMAXSPEED       150
 
