@@ -65,10 +65,14 @@ void NGUnitControl::initialize() {
 }
 
 void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad) {
-    registerJoint(name, joint, minRad, maxRad, DEFAULTENGINE);
+    registerJoint(name, joint, minRad, maxRad, DEFAULTMAXMOVETICKS, DEFAULTENGINE);
 }
 
-void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int engine) {
+void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks) {
+    registerJoint(name, joint, minRad, maxRad, maxMoveTicks, DEFAULTENGINE);
+}
+
+void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine) {
     char log[100];
     _ensureGlobalSerial(_serialRate);
     jointData jd;
@@ -77,6 +81,9 @@ void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad,
     jd.maxRad = maxRad;
     _jointData[_jointsCount] = jd;
     _joints[_jointsCount] = joint;
+    if (maxMoveTicks != DEFAULTMAXMOVETICKS) {
+        joint->setMaxMoveTicks(maxMoveTicks);
+    }
     _jointsCount++;
     if (_logging) {
         sprintf(log, "Joint \"%s.%s\" successfully registered", _name, name);
@@ -88,6 +95,20 @@ void NGUnitControl::jointRead(char* name) {
     int index = getJointIndex(name);
     if (index >= 0) {
         _joints[index]->read();
+    }
+}
+
+bool NGUnitControl::jointMove(char* name, int targetRad) {
+    int index = getJointIndex(name);
+    if (index >= 0) {
+        return _joints[index]->move(targetRad);
+    }
+}
+
+void NGUnitControl::jointSimulate(char* name) {
+    int index = getJointIndex(name);
+    if (index >= 0) {
+        _joints[index]->simulate();
     }
 }
 

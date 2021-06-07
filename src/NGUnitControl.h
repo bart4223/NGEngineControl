@@ -63,9 +63,15 @@ public:
     
     void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad);
     
-    void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int engine);
+    void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks);
+    
+    void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine);
     
     void jointRead(char* name);
+    
+    bool jointMove(char* name, int targetRad);
+    
+    void jointSimulate(char* name);
     
     void registerGripper(char* name, NGGripperControl *gripper, int minSpeed, int maxSpeed);
     
