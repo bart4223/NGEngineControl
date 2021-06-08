@@ -22,13 +22,9 @@ NGJointControl jointElbow = NGJointControl(JOINT_2);
 NGGripperControl gripper = NGGripperControl(ENGINE_0);
 NGUnitControl unitTool = NGUnitControl(TOOL);
 
-enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmToggleGripper, wmReadJointElbow, wmReadJointShoulder };
+enum workMode { wmNone, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmToggleGripper, wmReadJointShoulder, wmMoveJointShoulder, wmReadJointElbow, wmMoveJointElbow };
 
-const int _sleepJointRead = 1000;
 const workMode _workMode =  wmNone;
-bool _reached = true;
-int _targetRad;
-unsigned long _start;
 bool _gripperToggle = false;
  
 void setup() {
@@ -42,22 +38,36 @@ void setup() {
 }
 
 void loop() {
-  char log[100];
   switch (_workMode) {
     case wmNone:
       observeMemory(5000);
       break;
     case wmReadJointBase:
       unitTool.jointRead(JOINTBASE);
-      observeMemory(_sleepJointRead);
+      observeMemory(1000);
+      break;
+    case wmMoveJointBase:
+      moveJoint(JOINTBASE);
+      observeMemory(0);
+      break;
+    case wmSimulateJointBase:
+      unitTool.jointSimulate(JOINTBASE);
       break;
     case wmReadJointShoulder:
       unitTool.jointRead(JOINTSHOULDER);
-      observeMemory(_sleepJointRead);
+      observeMemory(1000);
+      break;
+    case wmMoveJointShoulder:
+      moveJoint(JOINTSHOULDER);
+      observeMemory(0);
       break;
     case wmReadJointElbow:
       unitTool.jointRead(JOINTELBOW);
-      observeMemory(_sleepJointRead);
+      observeMemory(1000);
+      break;
+    case wmMoveJointElbow:
+      moveJoint(JOINTELBOW);
+      observeMemory(0);
       break;
     case wmToggleGripper:
       if (_gripperToggle) {
@@ -68,35 +78,19 @@ void loop() {
       _gripperToggle = !_gripperToggle;
       observeMemory(3000);
       break;
-    case wmMoveJointBase:
-      observeMemory(0);
-      if (!_reached) {
-          _reached = unitTool.jointMove(JOINTBASE, _targetRad);
-          if (_reached) {
-            unsigned long duration = millis() - _start;
-            sprintf(log, "...Rotation of joint %s end (duration: %d ms)...target reached", JOINTBASE, duration);
-            Serial.println(log);
-          }
-      } else {
-        sprintf(log, "Rotate joint %s to radiant = ", JOINTBASE);
-        Serial.print(log);
-        while (Serial.available() == 0);
-        _targetRad = Serial.parseInt();
-        Serial.read();
-        Serial.println(_targetRad);
-        if (_targetRad >= JOINTBASEMINRAD && _targetRad <= JOINTBASEMAXRAD) {
-          sprintf(log, "Rotation of joint %2 start...", JOINTBASE);
-          Serial.println(log);
-          _start = millis();
-          _reached = unitTool.jointMove(JOINTBASE, _targetRad);
-        } else {
-          sprintf(log, "Radiant of joint %s is invalid", JOINTBASE);
-          Serial.println(log);
-        }
-      }
-      break;
-    case wmSimulateJointBase:
-      unitTool.jointSimulate(JOINTBASE);
-      break;
+  }
+  unitTool.processingLoop();
+}
+
+void moveJoint(char* name) {
+  if (!unitTool.jointIsMoving(name)) {
+    char log[100];
+    sprintf(log, "Rotate joint %s to radiant = ", name);
+    Serial.print(log);
+    while (Serial.available() == 0);
+    int targetRad = Serial.parseInt();
+    Serial.read();
+    Serial.println(targetRad);
+    unitTool.jointMove(name, targetRad);
   }
 }

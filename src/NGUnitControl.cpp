@@ -59,6 +59,21 @@ void NGUnitControl::initialize() {
         Serial.println(log);
     }
 }
+void NGUnitControl::processingLoop() {
+    processingLoop(0);
+}
+void NGUnitControl::processingLoop(int sleep) {
+    for (int i = 0; i < _jointsCount; i++) {
+        if (_jointData[i].targetRad != 0) {
+            if (_joints[i]->move(_jointData[i].targetRad)) {
+                _jointData[i].targetRad = 0;
+            }
+        }
+    }
+    if (sleep > 0) {
+        delay(sleep);
+    }
+}
 
 void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad) {
     registerJoint(name, joint, minRad, maxRad, DEFAULTMAXMOVETICKS, DEFAULTENGINE);
@@ -75,6 +90,7 @@ void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad,
     jd.name = name;
     jd.minRad = minRad;
     jd.maxRad = maxRad;
+    jd.targetRad = 0;
     _jointData[_jointsCount] = jd;
     _joints[_jointsCount] = joint;
     if (maxMoveTicks != DEFAULTMAXMOVETICKS) {
@@ -95,10 +111,34 @@ void NGUnitControl::jointRead(char* name) {
 }
 
 bool NGUnitControl::jointMove(char* name, int targetRad) {
+    char log[100];
+    _ensureGlobalSerial(_serialRate);
     int index = getJointIndex(name);
-    if (index >= 0) {
-        return _joints[index]->move(targetRad);
+    bool res = index >= 0;
+    if (res) {
+        res = (targetRad >= _joints[index]->getMinJointRad() && targetRad <= _joints[index]->getMaxJointRad());
+        if (res) {
+            res = _joints[index]->move(targetRad);
+            if (!res) {
+                _jointData[index].targetRad = targetRad;
+            }
+        } else {
+            if (_logging) {
+                sprintf(log, "Radiant of joint %s is invalid", name);
+                Serial.println(log);
+            }
+        }
     }
+    return res;
+}
+
+bool NGUnitControl::jointIsMoving(char* name) {
+    int index = getJointIndex(name);
+    bool res = index >= 0;
+    if (res) {
+        res = _jointData[index].targetRad != 0;
+    }
+    return res;
 }
 
 void NGUnitControl::jointSimulate(char* name) {

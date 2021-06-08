@@ -30,6 +30,7 @@ struct jointDataStruct
     char* name;
     int minRad;
     int maxRad;
+    int targetRad;
 };
 typedef struct jointDataStruct jointData;
 
@@ -61,6 +62,10 @@ public:
 
     void initialize();
     
+    void processingLoop();
+    
+    void processingLoop(int sleep);
+    
     void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad);
     
     void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks);
@@ -70,6 +75,8 @@ public:
     void jointRead(char* name);
     
     bool jointMove(char* name, int targetRad);
+    
+    bool jointIsMoving(char* name);
     
     void jointSimulate(char* name);
     
