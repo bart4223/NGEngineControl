@@ -18,13 +18,12 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
-struct gripperDataStruct
+struct engineDataStruct
 {
     char* name;
-    int minSpeed;
-    int maxSpeed;
+    int initSpeed;
 };
-typedef struct gripperDataStruct gripperData;
+typedef struct engineDataStruct engineData;
 
 struct jointDataStruct
 {
@@ -35,9 +34,20 @@ struct jointDataStruct
 };
 typedef struct jointDataStruct jointData;
 
+struct gripperDataStruct
+{
+    char* name;
+    int minSpeed;
+    int maxSpeed;
+};
+typedef struct gripperDataStruct gripperData;
+
 class NGUnitControl : public NGCustomUnitControl {
     
 private:
+    NGEngineControl *_engines[3];
+    engineData _engineData[3];
+    int _enginesCount = 0;
     NGJointControl *_joints[3];
     jointData _jointData[3];
     int _jointsCount = 0;
@@ -46,8 +56,9 @@ private:
     int _grippersCount = 0;
     
 protected:
-    int getGripperIndex(char* name);
+    int getEngineIndex(char* name);
     int getJointIndex(char* name);
+    int getGripperIndex(char* name);
     
 public:
     NGUnitControl();
@@ -61,6 +72,16 @@ public:
     void processingLoop();
     
     void processingLoop(int sleep);
+    
+    void registerEngine(char* name, NGEngineControl *engine);
+    
+    void registerEngine(char* name, NGEngineControl *engine, int initSpeed);
+    
+    void engineRun(char* name, engineDirection direction);
+    
+    void engineStop(char* name);
+    
+    void engineSetSpeed(char* name, int speed);
     
     void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad);
     

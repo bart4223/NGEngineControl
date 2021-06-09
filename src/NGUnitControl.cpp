@@ -20,9 +20,9 @@ NGUnitControl::NGUnitControl(char* name, int serialRate) {
     _create(name, serialRate);
 }
 
-int NGUnitControl::getGripperIndex(char* name) {
-    for (int i = 0; i < _grippersCount; i++) {
-        if (_gripperData[i].name == name) {
+int NGUnitControl::getEngineIndex(char* name) {
+    for (int i = 0; i < _enginesCount; i++) {
+        if (_engineData[i].name == name) {
             return i;
         }
     }
@@ -38,10 +38,22 @@ int NGUnitControl::getJointIndex(char* name) {
     return -1;
 }
 
+int NGUnitControl::getGripperIndex(char* name) {
+    for (int i = 0; i < _grippersCount; i++) {
+        if (_gripperData[i].name == name) {
+            return i;
+        }
+    }
+    return -1;
+}
+
 void NGUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     char log[100];
     _ensureGlobalSerial(_serialRate);
+    for (int i = 0; i < _enginesCount; i++) {
+        _engines[i]->initialize(_engineData[i].initSpeed);
+    }
     for (int i = 0; i < _jointsCount; i++) {
         _joints[i]->initialize(_jointData[i].name, _jointData[i].minRad, _jointData[i].maxRad);
     }
@@ -50,13 +62,15 @@ void NGUnitControl::initialize() {
     }
     _initialized = true;
     if (_logging) {
-        sprintf(log, "...Unit \"%s\" with %d joints and %d grippers initialized", _name, _jointsCount, _grippersCount);
+        sprintf(log, "...Unit \"%s\" with %d pure engines, %d joints and %d grippers initialized", _name, _enginesCount, _jointsCount, _grippersCount);
         Serial.println(log);
     }
 }
+
 void NGUnitControl::processingLoop() {
     processingLoop(0);
 }
+
 void NGUnitControl::processingLoop(int sleep) {
     for (int i = 0; i < _jointsCount; i++) {
         if (_jointData[i].targetRad != 0) {
@@ -67,6 +81,46 @@ void NGUnitControl::processingLoop(int sleep) {
     }
     if (sleep > 0) {
         delay(sleep);
+    }
+}
+
+void NGUnitControl::registerEngine(char* name, NGEngineControl *engine) {
+    registerEngine(name, engine, MAXSPEED);
+}
+
+void NGUnitControl::registerEngine(char* name, NGEngineControl *engine, int initSpeed) {
+    char log[100];
+    _ensureGlobalSerial(_serialRate);
+    engineData ed;
+    ed.name = name;
+    ed.initSpeed = initSpeed;
+    _engineData[_enginesCount] = ed;
+    _engines[_enginesCount] = engine;
+    _enginesCount++;
+    if (_logging) {
+        sprintf(log, "Engine \"%s.%s\" registered", _name, name);
+        Serial.println(log);
+    }
+}
+
+void NGUnitControl::engineRun(char* name, engineDirection direction) {
+    int index = getEngineIndex(name);
+    if (index >= 0) {
+        _engines[index]->run(direction);
+    }
+}
+
+void NGUnitControl::engineStop(char* name) {
+    int index = getEngineIndex(name);
+    if (index >= 0) {
+        _engines[index]->stop();
+    }
+}
+
+void NGUnitControl::engineSetSpeed(char* name, int speed) {
+    int index = getEngineIndex(name);
+    if (index >= 0) {
+        _engines[index]->setSpeed(speed);
     }
 }
 
