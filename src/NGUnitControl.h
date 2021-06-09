@@ -14,6 +14,7 @@
 #include <WProgram.h>
 #endif
 
+#include <NGCustomUnitControl.h>
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
@@ -34,13 +35,9 @@ struct jointDataStruct
 };
 typedef struct jointDataStruct jointData;
 
-class NGUnitControl {
+class NGUnitControl : public NGCustomUnitControl {
     
 private:
-    bool _initialized;
-    bool _logging;
-    int _serialRate;
-    char* _name;
     NGJointControl *_joints[3];
     jointData _jointData[3];
     int _jointsCount = 0;
@@ -49,7 +46,6 @@ private:
     int _grippersCount = 0;
     
 protected:
-    void _create(char* name, int serialRate);
     int getGripperIndex(char* name);
     int getJointIndex(char* name);
     

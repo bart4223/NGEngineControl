@@ -5,14 +5,8 @@
 //  Created by Nils Grimmer on 18.10.20.
 //
 
+#include "NGCommon.h"
 #include "NGEngineControl.h"
-
-void _ensureGlobalSerial(int serialRate) {
-    if (!_globalSerialStarted) {
-        Serial.begin(serialRate);
-        _globalSerialStarted = true;
-    }
-}
 
 NGEngineControl::NGEngineControl() {
     

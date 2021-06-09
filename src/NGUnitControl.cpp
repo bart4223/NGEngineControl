@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 29.05.21.
 //
 
+#include "NGCommon.h"
 #include "NGUnitControl.h"
 
 NGUnitControl::NGUnitControl() {
@@ -17,13 +18,6 @@ NGUnitControl::NGUnitControl(char* name) {
 
 NGUnitControl::NGUnitControl(char* name, int serialRate) {
     _create(name, serialRate);
-}
-
-void NGUnitControl::_create(char* name, int serialRate) {
-    _name = name;
-    _serialRate = serialRate;
-    _initialized = false;
-    _logging = true;
 }
 
 int NGUnitControl::getGripperIndex(char* name) {
@@ -45,6 +39,7 @@ int NGUnitControl::getJointIndex(char* name) {
 }
 
 void NGUnitControl::initialize() {
+    NGCustomUnitControl::initialize();
     char log[100];
     _ensureGlobalSerial(_serialRate);
     for (int i = 0; i < _jointsCount; i++) {
