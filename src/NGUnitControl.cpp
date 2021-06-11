@@ -49,8 +49,6 @@ int NGUnitControl::getGripperIndex(char* name) {
 
 void NGUnitControl::initialize() {
     NGCustomUnitControl::initialize();
-    char log[100];
-    _ensureGlobalSerial(_serialRate);
     for (int i = 0; i < _enginesCount; i++) {
         _engines[i]->initialize(_engineData[i].initSpeed);
     }
@@ -62,8 +60,9 @@ void NGUnitControl::initialize() {
     }
     _initialized = true;
     if (_logging) {
+        char log[100];
         sprintf(log, "...Unit \"%s\" with %d pure engines, %d joints and %d grippers initialized", _name, _enginesCount, _jointsCount, _grippersCount);
-        Serial.println(log);
+        _writeInfo(log);
     }
 }
 
@@ -89,8 +88,6 @@ void NGUnitControl::registerEngine(char* name, NGEngineControl *engine) {
 }
 
 void NGUnitControl::registerEngine(char* name, NGEngineControl *engine, int initSpeed) {
-    char log[100];
-    _ensureGlobalSerial(_serialRate);
     engineData ed;
     ed.name = name;
     ed.initSpeed = initSpeed;
@@ -98,8 +95,9 @@ void NGUnitControl::registerEngine(char* name, NGEngineControl *engine, int init
     _engines[_enginesCount] = engine;
     _enginesCount++;
     if (_logging) {
+        char log[100];
         sprintf(log, "Engine \"%s.%s\" registered", _name, name);
-        Serial.println(log);
+        _writeInfo(log);
     }
 }
 
@@ -133,8 +131,6 @@ void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad,
 }
 
 void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine) {
-    char log[100];
-    _ensureGlobalSerial(_serialRate);
     jointData jd;
     jd.name = name;
     jd.minRad = minRad;
@@ -147,8 +143,9 @@ void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad,
     }
     _jointsCount++;
     if (_logging) {
+        char log[100];
         sprintf(log, "Joint \"%s.%s\" registered", _name, name);
-        Serial.println(log);
+        _writeInfo(log);
     }
 }
 
@@ -160,8 +157,6 @@ void NGUnitControl::jointRead(char* name) {
 }
 
 bool NGUnitControl::jointMove(char* name, int targetRad) {
-    char log[100];
-    _ensureGlobalSerial(_serialRate);
     int index = getJointIndex(name);
     bool res = index >= 0;
     if (res) {
@@ -173,8 +168,9 @@ bool NGUnitControl::jointMove(char* name, int targetRad) {
             }
         } else {
             if (_logging) {
+                char log[100];
                 sprintf(log, "Radiant of joint %s is invalid", name);
-                Serial.println(log);
+                _writeInfo(log);
             }
         }
     }
@@ -198,8 +194,6 @@ void NGUnitControl::jointSimulate(char* name) {
 }
 
 void NGUnitControl::registerGripper(char* name, NGGripperControl *gripper, int minSpeed, int maxSpeed) {
-    char log[100];
-    _ensureGlobalSerial(_serialRate);
     gripperData gd;
     gd.name = name;
     gd.minSpeed = minSpeed;
@@ -208,8 +202,9 @@ void NGUnitControl::registerGripper(char* name, NGGripperControl *gripper, int m
     _grippers[_grippersCount] = gripper;
     _grippersCount++;
     if (_logging) {
+        char log[100];
         sprintf(log, "Gripper \"%s.%s\" registered", _name, name);
-        Serial.println(log);
+        _writeInfo(log);
     }
 }
 

@@ -32,6 +32,10 @@
 		29D7EC342670D7D800009403 /* NGCustomUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomUnitControl.h; sourceTree = "<group>"; };
 		29D7EC352670DC5100009403 /* NGCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCommon.h; sourceTree = "<group>"; };
 		29D7EC362670DD2C00009403 /* NGCommon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCommon.cpp; sourceTree = "<group>"; };
+		29D7EC372673B88300009403 /* NGCustomNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomNotification.cpp; sourceTree = "<group>"; };
+		29D7EC382673B88300009403 /* NGCustomNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomNotification.h; sourceTree = "<group>"; };
+		29D7EC392673BFB800009403 /* NGNotificationSerial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGNotificationSerial.cpp; sourceTree = "<group>"; };
+		29D7EC3A2673BFB800009403 /* NGNotificationSerial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGNotificationSerial.h; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -87,6 +91,10 @@
 			children = (
 				29D7EC352670DC5100009403 /* NGCommon.h */,
 				29D7EC362670DD2C00009403 /* NGCommon.cpp */,
+				29D7EC382673B88300009403 /* NGCustomNotification.h */,
+				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
+				29D7EC3A2673BFB800009403 /* NGNotificationSerial.h */,
+				29D7EC392673BFB800009403 /* NGNotificationSerial.cpp */,
 				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
 				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
 				2905F11F264AD273001B4A56 /* NGJointControl.h */,

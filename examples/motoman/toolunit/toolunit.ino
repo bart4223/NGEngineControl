@@ -1,5 +1,6 @@
-#include <NGUnitControl.h>
 #include <NGMemoryObserver.h>
+#include <NGNotificationSerial.h>
+#include <NGUnitControl.h>
 
 #define TOOL                  (char*)"Tool"
 #define JOINTBASE             (char*)"Base"
@@ -16,6 +17,7 @@
 #define GRIPPERMINSPEED       60
 #define GRIPPERMAXSPEED       150
 
+NGNotificationSerial serialNotification = NGNotificationSerial();
 NGJointControl jointBase = NGJointControl(JOINT_0, ENGINE_3);
 NGJointControl jointShoulder = NGJointControl(JOINT_1);
 NGJointControl jointElbow = NGJointControl(JOINT_2);
@@ -28,6 +30,7 @@ const workMode _workMode =  wmNone;
 bool _gripperToggle = false;
  
 void setup() {
+  unitTool.registerNotification(&serialNotification);
   unitTool.registerJoint(JOINTBASE, &jointBase, JOINTBASEMINRAD, JOINTBASEMAXRAD, JOINTBASEMAXMOVETICKS);
   unitTool.registerJoint(JOINTSHOULDER, &jointShoulder, JOINTSHOULDERMINRAD, JOINTSHOULDERMAXRAD);
   unitTool.registerJoint(JOINTELBOW, &jointElbow, JOINTELBOWMINRAD, JOINTELBOWMAXRAD);
