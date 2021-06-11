@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 11.05.21.
 //
 
+#include "NGCommon.h"
 #include "NGJointControl.h"
 
 NGJointControl::NGJointControl() {

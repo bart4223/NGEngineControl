@@ -1,6 +1,6 @@
 //
 //  NGUnitControl.h
-//  NGUnitControl
+//  NGEngineControl
 //
 //  Created by Nils Grimmer on 13.05.21.
 //

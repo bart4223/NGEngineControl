@@ -1,6 +1,6 @@
 //
 //  NGCommon.h
-//  NGCommon
+//  NGEngineControl
 //
 //  Created by Nils Grimmer on 09.06.21.
 //
@@ -13,6 +13,8 @@
 #else
 #include <WProgram.h>
 #endif
+
+#define DEFAULTSERIALRATE 9600
 
 bool static _globalSerialStarted = false;
 

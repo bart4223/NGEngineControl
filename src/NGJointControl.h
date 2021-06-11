@@ -1,6 +1,6 @@
 //
 //  NGJointControl.h
-//  NGJointControl
+//  NGEngineControl
 //
 //  Created by Nils Grimmer on 11.05.21.
 //

@@ -33,7 +33,6 @@
 #define MAXSPEED              255
 #define NULLINTERVAL            0
 #define NULLSTEPS               0
-#define DEFAULTSERIALRATE    9600
 
 enum engineDirection { edNone, edForward, edBackward };
 

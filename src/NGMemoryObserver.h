@@ -1,6 +1,6 @@
 //
 //  NGMemoryObserver.h
-//  NGMemoryObserver
+//  NGEngineControl
 //
 //  Created by Nils Grimmer on 05.06.21.
 //

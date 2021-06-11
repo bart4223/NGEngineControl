@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 27.05.21.
 //
 
+#include "NGCommon.h"
 #include "NGGripperControl.h"
 
 NGGripperControl::NGGripperControl() {

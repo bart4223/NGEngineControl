@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 05.06.21.
 //
 
+#include "NGCommon.h"
 #include "NGMemoryObserver.h"
 
 extern unsigned int __heap_start;
@@ -46,6 +47,7 @@ int freeMemory() {
 
 void observeMemory(unsigned int sleep) {
     char log[100];
+    _ensureGlobalSerial(DEFAULTSERIALRATE);
     sprintf(log, "free Memory %d bytes", freeMemory());
     Serial.println(log);
     if (sleep > 0) {
