@@ -14,7 +14,8 @@
 #include <WProgram.h>
 #endif
 
-#define DEFAULTSERIALRATE 9600
+#define DEFAULTSERIALRATE   9600
+#define NONAME              ""
 
 bool static _globalSerialStarted = false;
 

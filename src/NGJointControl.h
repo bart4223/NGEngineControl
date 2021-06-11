@@ -23,7 +23,6 @@
 #define JOINT_2             2
 #define JOINT_2_TRANSDUCER  2
 
-#define NONAME              ""
 #define TRANSDUCERTHRESHOLD  3
 #define ENGINEMOVEDELAY     20
 #define DEFAULTENGINE       -1
