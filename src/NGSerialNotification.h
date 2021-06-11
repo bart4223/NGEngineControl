@@ -1,12 +1,12 @@
 //
-//  NGNotificationSerial.h
+//  NGSerialNotification.h
 //  NGEngineControl
 //
 //  Created by Nils Grimmer on 11.06.21.
 //
 
-#ifndef NGNotificationSerial_h
-#define NGNotificationSerial_h
+#ifndef NGSerialNotification_h
+#define NGSerialNotification_h
 
 #if (ARDUINO >= 100)
 #include <Arduino.h>
@@ -16,7 +16,7 @@
 
 #include <NGCustomNotification.h>
 
-class NGNotificationSerial : public NGCustomNotification {
+class NGSerialNotification : public NGCustomNotification {
 
 private:
     int _serialRate;
@@ -25,12 +25,12 @@ protected:
     void _create(int serialRate);
 
 public:
-    NGNotificationSerial();
-    NGNotificationSerial(int serialRate);
+    NGSerialNotification();
+    NGSerialNotification(int serialRate);
     void initialize();
     char* getName();
     void writeInfo(char* info);
 
 };
 
-#endif /* NGNotificationSerial_h */
+#endif /* NGSerialNotification_h */

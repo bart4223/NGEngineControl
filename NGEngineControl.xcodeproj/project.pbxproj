@@ -34,8 +34,8 @@
 		29D7EC362670DD2C00009403 /* NGCommon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCommon.cpp; sourceTree = "<group>"; };
 		29D7EC372673B88300009403 /* NGCustomNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomNotification.cpp; sourceTree = "<group>"; };
 		29D7EC382673B88300009403 /* NGCustomNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomNotification.h; sourceTree = "<group>"; };
-		29D7EC392673BFB800009403 /* NGNotificationSerial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGNotificationSerial.cpp; sourceTree = "<group>"; };
-		29D7EC3A2673BFB800009403 /* NGNotificationSerial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGNotificationSerial.h; sourceTree = "<group>"; };
+		29D7EC392673BFB800009403 /* NGSerialNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSerialNotification.cpp; sourceTree = "<group>"; };
+		29D7EC3A2673BFB800009403 /* NGSerialNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSerialNotification.h; sourceTree = "<group>"; };
 		29D7EC3C2673CED200009403 /* centralunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = centralunit.ino; sourceTree = "<group>"; };
 		29D7EC3D2673D0A000009403 /* NGCentralUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCentralUnitControl.cpp; sourceTree = "<group>"; };
 		29D7EC3E2673D0A000009403 /* NGCentralUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCentralUnitControl.h; sourceTree = "<group>"; };
@@ -98,8 +98,8 @@
 				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
 				29D7EC382673B88300009403 /* NGCustomNotification.h */,
 				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
-				29D7EC3A2673BFB800009403 /* NGNotificationSerial.h */,
-				29D7EC392673BFB800009403 /* NGNotificationSerial.cpp */,
+				29D7EC3A2673BFB800009403 /* NGSerialNotification.h */,
+				29D7EC392673BFB800009403 /* NGSerialNotification.cpp */,
 				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
 				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
 				2905F11F264AD273001B4A56 /* NGJointControl.h */,

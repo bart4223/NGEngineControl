@@ -1,10 +1,10 @@
 #include <NGMemoryObserver.h>
-#include <NGNotificationSerial.h>
+#include <NGSerialNotification.h>
 #include <NGCentralUnitControl.h>
 
 #define CENTRAL (char*)"Central"
 
-NGNotificationSerial serialNotification = NGNotificationSerial();
+NGSerialNotification serialNotification = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
 void setup() {
