@@ -43,6 +43,8 @@ public:
     
     void registerUnit(char* name, int address);
     
+    void processingLoop();
+    
     void sendUnitCommand(char* name, char* command);
     
 };

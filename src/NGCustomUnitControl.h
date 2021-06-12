@@ -33,8 +33,11 @@ protected:
 
 public:
     void initialize();
+    
     void registerNotification(NGCustomNotification *notification);
-
+    
+    virtual void processingLoop();
+    
 };
 
 #endif /* NGCustomUnitControl_h */

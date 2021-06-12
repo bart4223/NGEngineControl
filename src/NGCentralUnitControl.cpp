@@ -50,6 +50,10 @@ void NGCentralUnitControl::registerUnit(char* name, int address) {
     _writeInfo(log);
 }
 
+void NGCentralUnitControl::processingLoop() {
+    
+}
+
 void NGCentralUnitControl::sendUnitCommand(char* name, char* command) {
     int address = _getUnitAddress(name);
     if (address > 0) {

@@ -15,6 +15,8 @@ enum workMode { wmNone };
 workMode _workMode = wmNone;
  
 void setup() {
+    unitMotion.registerNotification(&notificationSerial);
+    unitMotion.registerNotification(&notificationLCD);
     unitMotion.initialize();
     Serial.print("Current workMode is ");
     Serial.println(_workMode);
@@ -25,4 +27,6 @@ void loop() {
     case wmNone:
       observeMemory(5000);
       break;
+    }
+    unitMotion.processingLoop();
 }

@@ -53,4 +53,5 @@ void loop() {
       observeMemory(5000);
       break;
     }
+    unitCentral.processingLoop();
 }
