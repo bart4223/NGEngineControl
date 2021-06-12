@@ -1,14 +1,14 @@
 #include <NGMemoryObserver.h>
-#include <NGSerialNotification.h>
+#include <NGLCDNotification.h>
 #include <NGCentralUnitControl.h>
 
 #define CENTRAL (char*)"Central"
 
-NGSerialNotification serialNotification = NGSerialNotification();
+NGLCDNotification notification = NGLCDNotification(0x27, 16, 2);
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
 void setup() {
-    unitCentral.registerNotification(&serialNotification);
+    unitCentral.registerNotification(&notification);
     unitCentral.initialize();
 }
 

@@ -25,7 +25,10 @@ protected:
     int _serialRate;
     NGCustomNotification *_notification = NULL;
     void _create(char* name, int serialRate);
+    void _clearInfo();
     void _writeInfo(char* info);
+    void _writeInfo(char* info, int line);
+    void _writeInfo(char* info, int line, int column);
 
 public:
     void initialize();

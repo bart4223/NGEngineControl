@@ -29,7 +29,10 @@ public:
     NGSerialNotification(int serialRate);
     void initialize();
     char* getName();
+    void clear();
     void writeInfo(char* info);
+    void writeInfo(char* info, int line);
+    void writeInfo(char* info, int line, int column);
 
 };
 

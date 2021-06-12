@@ -39,6 +39,8 @@
 		29D7EC3C2673CED200009403 /* centralunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = centralunit.ino; sourceTree = "<group>"; };
 		29D7EC3D2673D0A000009403 /* NGCentralUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCentralUnitControl.cpp; sourceTree = "<group>"; };
 		29D7EC3E2673D0A000009403 /* NGCentralUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCentralUnitControl.h; sourceTree = "<group>"; };
+		29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGLCDNotification.cpp; sourceTree = "<group>"; };
+		29D7EC4026741FAB00009403 /* NGLCDNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGLCDNotification.h; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -100,6 +102,8 @@
 				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
 				29D7EC3A2673BFB800009403 /* NGSerialNotification.h */,
 				29D7EC392673BFB800009403 /* NGSerialNotification.cpp */,
+				29D7EC4026741FAB00009403 /* NGLCDNotification.h */,
+				29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */,
 				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
 				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
 				2905F11F264AD273001B4A56 /* NGJointControl.h */,

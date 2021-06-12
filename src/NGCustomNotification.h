@@ -18,9 +18,12 @@ class NGCustomNotification {
        
 public:
     virtual void initialize();
-    virtual void writeInfo(char* info);
     virtual char* getName();
-    
+    virtual void clear();
+    virtual void writeInfo(char* info);
+    virtual void writeInfo(char* info, int line);
+    virtual void writeInfo(char* info, int line, int column);
+
 };
     
 #endif /* NGCustomNotification_h */

@@ -15,9 +15,23 @@ void NGCustomUnitControl::_create(char* name, int serialRate) {
     _logging = true;
 }
 
-void NGCustomUnitControl::_writeInfo(char* info) {
+void NGCustomUnitControl::_clearInfo() {
     if (_notification != NULL) {
-        _notification->writeInfo(info);
+        _notification->clear();
+    }
+}
+
+void NGCustomUnitControl::_writeInfo(char* info) {
+    _writeInfo(info, 0);
+}
+
+void NGCustomUnitControl::_writeInfo(char* info, int line) {
+    _writeInfo(info, line, 0);
+}
+
+void NGCustomUnitControl::_writeInfo(char* info, int line, int column) {
+    if (_notification != NULL) {
+        _notification->writeInfo(info, line, column);
     }
 }
 

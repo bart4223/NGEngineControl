@@ -28,6 +28,18 @@ char* NGSerialNotification::getName() {
     return "Serial";
 }
 
+void NGSerialNotification::clear() {
+    
+}
+
 void NGSerialNotification::writeInfo(char* info) {
     Serial.println(info);
+}
+
+void NGSerialNotification::writeInfo(char* info, int line) {
+    writeInfo(info);
+}
+
+void NGSerialNotification::writeInfo(char* info, int line, int column) {
+    writeInfo(info);
 }
