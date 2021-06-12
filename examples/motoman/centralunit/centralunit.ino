@@ -20,6 +20,8 @@ void setup() {
     unitCentral.registerNotification(&notificationLCD);
     unitCentral.registerUnit(TOOL, TOOLADDRESS);
     unitCentral.initialize();
+    Serial.print("Current workMode is ");
+    Serial.println(_workMode);
 }
 
 void loop() {
