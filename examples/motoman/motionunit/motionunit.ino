@@ -8,7 +8,7 @@
 
 NGLCDNotification notificationLCD = NGLCDNotification(0x27, 16, 2);
 NGSerialNotification notificationSerial = NGSerialNotification();
-NGUnitControl unitMotion = NGUnitControl(MOTION);
+NGUnitControl unitMotion = NGUnitControl(MOTION, MOTIONADDRESS);
 
 enum workMode { wmNone };
 

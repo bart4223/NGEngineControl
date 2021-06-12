@@ -64,8 +64,10 @@ public:
     NGUnitControl();
     
     NGUnitControl(char* name);
+                  
+    NGUnitControl(char* name, int address);
     
-    NGUnitControl(char* name, int serialRate);
+    NGUnitControl(char* name, int address, int serialRate);
 
     void initialize();
     

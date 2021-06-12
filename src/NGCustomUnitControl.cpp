@@ -8,8 +8,9 @@
 #include "NGCommon.h"
 #include "NGCustomUnitControl.h"
 
-void NGCustomUnitControl::_create(char* name, int serialRate) {
+void NGCustomUnitControl::_create(char* name, int address, int serialRate) {
     _name = name;
+    _address = address;
     _serialRate = serialRate;
     _initialized = false;
     _logging = true;

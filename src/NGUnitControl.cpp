@@ -9,15 +9,19 @@
 #include "NGUnitControl.h"
 
 NGUnitControl::NGUnitControl() {
-    _create(NONAME, DEFAULTSERIALRATE);
+    _create(NONAME, NOADDRESS, DEFAULTSERIALRATE);
 }
 
 NGUnitControl::NGUnitControl(char* name) {
-    _create(name, DEFAULTSERIALRATE);
+    _create(name, NOADDRESS, DEFAULTSERIALRATE);
 }
 
-NGUnitControl::NGUnitControl(char* name, int serialRate) {
-    _create(name, serialRate);
+NGUnitControl::NGUnitControl(char* name, int address) {
+    _create(name, address, DEFAULTSERIALRATE);
+}
+
+NGUnitControl::NGUnitControl(char* name, int address, int serialRate) {
+    _create(name, address, serialRate);
 }
 
 int NGUnitControl::getEngineIndex(char* name) {

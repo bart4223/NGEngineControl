@@ -10,15 +10,23 @@
 #include "NGCentralUnitControl.h"
 
 NGCentralUnitControl::NGCentralUnitControl() {
-    _create(NONAME, DEFAULTSERIALRATE);
+    _create(NONAME, NOADDRESS, DEFAULTSERIALRATE);
 }
 
 NGCentralUnitControl::NGCentralUnitControl(char* name) {
-    _create(name, DEFAULTSERIALRATE);
+    _create(name, NOADDRESS, DEFAULTSERIALRATE);
 }
 
-NGCentralUnitControl::NGCentralUnitControl(char* name, int serialRate) {
-    _create(name, serialRate);
+NGCentralUnitControl::NGCentralUnitControl(char* name, int address) {
+    _create(name, address, DEFAULTSERIALRATE);
+}
+
+NGCentralUnitControl::NGCentralUnitControl(char* name, int address, int serialRate) {
+    _create(name, address, serialRate);
+}
+
+void NGCentralUnitControl::_create(char* name, int address, int serialRate) {
+    NGCustomUnitControl::_create(name, address, serialRate);
     Wire.begin();
 }
 
