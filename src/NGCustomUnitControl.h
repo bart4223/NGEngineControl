@@ -23,7 +23,8 @@ protected:
     bool _initialized;
     bool _logging;
     int _serialRate;
-    NGCustomNotification *_notification = NULL;
+    NGCustomNotification *_notification[3];
+    int _notificationCount = 0;
     void _create(char* name, int serialRate);
     void _clearInfo();
     void _writeInfo(char* info);

@@ -16,8 +16,8 @@ void NGCustomUnitControl::_create(char* name, int serialRate) {
 }
 
 void NGCustomUnitControl::_clearInfo() {
-    if (_notification != NULL) {
-        _notification->clear();
+    for (int i = 0; i < _notificationCount; i++ ) {
+        _notification[i]->clear();
     }
 }
 
@@ -30,8 +30,8 @@ void NGCustomUnitControl::_writeInfo(char* info, int line) {
 }
 
 void NGCustomUnitControl::_writeInfo(char* info, int line, int column) {
-    if (_notification != NULL) {
-        _notification->writeInfo(info, line, column);
+    for (int i = 0; i < _notificationCount; i++ ) {
+        _notification[i]->writeInfo(info, line, column);
     }
 }
 
@@ -40,11 +40,10 @@ void NGCustomUnitControl::initialize() {
 }
 
 void NGCustomUnitControl::registerNotification(NGCustomNotification *notification) {
-    _notification = notification;
-    if (_notification != NULL) {
-        _notification->initialize();
-    }
     char log[100];
-    sprintf(log, "%s registered", _notification->getName());
+    _notification[_notificationCount] = notification;
+    _notification[_notificationCount]->initialize();
+    sprintf(log, "%s registered", _notification[_notificationCount]->getName());
     _writeInfo(log);
+    _notificationCount++;
 }
