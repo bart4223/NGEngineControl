@@ -1,5 +1,5 @@
 #include <NGMemoryObserver.h>
-#include <NGNotificationSerial.h>
+#include <NGSerialNotification.h>
 #include <NGUnitControl.h>
 
 #define TOOL                  (char*)"Tool"
@@ -17,7 +17,7 @@
 #define GRIPPERMINSPEED       60
 #define GRIPPERMAXSPEED       150
 
-NGNotificationSerial serialNotification = NGNotificationSerial();
+NGSerialNotification serialNotification = NGSerialNotification();
 NGJointControl jointBase = NGJointControl(JOINT_0, ENGINE_3);
 NGJointControl jointShoulder = NGJointControl(JOINT_1);
 NGJointControl jointElbow = NGJointControl(JOINT_2);
