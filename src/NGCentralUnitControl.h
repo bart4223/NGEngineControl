@@ -32,16 +32,16 @@ private:
 protected:
     int _getUnitAddress(char* name);
     
-    void _create(char* name, int address, int serialRate);
+    void _create(char* name, byte address, int serialRate);
         
 public:
     NGCentralUnitControl();
     
     NGCentralUnitControl(char* name);
     
-    NGCentralUnitControl(char* name, int address);
+    NGCentralUnitControl(char* name, byte address);
     
-    NGCentralUnitControl(char* name, int address, int serialRate);
+    NGCentralUnitControl(char* name, byte address, int serialRate);
     
     void initialize();
     

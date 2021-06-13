@@ -4,9 +4,10 @@
 #include <NGUnitControl.h>
 
 #define MOTION          (char*)"Motion"
-#define MOTIONADDRESS   9
+#define MOTIONADDRESS   0x09
+#define LCDADDRESS      0x27
 
-NGLCDNotification notificationLCD = NGLCDNotification(0x27, 16, 2);
+NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, 16, 2);
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGUnitControl unitMotion = NGUnitControl(MOTION, MOTIONADDRESS);
 

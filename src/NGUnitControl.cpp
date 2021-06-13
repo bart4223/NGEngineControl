@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 29.05.21.
 //
 
+#include "Wire.h"
 #include "NGCommon.h"
 #include "NGUnitControl.h"
 
@@ -16,12 +17,23 @@ NGUnitControl::NGUnitControl(char* name) {
     _create(name, NOADDRESS, DEFAULTSERIALRATE);
 }
 
-NGUnitControl::NGUnitControl(char* name, int address) {
+NGUnitControl::NGUnitControl(char* name, byte address) {
     _create(name, address, DEFAULTSERIALRATE);
 }
 
-NGUnitControl::NGUnitControl(char* name, int address, int serialRate) {
+NGUnitControl::NGUnitControl(char* name, byte address, int serialRate) {
     _create(name, address, serialRate);
+}
+
+void NGUnitControl::_create(char* name, byte address, int serialRate) {
+    NGCustomUnitControl::_create(name, address, serialRate);
+    Wire.begin(_address);
+    Wire.onReceive(_receiveEvent);
+}
+
+void NGUnitControl::_receiveEvent(int byteCount) {
+    _unit->clearInfo();
+    _unit->writeInfo("42");
 }
 
 int NGUnitControl::getEngineIndex(char* name) {
@@ -66,7 +78,7 @@ void NGUnitControl::initialize() {
     if (_logging) {
         char log[100];
         sprintf(log, "...Unit \"%s\" with %d pure engines, %d joints and %d grippers initialized", _name, _enginesCount, _jointsCount, _grippersCount);
-        _writeInfo(log);
+        writeInfo(log);
     }
 }
 
@@ -101,7 +113,7 @@ void NGUnitControl::registerEngine(char* name, NGEngineControl *engine, int init
     if (_logging) {
         char log[100];
         sprintf(log, "Engine \"%s.%s\" registered", _name, name);
-        _writeInfo(log);
+        writeInfo(log);
     }
 }
 
@@ -149,7 +161,7 @@ void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad,
     if (_logging) {
         char log[100];
         sprintf(log, "Joint \"%s.%s\" registered", _name, name);
-        _writeInfo(log);
+        writeInfo(log);
     }
 }
 
@@ -174,7 +186,7 @@ bool NGUnitControl::jointMove(char* name, int targetRad) {
             if (_logging) {
                 char log[100];
                 sprintf(log, "Radiant of joint %s is invalid", name);
-                _writeInfo(log);
+                writeInfo(log);
             }
         }
     }
@@ -208,7 +220,7 @@ void NGUnitControl::registerGripper(char* name, NGGripperControl *gripper, int m
     if (_logging) {
         char log[100];
         sprintf(log, "Gripper \"%s.%s\" registered", _name, name);
-        _writeInfo(log);
+        writeInfo(log);
     }
 }
 

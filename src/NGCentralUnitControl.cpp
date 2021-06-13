@@ -17,15 +17,15 @@ NGCentralUnitControl::NGCentralUnitControl(char* name) {
     _create(name, NOADDRESS, DEFAULTSERIALRATE);
 }
 
-NGCentralUnitControl::NGCentralUnitControl(char* name, int address) {
+NGCentralUnitControl::NGCentralUnitControl(char* name, byte address) {
     _create(name, address, DEFAULTSERIALRATE);
 }
 
-NGCentralUnitControl::NGCentralUnitControl(char* name, int address, int serialRate) {
+NGCentralUnitControl::NGCentralUnitControl(char* name, byte address, int serialRate) {
     _create(name, address, serialRate);
 }
 
-void NGCentralUnitControl::_create(char* name, int address, int serialRate) {
+void NGCentralUnitControl::_create(char* name, byte address, int serialRate) {
     NGCustomUnitControl::_create(name, address, serialRate);
     Wire.begin();
 }
@@ -43,7 +43,7 @@ void NGCentralUnitControl::initialize() {
     if (_logging) {
         char log[100];
         sprintf(log, "...Unit \"%s\" initialized", _name);
-        _writeInfo(log);
+        writeInfo(log);
     }
 }
 
@@ -55,7 +55,7 @@ void NGCentralUnitControl::registerUnit(char* name, int address) {
     _unit[_unitCount] = u;
     _unitCount++;
     sprintf(log, "Unit %s registered", name);
-    _writeInfo(log);
+    writeInfo(log);
 }
 
 void NGCentralUnitControl::processingLoop() {
@@ -69,8 +69,8 @@ void NGCentralUnitControl::sendUnitCommand(char* name, char* command) {
         Wire.beginTransmission(address);
         Wire.write(command);
         Wire.endTransmission();
-        _clearInfo();
+        clearInfo();
         sprintf(log, "Command \"%s\" sended", command);
-        _writeInfo(log);
+        writeInfo(log);
     }
 }

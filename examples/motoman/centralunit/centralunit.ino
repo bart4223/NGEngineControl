@@ -1,15 +1,16 @@
 #include <NGMemoryObserver.h>
-#include <NGLCDNotification.h>
+//#include <NGLCDNotification.h>
 #include <NGSerialNotification.h>
 #include <NGCentralUnitControl.h>
 
 #define CENTRAL       (char*)"Central"
+#define LCDADDRESS    0x27
 #define TOOL          (char*)"Tool"
-#define TOOLADDRESS   8
+#define TOOLADDRESS   0x08
 #define MOTION        (char*)"Motion"
-#define MOTIONADDRESS 9
+#define MOTIONADDRESS 0x09
 
-NGLCDNotification notificationLCD = NGLCDNotification(0x27, 16, 2);
+//NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, 16, 2);
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
@@ -19,7 +20,7 @@ workMode _workMode = wmNone;
  
 void setup() {
     unitCentral.registerNotification(&notificationSerial);
-    unitCentral.registerNotification(&notificationLCD);
+    //unitCentral.registerNotification(&notificationLCD);
     unitCentral.registerUnit(TOOL, TOOLADDRESS);
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
     unitCentral.initialize();

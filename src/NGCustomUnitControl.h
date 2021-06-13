@@ -22,17 +22,13 @@ class NGCustomUnitControl {
 
 protected:
     char* _name;
-    int _address = 0;
+    byte _address = 0x00;
     bool _initialized;
     bool _logging;
     int _serialRate;
     NGCustomNotification *_notification[3];
     int _notificationCount = 0;
-    void _create(char* name, int address, int serialRate);
-    void _clearInfo();
-    void _writeInfo(char* info);
-    void _writeInfo(char* info, int line);
-    void _writeInfo(char* info, int line, int column);
+    void _create(char* name, byte address, int serialRate);
 
 public:
     void initialize();
@@ -40,7 +36,17 @@ public:
     void registerNotification(NGCustomNotification *notification);
     
     virtual void processingLoop();
+
+    void clearInfo();
+
+    void writeInfo(char* info);
+
+    void writeInfo(char* info, int line);
+
+    void writeInfo(char* info, int line, int column);
     
 };
+
+static NGCustomUnitControl *_unit = NULL;
 
 #endif /* NGCustomUnitControl_h */

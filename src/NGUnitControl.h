@@ -56,8 +56,14 @@ private:
     int _grippersCount = 0;
     
 protected:
+    void _create(char* name, byte address, int serialRate);
+    
+    void static _receiveEvent(int byteCount);
+
     int getEngineIndex(char* name);
+    
     int getJointIndex(char* name);
+    
     int getGripperIndex(char* name);
     
 public:
@@ -65,9 +71,9 @@ public:
     
     NGUnitControl(char* name);
                   
-    NGUnitControl(char* name, int address);
+    NGUnitControl(char* name, byte address);
     
-    NGUnitControl(char* name, int address, int serialRate);
+    NGUnitControl(char* name, byte address, int serialRate);
 
     void initialize();
     
