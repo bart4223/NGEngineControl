@@ -17,7 +17,7 @@
 #define DEFAULTSERIALRATE   9600
 #define NONAME              ""
 
-bool static _globalSerialStarted = false;
+static bool _globalSerialStarted = false;
 
 void _ensureGlobalSerial(int serialRate);
 

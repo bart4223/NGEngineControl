@@ -14,7 +14,6 @@ void NGCustomUnitControl::_create(char* name, byte address, int serialRate) {
     _serialRate = serialRate;
     _initialized = false;
     _logging = true;
-    _unit = this;
 }
 
 void NGCustomUnitControl::initialize() {

@@ -9,6 +9,11 @@
 #include "NGCommon.h"
 #include "NGUnitControl.h"
 
+void _unitWireReceiveEvent(int byteCount) {
+    _unit->clearInfo();
+    _unit->writeInfo("42");
+}
+
 NGUnitControl::NGUnitControl() {
     _create(NONAME, NOADDRESS, DEFAULTSERIALRATE);
 }
@@ -28,12 +33,7 @@ NGUnitControl::NGUnitControl(char* name, byte address, int serialRate) {
 void NGUnitControl::_create(char* name, byte address, int serialRate) {
     NGCustomUnitControl::_create(name, address, serialRate);
     Wire.begin(_address);
-    Wire.onReceive(_receiveEvent);
-}
-
-void NGUnitControl::_receiveEvent(int byteCount) {
-    _unit->clearInfo();
-    _unit->writeInfo("42");
+    Wire.onReceive(_unitWireReceiveEvent);
 }
 
 int NGUnitControl::getEngineIndex(char* name) {

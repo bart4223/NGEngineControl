@@ -18,6 +18,8 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
+void _unitWireReceiveEvent(int byteCount);
+
 struct engineDataStruct
 {
     char* name;
@@ -58,8 +60,6 @@ private:
 protected:
     void _create(char* name, byte address, int serialRate);
     
-    void static _receiveEvent(int byteCount);
-
     int getEngineIndex(char* name);
     
     int getJointIndex(char* name);

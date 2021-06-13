@@ -19,6 +19,7 @@ enum workMode { wmNone, wmMotionCommand };
 workMode _workMode = wmNone;
  
 void setup() {
+    _unit = &unitCentral;
     unitCentral.registerNotification(&notificationSerial);
     //unitCentral.registerNotification(&notificationLCD);
     unitCentral.registerUnit(TOOL, TOOLADDRESS);
