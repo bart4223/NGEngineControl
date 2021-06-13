@@ -19,7 +19,7 @@
 struct unitStruct
 {
     char* name;
-    int address;
+    byte address;
 };
 typedef struct unitStruct unit;
 
@@ -30,7 +30,7 @@ private:
     int _unitCount = 0;
 
 protected:
-    int _getUnitAddress(char* name);
+    byte _getUnitAddress(char* name);
     
     void _create(char* name, byte address, int serialRate);
         
@@ -45,7 +45,7 @@ public:
     
     void initialize();
     
-    void registerUnit(char* name, int address);
+    void registerUnit(char* name, byte address);
     
     void processingLoop();
     

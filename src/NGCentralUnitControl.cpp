@@ -30,13 +30,13 @@ void NGCentralUnitControl::_create(char* name, byte address, int serialRate) {
     Wire.begin();
 }
 
-int NGCentralUnitControl::_getUnitAddress(char* name) {
+byte NGCentralUnitControl::_getUnitAddress(char* name) {
     for (int i = 0; i < _unitCount; i++) {
         if (_unit[i].name == name) {
             return _unit[i].address;
         }
     }
-    return 0;
+    return NOADDRESS;
 }
 
 void NGCentralUnitControl::initialize() {
@@ -47,7 +47,7 @@ void NGCentralUnitControl::initialize() {
     }
 }
 
-void NGCentralUnitControl::registerUnit(char* name, int address) {
+void NGCentralUnitControl::registerUnit(char* name, byte address) {
     char log[100];
     unit u;
     u.name = name;
@@ -63,14 +63,17 @@ void NGCentralUnitControl::processingLoop() {
 }
 
 void NGCentralUnitControl::sendUnitCommand(char* name, char* command) {
-    int address = _getUnitAddress(name);
-    if (address > 0) {
-        char log[100];
+    char log[100];
+    byte address = _getUnitAddress(name);
+    clearInfo();
+    if (address != NOADDRESS) {
         Wire.beginTransmission(address);
         Wire.write(command);
         Wire.endTransmission();
-        clearInfo();
         sprintf(log, "Command \"%s\" sended", command);
+        writeInfo(log);
+    } else {
+        sprintf(log, "Command \"%s\" NOT sended", command);
         writeInfo(log);
     }
 }

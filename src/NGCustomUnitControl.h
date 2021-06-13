@@ -16,7 +16,7 @@
 
 #include <NGCustomNotification.h>
 
-#define NOADDRESS 0
+#define NOADDRESS 0x00
 
 class NGCustomUnitControl {
 
