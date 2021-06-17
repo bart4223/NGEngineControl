@@ -4,7 +4,7 @@
 #include <NGUnitControl.h>
 
 #define MOTION          (char*)"Motion"
-#define MOTIONADDRESS   0x09
+#define MOTIONADDRESS   0x21
 #define LCDADDRESS      0x27
 
 NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, 16, 2);

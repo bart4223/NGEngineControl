@@ -6,9 +6,9 @@
 #define CENTRAL       (char*)"Central"
 #define LCDADDRESS    0x27
 #define TOOL          (char*)"Tool"
-#define TOOLADDRESS   0x08
+#define TOOLADDRESS   0x20
 #define MOTION        (char*)"Motion"
-#define MOTIONADDRESS 0x09
+#define MOTIONADDRESS 0x21
 
 //NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, 16, 2);
 NGSerialNotification notificationSerial = NGSerialNotification();
@@ -45,9 +45,7 @@ void loop() {
       }
       if (readed > 0) {
         char* command = (char*)malloc(readed + 1);
-        for (int i = 0; i < readed; i++) {
-          command[i] = input[i];
-        }
+        memcpy(command, input, readed);
         command[readed] = '\0';
         unitCentral.sendUnitCommand(MOTION, command);
         free(command);

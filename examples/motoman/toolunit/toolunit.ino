@@ -3,6 +3,7 @@
 #include <NGUnitControl.h>
 
 #define TOOL                  (char*)"Tool"
+#define TOOLADDRESS           0x20
 #define JOINTBASE             (char*)"Base"
 #define JOINTBASEMINRAD       560
 #define JOINTBASEMAXRAD       1020

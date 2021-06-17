@@ -10,8 +10,16 @@
 #include "NGUnitControl.h"
 
 void _unitWireReceiveEvent(int byteCount) {
-    _unit->clearInfo();
-    _unit->writeInfo("42");
+    //_unit->clearInfo();
+    //_unit->writeInfo("42");
+    int i = 0;
+    while(Wire.available())
+    {
+        //_masterByte[i] = Wire.read();
+        char c = Wire.read();
+        i++;
+    }
+    //_masterByteCount = byteCount;
 }
 
 NGUnitControl::NGUnitControl() {
