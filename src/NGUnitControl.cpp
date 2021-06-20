@@ -11,15 +11,13 @@
 
 void _unitWireReceiveEvent(int byteCount) {
     int i = 0;
-    _unit->receiveDataStart();
+    globalUnitReceiveDataStart();
     while(Wire.available())
     {
-        byte b = Wire.read();
-        _unit->receivedData(i, b);
-        //Serial.println(b);
+        globalUnitReceivedData(i, Wire.read());
         i++;
     }
-    _unit->receiveDataFinish(byteCount);
+    globalUnitReceiveDataFinish(byteCount);
 }
 
 NGUnitControl::NGUnitControl() {

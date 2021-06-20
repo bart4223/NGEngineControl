@@ -3,11 +3,13 @@
 #include <NGSerialNotification.h>
 #include <NGUnitControl.h>
 
-#define MOTION          (char*)"Motion"
-#define MOTIONADDRESS   0x21
-#define LCDADDRESS      0x27
+#define MOTION        (char*)"Motion"
+#define MOTIONADDRESS 0x21
+#define LCDADDRESS    0x27
+#define LCDCOLUMNS    16
+#define LCDLINES      2
 
-NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, 16, 2);
+NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGUnitControl unitMotion = NGUnitControl(MOTION, MOTIONADDRESS);
 
@@ -16,7 +18,7 @@ enum workMode { wmNone };
 workMode _workMode = wmNone;
  
 void setup() {
-    _unit = &unitMotion;
+    setGlobalUnit(&unitMotion);
     unitMotion.registerNotification(&notificationSerial);
     unitMotion.registerNotification(&notificationLCD);
     unitMotion.initialize();

@@ -56,6 +56,16 @@ public:
     void receiveDataFinish(int count);
 };
 
-static NGCustomUnitControl *_unit = NULL;
+static NGCustomUnitControl *_globalUnit = NULL;
+
+void setGlobalUnit(NGCustomUnitControl *unit);
+
+bool hasGlobalUnit();
+
+void globalUnitReceiveDataStart();
+
+void globalUnitReceivedData(int index, byte data);
+
+void globalUnitReceiveDataFinish(int count);
 
 #endif /* NGCustomUnitControl_h */

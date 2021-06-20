@@ -16,12 +16,12 @@
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
-enum workMode { wmNone, wmMotionCommand };
+enum workMode { wmNone, wmMotionCommand, wmMotionCommandCyclic };
 
 workMode _workMode = wmNone;
  
 void setup() {
-    _unit = &unitCentral;
+    setGlobalUnit(&unitCentral);
     unitCentral.registerNotification(&notificationSerial);
     //unitCentral.registerNotification(&notificationLCD);
     unitCentral.registerUnit(TOOL, TOOLADDRESS);
@@ -34,6 +34,10 @@ void setup() {
 void loop() {
     switch (_workMode) {
     case wmNone:
+      observeMemory(5000);
+      break;
+    case wmMotionCommandCyclic:
+      unitCentral.sendUnitCommand(MOTION, (char*)"42");
       observeMemory(5000);
       break;
     case wmMotionCommand:

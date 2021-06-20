@@ -8,6 +8,32 @@
 #include "NGCommon.h"
 #include "NGCustomUnitControl.h"
 
+void setGlobalUnit(NGCustomUnitControl *unit) {
+    _globalUnit = unit;
+}
+
+bool hasGlobalUnit() {
+    return _globalUnit != NULL;
+}
+
+void globalUnitReceiveDataStart() {
+    if (hasGlobalUnit) {
+        _globalUnit->receiveDataStart();
+    }
+}
+
+void globalUnitReceivedData(int index, byte data) {
+    if (hasGlobalUnit) {
+        _globalUnit->receivedData(index, data);
+    }
+}
+
+void globalUnitReceiveDataFinish(int count) {
+    if (hasGlobalUnit) {
+        _globalUnit->receiveDataFinish(count);
+    }
+}
+
 void NGCustomUnitControl::_create(char* name, byte address, int serialRate) {
     _name = name;
     _address = address;
