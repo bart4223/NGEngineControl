@@ -28,15 +28,19 @@ protected:
     int _serialRate;
     NGCustomNotification *_notification[3];
     int _notificationCount = 0;
+    byte _receivedData[10];
+    int _receivedDataCount = 0;
+    bool _receivingData = false;
     void _create(char* name, byte address, int serialRate);
+    void _processingReceivedData();
 
 public:
     void initialize();
     
     void registerNotification(NGCustomNotification *notification);
     
-    virtual void processingLoop();
-
+    void processingLoop();
+    
     void clearInfo();
 
     void writeInfo(char* info);
@@ -45,6 +49,11 @@ public:
 
     void writeInfo(char* info, int line, int column);
     
+    void receiveDataStart();
+    
+    void receivedData(int index, byte data);
+    
+    void receiveDataFinish(int count);
 };
 
 static NGCustomUnitControl *_unit = NULL;

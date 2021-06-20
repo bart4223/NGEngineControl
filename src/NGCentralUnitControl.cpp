@@ -58,10 +58,6 @@ void NGCentralUnitControl::registerUnit(char* name, byte address) {
     writeInfo(log);
 }
 
-void NGCentralUnitControl::processingLoop() {
-    
-}
-
 void NGCentralUnitControl::sendUnitCommand(char* name, char* command) {
     char log[100];
     byte address = _getUnitAddress(name);

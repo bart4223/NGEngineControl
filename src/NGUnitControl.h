@@ -79,8 +79,6 @@ public:
     
     void processingLoop();
     
-    void processingLoop(int sleep);
-    
     void registerEngine(char* name, NGEngineControl *engine);
     
     void registerEngine(char* name, NGEngineControl *engine, int initSpeed);

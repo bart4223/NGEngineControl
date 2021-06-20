@@ -5,12 +5,14 @@
 
 #define CENTRAL       (char*)"Central"
 #define LCDADDRESS    0x27
+#define LCDCOLUMNS    16
+#define LCDLINES      2
 #define TOOL          (char*)"Tool"
 #define TOOLADDRESS   0x20
 #define MOTION        (char*)"Motion"
 #define MOTIONADDRESS 0x21
 
-//NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, 16, 2);
+//NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 

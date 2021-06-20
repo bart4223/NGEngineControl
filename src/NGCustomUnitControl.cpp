@@ -16,6 +16,15 @@ void NGCustomUnitControl::_create(char* name, byte address, int serialRate) {
     _logging = true;
 }
 
+void NGCustomUnitControl::_processingReceivedData() {
+    clearInfo();
+    char* cmd = (char*)malloc(_receivedDataCount + 1);
+    memcpy(cmd, _receivedData, _receivedDataCount);
+    cmd[_receivedDataCount] = '\0';
+    writeInfo(cmd);
+    free(cmd);
+}
+
 void NGCustomUnitControl::initialize() {
     
 }
@@ -27,6 +36,27 @@ void NGCustomUnitControl::registerNotification(NGCustomNotification *notificatio
     _notificationCount++;
     sprintf(log, "%s registered", _notification[_notificationCount - 1]->getName());
     writeInfo(log);
+}
+
+void NGCustomUnitControl::receiveDataStart() {
+    _receivingData = true;
+    _receivedDataCount = 0;
+}
+
+void NGCustomUnitControl::receivedData(int index, byte data) {
+    _receivedData[index] = data;
+}
+
+void NGCustomUnitControl::receiveDataFinish(int count) {
+    _receivingData = false;
+    _receivedDataCount = count;
+}
+
+void NGCustomUnitControl::processingLoop() {
+    if (_receivedDataCount > 0) {
+        _processingReceivedData();
+        _receivedDataCount = 0;
+    }
 }
 
 void NGCustomUnitControl::clearInfo() {

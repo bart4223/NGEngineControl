@@ -47,8 +47,6 @@ public:
     
     void registerUnit(char* name, byte address);
     
-    void processingLoop();
-    
     void sendUnitCommand(char* name, char* command);
     
 };

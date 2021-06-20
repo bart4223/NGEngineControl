@@ -10,16 +10,16 @@
 #include "NGUnitControl.h"
 
 void _unitWireReceiveEvent(int byteCount) {
-    //_unit->clearInfo();
-    //_unit->writeInfo("42");
     int i = 0;
+    _unit->receiveDataStart();
     while(Wire.available())
     {
-        //_masterByte[i] = Wire.read();
-        char c = Wire.read();
+        byte b = Wire.read();
+        _unit->receivedData(i, b);
+        //Serial.println(b);
         i++;
     }
-    //_masterByteCount = byteCount;
+    _unit->receiveDataFinish(byteCount);
 }
 
 NGUnitControl::NGUnitControl() {
@@ -91,19 +91,13 @@ void NGUnitControl::initialize() {
 }
 
 void NGUnitControl::processingLoop() {
-    processingLoop(0);
-}
-
-void NGUnitControl::processingLoop(int sleep) {
+    NGCustomUnitControl::processingLoop();
     for (int i = 0; i < _jointsCount; i++) {
         if (_jointData[i].targetRad != 0) {
             if (_joints[i]->move(_jointData[i].targetRad)) {
                 _jointData[i].targetRad = 0;
             }
         }
-    }
-    if (sleep > 0) {
-        delay(sleep);
     }
 }
 
