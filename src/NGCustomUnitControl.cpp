@@ -34,6 +34,12 @@ void globalUnitReceiveDataFinish(int count) {
     }
 }
 
+void globalUnitRequestData(byte* data) {
+    if (hasGlobalUnit) {
+        return _globalUnit->requestData(data);
+    }
+}
+
 void NGCustomUnitControl::_create(char* name, byte address, int serialRate) {
     _name = name;
     _address = address;
@@ -76,6 +82,11 @@ void NGCustomUnitControl::receivedData(int index, byte data) {
 void NGCustomUnitControl::receiveDataFinish(int count) {
     _receivingData = false;
     _receivedDataCount = count;
+}
+
+void NGCustomUnitControl::requestData(byte* data) {
+    data[0] = 0x34; //4
+    data[1] = 0x32; //2
 }
 
 void NGCustomUnitControl::processingLoop() {

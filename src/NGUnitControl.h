@@ -20,6 +20,8 @@
 
 void _unitWireReceiveEvent(int byteCount);
 
+void _unitWireRequestEvent();
+
 struct engineDataStruct
 {
     char* name;

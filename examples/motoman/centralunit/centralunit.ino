@@ -16,7 +16,7 @@
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
-enum workMode { wmNone, wmMotionCommand, wmMotionCommandCyclic };
+enum workMode { wmNone, wmMotionCommand, wmMotionCommandCyclic, wmMotionReceiveDataCyclic };
 
 workMode _workMode = wmNone;
  
@@ -34,6 +34,10 @@ void setup() {
 void loop() {
     switch (_workMode) {
     case wmNone:
+      observeMemory(5000);
+      break;
+    case wmMotionReceiveDataCyclic:
+      unitCentral.receiveUnitData(MOTION);
       observeMemory(5000);
       break;
     case wmMotionCommandCyclic:

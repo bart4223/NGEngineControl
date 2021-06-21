@@ -73,3 +73,18 @@ void NGCentralUnitControl::sendUnitCommand(char* name, char* command) {
         writeInfo(log);
     }
 }
+
+void NGCentralUnitControl::receiveUnitData(char* name) {
+    byte address = _getUnitAddress(name);
+    clearInfo();
+    if (address != NOADDRESS) {
+        Wire.requestFrom((int)address, 2); // Read 2 Bytes
+        receiveDataStart();
+        int i = 0;
+        while(Wire.available()) {
+            receivedData(i, Wire.read());
+            i++;
+        }
+        receiveDataFinish(i);
+    }
+}

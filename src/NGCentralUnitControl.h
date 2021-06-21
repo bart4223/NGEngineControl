@@ -49,6 +49,8 @@ public:
     
     void sendUnitCommand(char* name, char* command);
     
+    void receiveUnitData(char* name);
+    
 };
 
 #endif /* NGCentralUnitControl_hpp */

@@ -54,6 +54,8 @@ public:
     void receivedData(int index, byte data);
     
     void receiveDataFinish(int count);
+    
+    void requestData(byte* data);
 };
 
 static NGCustomUnitControl *_globalUnit = NULL;
@@ -67,5 +69,7 @@ void globalUnitReceiveDataStart();
 void globalUnitReceivedData(int index, byte data);
 
 void globalUnitReceiveDataFinish(int count);
+
+void globalUnitRequestData(byte* data);
 
 #endif /* NGCustomUnitControl_h */

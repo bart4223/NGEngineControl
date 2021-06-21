@@ -20,6 +20,12 @@ void _unitWireReceiveEvent(int byteCount) {
     globalUnitReceiveDataFinish(byteCount);
 }
 
+void _unitWireRequestEvent() {
+    byte b[2];
+    globalUnitRequestData(b);
+    Wire.write(b, 2);
+}
+
 NGUnitControl::NGUnitControl() {
     _create(NONAME, NOADDRESS, DEFAULTSERIALRATE);
 }
@@ -40,6 +46,7 @@ void NGUnitControl::_create(char* name, byte address, int serialRate) {
     NGCustomUnitControl::_create(name, address, serialRate);
     Wire.begin(_address);
     Wire.onReceive(_unitWireReceiveEvent);
+    Wire.onRequest(_unitWireRequestEvent);
 }
 
 int NGUnitControl::getEngineIndex(char* name) {
