@@ -18,6 +18,38 @@
 
 #define NOADDRESS 0x00
 
+// Command structure
+//
+// 1. Byte - Subject
+//  2. Byte - Operation
+// 0x00     None
+//  0x00        Nop
+// 0x01     Engine
+//  0x00        Nop
+// 0x02     Joint
+//  0x00        Nop
+// 0x03     Gripper
+//  0x00        Nop
+//  0x01        Grip
+//  0x02        Release
+//   3. Byte - Name
+//    max. 9 Bytes + 1 Byte 0xFF as Separator
+
+#define CMDOffset           2
+#define MaxCMDLength        15
+#define CMDNameSeparator    0xFF
+
+#define CMDSubject  0
+#define CMDSNone    0x00
+#define CMDSEngine  0x01
+#define CMDSJoint   0x02
+#define CMDSGripper 0x03
+
+#define CMDOperation       1
+#define CMDONop            0x00
+#define CMDOGripperGrip    0x01
+#define CMDOGripperRelease 0x02
+
 class NGCustomUnitControl {
 
 protected:

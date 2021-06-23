@@ -30,9 +30,11 @@ private:
     int _unitCount = 0;
 
 protected:
-    byte _getUnitAddress(char* name);
-    
     void _create(char* name, byte address, int serialRate);
+    
+    byte _getUnitAddress(char* name);
+
+    int _prepareCommand(byte subject, byte operation, char* name, int namesize, byte command[]);
         
 public:
     NGCentralUnitControl();
@@ -47,7 +49,11 @@ public:
     
     void registerUnit(char* name, byte address);
     
-    void sendUnitCommand(char* name, char* command);
+    void sendUnitGripperGrip(char* name, char* gripper, int grippersize);
+
+    void sendUnitGripperRelease(char* name, char* gripper, int grippersize);
+
+    void sendUnitCommand(char* name, byte command[], int commandsize);
     
     void receiveUnitData(char* name);
     

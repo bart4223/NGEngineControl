@@ -39,6 +39,16 @@ byte NGCentralUnitControl::_getUnitAddress(char* name) {
     return NOADDRESS;
 }
 
+int NGCentralUnitControl::_prepareCommand(byte subject, byte operation, char* name, int namesize, byte command[]) {
+    command[CMDSubject] = subject;
+    command[CMDOperation] = operation;
+    for (int i = 0; i < namesize; i++) {
+        command[i + CMDOffset] = name[i];
+    }
+    command[namesize + CMDOffset - 1] = CMDNameSeparator;
+    return namesize + CMDOffset;
+}
+
 void NGCentralUnitControl::initialize() {
     if (_logging) {
         char log[100];
@@ -58,19 +68,25 @@ void NGCentralUnitControl::registerUnit(char* name, byte address) {
     writeInfo(log);
 }
 
-void NGCentralUnitControl::sendUnitCommand(char* name, char* command) {
-    char log[100];
+void NGCentralUnitControl::sendUnitGripperGrip(char* name, char* gripper, int grippersize) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSGripper, CMDOGripperGrip, gripper, grippersize, cmd);
+    sendUnitCommand(name, cmd, size);
+}
+
+void NGCentralUnitControl::sendUnitGripperRelease(char* name, char* gripper, int grippersize) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSGripper, CMDOGripperRelease, gripper, grippersize, cmd);
+    sendUnitCommand(name, cmd, size);
+}
+
+void NGCentralUnitControl::sendUnitCommand(char* name, byte command[], int commandsize) {
     byte address = _getUnitAddress(name);
     clearInfo();
     if (address != NOADDRESS) {
         Wire.beginTransmission(address);
-        Wire.write(command);
+        Wire.write(command, commandsize);
         Wire.endTransmission();
-        sprintf(log, "Command \"%s\" sended", command);
-        writeInfo(log);
-    } else {
-        sprintf(log, "Command \"%s\" NOT sended", command);
-        writeInfo(log);
     }
 }
 

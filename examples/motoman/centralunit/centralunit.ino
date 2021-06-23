@@ -12,6 +12,9 @@
 #define MOTION        (char*)"Motion"
 #define MOTIONADDRESS 0x21
 
+#define GRIPPER       (char*)"Gripper"
+#define GRIPPERSIZE   sizeof("Gripper")
+
 //NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
@@ -41,24 +44,31 @@ void loop() {
       observeMemory(5000);
       break;
     case wmMotionCommandCyclic:
-      unitCentral.sendUnitCommand(MOTION, (char*)"42");
+      byte cmd[2];
+      cmd[0] = 0x34; //4
+      cmd[1] = 0x32; //2
+      unitCentral.sendUnitCommand(MOTION, cmd, 2);
       observeMemory(5000);
       break;
     case wmMotionCommand:
       int readed = 0;
-      char input[10];
+      byte input[10];
       while (Serial.available()) {
         input[readed] = Serial.read();
         if (input[readed] != '\n') {
           readed++;
         }
       }
-      if (readed > 0) {
-        char* command = (char*)malloc(readed + 1);
-        memcpy(command, input, readed);
-        command[readed] = '\0';
-        unitCentral.sendUnitCommand(MOTION, command);
-        free(command);
+      if (readed == 1) {
+        if (input[0] == 0x67) { //g
+          unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
+        } else if (input[0] == 0x72) { //r
+          unitCentral.sendUnitGripperRelease(MOTION, GRIPPER, GRIPPERSIZE);
+        } else {
+          unitCentral.sendUnitCommand(MOTION, input, readed);
+        }
+      } else if (readed > 1) {
+        unitCentral.sendUnitCommand(MOTION, input, readed);
       }
       observeMemory(5000);
       break;
