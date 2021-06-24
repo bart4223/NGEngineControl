@@ -13,7 +13,7 @@ NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LC
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGUnitControl unitMotion = NGUnitControl(MOTION, MOTIONADDRESS);
 
-enum workMode { wmNone };
+enum workMode { wmNone, wmObserveMemory };
 
 workMode _workMode = wmNone;
  
@@ -29,6 +29,8 @@ void setup() {
 void loop() {
     switch (_workMode) {
     case wmNone:
+      break;
+    case wmObserveMemory:
       observeMemory(5000);
       break;
     }

@@ -55,7 +55,12 @@ void NGUnitControl::_nop() {
 
 void NGUnitControl::_processingReceivedData() {
     if (_receivedDataCount <= 3) {
-        NGCustomUnitControl::_processingReceivedData();
+        clearInfo();
+        char* cmd = (char*)malloc(_receivedDataCount + 1);
+        memcpy(cmd, _receivedData, _receivedDataCount);
+        cmd[_receivedDataCount] = '\0';
+        writeInfo(cmd);
+        free(cmd);
     }
     else {
         switch (_receivedData[CMDSubject]) {
@@ -100,17 +105,42 @@ void NGUnitControl::_processingReceivedDataJoint() {
 }
 
 void NGUnitControl::_processingReceivedDataGripper() {
+    char* n = NULL;
+    int size = _getNameSizeFromReceivedData();
+    if (size > 0) {
+        n = (char*)malloc(size);
+        memcpy(n, _receivedData + CMDOffset, size);
+        n[size - 1] = '\0';
+    }
     switch (_receivedData[CMDOperation]) {
         case CMDONop:
             _nop();
             break;
         case CMDOGripperGrip:
-            //ToDo
+            clearInfo();
+            writeInfo((char*)"grip");
+            gripperGrip(n);
             break;
         case CMDOGripperRelease:
-            //ToDo
+            clearInfo();
+            writeInfo((char*)"release");
+            gripperRelease(n);
             break;
     }
+    if (size != NULL) {
+        free(n);
+    }
+}
+
+int NGUnitControl::_getNameSizeFromReceivedData() {
+    int res = 1;
+    for (int i = CMDOffset; i < _receivedDataCount; i++) {
+        if (_receivedData[i] == CMDNameSeparator) {
+            return res;
+        }
+        res++;
+    }
+    return -1;
 }
 
 int NGUnitControl::_getEngineIndex(char* name) {
@@ -160,7 +190,10 @@ void NGUnitControl::initialize() {
 }
 
 void NGUnitControl::processingLoop() {
-    NGCustomUnitControl::processingLoop();
+    if (_receivedDataCount > 0) {
+        _processingReceivedData();
+        _receivedDataCount = 0;
+    }
     for (int i = 0; i < _jointsCount; i++) {
         if (_jointData[i].targetRad != 0) {
             if (_joints[i]->move(_jointData[i].targetRad)) {

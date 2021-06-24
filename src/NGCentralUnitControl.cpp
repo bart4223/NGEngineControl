@@ -30,6 +30,10 @@ void NGCentralUnitControl::_create(char* name, byte address, int serialRate) {
     Wire.begin();
 }
 
+void NGCentralUnitControl::_processingReceivedData() {
+    
+}
+
 byte NGCentralUnitControl::_getUnitAddress(char* name) {
     for (int i = 0; i < _unitCount; i++) {
         if (_unit[i].name == name) {
@@ -55,6 +59,10 @@ void NGCentralUnitControl::initialize() {
         sprintf(log, "...Unit \"%s\" initialized", _name);
         writeInfo(log);
     }
+}
+
+void NGCentralUnitControl::processingLoop() {
+    
 }
 
 void NGCentralUnitControl::registerUnit(char* name, byte address) {

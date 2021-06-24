@@ -35,7 +35,9 @@ protected:
     byte _getUnitAddress(char* name);
 
     int _prepareCommand(byte subject, byte operation, char* name, int namesize, byte command[]);
-        
+    
+    void _processingReceivedData();
+    
 public:
     NGCentralUnitControl();
     
@@ -46,6 +48,8 @@ public:
     NGCentralUnitControl(char* name, byte address, int serialRate);
     
     void initialize();
+    
+    void processingLoop();
     
     void registerUnit(char* name, byte address);
     

@@ -48,15 +48,6 @@ void NGCustomUnitControl::_create(char* name, byte address, int serialRate) {
     _logging = true;
 }
 
-void NGCustomUnitControl::_processingReceivedData() {
-    clearInfo();
-    char* cmd = (char*)malloc(_receivedDataCount + 1);
-    memcpy(cmd, _receivedData, _receivedDataCount);
-    cmd[_receivedDataCount] = '\0';
-    writeInfo(cmd);
-    free(cmd);
-}
-
 void NGCustomUnitControl::initialize() {
     
 }
@@ -87,13 +78,6 @@ void NGCustomUnitControl::receiveDataFinish(int count) {
 void NGCustomUnitControl::requestData(byte* data) {
     data[0] = 0x34; //4
     data[1] = 0x32; //2
-}
-
-void NGCustomUnitControl::processingLoop() {
-    if (_receivedDataCount > 0) {
-        _processingReceivedData();
-        _receivedDataCount = 0;
-    }
 }
 
 void NGCustomUnitControl::clearInfo() {

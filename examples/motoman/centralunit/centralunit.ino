@@ -19,7 +19,7 @@
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
-enum workMode { wmNone, wmMotionCommand, wmMotionCommandCyclic, wmMotionReceiveDataCyclic };
+enum workMode { wmNone, wmObserveMemory, wmMotionCommand, wmMotionCommandCyclic, wmMotionCommandCyclicTwo, wmMotionReceiveDataCyclic };
 
 workMode _workMode = wmNone;
  
@@ -37,6 +37,8 @@ void setup() {
 void loop() {
     switch (_workMode) {
     case wmNone:
+      break;
+    case wmObserveMemory:
       observeMemory(5000);
       break;
     case wmMotionReceiveDataCyclic:
@@ -48,6 +50,10 @@ void loop() {
       cmd[0] = 0x34; //4
       cmd[1] = 0x32; //2
       unitCentral.sendUnitCommand(MOTION, cmd, 2);
+      observeMemory(5000);
+      break;
+    case wmMotionCommandCyclicTwo:
+      unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
       observeMemory(5000);
       break;
     case wmMotionCommand:
@@ -69,8 +75,9 @@ void loop() {
         }
       } else if (readed > 1) {
         unitCentral.sendUnitCommand(MOTION, input, readed);
+      } else {
+        observeMemory(5000);
       }
-      observeMemory(5000);
       break;
     }
     unitCentral.processingLoop();

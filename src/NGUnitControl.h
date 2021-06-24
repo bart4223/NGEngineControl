@@ -74,6 +74,8 @@ protected:
     
     void _processingReceivedDataGripper();
     
+    int _getNameSizeFromReceivedData();
+    
     int _getEngineIndex(char* name);
     
     int _getJointIndex(char* name);

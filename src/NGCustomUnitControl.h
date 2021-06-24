@@ -66,14 +66,14 @@ protected:
     
     void _create(char* name, byte address, int serialRate);
     
-    void _processingReceivedData();
+    virtual void _processingReceivedData();
 
 public:
     void initialize();
     
     void registerNotification(NGCustomNotification *notification);
     
-    void processingLoop();
+    virtual void processingLoop();
     
     void clearInfo();
 
