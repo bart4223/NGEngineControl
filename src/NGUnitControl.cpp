@@ -49,7 +49,67 @@ void NGUnitControl::_create(char* name, byte address, int serialRate) {
     Wire.onRequest(_unitWireRequestEvent);
 }
 
-int NGUnitControl::getEngineIndex(char* name) {
+void NGUnitControl::_nop() {
+    
+}
+
+void NGUnitControl::_processingReceivedData() {
+    //NGCustomUnitControl::_processingReceivedData();
+    switch (_receivedData[CMDSubject]) {
+        case CMDSNone:
+            _processingReceivedDataNone();
+            break;
+        case CMDSEngine:
+            _processingReceivedDataEngine();
+            break;
+        case CMDSJoint:
+            _processingReceivedDataJoint();
+            break;
+        case CMDSGripper:
+            _processingReceivedDataGripper();
+            break;
+    }
+}
+
+void NGUnitControl::_processingReceivedDataNone() {
+    switch (_receivedData[CMDOperation]) {
+        case CMDONop:
+            _nop();
+            break;
+    }
+}
+
+void NGUnitControl::_processingReceivedDataEngine() {
+    switch (_receivedData[CMDOperation]) {
+        case CMDONop:
+            _nop();
+            break;
+    }
+}
+
+void NGUnitControl::_processingReceivedDataJoint() {
+    switch (_receivedData[CMDOperation]) {
+        case CMDONop:
+            _nop();
+            break;
+    }
+}
+
+void NGUnitControl::_processingReceivedDataGripper() {
+    switch (_receivedData[CMDOperation]) {
+        case CMDONop:
+            _nop();
+            break;
+        case CMDOGripperGrip:
+            _nop();
+            break;
+        case CMDOGripperRelease:
+            _nop();
+            break;
+    }
+}
+
+int NGUnitControl::_getEngineIndex(char* name) {
     for (int i = 0; i < _enginesCount; i++) {
         if (_engineData[i].name == name) {
             return i;
@@ -58,7 +118,7 @@ int NGUnitControl::getEngineIndex(char* name) {
     return -1;
 }
 
-int NGUnitControl::getJointIndex(char* name) {
+int NGUnitControl::_getJointIndex(char* name) {
     for (int i = 0; i < _jointsCount; i++) {
         if (_jointData[i].name == name) {
             return i;
@@ -67,7 +127,7 @@ int NGUnitControl::getJointIndex(char* name) {
     return -1;
 }
 
-int NGUnitControl::getGripperIndex(char* name) {
+int NGUnitControl::_getGripperIndex(char* name) {
     for (int i = 0; i < _grippersCount; i++) {
         if (_gripperData[i].name == name) {
             return i;
@@ -125,21 +185,21 @@ void NGUnitControl::registerEngine(char* name, NGEngineControl *engine, int init
 }
 
 void NGUnitControl::engineRun(char* name, engineDirection direction) {
-    int index = getEngineIndex(name);
+    int index = _getEngineIndex(name);
     if (index >= 0) {
         _engines[index]->run(direction);
     }
 }
 
 void NGUnitControl::engineStop(char* name) {
-    int index = getEngineIndex(name);
+    int index = _getEngineIndex(name);
     if (index >= 0) {
         _engines[index]->stop();
     }
 }
 
 void NGUnitControl::engineSetSpeed(char* name, int speed) {
-    int index = getEngineIndex(name);
+    int index = _getEngineIndex(name);
     if (index >= 0) {
         _engines[index]->setSpeed(speed);
     }
@@ -173,14 +233,14 @@ void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad,
 }
 
 void NGUnitControl::jointRead(char* name) {
-    int index = getJointIndex(name);
+    int index = _getJointIndex(name);
     if (index >= 0) {
         _joints[index]->read();
     }
 }
 
 bool NGUnitControl::jointMove(char* name, int targetRad) {
-    int index = getJointIndex(name);
+    int index = _getJointIndex(name);
     bool res = index >= 0;
     if (res) {
         res = (targetRad >= _joints[index]->getMinJointRad() && targetRad <= _joints[index]->getMaxJointRad());
@@ -201,7 +261,7 @@ bool NGUnitControl::jointMove(char* name, int targetRad) {
 }
 
 bool NGUnitControl::jointIsMoving(char* name) {
-    int index = getJointIndex(name);
+    int index = _getJointIndex(name);
     bool res = index >= 0;
     if (res) {
         res = _jointData[index].targetRad != 0;
@@ -210,7 +270,7 @@ bool NGUnitControl::jointIsMoving(char* name) {
 }
 
 void NGUnitControl::jointSimulate(char* name) {
-    int index = getJointIndex(name);
+    int index = _getJointIndex(name);
     if (index >= 0) {
         _joints[index]->simulate();
     }
@@ -232,14 +292,14 @@ void NGUnitControl::registerGripper(char* name, NGGripperControl *gripper, int m
 }
 
 void NGUnitControl::gripperGrip(char* name) {
-    int index = getGripperIndex(name);
+    int index = _getGripperIndex(name);
     if (index >= 0) {
         _grippers[index]->grip();
     }
 }
 
 void NGUnitControl::gripperRelease(char* name) {
-    int index = getGripperIndex(name);
+    int index = _getGripperIndex(name);
     if (index >= 0) {
         _grippers[index]->release();
     }

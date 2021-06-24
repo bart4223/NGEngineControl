@@ -62,12 +62,24 @@ private:
 protected:
     void _create(char* name, byte address, int serialRate);
     
-    int getEngineIndex(char* name);
+    void _nop();
+
+    void _processingReceivedData();
     
-    int getJointIndex(char* name);
+    void _processingReceivedDataNone();
     
-    int getGripperIndex(char* name);
+    void _processingReceivedDataEngine();
     
+    void _processingReceivedDataJoint();
+    
+    void _processingReceivedDataGripper();
+    
+    int _getEngineIndex(char* name);
+    
+    int _getJointIndex(char* name);
+    
+    int _getGripperIndex(char* name);
+        
 public:
     NGUnitControl();
     

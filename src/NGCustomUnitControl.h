@@ -54,16 +54,18 @@ class NGCustomUnitControl {
 
 protected:
     char* _name;
-    byte _address = 0x00;
+    byte _address = NOADDRESS;
     bool _initialized;
     bool _logging;
     int _serialRate;
     NGCustomNotification *_notification[3];
     int _notificationCount = 0;
-    byte _receivedData[10];
+    byte _receivedData[MaxCMDLength];
     int _receivedDataCount = 0;
     bool _receivingData = false;
+    
     void _create(char* name, byte address, int serialRate);
+    
     void _processingReceivedData();
 
 public:
