@@ -54,20 +54,24 @@ void NGUnitControl::_nop() {
 }
 
 void NGUnitControl::_processingReceivedData() {
-    //NGCustomUnitControl::_processingReceivedData();
-    switch (_receivedData[CMDSubject]) {
-        case CMDSNone:
-            _processingReceivedDataNone();
-            break;
-        case CMDSEngine:
-            _processingReceivedDataEngine();
-            break;
-        case CMDSJoint:
-            _processingReceivedDataJoint();
-            break;
-        case CMDSGripper:
-            _processingReceivedDataGripper();
-            break;
+    if (_receivedDataCount <= 3) {
+        NGCustomUnitControl::_processingReceivedData();
+    }
+    else {
+        switch (_receivedData[CMDSubject]) {
+            case CMDSNone:
+                _processingReceivedDataNone();
+                break;
+            case CMDSEngine:
+                _processingReceivedDataEngine();
+                break;
+            case CMDSJoint:
+                _processingReceivedDataJoint();
+                break;
+            case CMDSGripper:
+                _processingReceivedDataGripper();
+                break;
+        }
     }
 }
 
@@ -101,10 +105,10 @@ void NGUnitControl::_processingReceivedDataGripper() {
             _nop();
             break;
         case CMDOGripperGrip:
-            _nop();
+            //ToDo
             break;
         case CMDOGripperRelease:
-            _nop();
+            //ToDo
             break;
     }
 }
