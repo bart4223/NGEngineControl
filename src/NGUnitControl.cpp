@@ -89,10 +89,35 @@ void NGUnitControl::_processingReceivedDataNone() {
 }
 
 void NGUnitControl::_processingReceivedDataEngine() {
+    char* n = NULL;
+    int size = _getNameSizeFromReceivedData();
+    if (size > 0) {
+        n = (char*)malloc(size);
+        memcpy(n, _receivedData + CMDOffset, size);
+        n[size - 1] = '\0';
+    }
     switch (_receivedData[CMDOperation]) {
         case CMDONop:
             _nop();
             break;
+        case CMDOEngineRunForward:
+            clearInfo();
+            writeInfo((char*)"forward");
+            engineRun(n, edForward);
+            break;
+        case CMDOEngineRunBackward:
+            clearInfo();
+            writeInfo((char*)"backward");
+            engineRun(n, edBackward);
+            break;
+        case CMDOEngineStop:
+            clearInfo();
+            writeInfo((char*)"stop");
+            engineStop(n);
+            break;
+    }
+    if (size != NULL) {
+        free(n);
     }
 }
 

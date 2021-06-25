@@ -55,6 +55,12 @@ public:
     
     void sendUnitGripperGrip(char* name, char* gripper, int grippersize);
 
+    void sendUnitEngineRunForward(char* name, char* engine, int enginesize);
+
+    void sendUnitEngineRunBackward(char* name, char* engine, int enginesize);
+    
+    void sendUnitEngineStop(char* name, char* engine, int enginesize);
+    
     void sendUnitGripperRelease(char* name, char* gripper, int grippersize);
 
     void sendUnitCommand(char* name, byte command[], int commandsize);

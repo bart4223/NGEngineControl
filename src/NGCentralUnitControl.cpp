@@ -88,6 +88,24 @@ void NGCentralUnitControl::sendUnitGripperRelease(char* name, char* gripper, int
     sendUnitCommand(name, cmd, size);
 }
 
+void NGCentralUnitControl::sendUnitEngineRunForward(char* name, char* engine, int enginesize) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSEngine, CMDOEngineRunForward, engine, enginesize, cmd);
+    sendUnitCommand(name, cmd, size);
+}
+
+void NGCentralUnitControl::sendUnitEngineRunBackward(char* name, char* engine, int enginesize) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSEngine, CMDOEngineRunBackward, engine, enginesize, cmd);
+    sendUnitCommand(name, cmd, size);
+}
+
+void NGCentralUnitControl::sendUnitEngineStop(char* name, char* engine, int enginesize) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSEngine, CMDOEngineStop, engine, enginesize, cmd);
+    sendUnitCommand(name, cmd, size);
+}
+
 void NGCentralUnitControl::sendUnitCommand(char* name, byte command[], int commandsize) {
     byte address = _getUnitAddress(name);
     clearInfo();

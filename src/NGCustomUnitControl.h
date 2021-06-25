@@ -45,10 +45,15 @@
 #define CMDSJoint   0x02
 #define CMDSGripper 0x03
 
-#define CMDOperation       1
-#define CMDONop            0x00
-#define CMDOGripperGrip    0x01
-#define CMDOGripperRelease 0x02
+#define CMDOperation          1
+#define CMDONop               0x00
+
+#define CMDOEngineRunForward  0x01
+#define CMDOEngineRunBackward 0x02
+#define CMDOEngineStop        0x03
+
+#define CMDOGripperGrip       0x01
+#define CMDOGripperRelease    0x02
 
 class NGCustomUnitControl {
 
