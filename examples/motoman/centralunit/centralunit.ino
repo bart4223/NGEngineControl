@@ -1,5 +1,8 @@
+#define PROD false //false,true
 #include <NGMemoryObserver.h>
-//#include <NGLCDNotification.h>
+#if (PROD == true)
+#include <NGLCDNotification.h>
+#endif
 #include <NGSerialNotification.h>
 #include <NGCentralUnitControl.h>
 
@@ -22,19 +25,23 @@
 #define ENGINE      (char*)_ENGINE
 #define ENGINESIZE  sizeof(_ENGINE)
 
-//NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
+#if (PROD == true)
+NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
+#endif
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
 enum workMode { wmNone, wmObserveMemory, wmMotionCommand, wmMotionCommandCyclic, wmMotionCommandCyclicTwo, wmMotionReceiveDataCyclic };
 
-workMode _workMode = wmNone;
+workMode _workMode = wmMotionCommand;
  
 void setup() {
     char log[100];
     setGlobalUnit(&unitCentral);
     unitCentral.registerNotification(&notificationSerial);
-    //unitCentral.registerNotification(&notificationLCD);
+    #if (PROD == true)
+    unitCentral.registerNotification(&notificationLCD);
+    #endif
     unitCentral.registerUnit(TOOL, TOOLADDRESS);
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
     unitCentral.initialize();

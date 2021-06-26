@@ -115,7 +115,6 @@ void NGCentralUnitControl::sendUnitEngineSetSpeed(char* name, char* engine, int 
 
 void NGCentralUnitControl::sendUnitCommand(char* name, byte command[], int commandsize) {
     byte address = _getUnitAddress(name);
-    clearInfo();
     if (address != NOADDRESS) {
         Wire.beginTransmission(address);
         Wire.write(command, commandsize);
