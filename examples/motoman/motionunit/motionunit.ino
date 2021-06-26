@@ -3,7 +3,8 @@
 #include <NGSerialNotification.h>
 #include <NGUnitControl.h>
 
-#define MOTION        (char*)"Motion"
+#define _MOTION       "Motion"
+#define MOTION        (char*)_MOTION
 #define MOTIONADDRESS 0x21
 #define LCDADDRESS    0x27
 #define LCDCOLUMNS    16
@@ -18,12 +19,14 @@ enum workMode { wmNone, wmObserveMemory };
 workMode _workMode = wmNone;
  
 void setup() {
+    char log[100];
     setGlobalUnit(&unitMotion);
     unitMotion.registerNotification(&notificationSerial);
     unitMotion.registerNotification(&notificationLCD);
     unitMotion.initialize();
-    Serial.print("Current workMode is ");
-    Serial.println(_workMode);
+    unitMotion.clearInfo();
+    sprintf(log, "Current workMode is %d", _workMode);
+    unitMotion.writeInfo(log);
 }
 
 void loop() {

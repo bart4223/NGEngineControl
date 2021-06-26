@@ -25,10 +25,14 @@ void NGSerialNotification::initialize() {
 }
 
 char* NGSerialNotification::getName() {
-    return "Serial";
+    return (char*)"Serial";
 }
 
 void NGSerialNotification::clear() {
+    
+}
+
+void NGSerialNotification::clear(int line) {
     
 }
 

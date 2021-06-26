@@ -15,7 +15,7 @@
 #endif
 
 #define DEFAULTSERIALRATE   9600
-#define NONAME              ""
+#define NONAME              (char*)""
 
 static bool _globalSerialStarted = false;
 

@@ -61,6 +61,8 @@ public:
     
     void sendUnitEngineStop(char* name, char* engine, int enginesize);
     
+    void sendUnitEngineSetSpeed(char* name, char* engine, int enginesize, int speed);
+    
     void sendUnitGripperRelease(char* name, char* gripper, int grippersize);
 
     void sendUnitCommand(char* name, byte command[], int commandsize);

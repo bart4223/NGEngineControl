@@ -30,6 +30,7 @@ public:
     void initialize();
     char* getName();
     void clear();
+    void clear(int line);
     void writeInfo(char* info);
     void writeInfo(char* info, int line);
     void writeInfo(char* info, int line, int column);

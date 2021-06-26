@@ -20,6 +20,7 @@ public:
     virtual void initialize();
     virtual char* getName();
     virtual void clear();
+    virtual void clear(int line);
     virtual void writeInfo(char* info);
     virtual void writeInfo(char* info, int line);
     virtual void writeInfo(char* info, int line, int column);

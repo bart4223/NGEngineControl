@@ -39,7 +39,7 @@ void NGLCDNotification::initialize() {
 }
 
 char* NGLCDNotification::getName() {
-    return "LCD";
+    return (char*)"LCD";
 }
 
 void NGLCDNotification::clear() {
@@ -48,6 +48,13 @@ void NGLCDNotification::clear() {
             _lcd->setCursor(j, i);
             _lcd->print(" ");
         }
+    }
+}
+
+void NGLCDNotification::clear(int line) {
+    for (int i = 0; i < _columns; i++) {
+        _lcd->setCursor(i, line);
+        _lcd->print(" ");
     }
 }
 

@@ -115,8 +115,14 @@ void NGUnitControl::_processingReceivedDataEngine() {
             writeInfo((char*)"stop");
             engineStop(n);
             break;
+        case CMDOEngineSetSpeed:
+            clearInfo();
+            int speed = _receivedData[CMDOffset + size];
+            writeInfo((char*)"speed");
+            engineSetSpeed(n, speed);
+            break;
     }
-    if (size != NULL) {
+    if (n != NULL) {
         free(n);
     }
 }
@@ -152,7 +158,7 @@ void NGUnitControl::_processingReceivedDataGripper() {
             gripperRelease(n);
             break;
     }
-    if (size != NULL) {
+    if (n != NULL) {
         free(n);
     }
 }

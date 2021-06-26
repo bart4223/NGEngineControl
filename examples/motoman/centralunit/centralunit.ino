@@ -3,17 +3,24 @@
 #include <NGSerialNotification.h>
 #include <NGCentralUnitControl.h>
 
-#define CENTRAL       (char*)"Central"
+#define _CENTRAL      "Central"
+#define CENTRAL       (char*)_CENTRAL
 #define LCDADDRESS    0x27
 #define LCDCOLUMNS    16
 #define LCDLINES      2
-#define TOOL          (char*)"Tool"
+#define _TOOL         "Tool"
+#define TOOL          (char*)_TOOL
 #define TOOLADDRESS   0x20
-#define MOTION        (char*)"Motion"
+#define _MOTION       "Motion"
+#define MOTION        (char*)_MOTION
 #define MOTIONADDRESS 0x21
 
-#define GRIPPER       (char*)"Gripper"
-#define GRIPPERSIZE   sizeof("Gripper")
+#define _GRIPPER    "Gripper"
+#define GRIPPER     (char*)_GRIPPER
+#define GRIPPERSIZE sizeof(_GRIPPER)
+#define _ENGINE     "Engine"
+#define ENGINE      (char*)_ENGINE
+#define ENGINESIZE  sizeof(_ENGINE)
 
 //NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
 NGSerialNotification notificationSerial = NGSerialNotification();
@@ -24,14 +31,16 @@ enum workMode { wmNone, wmObserveMemory, wmMotionCommand, wmMotionCommandCyclic,
 workMode _workMode = wmNone;
  
 void setup() {
+    char log[100];
     setGlobalUnit(&unitCentral);
     unitCentral.registerNotification(&notificationSerial);
     //unitCentral.registerNotification(&notificationLCD);
     unitCentral.registerUnit(TOOL, TOOLADDRESS);
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
     unitCentral.initialize();
-    Serial.print("Current workMode is ");
-    Serial.println(_workMode);
+    unitCentral.clearInfo();
+    sprintf(log, "Current workMode is %d", _workMode);
+    unitCentral.writeInfo(log);
 }
 
 void loop() {
@@ -70,6 +79,8 @@ void loop() {
           unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
         } else if (input[0] == 0x72) { //r
           unitCentral.sendUnitGripperRelease(MOTION, GRIPPER, GRIPPERSIZE);
+        } else if (input[0] == 0x73) { //s
+          unitCentral.sendUnitEngineSetSpeed(MOTION, ENGINE, ENGINESIZE, 42);
         } else {
           unitCentral.sendUnitCommand(MOTION, input, readed);
         }

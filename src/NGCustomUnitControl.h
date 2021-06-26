@@ -51,6 +51,7 @@
 #define CMDOEngineRunForward  0x01
 #define CMDOEngineRunBackward 0x02
 #define CMDOEngineStop        0x03
+#define CMDOEngineSetSpeed    0x04
 
 #define CMDOGripperGrip       0x01
 #define CMDOGripperRelease    0x02
@@ -81,6 +82,8 @@ public:
     virtual void processingLoop();
     
     void clearInfo();
+
+    void clearInfo(int line);
 
     void writeInfo(char* info);
 

@@ -106,6 +106,13 @@ void NGCentralUnitControl::sendUnitEngineStop(char* name, char* engine, int engi
     sendUnitCommand(name, cmd, size);
 }
 
+void NGCentralUnitControl::sendUnitEngineSetSpeed(char* name, char* engine, int enginesize, int speed) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSEngine, CMDOEngineSetSpeed, engine, enginesize, cmd);
+    cmd[size] = speed;
+    sendUnitCommand(name, cmd, size + 1);
+}
+
 void NGCentralUnitControl::sendUnitCommand(char* name, byte command[], int commandsize) {
     byte address = _getUnitAddress(name);
     clearInfo();

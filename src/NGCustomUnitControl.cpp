@@ -86,6 +86,12 @@ void NGCustomUnitControl::clearInfo() {
     }
 }
 
+void NGCustomUnitControl::clearInfo(int line) {
+    for (int i = 0; i < _notificationCount; i++ ) {
+        _notification[i]->clear(line);
+    }
+}
+
 void NGCustomUnitControl::writeInfo(char* info) {
     writeInfo(info, 0);
 }
