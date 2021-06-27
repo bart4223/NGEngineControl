@@ -83,9 +83,17 @@ void loop() {
         }
         if (readed == 1) {
           if (input[0] == 0x67) { //g
+            #if (PROD == true)
+            unitCentral.sendUnitGripperGrip(TOOL, GRIPPER, GRIPPERSIZE);
+            #else
             unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
+            #endif
           } else if (input[0] == 0x72) { //r
+            #if (PROD == true)
+            unitCentral.sendUnitGripperRelease(TOOL, GRIPPER, GRIPPERSIZE);
+            #else
             unitCentral.sendUnitGripperRelease(MOTION, GRIPPER, GRIPPERSIZE);
+            #endif
           } else if (input[0] == 0x73) { //s
             unitCentral.sendUnitEngineSetSpeed(MOTION, ENGINE, ENGINESIZE, 42);
           } else {
