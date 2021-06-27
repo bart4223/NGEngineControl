@@ -31,7 +31,7 @@ NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LC
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
-enum workMode { wmNone, wmObserveMemory, wmMotionCommand, wmMotionCommandCyclic, wmMotionCommandCyclicTwo, wmMotionReceiveDataCyclic };
+enum workMode { wmNone, wmObserveMemory, wmCommand, wmCommandCyclic, wmCommandCyclicTwo, wmReceiveDataCyclic };
 
 workMode _workMode = wmNone;
  
@@ -57,22 +57,26 @@ void loop() {
       case wmObserveMemory:
         observeMemory(5000);
         break;
-      case wmMotionReceiveDataCyclic:
+      case wmReceiveDataCyclic:
         unitCentral.receiveUnitData(MOTION);
         observeMemory(5000);
         break;
-      case wmMotionCommandCyclic:
+      case wmCommandCyclic:
         byte cmd[2];
         cmd[0] = 0x34; //4
         cmd[1] = 0x32; //2
         unitCentral.sendUnitCommand(MOTION, cmd, 2);
         observeMemory(5000);
         break;
-      case wmMotionCommandCyclicTwo:
+      case wmCommandCyclicTwo:
+        #if (PROD == true)
+        unitCentral.sendUnitGripperGrip(TOOL, GRIPPER, GRIPPERSIZE);
+        #else
         unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
+        #endif
         observeMemory(5000);
         break;
-      case wmMotionCommand:
+      case wmCommand:
         int readed = 0;
         byte input[10];
         while (Serial.available()) {
