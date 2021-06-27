@@ -31,7 +31,7 @@ NGJointControl jointElbow = NGJointControl(JOINT_2);
 NGGripperControl gripper = NGGripperControl(ENGINE_0);
 NGUnitControl unitTool = NGUnitControl(TOOL, TOOLADDRESS);
 
-enum workMode { wmNone, wmObserveMemory, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmToggleGripper, wmReadJointShoulder, wmMoveJointShoulder, wmReadJointElbow, wmMoveJointElbow };
+enum workMode { wmNone, wmObserveMemory, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmGripper, wmToggleGripper, wmReadJointShoulder, wmMoveJointShoulder, wmReadJointElbow, wmMoveJointElbow };
 
 const workMode _workMode =  wmNone;
 bool _gripperToggle = false;
@@ -91,6 +91,25 @@ void loop() {
         }
         _gripperToggle = !_gripperToggle;
         observeMemory(3000);
+        break;
+      case wmGripper:
+        int readed = 0;
+        byte input[10];
+        while (Serial.available()) {
+          input[readed] = Serial.read();
+          if (input[readed] != '\n') {
+            readed++;
+          }
+        }
+        if (readed == 1) {
+          if (input[0] == 0x67) { //g
+            unitTool.gripperGrip(GRIPPER);
+          } else if (input[0] == 0x72) { //r
+            unitTool.gripperRelease(GRIPPER);
+          }
+        } else {
+          observeMemory(5000);
+        }
         break;
     }
     unitTool.processingLoop();
