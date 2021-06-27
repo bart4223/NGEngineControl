@@ -1,4 +1,4 @@
-#define PROD false //false,true
+#define PROD true //false,true
 #include <NGMemoryObserver.h>
 #if (PROD == true)
 #include <NGLCDNotification.h>
@@ -33,7 +33,7 @@ NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
 enum workMode { wmNone, wmObserveMemory, wmMotionCommand, wmMotionCommandCyclic, wmMotionCommandCyclicTwo, wmMotionReceiveDataCyclic };
 
-workMode _workMode = wmMotionCommand;
+workMode _workMode = wmNone;
  
 void setup() {
     char log[100];
@@ -52,51 +52,51 @@ void setup() {
 
 void loop() {
     switch (_workMode) {
-    case wmNone:
-      break;
-    case wmObserveMemory:
-      observeMemory(5000);
-      break;
-    case wmMotionReceiveDataCyclic:
-      unitCentral.receiveUnitData(MOTION);
-      observeMemory(5000);
-      break;
-    case wmMotionCommandCyclic:
-      byte cmd[2];
-      cmd[0] = 0x34; //4
-      cmd[1] = 0x32; //2
-      unitCentral.sendUnitCommand(MOTION, cmd, 2);
-      observeMemory(5000);
-      break;
-    case wmMotionCommandCyclicTwo:
-      unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
-      observeMemory(5000);
-      break;
-    case wmMotionCommand:
-      int readed = 0;
-      byte input[10];
-      while (Serial.available()) {
-        input[readed] = Serial.read();
-        if (input[readed] != '\n') {
-          readed++;
-        }
-      }
-      if (readed == 1) {
-        if (input[0] == 0x67) { //g
-          unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
-        } else if (input[0] == 0x72) { //r
-          unitCentral.sendUnitGripperRelease(MOTION, GRIPPER, GRIPPERSIZE);
-        } else if (input[0] == 0x73) { //s
-          unitCentral.sendUnitEngineSetSpeed(MOTION, ENGINE, ENGINESIZE, 42);
-        } else {
-          unitCentral.sendUnitCommand(MOTION, input, readed);
-        }
-      } else if (readed > 1) {
-        unitCentral.sendUnitCommand(MOTION, input, readed);
-      } else {
+      case wmNone:
+        break;
+      case wmObserveMemory:
         observeMemory(5000);
-      }
-      break;
+        break;
+      case wmMotionReceiveDataCyclic:
+        unitCentral.receiveUnitData(MOTION);
+        observeMemory(5000);
+        break;
+      case wmMotionCommandCyclic:
+        byte cmd[2];
+        cmd[0] = 0x34; //4
+        cmd[1] = 0x32; //2
+        unitCentral.sendUnitCommand(MOTION, cmd, 2);
+        observeMemory(5000);
+        break;
+      case wmMotionCommandCyclicTwo:
+        unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
+        observeMemory(5000);
+        break;
+      case wmMotionCommand:
+        int readed = 0;
+        byte input[10];
+        while (Serial.available()) {
+          input[readed] = Serial.read();
+          if (input[readed] != '\n') {
+            readed++;
+          }
+        }
+        if (readed == 1) {
+          if (input[0] == 0x67) { //g
+            unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
+          } else if (input[0] == 0x72) { //r
+            unitCentral.sendUnitGripperRelease(MOTION, GRIPPER, GRIPPERSIZE);
+          } else if (input[0] == 0x73) { //s
+            unitCentral.sendUnitEngineSetSpeed(MOTION, ENGINE, ENGINESIZE, 42);
+          } else {
+            unitCentral.sendUnitCommand(MOTION, input, readed);
+          }
+        } else if (readed > 1) {
+          unitCentral.sendUnitCommand(MOTION, input, readed);
+        } else {
+          observeMemory(5000);
+        }
+        break;
     }
     unitCentral.processingLoop();
 }

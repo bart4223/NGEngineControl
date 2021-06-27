@@ -1,5 +1,8 @@
+#define PROD false //false,true
 #include <NGMemoryObserver.h>
+#if (PROD == false)
 #include <NGLCDNotification.h>
+#endif
 #include <NGSerialNotification.h>
 #include <NGUnitControl.h>
 
@@ -10,7 +13,9 @@
 #define LCDCOLUMNS    16
 #define LCDLINES      2
 
+#if (PROD == false)
 NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
+#endif
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGUnitControl unitMotion = NGUnitControl(MOTION, MOTIONADDRESS);
 
@@ -22,7 +27,9 @@ void setup() {
     char log[100];
     setGlobalUnit(&unitMotion);
     unitMotion.registerNotification(&notificationSerial);
+    #if (PROD == false)
     unitMotion.registerNotification(&notificationLCD);
+    #endif
     unitMotion.initialize();
     unitMotion.clearInfo();
     sprintf(log, "Current workMode is %d", _workMode);
