@@ -176,7 +176,13 @@ int NGUnitControl::_getNameSizeFromReceivedData() {
 
 int NGUnitControl::_getEngineIndex(char* name) {
     for (int i = 0; i < _enginesCount; i++) {
-        if (_engineData[i].name == name) {
+        int ok = 0;
+        for (int j = 0; j < strlen(_engineData[i].name); j++) {
+            if (_engineData[i].name[j] == name[j]) {
+                ok++;
+            }
+        }
+        if (ok == strlen(_engineData[i].name)) {
             return i;
         }
     }
@@ -185,7 +191,13 @@ int NGUnitControl::_getEngineIndex(char* name) {
 
 int NGUnitControl::_getJointIndex(char* name) {
     for (int i = 0; i < _jointsCount; i++) {
-        if (_jointData[i].name == name) {
+        int ok = 0;
+        for (int j = 0; j < strlen(_jointData[i].name); j++) {
+            if (_jointData[i].name[j] == name[j]) {
+                ok++;
+            }
+        }
+        if (ok == strlen(_jointData[i].name)) {
             return i;
         }
     }
@@ -194,7 +206,13 @@ int NGUnitControl::_getJointIndex(char* name) {
 
 int NGUnitControl::_getGripperIndex(char* name) {
     for (int i = 0; i < _grippersCount; i++) {
-        if (_gripperData[i].name == name) {
+        int ok = 0;
+        for (int j = 0; j < strlen(_gripperData[i].name); j++) {
+            if (_gripperData[i].name[j] == name[j]) {
+                ok++;
+            }
+        }
+        if (ok == strlen(_gripperData[i].name)) {
             return i;
         }
     }

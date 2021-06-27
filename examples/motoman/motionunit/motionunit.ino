@@ -38,11 +38,11 @@ void setup() {
 
 void loop() {
     switch (_workMode) {
-    case wmNone:
-      break;
-    case wmObserveMemory:
-      observeMemory(5000);
-      break;
+      case wmNone:
+        break;
+      case wmObserveMemory:
+        observeMemory(5000);
+        break;
     }
     unitMotion.processingLoop();
 }
