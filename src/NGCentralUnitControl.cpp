@@ -7,6 +7,7 @@
 
 #include "Wire.h"
 #include "NGCommon.h"
+#include "NGMemoryObserver.h"
 #include "NGCentralUnitControl.h"
 
 NGCentralUnitControl::NGCentralUnitControl() {
@@ -27,6 +28,7 @@ NGCentralUnitControl::NGCentralUnitControl(char* name, byte address, int serialR
 
 void NGCentralUnitControl::_create(char* name, byte address, int serialRate) {
     NGCustomUnitControl::_create(name, address, serialRate);
+    _version = (char*)"0.1";
     Wire.begin();
 }
 
@@ -54,15 +56,26 @@ int NGCentralUnitControl::_prepareCommand(byte subject, byte operation, char* na
 }
 
 void NGCentralUnitControl::initialize() {
+    NGCustomUnitControl::initialize();
     if (_logging) {
         char log[100];
         sprintf(log, "...Unit \"%s\" initialized", _name);
         writeInfo(log);
     }
+    _writeState();
 }
 
 void NGCentralUnitControl::processingLoop() {
-    
+    switch (_workMode) {
+        case wmNone:
+            break;
+        case wmObserveMemory:
+            observeMemory(5000);
+            break;
+        case wmSpec:
+            observeMemory(5000);
+            break;
+    }
 }
 
 void NGCentralUnitControl::registerUnit(char* name, byte address) {

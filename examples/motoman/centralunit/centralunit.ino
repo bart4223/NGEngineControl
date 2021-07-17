@@ -1,5 +1,4 @@
 #define PROD true //false,true
-#include <NGMemoryObserver.h>
 #if (PROD == true)
 #include <NGLCDNotification.h>
 #endif
@@ -25,18 +24,16 @@
 #define ENGINE      (char*)_ENGINE
 #define ENGINESIZE  sizeof(_ENGINE)
 
+enum workModeSpec { wmsCommand, wmsCommandCyclic, wmsCommandCyclicTwo, wmsReceiveDataCyclic };
+workModeSpec _workModeSpec = wmsCommand;
+
 #if (PROD == true)
 NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
 #endif
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 
-enum workMode { wmNone, wmObserveMemory, wmCommand, wmCommandCyclic, wmCommandCyclicTwo, wmReceiveDataCyclic };
-
-workMode _workMode = wmNone;
- 
 void setup() {
-    char log[100];
     setGlobalUnit(&unitCentral);
     unitCentral.registerNotification(&notificationSerial);
     #if (PROD == true)
@@ -45,70 +42,61 @@ void setup() {
     unitCentral.registerUnit(TOOL, TOOLADDRESS);
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
     unitCentral.initialize();
+    unitCentral.setWorkMode(wmNone);
     unitCentral.clearInfo();
-    sprintf(log, "Current workMode is %d", _workMode);
-    unitCentral.writeInfo(log);
 }
 
 void loop() {
-    switch (_workMode) {
-      case wmNone:
-        break;
-      case wmObserveMemory:
-        observeMemory(5000);
-        break;
-      case wmReceiveDataCyclic:
-        unitCentral.receiveUnitData(MOTION);
-        observeMemory(5000);
-        break;
-      case wmCommandCyclic:
-        byte cmd[2];
-        cmd[0] = 0x34; //4
-        cmd[1] = 0x32; //2
-        unitCentral.sendUnitCommand(MOTION, cmd, 2);
-        observeMemory(5000);
-        break;
-      case wmCommandCyclicTwo:
-        #if (PROD == true)
-        unitCentral.sendUnitGripperGrip(TOOL, GRIPPER, GRIPPERSIZE);
-        #else
-        unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
-        #endif
-        observeMemory(5000);
-        break;
-      case wmCommand:
-        int readed = 0;
-        byte input[10];
-        while (Serial.available()) {
-          input[readed] = Serial.read();
-          if (input[readed] != '\n') {
-            readed++;
+    if (unitCentral.getWorkMode() == wmSpec) {
+      switch (_workModeSpec) {
+        case wmsReceiveDataCyclic:
+          unitCentral.receiveUnitData(MOTION);
+          break;
+        case wmsCommandCyclic:
+          byte cmd[2];
+          cmd[0] = 0x34; //4
+          cmd[1] = 0x32; //2
+          unitCentral.sendUnitCommand(MOTION, cmd, 2);
+          break;
+        case wmsCommandCyclicTwo:
+          #if (PROD == true)
+          unitCentral.sendUnitGripperGrip(TOOL, GRIPPER, GRIPPERSIZE);
+          #else
+          unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
+          #endif
+          break;
+        case wmsCommand:
+          int readed = 0;
+          byte input[10];
+          while (Serial.available()) {
+            input[readed] = Serial.read();
+            if (input[readed] != '\n') {
+              readed++;
+            }
           }
-        }
-        if (readed == 1) {
-          if (input[0] == 0x67) { //g
-            #if (PROD == true)
-            unitCentral.sendUnitGripperGrip(TOOL, GRIPPER, GRIPPERSIZE);
-            #else
-            unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
-            #endif
-          } else if (input[0] == 0x72) { //r
-            #if (PROD == true)
-            unitCentral.sendUnitGripperRelease(TOOL, GRIPPER, GRIPPERSIZE);
-            #else
-            unitCentral.sendUnitGripperRelease(MOTION, GRIPPER, GRIPPERSIZE);
-            #endif
-          } else if (input[0] == 0x73) { //s
-            unitCentral.sendUnitEngineSetSpeed(MOTION, ENGINE, ENGINESIZE, 42);
-          } else {
+          if (readed == 1) {
+            if (input[0] == 0x67) { //g
+              #if (PROD == true)
+              unitCentral.sendUnitGripperGrip(TOOL, GRIPPER, GRIPPERSIZE);
+              #else
+              unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
+              #endif
+            } else if (input[0] == 0x72) { //r
+              #if (PROD == true)
+              unitCentral.sendUnitGripperRelease(TOOL, GRIPPER, GRIPPERSIZE);
+              #else
+              unitCentral.sendUnitGripperRelease(MOTION, GRIPPER, GRIPPERSIZE);
+              #endif
+            } else if (input[0] == 0x73) { //s
+              unitCentral.sendUnitEngineSetSpeed(MOTION, ENGINE, ENGINESIZE, 42);
+            } else {
+              unitCentral.sendUnitCommand(MOTION, input, readed);
+            }
+          } else if (readed > 1) {
             unitCentral.sendUnitCommand(MOTION, input, readed);
           }
-        } else if (readed > 1) {
-          unitCentral.sendUnitCommand(MOTION, input, readed);
-        } else {
-          observeMemory(5000);
-        }
-        break;
+          break;
+      }
     }
     unitCentral.processingLoop();
 }

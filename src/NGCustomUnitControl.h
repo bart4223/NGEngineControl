@@ -56,10 +56,13 @@
 #define CMDOGripperGrip       0x01
 #define CMDOGripperRelease    0x02
 
+enum workMode { wmNone, wmObserveMemory, wmSpec };
+
 class NGCustomUnitControl {
 
 protected:
     char* _name;
+    char* _version;
     byte _address = NOADDRESS;
     bool _initialized;
     bool _logging;
@@ -69,8 +72,13 @@ protected:
     byte _receivedData[MaxCMDLength];
     int _receivedDataCount = 0;
     bool _receivingData = false;
+    workMode _workMode = wmNone;
     
     void _create(char* name, byte address, int serialRate);
+    
+    void _clearState();
+    
+    void _writeState();
     
     virtual void _processingReceivedData();
 
@@ -79,18 +87,16 @@ public:
     
     void registerNotification(NGCustomNotification *notification);
     
+    void setWorkMode(workMode workmode);
+    
+    workMode getWorkMode();
+    
     virtual void processingLoop();
     
     void clearInfo();
 
-    void clearInfo(int line);
-
     void writeInfo(char* info);
 
-    void writeInfo(char* info, int line);
-
-    void writeInfo(char* info, int line, int column);
-    
     void receiveDataStart();
     
     void receivedData(int index, byte data);

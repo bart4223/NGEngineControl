@@ -52,6 +52,15 @@ void NGCustomUnitControl::initialize() {
     
 }
 
+void NGCustomUnitControl::setWorkMode(workMode workmode) {
+    _workMode = workmode;
+    _writeState();
+}
+
+workMode NGCustomUnitControl::getWorkMode() {
+    return _workMode;
+}
+
 void NGCustomUnitControl::registerNotification(NGCustomNotification *notification) {
     char log[100];
     _notification[_notificationCount] = notification;
@@ -80,28 +89,29 @@ void NGCustomUnitControl::requestData(byte* data) {
     data[1] = 0x32; //2
 }
 
-void NGCustomUnitControl::clearInfo() {
+void NGCustomUnitControl::_clearState() {
     for (int i = 0; i < _notificationCount; i++ ) {
-        _notification[i]->clear();
+        _notification[i]->clear(1);
     }
 }
 
-void NGCustomUnitControl::clearInfo(int line) {
+void NGCustomUnitControl::_writeState() {
+    char state[100];
+    _clearState();
+    sprintf(state, "%s %s wM%d", _name, _version, _workMode);
     for (int i = 0; i < _notificationCount; i++ ) {
-        _notification[i]->clear(line);
+        _notification[i]->writeInfo(state, 1, 0);
+    }
+}
+
+void NGCustomUnitControl::clearInfo() {
+    for (int i = 0; i < _notificationCount; i++ ) {
+        _notification[i]->clear(0);
     }
 }
 
 void NGCustomUnitControl::writeInfo(char* info) {
-    writeInfo(info, 0);
-}
-
-void NGCustomUnitControl::writeInfo(char* info, int line) {
-    writeInfo(info, line, 0);
-}
-
-void NGCustomUnitControl::writeInfo(char* info, int line, int column) {
     for (int i = 0; i < _notificationCount; i++ ) {
-        _notification[i]->writeInfo(info, line, column);
+        _notification[i]->writeInfo(info, 0, 0);
     }
 }

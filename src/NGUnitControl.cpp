@@ -7,6 +7,7 @@
 
 #include "Wire.h"
 #include "NGCommon.h"
+#include <NGMemoryObserver.h>
 #include "NGUnitControl.h"
 
 void _unitWireReceiveEvent(int byteCount) {
@@ -44,6 +45,7 @@ NGUnitControl::NGUnitControl(char* name, byte address, int serialRate) {
 
 void NGUnitControl::_create(char* name, byte address, int serialRate) {
     NGCustomUnitControl::_create(name, address, serialRate);
+    _version = (char*)"0.1";
     Wire.begin(_address);
     Wire.onReceive(_unitWireReceiveEvent);
     Wire.onRequest(_unitWireRequestEvent);
@@ -236,9 +238,20 @@ void NGUnitControl::initialize() {
         sprintf(log, "...Unit \"%s\" with %d pure engines, %d joints and %d grippers initialized", _name, _enginesCount, _jointsCount, _grippersCount);
         writeInfo(log);
     }
+    _writeState();
 }
 
 void NGUnitControl::processingLoop() {
+    switch (_workMode) {
+        case wmNone:
+            break;
+        case wmObserveMemory:
+            observeMemory(5000);
+            break;
+        case wmSpec:
+            observeMemory(5000);
+            break;
+    }
     if (_receivedDataCount > 0) {
         _processingReceivedData();
         _receivedDataCount = 0;

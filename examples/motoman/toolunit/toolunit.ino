@@ -1,5 +1,7 @@
 #define PROD true //false,true
-#include <NGMemoryObserver.h>
+#if (PROD == false)
+#include <NGLCDNotification.h>
+#endif
 #include <NGSerialNotification.h>
 #include <NGUnitControl.h>
 
@@ -23,7 +25,13 @@
 #define GRIPPER               (char*)_GRIPPER
 #define GRIPPERMINSPEED       60
 #define GRIPPERMAXSPEED       150
+#define LCDADDRESS            0x27
+#define LCDCOLUMNS            16
+#define LCDLINES              2
 
+#if (PROD == false)
+NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
+#endif
 NGSerialNotification serialNotification = NGSerialNotification();
 NGJointControl jointBase = NGJointControl(JOINT_0, ENGINE_3);
 NGJointControl jointShoulder = NGJointControl(JOINT_1);
@@ -31,86 +39,76 @@ NGJointControl jointElbow = NGJointControl(JOINT_2);
 NGGripperControl gripper = NGGripperControl(ENGINE_0);
 NGUnitControl unitTool = NGUnitControl(TOOL, TOOLADDRESS);
 
-enum workMode { wmNone, wmObserveMemory, wmReadJointBase, wmMoveJointBase, wmSimulateJointBase, wmGripper, wmToggleGripper, wmReadJointShoulder, wmMoveJointShoulder, wmReadJointElbow, wmMoveJointElbow };
+enum workModeSpec { wmsReadJointBase, wmsMoveJointBase, wmsSimulateJointBase, wmsGripper, wmsToggleGripper, wmsReadJointShoulder, wmsMoveJointShoulder, wmsReadJointElbow, wmsMoveJointElbow };
 
-const workMode _workMode =  wmNone;
+workModeSpec _workModeSpec = wmsToggleGripper;
 bool _gripperToggle = false;
  
 void setup() {
-    char log[100];
     setGlobalUnit(&unitTool);
     unitTool.registerNotification(&serialNotification);
+    #if (PROD == false)
+    unitTool.registerNotification(&notificationLCD);
+    #endif
     unitTool.registerJoint(JOINTBASE, &jointBase, JOINTBASEMINRAD, JOINTBASEMAXRAD, JOINTBASEMAXMOVETICKS);
     unitTool.registerJoint(JOINTSHOULDER, &jointShoulder, JOINTSHOULDERMINRAD, JOINTSHOULDERMAXRAD);
     unitTool.registerJoint(JOINTELBOW, &jointElbow, JOINTELBOWMINRAD, JOINTELBOWMAXRAD);
     unitTool.registerGripper(GRIPPER, &gripper, GRIPPERMINSPEED, GRIPPERMAXSPEED);
     unitTool.initialize();
-    sprintf(log, "Current workMode is %d", _workMode);
-    unitTool.writeInfo(log);
+    unitTool.setWorkMode(wmNone);
+    unitTool.clearInfo();
 }
 
 void loop() {
-    switch (_workMode) {
-      case wmNone:
-        break;
-      case wmObserveMemory:
-        observeMemory(5000);
-        break;
-      case wmReadJointBase:
-        unitTool.jointRead(JOINTBASE);
-        observeMemory(1000);
-        break;
-      case wmMoveJointBase:
-        moveJoint(JOINTBASE);
-        observeMemory(0);
-        break;
-      case wmSimulateJointBase:
-        unitTool.jointSimulate(JOINTBASE);
-        break;
-      case wmReadJointShoulder:
-        unitTool.jointRead(JOINTSHOULDER);
-        observeMemory(1000);
-        break;
-      case wmMoveJointShoulder:
-        moveJoint(JOINTSHOULDER);
-        observeMemory(0);
-        break;
-      case wmReadJointElbow:
-        unitTool.jointRead(JOINTELBOW);
-        observeMemory(1000);
-        break;
-      case wmMoveJointElbow:
-        moveJoint(JOINTELBOW);
-        observeMemory(0);
-        break;
-      case wmToggleGripper:
-        if (_gripperToggle) {
-          unitTool.gripperGrip(GRIPPER);
-        } else {
-          unitTool.gripperRelease(GRIPPER);
-        }
-        _gripperToggle = !_gripperToggle;
-        observeMemory(3000);
-        break;
-      case wmGripper:
-        int readed = 0;
-        byte input[10];
-        while (Serial.available()) {
-          input[readed] = Serial.read();
-          if (input[readed] != '\n') {
-            readed++;
-          }
-        }
-        if (readed == 1) {
-          if (input[0] == 0x67) { //g
+    if (unitTool.getWorkMode() == wmSpec) {
+      switch (_workModeSpec) {
+        case wmsReadJointBase:
+          unitTool.jointRead(JOINTBASE);
+          break;
+        case wmsMoveJointBase:
+          moveJoint(JOINTBASE);
+          break;
+        case wmsSimulateJointBase:
+          unitTool.jointSimulate(JOINTBASE);
+          break;
+        case wmsReadJointShoulder:
+          unitTool.jointRead(JOINTSHOULDER);
+          break;
+        case wmsMoveJointShoulder:
+          moveJoint(JOINTSHOULDER);
+          break;
+        case wmsReadJointElbow:
+          unitTool.jointRead(JOINTELBOW);
+          break;
+        case wmsMoveJointElbow:
+          moveJoint(JOINTELBOW);
+          break;
+        case wmsToggleGripper:
+          if (_gripperToggle) {
             unitTool.gripperGrip(GRIPPER);
-          } else if (input[0] == 0x72) { //r
+          } else {
             unitTool.gripperRelease(GRIPPER);
           }
-        } else {
-          observeMemory(5000);
-        }
-        break;
+          _gripperToggle = !_gripperToggle;
+          break;
+        case wmsGripper:
+          int readed = 0;
+          byte input[10];
+          while (Serial.available()) {
+            input[readed] = Serial.read();
+            if (input[readed] != '\n') {
+              readed++;
+            }
+          }
+          if (readed == 1) {
+            if (input[0] == 0x67) { //g
+              unitTool.gripperGrip(GRIPPER);
+            } else if (input[0] == 0x72) { //r
+              unitTool.gripperRelease(GRIPPER);
+            }
+          }
+          break;
+      }
     }
     unitTool.processingLoop();
 }
