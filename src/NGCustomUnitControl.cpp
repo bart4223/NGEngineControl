@@ -53,8 +53,10 @@ void NGCustomUnitControl::initialize() {
 }
 
 void NGCustomUnitControl::setWorkMode(workMode workmode) {
-    _workMode = workmode;
-    _writeState();
+    if (_workMode = workmode) {
+        _workMode = workmode;
+        _writeState();
+    }
 }
 
 workMode NGCustomUnitControl::getWorkMode() {
