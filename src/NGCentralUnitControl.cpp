@@ -28,7 +28,7 @@ NGCentralUnitControl::NGCentralUnitControl(char* name, byte address, int serialR
 
 void NGCentralUnitControl::_create(char* name, byte address, int serialRate) {
     NGCustomUnitControl::_create(name, address, serialRate);
-    _version = (char*)"0.1";
+    _version = (char*)"0.2";
     Wire.begin();
 }
 
@@ -45,14 +45,14 @@ byte NGCentralUnitControl::_getUnitAddress(char* name) {
     return NOADDRESS;
 }
 
-int NGCentralUnitControl::_prepareCommand(byte subject, byte operation, char* name, int namesize, byte command[]) {
+int NGCentralUnitControl::_prepareCommand(byte subject, byte operation, char* name, byte command[]) {
     command[CMDSubject] = subject;
     command[CMDOperation] = operation;
-    for (int i = 0; i < namesize; i++) {
+    for (int i = 0; i < strlen(name); i++) {
         command[i + CMDOffset] = name[i];
     }
-    command[namesize + CMDOffset - 1] = CMDNameSeparator;
-    return namesize + CMDOffset;
+    command[strlen(name) + CMDOffset] = CMDNameSeparator;
+    return strlen(name) + CMDOffset + 1;
 }
 
 void NGCentralUnitControl::initialize() {
@@ -89,50 +89,90 @@ void NGCentralUnitControl::registerUnit(char* name, byte address) {
     writeInfo(log);
 }
 
-void NGCentralUnitControl::sendUnitGripperGrip(char* name, char* gripper, int grippersize) {
+void NGCentralUnitControl::sendUnitGripperGrip(char* name, char* gripper) {
     byte cmd[MaxCMDLength];
-    int size = _prepareCommand(CMDSGripper, CMDOGripperGrip, gripper, grippersize, cmd);
+    int size = _prepareCommand(CMDSGripper, CMDOGripperGrip, gripper, cmd);
     sendUnitCommand(name, cmd, size);
 }
 
-void NGCentralUnitControl::sendUnitGripperRelease(char* name, char* gripper, int grippersize) {
+void NGCentralUnitControl::sendUnitGripperRelease(char* name, char* gripper) {
     byte cmd[MaxCMDLength];
-    int size = _prepareCommand(CMDSGripper, CMDOGripperRelease, gripper, grippersize, cmd);
+    int size = _prepareCommand(CMDSGripper, CMDOGripperRelease, gripper, cmd);
     sendUnitCommand(name, cmd, size);
 }
 
-void NGCentralUnitControl::sendUnitEngineRunForward(char* name, char* engine, int enginesize) {
+void NGCentralUnitControl::sendUnitEngineRunForward(char* name, char* engine) {
     byte cmd[MaxCMDLength];
-    int size = _prepareCommand(CMDSEngine, CMDOEngineRunForward, engine, enginesize, cmd);
+    int size = _prepareCommand(CMDSEngine, CMDOEngineRunForward, engine, cmd);
     sendUnitCommand(name, cmd, size);
 }
 
-void NGCentralUnitControl::sendUnitEngineRunBackward(char* name, char* engine, int enginesize) {
+void NGCentralUnitControl::sendUnitEngineRunBackward(char* name, char* engine) {
     byte cmd[MaxCMDLength];
-    int size = _prepareCommand(CMDSEngine, CMDOEngineRunBackward, engine, enginesize, cmd);
+    int size = _prepareCommand(CMDSEngine, CMDOEngineRunBackward, engine, cmd);
     sendUnitCommand(name, cmd, size);
 }
 
-void NGCentralUnitControl::sendUnitEngineStop(char* name, char* engine, int enginesize) {
+void NGCentralUnitControl::sendUnitEngineStop(char* name, char* engine) {
     byte cmd[MaxCMDLength];
-    int size = _prepareCommand(CMDSEngine, CMDOEngineStop, engine, enginesize, cmd);
+    int size = _prepareCommand(CMDSEngine, CMDOEngineStop, engine, cmd);
     sendUnitCommand(name, cmd, size);
 }
 
-void NGCentralUnitControl::sendUnitEngineSetSpeed(char* name, char* engine, int enginesize, int speed) {
+void NGCentralUnitControl::sendUnitEngineSetSpeed(char* name, char* engine, int speed) {
     byte cmd[MaxCMDLength];
-    int size = _prepareCommand(CMDSEngine, CMDOEngineSetSpeed, engine, enginesize, cmd);
+    int size = _prepareCommand(CMDSEngine, CMDOEngineSetSpeed, engine, cmd);
     cmd[size] = speed;
     sendUnitCommand(name, cmd, size + 1);
 }
 
-void NGCentralUnitControl::sendUnitCommand(char* name, byte command[], int commandsize) {
+void NGCentralUnitControl::sendUnitJointMove(char* name, char* joint, int targetrad) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSJoint, CMDOJointMove, joint, cmd);
+    cmd[size] = targetrad >> 8;
+    cmd[size + 1] = targetrad;
+    sendUnitCommand(name, cmd, size + 2);
+}
+
+void NGCentralUnitControl::sendUnitJointSimulate(char* name, char* joint) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSJoint, CMDOJointSimulate, joint, cmd);
+    sendUnitCommand(name, cmd, size);
+}
+
+void NGCentralUnitControl::sendUnitJointMoveStepToMax(char* name, char* joint) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSJoint, CMDOJointMoveStepToMax, joint, cmd);
+    sendUnitCommand(name, cmd, size);
+}
+
+void NGCentralUnitControl::sendUnitJointMoveStepToMin(char* name, char* joint) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSJoint, CMDOJointMoveStepToMin, joint, cmd);
+    sendUnitCommand(name, cmd, size);
+}
+
+int NGCentralUnitControl::receiveUnitJointRead(char* name, char* joint) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSJoint, CMDOJointRead, joint, cmd);
+    if (sendUnitCommand(name, cmd, size)) {
+        receiveUnitData(name);
+        if (_receivedDataCount == 2) {
+            return (_receivedData[0] << 8) | (_receivedData[1]);
+        }
+    }
+    return -1;
+}
+
+bool NGCentralUnitControl::sendUnitCommand(char* name, byte command[], int commandsize) {
     byte address = _getUnitAddress(name);
-    if (address != NOADDRESS) {
+    bool res = address != NOADDRESS;
+    if (res) {
         Wire.beginTransmission(address);
         Wire.write(command, commandsize);
         Wire.endTransmission();
     }
+    return res;
 }
 
 void NGCentralUnitControl::receiveUnitData(char* name) {
@@ -148,4 +188,9 @@ void NGCentralUnitControl::receiveUnitData(char* name) {
         }
         receiveDataFinish(i);
     }
+}
+
+void NGCentralUnitControl::requestData(byte* data) {
+    data[0] = 0x34; //4
+    data[1] = 0x32; //2
 }

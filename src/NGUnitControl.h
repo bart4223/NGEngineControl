@@ -111,9 +111,13 @@ public:
     
     void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine);
     
-    void jointRead(char* name);
+    int jointRead(char* name);
     
     bool jointMove(char* name, int targetRad);
+    
+    void jointMoveStepToMax(char* name);
+    
+    void jointMoveStepToMin(char* name);
     
     bool jointIsMoving(char* name);
     
@@ -125,6 +129,7 @@ public:
     
     void gripperRelease(char* name);
 
+    void requestData(byte* data);
 };
 
 #endif /* NGUnitControl_h */

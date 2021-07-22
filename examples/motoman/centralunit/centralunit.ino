@@ -19,10 +19,10 @@
 
 #define _GRIPPER    "Gripper"
 #define GRIPPER     (char*)_GRIPPER
-#define GRIPPERSIZE sizeof(_GRIPPER)
+#define _BASE       "Base"
+#define BASE        (char*)_BASE
 #define _ENGINE     "Engine"
 #define ENGINE      (char*)_ENGINE
-#define ENGINESIZE  sizeof(_ENGINE)
 
 enum workModeSpec { wmsCommand, wmsCommandCyclic, wmsCommandCyclicTwo, wmsReceiveDataCyclic };
 workModeSpec _workModeSpec = wmsCommand;
@@ -60,9 +60,9 @@ void loop() {
           break;
         case wmsCommandCyclicTwo:
           #if (PROD == true)
-          unitCentral.sendUnitGripperGrip(TOOL, GRIPPER, GRIPPERSIZE);
+          unitCentral.sendUnitGripperGrip(TOOL, GRIPPER);
           #else
-          unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
+          unitCentral.sendUnitGripperGrip(MOTION, GRIPPER);
           #endif
           break;
         case wmsCommand:
@@ -74,21 +74,32 @@ void loop() {
               readed++;
             }
           }
-          if (readed == 1) {
+          if (readed >= 1) {
             if (input[0] == 0x67) { //g
               #if (PROD == true)
-              unitCentral.sendUnitGripperGrip(TOOL, GRIPPER, GRIPPERSIZE);
+              unitCentral.sendUnitGripperGrip(TOOL, GRIPPER);
               #else
-              unitCentral.sendUnitGripperGrip(MOTION, GRIPPER, GRIPPERSIZE);
+              unitCentral.sendUnitGripperGrip(MOTION, GRIPPER);
               #endif
             } else if (input[0] == 0x72) { //r
               #if (PROD == true)
-              unitCentral.sendUnitGripperRelease(TOOL, GRIPPER, GRIPPERSIZE);
+              unitCentral.sendUnitGripperRelease(TOOL, GRIPPER);
               #else
-              unitCentral.sendUnitGripperRelease(MOTION, GRIPPER, GRIPPERSIZE);
+              unitCentral.sendUnitGripperRelease(MOTION, GRIPPER);
               #endif
             } else if (input[0] == 0x73) { //s
-              unitCentral.sendUnitEngineSetSpeed(MOTION, ENGINE, ENGINESIZE, 42);
+              unitCentral.sendUnitEngineSetSpeed(MOTION, ENGINE, 42);
+            } else if (input[0] == 0x62) { //b
+              if (readed == 2 && input[1] == 0x78) { //x
+                unitCentral.sendUnitJointMoveStepToMax(TOOL, BASE);
+              } else {
+                unitCentral.sendUnitJointMoveStepToMin(TOOL, BASE);
+              }
+            } else if (input[0] == 0x65) { //e
+              char log[100];
+              int rad = unitCentral.receiveUnitJointRead(TOOL, BASE);
+              sprintf(log, "Base rad %d", rad);
+              unitCentral.writeInfo(log);
             } else {
               unitCentral.sendUnitCommand(MOTION, input, readed);
             }

@@ -34,7 +34,7 @@ protected:
     
     byte _getUnitAddress(char* name);
 
-    int _prepareCommand(byte subject, byte operation, char* name, int namesize, byte command[]);
+    int _prepareCommand(byte subject, byte operation, char* name, byte command[]);
     
     void _processingReceivedData();
     
@@ -53,22 +53,33 @@ public:
     
     void registerUnit(char* name, byte address);
     
-    void sendUnitGripperGrip(char* name, char* gripper, int grippersize);
+    void sendUnitEngineRunForward(char* name, char* engine);
 
-    void sendUnitEngineRunForward(char* name, char* engine, int enginesize);
+    void sendUnitEngineRunBackward(char* name, char* engine);
+    
+    void sendUnitEngineStop(char* name, char* engine);
+    
+    void sendUnitEngineSetSpeed(char* name, char* engine, int speed);
+    
+    void sendUnitJointMove(char* name, char* joint, int targetrad);
+    
+    void sendUnitJointSimulate(char* name, char* joint);
+    
+    void sendUnitJointMoveStepToMax(char* name, char* joint);
+    
+    void sendUnitJointMoveStepToMin(char* name, char* joint);
+    
+    int receiveUnitJointRead(char* name, char* joint);
+    
+    void sendUnitGripperRelease(char* name, char* gripper);
 
-    void sendUnitEngineRunBackward(char* name, char* engine, int enginesize);
-    
-    void sendUnitEngineStop(char* name, char* engine, int enginesize);
-    
-    void sendUnitEngineSetSpeed(char* name, char* engine, int enginesize, int speed);
-    
-    void sendUnitGripperRelease(char* name, char* gripper, int grippersize);
+    void sendUnitGripperGrip(char* name, char* gripper);
 
-    void sendUnitCommand(char* name, byte command[], int commandsize);
-    
+    bool sendUnitCommand(char* name, byte command[], int commandsize);
+
     void receiveUnitData(char* name);
     
+    void requestData(byte* data);
 };
 
 #endif /* NGCentralUnitControl_hpp */

@@ -86,11 +86,6 @@ void NGCustomUnitControl::receiveDataFinish(int count) {
     _receivedDataCount = count;
 }
 
-void NGCustomUnitControl::requestData(byte* data) {
-    data[0] = 0x34; //4
-    data[1] = 0x32; //2
-}
-
 void NGCustomUnitControl::_clearState() {
     for (int i = 0; i < _notificationCount; i++ ) {
         _notification[i]->clear(1);

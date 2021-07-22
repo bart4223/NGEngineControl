@@ -26,8 +26,17 @@
 //  0x00        Nop
 // 0x01     Engine
 //  0x00        Nop
+//  0x01        RunForward
+//  0x02        RunBackward
+//  0x03        Stop
+//  0x04        SetSpeed
 // 0x02     Joint
 //  0x00        Nop
+//  0x01        Move
+//  0x02        Simulate
+//  0x03        MoveStepToMax
+//  0x04        MoveStepToMin
+//  0x05        Read
 // 0x03     Gripper
 //  0x00        Nop
 //  0x01        Grip
@@ -53,6 +62,12 @@
 #define CMDOEngineStop        0x03
 #define CMDOEngineSetSpeed    0x04
 
+#define CMDOJointMove           0x01
+#define CMDOJointSimulate       0x02
+#define CMDOJointMoveStepToMax  0x03
+#define CMDOJointMoveStepToMin  0x04
+#define CMDOJointRead           0x05
+
 #define CMDOGripperGrip       0x01
 #define CMDOGripperRelease    0x02
 
@@ -72,6 +87,7 @@ protected:
     byte _receivedData[MaxCMDLength];
     int _receivedDataCount = 0;
     bool _receivingData = false;
+    byte _requestedData[2];
     workMode _workMode = wmNone;
     
     void _create(char* name, byte address, int serialRate);
@@ -103,7 +119,7 @@ public:
     
     void receiveDataFinish(int count);
     
-    void requestData(byte* data);
+    virtual void requestData(byte* data);
 };
 
 static NGCustomUnitControl *_globalUnit = NULL;
