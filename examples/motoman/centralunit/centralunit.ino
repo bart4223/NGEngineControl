@@ -4,6 +4,7 @@
 #endif
 #include <NGSerialNotification.h>
 #include <NGCentralUnitControl.h>
+#include <IRremote.h>
 
 #define _CENTRAL      "Central"
 #define CENTRAL       (char*)_CENTRAL
@@ -21,8 +22,14 @@
 #define GRIPPER     (char*)_GRIPPER
 #define _BASE       "Base"
 #define BASE        (char*)_BASE
+#define _SHOULDER   "Shoulder"
+#define SHOULDER    (char*)_SHOULDER
+#define _ELBOW      "Elbow"
+#define ELBOW       (char*)_ELBOW
 #define _ENGINE     "Engine"
 #define ENGINE      (char*)_ENGINE
+
+#define IRREMOTE 11
 
 enum workModeSpec { wmsCommand, wmsCommandCyclic, wmsCommandCyclicTwo, wmsReceiveDataCyclic };
 workModeSpec _workModeSpec = wmsCommand;
@@ -32,6 +39,7 @@ NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LC
 #endif
 NGSerialNotification notificationSerial = NGSerialNotification();
 NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
+IRrecv _irrecv(IRREMOTE);
 
 void setup() {
     setGlobalUnit(&unitCentral);
@@ -40,10 +48,18 @@ void setup() {
     unitCentral.registerNotification(&notificationLCD);
     #endif
     unitCentral.registerUnit(TOOL, TOOLADDRESS);
+    unitCentral.registerComponent(ctJoint, TOOL, BASE);
+    unitCentral.registerComponent(ctJoint, TOOL, SHOULDER);
+    unitCentral.registerComponent(ctJoint, TOOL, ELBOW);
+    unitCentral.registerComponent(ctGripper, TOOL, GRIPPER);
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
+    unitCentral.registerIRRemoteFunction(ftMenu, IRP_APPLE, 0xA3, 0x02);
+    unitCentral.registerIRRemoteFunction(ftLeft, IRP_APPLE, 0xA3, 0x08);
+    unitCentral.registerIRRemoteFunction(ftRight, IRP_APPLE, 0xA3, 0x07);
     unitCentral.initialize();
     unitCentral.setWorkMode(wmNone);
     unitCentral.clearInfo();
+    _irrecv.enableIRIn();
 }
 
 void loop() {
@@ -108,6 +124,10 @@ void loop() {
           }
           break;
       }
+    }
+    if (_irrecv.decode()) {
+      unitCentral.setIRRemoteData(_irrecv.decodedIRData.protocol,_irrecv.decodedIRData.address,_irrecv.decodedIRData.command);
+      _irrecv.resume();
     }
     unitCentral.processingLoop();
 }

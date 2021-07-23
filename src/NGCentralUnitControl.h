@@ -16,6 +16,19 @@
 
 #include <NGCustomUnitControl.h>
 
+#define IRP_APPLE 0x14
+
+enum functionType { ftMenu, ftLeft, ftRight };
+
+struct irremotefuncStruct
+{
+    byte protocol;
+    byte address;
+    byte command;
+    functionType type;
+};
+typedef struct irremotefuncStruct irremotefunc;
+
 struct unitStruct
 {
     char* name;
@@ -23,11 +36,36 @@ struct unitStruct
 };
 typedef struct unitStruct unit;
 
+enum componentType { ctEngine, ctJoint, ctGripper };
+
+struct componentStruct
+{
+    char* unit;
+    char* component;
+    componentType type;
+};
+typedef struct componentStruct component;
+
+struct irremoteStruct
+{
+    byte protocol;
+    byte address;
+    byte command;
+};
+typedef struct irremoteStruct irremote;
+
 class NGCentralUnitControl : public NGCustomUnitControl {
   
 private:
     unit _unit[3];
     int _unitCount = 0;
+    component _component[10];
+    int _componentCount = 0;
+    irremote _irremotedata;
+    bool _irremotedataReceived = false;
+    irremotefunc _irremotefunc[10];
+    int _irremotefuncCount = 0;
+    int _currentComponent = -1;
 
 protected:
     void _create(char* name, byte address, int serialRate);
@@ -37,6 +75,8 @@ protected:
     int _prepareCommand(byte subject, byte operation, char* name, byte command[]);
     
     void _processingReceivedData();
+    
+    void _processingIRRemoteData();
     
 public:
     NGCentralUnitControl();
@@ -52,6 +92,10 @@ public:
     void processingLoop();
     
     void registerUnit(char* name, byte address);
+    
+    void registerComponent(componentType type, char* unit, char* comp);
+    
+    void registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command);
     
     void sendUnitEngineRunForward(char* name, char* engine);
 
@@ -80,6 +124,8 @@ public:
     void receiveUnitData(char* name);
     
     void requestData(byte* data);
+    
+    void setIRRemoteData(byte protocol, byte address, byte command);
 };
 
 #endif /* NGCentralUnitControl_hpp */

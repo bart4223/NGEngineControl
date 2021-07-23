@@ -28,12 +28,61 @@ NGCentralUnitControl::NGCentralUnitControl(char* name, byte address, int serialR
 
 void NGCentralUnitControl::_create(char* name, byte address, int serialRate) {
     NGCustomUnitControl::_create(name, address, serialRate);
-    _version = (char*)"0.2";
+    _version = (char*)"0.3";
     Wire.begin();
 }
 
 void NGCentralUnitControl::_processingReceivedData() {
     
+}
+
+void NGCentralUnitControl::_processingIRRemoteData() {
+    for (int i = 0; i < _irremotefuncCount; i++) {
+        if (_irremotefunc[i].protocol == _irremotedata.protocol && _irremotefunc[i].address == _irremotedata.address
+                && _irremotefunc[i].command == _irremotedata.command) {
+            switch (_irremotefunc[i].type) {
+                case ftMenu:
+                    _currentComponent++;
+                    if (_currentComponent > _componentCount - 1) {
+                        _currentComponent = 0;
+                        if (_componentCount == 0) {
+                            _currentComponent = -1;
+                        }
+                    }
+                    clearInfo();
+                    if (_currentComponent >= 0) {
+                        char log[100];
+                        sprintf(log, "%s.%s", _component[_currentComponent].unit, _component[_currentComponent].component);
+                        writeInfo(log);
+                    }
+                    break;
+                case ftLeft:
+                    if (_currentComponent >= 0) {
+                        switch (_component[_currentComponent].type) {
+                            case ctJoint:
+                                sendUnitJointMoveStepToMin(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                break;
+                            case ctGripper:
+                                sendUnitGripperGrip(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                break;
+                        }
+                    }
+                    break;
+                case ftRight:
+                    if (_currentComponent >= 0) {
+                        switch (_component[_currentComponent].type) {
+                            case ctJoint:
+                                sendUnitJointMoveStepToMax(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                break;
+                            case ctGripper:
+                                sendUnitGripperRelease(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                break;
+                        }
+                    }
+                    break;
+            }
+        }
+    }
 }
 
 byte NGCentralUnitControl::_getUnitAddress(char* name) {
@@ -66,6 +115,10 @@ void NGCentralUnitControl::initialize() {
 }
 
 void NGCentralUnitControl::processingLoop() {
+    if (_irremotedataReceived) {
+        _processingIRRemoteData();
+        _irremotedataReceived = false;
+    }
     switch (_workMode) {
         case wmNone:
             break;
@@ -87,6 +140,25 @@ void NGCentralUnitControl::registerUnit(char* name, byte address) {
     _unitCount++;
     sprintf(log, "Unit %s registered", name);
     writeInfo(log);
+}
+
+void NGCentralUnitControl::registerComponent(componentType type, char* unit, char* comp) {
+    component c;
+    c.unit = unit;
+    c.component = comp;
+    c.type = type;
+    _component[_componentCount] = c;
+    _componentCount++;
+}
+
+void NGCentralUnitControl::registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command) {
+    irremotefunc func;
+    func.protocol = protocol;
+    func.address = address;
+    func.command = command;
+    func.type = type;
+    _irremotefunc[_irremotefuncCount] = func;
+    _irremotefuncCount++;
 }
 
 void NGCentralUnitControl::sendUnitGripperGrip(char* name, char* gripper) {
@@ -193,4 +265,11 @@ void NGCentralUnitControl::receiveUnitData(char* name) {
 void NGCentralUnitControl::requestData(byte* data) {
     data[0] = 0x34; //4
     data[1] = 0x32; //2
+}
+
+void NGCentralUnitControl::setIRRemoteData(byte protocol, byte address, byte command) {
+    _irremotedata.protocol = protocol;
+    _irremotedata.address = address;
+    _irremotedata.command = command;
+    _irremotedataReceived = true;
 }
