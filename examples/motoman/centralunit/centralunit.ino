@@ -26,6 +26,7 @@
 #define SHOULDER    (char*)_SHOULDER
 #define _ELBOW      "Elbow"
 #define ELBOW       (char*)_ELBOW
+
 #define _ENGINE     "Engine"
 #define ENGINE      (char*)_ENGINE
 
@@ -53,9 +54,9 @@ void setup() {
     unitCentral.registerComponent(ctJoint, TOOL, ELBOW);
     unitCentral.registerComponent(ctGripper, TOOL, GRIPPER);
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
-    unitCentral.registerIRRemoteFunction(ftMenu, IRP_APPLE, 0xA3, 0x02);
-    unitCentral.registerIRRemoteFunction(ftLeft, IRP_APPLE, 0xA3, 0x08);
-    unitCentral.registerIRRemoteFunction(ftRight, IRP_APPLE, 0xA3, 0x07);
+    unitCentral.registerIRRemoteFunction(ftMenu, IRP_APPLE, IRA_APPLE, IRC_APPLE_MENU);
+    unitCentral.registerIRRemoteFunction(ftLeft, IRP_APPLE, IRA_APPLE, IRC_APPLE_LEFT);
+    unitCentral.registerIRRemoteFunction(ftRight, IRP_APPLE, IRA_APPLE, IRC_APPLE_RIGHT);
     unitCentral.initialize();
     unitCentral.setWorkMode(wmNone);
     unitCentral.clearInfo();

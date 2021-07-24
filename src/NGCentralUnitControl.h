@@ -16,9 +16,28 @@
 
 #include <NGCustomUnitControl.h>
 
-#define IRP_APPLE 0x14
+#define _VERSION "0.4"
+#define VERSION (char*)_VERSION
 
-enum functionType { ftMenu, ftLeft, ftRight };
+#define OBSERVEMEMORYDELAY 5000
+
+#define UNITCOUNT       3
+#define COMPONENTCOUNT  5
+
+#define IRFUNCCOUNT     10
+#define IRFUNCMENUDELAY 100
+
+#define IRP_APPLE       0x14
+#define IRA_APPLE       0xA3
+#define IRC_APPLE_MENU  0x02
+#define IRC_APPLE_LEFT  0x08
+#define IRC_APPLE_RIGHT 0x07
+#define IRC_APPLE_UP    0x0B
+#define IRC_APPLE_DOWN  0x0D
+#define IRC_APPLE_OK    0x5D
+#define IRC_APPLE_PLAY  0x5E
+
+enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
 
 struct irremotefuncStruct
 {
@@ -57,13 +76,13 @@ typedef struct irremoteStruct irremote;
 class NGCentralUnitControl : public NGCustomUnitControl {
   
 private:
-    unit _unit[3];
+    unit _unit[UNITCOUNT];
     int _unitCount = 0;
-    component _component[10];
+    component _component[COMPONENTCOUNT];
     int _componentCount = 0;
     irremote _irremotedata;
     bool _irremotedataReceived = false;
-    irremotefunc _irremotefunc[10];
+    irremotefunc _irremotefunc[IRFUNCCOUNT];
     int _irremotefuncCount = 0;
     int _currentComponent = -1;
 

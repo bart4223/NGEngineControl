@@ -18,6 +18,17 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
+#define _VERSION "0.3"
+#define VERSION (char*)_VERSION
+
+#define OBSERVEMEMORYDELAY 5000
+
+#define ENGINECOUNT  3
+#define JOINTCOUNT   3
+#define GRIPPERCOUNT 3
+
+#define JOINTMOVESTEP 10
+
 void _unitWireReceiveEvent(int byteCount);
 
 void _unitWireRequestEvent();
@@ -49,14 +60,14 @@ typedef struct gripperDataStruct gripperData;
 class NGUnitControl : public NGCustomUnitControl {
     
 private:
-    NGEngineControl *_engines[3];
-    engineData _engineData[3];
+    NGEngineControl *_engines[ENGINECOUNT];
+    engineData _engineData[ENGINECOUNT];
     int _enginesCount = 0;
-    NGJointControl *_joints[3];
-    jointData _jointData[3];
+    NGJointControl *_joints[JOINTCOUNT];
+    jointData _jointData[JOINTCOUNT];
     int _jointsCount = 0;
-    NGGripperControl *_grippers[3];
-    gripperData _gripperData[3];
+    NGGripperControl *_grippers[GRIPPERCOUNT];
+    gripperData _gripperData[GRIPPERCOUNT];
     int _grippersCount = 0;
     
 protected:

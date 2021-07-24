@@ -45,7 +45,7 @@ NGUnitControl::NGUnitControl(char* name, byte address, int serialRate) {
 
 void NGUnitControl::_create(char* name, byte address, int serialRate) {
     NGCustomUnitControl::_create(name, address, serialRate);
-    _version = (char*)"0.2";
+    _version = VERSION;
     Wire.begin(_address);
     Wire.onReceive(_unitWireReceiveEvent);
     Wire.onRequest(_unitWireRequestEvent);
@@ -282,10 +282,10 @@ void NGUnitControl::processingLoop() {
         case wmNone:
             break;
         case wmObserveMemory:
-            observeMemory(5000);
+            observeMemory(OBSERVEMEMORYDELAY);
             break;
         case wmSpec:
-            observeMemory(5000);
+            observeMemory(OBSERVEMEMORYDELAY);
             break;
     }
     if (_receivedDataCount > 0) {
@@ -400,7 +400,7 @@ void NGUnitControl::jointMoveStepToMax(char* name) {
     if (index >= 0 ) {
         int currentrad = _joints[index]->read();
         if (currentrad < _joints[index]->getMaxJointRad()) {
-            int targetrad = currentrad + 5;
+            int targetrad = currentrad + JOINTMOVESTEP;
             if (targetrad > _joints[index]->getMaxJointRad()) {
                 targetrad = _joints[index]->getMaxJointRad();
             }
@@ -414,7 +414,7 @@ void NGUnitControl::jointMoveStepToMin(char* name) {
     if (index >= 0 ) {
         int currentrad = _joints[index]->read();
         if (currentrad > _joints[index]->getMinJointRad()) {
-            int targetrad = currentrad - 5;
+            int targetrad = currentrad - JOINTMOVESTEP;
             if (targetrad < _joints[index]->getMinJointRad()) {
                 targetrad = _joints[index]->getMinJointRad();
             }

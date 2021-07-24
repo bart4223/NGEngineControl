@@ -28,7 +28,7 @@ NGCentralUnitControl::NGCentralUnitControl(char* name, byte address, int serialR
 
 void NGCentralUnitControl::_create(char* name, byte address, int serialRate) {
     NGCustomUnitControl::_create(name, address, serialRate);
-    _version = (char*)"0.3";
+    _version = VERSION;
     Wire.begin();
 }
 
@@ -55,6 +55,7 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                         sprintf(log, "%s.%s", _component[_currentComponent].unit, _component[_currentComponent].component);
                         writeInfo(log);
                     }
+                    delay(IRFUNCMENUDELAY);
                     break;
                 case ftLeft:
                     if (_currentComponent >= 0) {
@@ -123,10 +124,10 @@ void NGCentralUnitControl::processingLoop() {
         case wmNone:
             break;
         case wmObserveMemory:
-            observeMemory(5000);
+            observeMemory(OBSERVEMEMORYDELAY);
             break;
         case wmSpec:
-            observeMemory(5000);
+            observeMemory(OBSERVEMEMORYDELAY);
             break;
     }
 }
@@ -268,8 +269,10 @@ void NGCentralUnitControl::requestData(byte* data) {
 }
 
 void NGCentralUnitControl::setIRRemoteData(byte protocol, byte address, byte command) {
-    _irremotedata.protocol = protocol;
-    _irremotedata.address = address;
-    _irremotedata.command = command;
-    _irremotedataReceived = true;
+    if (!_irremotedataReceived) {
+        _irremotedata.protocol = protocol;
+        _irremotedata.address = address;
+        _irremotedata.command = command;
+        _irremotedataReceived = true;
+    }
 }
