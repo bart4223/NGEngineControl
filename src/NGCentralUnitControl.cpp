@@ -148,6 +148,7 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                                 if (_component[_currentComponent].targetposition != -1) {
                                     sendUnitJointMove(_component[_currentComponent].unit, _component[_currentComponent].component,
                                         _component[_currentComponent].targetposition);
+                                    _component[_currentComponent].position = _component[_currentComponent].targetposition;
                                     _component[_currentComponent].targetposition = -1;
                                 }
                                 break;

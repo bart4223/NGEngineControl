@@ -2,9 +2,9 @@
 #if (PROD == true)
 #include <NGLCDNotification.h>
 #endif
+#include <IRremote.h>
 #include <NGSerialNotification.h>
 #include <NGCentralUnitControl.h>
-#include <IRremote.h>
 
 #define _CENTRAL      "Central"
 #define CENTRAL       (char*)_CENTRAL
@@ -27,13 +27,7 @@
 #define _ELBOW      "Elbow"
 #define ELBOW       (char*)_ELBOW
 
-#define _ENGINE     "Engine"
-#define ENGINE      (char*)_ENGINE
-
-#define IRREMOTE 11
-
-enum workModeSpec { wmsCommand, wmsCommandCyclic, wmsCommandCyclicTwo, wmsReceiveDataCyclic };
-workModeSpec _workModeSpec = wmsCommand;
+#define IRREMOTE    11
 
 #if (PROD == true)
 NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
@@ -61,74 +55,14 @@ void setup() {
     unitCentral.registerIRRemoteFunction(ftDown, IRP_APPLE, IRA_APPLE, IRC_APPLE_DOWN);
     unitCentral.registerIRRemoteFunction(ftOK, IRP_APPLE, IRA_APPLE, IRC_APPLE_OK);
     unitCentral.initialize();
-    unitCentral.setWorkMode(wmNone);
+    #if (PROD == false)
+    unitCentral.setWorkMode(wmObserveMemory);
+    #endif
     unitCentral.clearInfo();
     _irrecv.enableIRIn();
 }
 
 void loop() {
-    if (unitCentral.getWorkMode() == wmSpec) {
-      switch (_workModeSpec) {
-        case wmsReceiveDataCyclic:
-          unitCentral.receiveUnitData(MOTION);
-          break;
-        case wmsCommandCyclic:
-          byte cmd[2];
-          cmd[0] = 0x34; //4
-          cmd[1] = 0x32; //2
-          unitCentral.sendUnitCommand(MOTION, cmd, 2);
-          break;
-        case wmsCommandCyclicTwo:
-          #if (PROD == true)
-          unitCentral.sendUnitGripperGrip(TOOL, GRIPPER);
-          #else
-          unitCentral.sendUnitGripperGrip(MOTION, GRIPPER);
-          #endif
-          break;
-        case wmsCommand:
-          int readed = 0;
-          byte input[10];
-          while (Serial.available()) {
-            input[readed] = Serial.read();
-            if (input[readed] != '\n') {
-              readed++;
-            }
-          }
-          if (readed >= 1) {
-            if (input[0] == 0x67) { //g
-              #if (PROD == true)
-              unitCentral.sendUnitGripperGrip(TOOL, GRIPPER);
-              #else
-              unitCentral.sendUnitGripperGrip(MOTION, GRIPPER);
-              #endif
-            } else if (input[0] == 0x72) { //r
-              #if (PROD == true)
-              unitCentral.sendUnitGripperRelease(TOOL, GRIPPER);
-              #else
-              unitCentral.sendUnitGripperRelease(MOTION, GRIPPER);
-              #endif
-            } else if (input[0] == 0x73) { //s
-              unitCentral.sendUnitEngineSetSpeed(MOTION, ENGINE, 42);
-            } else if (input[0] == 0x62) { //b
-              if (readed == 2 && input[1] == 0x78) { //x
-                unitCentral.sendUnitJointMoveStepToMax(TOOL, BASE);
-              } else {
-                unitCentral.sendUnitJointMoveStepToMin(TOOL, BASE);
-              }
-            } else if (input[0] == 0x65) { //e
-              char log[100];
-              int rad = unitCentral.receiveUnitJointRead(TOOL, BASE);
-              sprintf(log, "Base rad %d", rad);
-              unitCentral.writeInfo(log);
-            } else {
-              unitCentral.sendUnitCommand(MOTION, input, readed);
-            }
-          } else if (readed > 1) {
-            unitCentral.sendUnitCommand(MOTION, input, readed);
-          }
-          break;
-      }
-    }
     if (_irrecv.decode()) {
       unitCentral.setIRRemoteData(_irrecv.decodedIRData.protocol,_irrecv.decodedIRData.address,_irrecv.decodedIRData.command);
       _irrecv.resume();
