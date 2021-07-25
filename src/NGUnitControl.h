@@ -18,7 +18,7 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
-#define _VERSION "0.4"
+#define _VERSION "0.5"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -137,6 +137,8 @@ public:
     bool jointIsMoving(char* name);
     
     void jointSimulate(char* name);
+    
+    void jointSetMaxSpeed(char* name, int speed);
     
     void registerGripper(char* name, NGGripperControl *gripper, int minSpeed, int maxSpeed);
     

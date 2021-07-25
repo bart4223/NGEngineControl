@@ -469,6 +469,13 @@ void NGUnitControl::jointSimulate(char* name) {
     }
 }
 
+void NGUnitControl::jointSetMaxSpeed(char* name, int speed) {
+    int index = _getJointIndex(name);
+    if (index >= 0) {
+        _joints[index]->setMaxSpeed(speed);
+    }
+}
+
 void NGUnitControl::registerGripper(char* name, NGGripperControl *gripper, int minSpeed, int maxSpeed) {
     gripperData gd;
     gd.name = name;

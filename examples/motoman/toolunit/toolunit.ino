@@ -17,14 +17,17 @@
 #define JOINTSHOULDER         (char*)_JOINTSHOULDER
 #define JOINTSHOULDERMINRAD   550
 #define JOINTSHOULDERMAXRAD   800
+#define JOINTSHOULDERMAXSPEED 150
 #define _JOINTELBOW           "Elbow"
 #define JOINTELBOW            (char*)_JOINTELBOW
 #define JOINTELBOWMINRAD      500
 #define JOINTELBOWMAXRAD      870
+#define JOINTELBOWMAXSPEED    150
 #define _GRIPPER              "Gripper"
 #define GRIPPER               (char*)_GRIPPER
 #define GRIPPERMINSPEED       60
 #define GRIPPERMAXSPEED       150
+
 #define LCDADDRESS            0x27
 #define LCDCOLUMNS            16
 #define LCDLINES              2
@@ -48,14 +51,18 @@ void setup() {
     unitTool.registerNotification(&serialNotification);
     #if (PROD == false)
     unitTool.registerNotification(&notificationLCD);
-    #endif
+    unitTool.registerJoint(JOINTBASE, &jointBase, JOINTBASEMINRAD, JOINTBASEMAXRAD);
+    #else
     unitTool.registerJoint(JOINTBASE, &jointBase, JOINTBASEMINRAD, JOINTBASEMAXRAD, JOINTBASEMAXMOVETICKS);
+    #endif
     unitTool.registerJoint(JOINTSHOULDER, &jointShoulder, JOINTSHOULDERMINRAD, JOINTSHOULDERMAXRAD);
     unitTool.registerJoint(JOINTELBOW, &jointElbow, JOINTELBOWMINRAD, JOINTELBOWMAXRAD);
     unitTool.registerGripper(GRIPPER, &gripper, GRIPPERMINSPEED, GRIPPERMAXSPEED);
     unitTool.initialize();
+    unitTool.jointSetMaxSpeed(JOINTSHOULDER, JOINTSHOULDERMAXSPEED);
+    unitTool.jointSetMaxSpeed(JOINTELBOW, JOINTELBOWMAXSPEED);
     #if (PROD == false)
-    unitTool.setWorkMode(wmMemoryObserver);
+    unitTool.setWorkMode(wmSpec);
     #endif
     unitTool.clearInfo();
 }
