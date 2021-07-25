@@ -16,7 +16,8 @@
 
 #include <NGCustomNotification.h>
 
-#define NOADDRESS 0x00
+#define NOADDRESS           0x00
+#define REQUESTEDDATALENGTH 6
 
 // Command structure
 //
@@ -87,7 +88,7 @@ protected:
     byte _receivedData[MaxCMDLength];
     int _receivedDataCount = 0;
     bool _receivingData = false;
-    byte _requestedData[2];
+    byte _requestedData[REQUESTEDDATALENGTH];
     workMode _workMode = wmNone;
     
     void _create(char* name, byte address, int serialRate);

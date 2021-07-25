@@ -18,7 +18,7 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
-#define _VERSION "0.3"
+#define _VERSION "0.4"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -123,6 +123,10 @@ public:
     void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine);
     
     int jointRead(char* name);
+    
+    int jointGetMinRad(char* name);
+    
+    int jointGetMaxRad(char* name);
     
     bool jointMove(char* name, int targetRad);
     

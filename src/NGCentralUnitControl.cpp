@@ -52,7 +52,17 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                     clearInfo();
                     if (_currentComponent >= 0) {
                         char log[100];
-                        sprintf(log, "%s.%s", _component[_currentComponent].unit, _component[_currentComponent].component);
+                        switch (_component[_currentComponent].type) {
+                            case ctJoint:
+                                _component[_currentComponent].position = receiveUnitJointRead(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                _component[_currentComponent].min = (_receivedData[2] << 8) | (_receivedData[3]);
+                                _component[_currentComponent].max = (_receivedData[4] << 8) | (_receivedData[5]);
+                                sprintf(log, "%.4s.%.7s %d", _component[_currentComponent].unit, _component[_currentComponent].component, _component[_currentComponent].position);
+                                break;
+                            default:
+                                sprintf(log, "%s.%s", _component[_currentComponent].unit, _component[_currentComponent].component);
+                                break;
+                        }
                         writeInfo(log);
                     }
                     delay(IRFUNCMENUDELAY);
@@ -61,7 +71,12 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                     if (_currentComponent >= 0) {
                         switch (_component[_currentComponent].type) {
                             case ctJoint:
+                                char log[100];
                                 sendUnitJointMoveStepToMin(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                _component[_currentComponent].position = receiveUnitJointRead(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                sprintf(log, "%.4s.%.7s %d", _component[_currentComponent].unit, _component[_currentComponent].component, _component[_currentComponent].position);
+                                clearInfo();
+                                writeInfo(log);
                                 break;
                             case ctGripper:
                                 sendUnitGripperGrip(_component[_currentComponent].unit, _component[_currentComponent].component);
@@ -73,10 +88,68 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                     if (_currentComponent >= 0) {
                         switch (_component[_currentComponent].type) {
                             case ctJoint:
+                                char log[100];
                                 sendUnitJointMoveStepToMax(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                _component[_currentComponent].position = receiveUnitJointRead(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                sprintf(log, "%.4s.%.7s %d", _component[_currentComponent].unit, _component[_currentComponent].component, _component[_currentComponent].position);
+                                clearInfo();
+                                writeInfo(log);
                                 break;
                             case ctGripper:
                                 sendUnitGripperRelease(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                break;
+                        }
+                    }
+                    break;
+                case ftUp:
+                    if (_currentComponent >= 0) {
+                        switch (_component[_currentComponent].type) {
+                            case ctJoint:
+                                char log[100];
+                                if (_component[_currentComponent].targetposition == -1) {
+                                    _component[_currentComponent].targetposition = _component[_currentComponent].position;
+                                } else {
+                                    _component[_currentComponent].targetposition = _component[_currentComponent].targetposition + 10;
+                                    if (_component[_currentComponent].targetposition > _component[_currentComponent].max) {
+                                        _component[_currentComponent].targetposition = _component[_currentComponent].max;
+                                    }
+                                }
+                                sprintf(log, "%.4s.%.7s %d", _component[_currentComponent].unit, _component[_currentComponent].component, _component[_currentComponent].targetposition);
+                                clearInfo();
+                                writeInfo(log);
+                                break;
+                        }
+                    }
+                    break;
+                case ftDown:
+                    if (_currentComponent >= 0) {
+                        switch (_component[_currentComponent].type) {
+                            case ctJoint:
+                                char log[100];
+                                if (_component[_currentComponent].targetposition == -1) {
+                                    _component[_currentComponent].targetposition = _component[_currentComponent].position;
+                                } else {
+                                    _component[_currentComponent].targetposition = _component[_currentComponent].targetposition - 10;
+                                    if (_component[_currentComponent].targetposition < _component[_currentComponent].min) {
+                                        _component[_currentComponent].targetposition = _component[_currentComponent].min;
+                                    }
+                                }
+                                sprintf(log, "%.4s.%.7s %d", _component[_currentComponent].unit, _component[_currentComponent].component, _component[_currentComponent].targetposition);
+                                clearInfo();
+                                writeInfo(log);
+                                break;
+                        }
+                    }
+                    break;
+                case ftOK:
+                    if (_currentComponent >= 0) {
+                        switch (_component[_currentComponent].type) {
+                            case ctJoint:
+                                if (_component[_currentComponent].targetposition != -1) {
+                                    sendUnitJointMove(_component[_currentComponent].unit, _component[_currentComponent].component,
+                                        _component[_currentComponent].targetposition);
+                                    _component[_currentComponent].targetposition = -1;
+                                }
                                 break;
                         }
                     }
@@ -148,6 +221,10 @@ void NGCentralUnitControl::registerComponent(componentType type, char* unit, cha
     c.unit = unit;
     c.component = comp;
     c.type = type;
+    c.position = 0;
+    c.min = 0;
+    c.max = 0;
+    c.targetposition = -1;
     _component[_componentCount] = c;
     _componentCount++;
 }
@@ -230,7 +307,7 @@ int NGCentralUnitControl::receiveUnitJointRead(char* name, char* joint) {
     int size = _prepareCommand(CMDSJoint, CMDOJointRead, joint, cmd);
     if (sendUnitCommand(name, cmd, size)) {
         receiveUnitData(name);
-        if (_receivedDataCount == 2) {
+        if (_receivedDataCount >= 2) {
             return (_receivedData[0] << 8) | (_receivedData[1]);
         }
     }
@@ -252,7 +329,7 @@ void NGCentralUnitControl::receiveUnitData(char* name) {
     byte address = _getUnitAddress(name);
     clearInfo();
     if (address != NOADDRESS) {
-        Wire.requestFrom((int)address, 2); // Read 2 Bytes
+        Wire.requestFrom((int)address, REQUESTEDDATALENGTH); // Read n Bytes
         receiveDataStart();
         int i = 0;
         while(Wire.available()) {
@@ -266,6 +343,10 @@ void NGCentralUnitControl::receiveUnitData(char* name) {
 void NGCentralUnitControl::requestData(byte* data) {
     data[0] = 0x34; //4
     data[1] = 0x32; //2
+    data[2] = 0x34; //4
+    data[3] = 0x32; //2
+    data[4] = 0x34; //4
+    data[5] = 0x32; //2
 }
 
 void NGCentralUnitControl::setIRRemoteData(byte protocol, byte address, byte command) {

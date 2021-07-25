@@ -22,9 +22,9 @@ void _unitWireReceiveEvent(int byteCount) {
 }
 
 void _unitWireRequestEvent() {
-    byte b[2];
+    byte b[REQUESTEDDATALENGTH];
     globalUnitRequestData(b);
-    Wire.write(b, 2);
+    Wire.write(b, REQUESTEDDATALENGTH);
 }
 
 NGUnitControl::NGUnitControl() {
@@ -137,6 +137,7 @@ void NGUnitControl::_processingReceivedDataJoint() {
         memcpy(n, _receivedData + CMDOffset, size);
         n[size - 1] = '\0';
     }
+    int currentrad;
     switch (_receivedData[CMDOperation]) {
         case CMDONop:
             _nop();
@@ -147,6 +148,9 @@ void NGUnitControl::_processingReceivedDataJoint() {
             targetrad = (_receivedData[CMDOffset + size] << 8) | (_receivedData[CMDOffset + size + 1]);
             writeInfo((char*)"move");
             jointMove(n, targetrad);
+            currentrad = jointRead(n);
+            _requestedData[0] = (currentrad >> 8);
+            _requestedData[1] = currentrad;
             break;
         case CMDOJointSimulate:
             clearInfo();
@@ -157,18 +161,30 @@ void NGUnitControl::_processingReceivedDataJoint() {
             clearInfo();
             writeInfo((char*)"step+");
             jointMoveStepToMax(n);
+            currentrad = jointRead(n);
+            _requestedData[0] = (currentrad >> 8);
+            _requestedData[1] = currentrad;
             break;
         case CMDOJointMoveStepToMin:
             clearInfo();
             writeInfo((char*)"step-");
             jointMoveStepToMin(n);
+            currentrad = jointRead(n);
+            _requestedData[0] = (currentrad >> 8);
+            _requestedData[1] = currentrad;
             break;
         case CMDOJointRead:
             clearInfo();
             writeInfo((char*)"read");
-            int currentrad = jointRead(n);
+            currentrad = jointRead(n);
             _requestedData[0] = (currentrad >> 8);
             _requestedData[1] = currentrad;
+            int rad = jointGetMinRad(n);
+            _requestedData[2] = (rad >> 8);
+            _requestedData[3] = rad;
+            rad = jointGetMaxRad(n);
+            _requestedData[4] = (rad >> 8);
+            _requestedData[5] = rad;
             break;
     }
 }
@@ -374,6 +390,20 @@ int NGUnitControl::jointRead(char* name) {
     }
 }
 
+int NGUnitControl::jointGetMinRad(char* name) {
+    int index = _getJointIndex(name);
+    if (index >= 0) {
+        return _joints[index]->getMinJointRad();
+    }
+}
+
+int NGUnitControl::jointGetMaxRad(char* name) {
+    int index = _getJointIndex(name);
+    if (index >= 0) {
+        return _joints[index]->getMaxJointRad();
+    }
+}
+
 bool NGUnitControl::jointMove(char* name, int targetRad) {
     int index = _getJointIndex(name);
     bool res = index >= 0;
@@ -469,5 +499,5 @@ void NGUnitControl::gripperRelease(char* name) {
 }
 
 void NGUnitControl::requestData(byte* data) {
-    memcpy(data, _requestedData, 2);
+    memcpy(data, _requestedData, REQUESTEDDATALENGTH);
 }

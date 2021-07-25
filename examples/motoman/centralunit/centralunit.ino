@@ -57,6 +57,9 @@ void setup() {
     unitCentral.registerIRRemoteFunction(ftMenu, IRP_APPLE, IRA_APPLE, IRC_APPLE_MENU);
     unitCentral.registerIRRemoteFunction(ftLeft, IRP_APPLE, IRA_APPLE, IRC_APPLE_LEFT);
     unitCentral.registerIRRemoteFunction(ftRight, IRP_APPLE, IRA_APPLE, IRC_APPLE_RIGHT);
+    unitCentral.registerIRRemoteFunction(ftUp, IRP_APPLE, IRA_APPLE, IRC_APPLE_UP);
+    unitCentral.registerIRRemoteFunction(ftDown, IRP_APPLE, IRA_APPLE, IRC_APPLE_DOWN);
+    unitCentral.registerIRRemoteFunction(ftOK, IRP_APPLE, IRA_APPLE, IRC_APPLE_OK);
     unitCentral.initialize();
     unitCentral.setWorkMode(wmNone);
     unitCentral.clearInfo();

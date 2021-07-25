@@ -16,7 +16,7 @@
 
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "0.4"
+#define _VERSION "0.5"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -62,6 +62,10 @@ struct componentStruct
     char* unit;
     char* component;
     componentType type;
+    int position;
+    int min;
+    int max;
+    int targetposition;
 };
 typedef struct componentStruct component;
 
