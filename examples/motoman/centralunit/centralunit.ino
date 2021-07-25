@@ -8,9 +8,6 @@
 
 #define _CENTRAL      "Central"
 #define CENTRAL       (char*)_CENTRAL
-#define LCDADDRESS    0x27
-#define LCDCOLUMNS    16
-#define LCDLINES      2
 #define _TOOL         "Tool"
 #define TOOL          (char*)_TOOL
 #define TOOLADDRESS   0x20
@@ -18,14 +15,18 @@
 #define MOTION        (char*)_MOTION
 #define MOTIONADDRESS 0x21
 
-#define _GRIPPER    "Gripper"
-#define GRIPPER     (char*)_GRIPPER
+#define LCDADDRESS    0x27
+#define LCDCOLUMNS    16
+#define LCDLINES      2
+
 #define _BASE       "Base"
 #define BASE        (char*)_BASE
 #define _SHOULDER   "Shoulder"
 #define SHOULDER    (char*)_SHOULDER
 #define _ELBOW      "Elbow"
 #define ELBOW       (char*)_ELBOW
+#define _GRIPPER    "Gripper"
+#define GRIPPER     (char*)_GRIPPER
 
 #define IRREMOTE    11
 
@@ -37,6 +38,7 @@ NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
 IRrecv _irrecv(IRREMOTE);
 
 void setup() {
+    _irrecv.enableIRIn();
     setGlobalUnit(&unitCentral);
     unitCentral.registerNotification(&notificationSerial);
     #if (PROD == true)
@@ -59,7 +61,6 @@ void setup() {
     unitCentral.setWorkMode(wmObserveMemory);
     #endif
     unitCentral.clearInfo();
-    _irrecv.enableIRIn();
 }
 
 void loop() {
