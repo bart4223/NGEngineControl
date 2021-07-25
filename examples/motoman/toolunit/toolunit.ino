@@ -42,10 +42,6 @@ NGJointControl jointElbow = NGJointControl(JOINT_2);
 NGGripperControl gripper = NGGripperControl(ENGINE_0);
 NGUnitControl unitTool = NGUnitControl(TOOL, TOOLADDRESS);
 
-enum workModeSpec { wmsGripper, wmsReadJointBase, wmsMoveJointBase, wmsReadJointShoulder, wmsMoveJointShoulder, wmsReadJointElbow, wmsMoveJointElbow };
-
-workModeSpec _workModeSpec = wmsGripper;
- 
 void setup() {
     setGlobalUnit(&unitTool);
     unitTool.registerNotification(&serialNotification);
@@ -68,57 +64,5 @@ void setup() {
 }
 
 void loop() {
-    if (unitTool.getWorkMode() == wmSpec) {
-      switch (_workModeSpec) {
-        case wmsReadJointBase:
-          unitTool.jointRead(JOINTBASE);
-          break;
-        case wmsMoveJointBase:
-          moveJoint(JOINTBASE);
-          break;
-        case wmsReadJointShoulder:
-          unitTool.jointRead(JOINTSHOULDER);
-          break;
-        case wmsMoveJointShoulder:
-          moveJoint(JOINTSHOULDER);
-          break;
-        case wmsReadJointElbow:
-          unitTool.jointRead(JOINTELBOW);
-          break;
-        case wmsMoveJointElbow:
-          moveJoint(JOINTELBOW);
-          break;
-        case wmsGripper:
-          int readed = 0;
-          byte input[10];
-          while (Serial.available()) {
-            input[readed] = Serial.read();
-            if (input[readed] != '\n') {
-              readed++;
-            }
-          }
-          if (readed == 1) {
-            if (input[0] == 0x67) { //g
-              unitTool.gripperGrip(GRIPPER);
-            } else if (input[0] == 0x72) { //r
-              unitTool.gripperRelease(GRIPPER);
-            }
-          }
-          break;
-      }
-    }
     unitTool.processingLoop();
-}
-
-void moveJoint(char* name) {
-    if (!unitTool.jointIsMoving(name)) {
-      char log[100];
-      sprintf(log, "Rotate joint %s to radiant = ", name);
-      Serial.print(log);
-      while (Serial.available() == 0);
-      int targetRad = Serial.parseInt();
-      Serial.read();
-      Serial.println(targetRad);
-      unitTool.jointMove(name, targetRad);
-    }
 }

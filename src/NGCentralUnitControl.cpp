@@ -150,6 +150,16 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                                         _component[_currentComponent].targetposition);
                                     _component[_currentComponent].position = _component[_currentComponent].targetposition;
                                     _component[_currentComponent].targetposition = -1;
+                                } else {
+                                    char log[100];
+                                    if (_component[_currentComponent].position <= _component[_currentComponent].min + 10) {
+                                        _component[_currentComponent].targetposition = _component[_currentComponent].max;
+                                    } else {
+                                        _component[_currentComponent].targetposition = _component[_currentComponent].min;
+                                    }
+                                    sprintf(log, "%.4s.%.7s %d", _component[_currentComponent].unit, _component[_currentComponent].component, _component[_currentComponent].targetposition);
+                                    clearInfo();
+                                    writeInfo(log);
                                 }
                                 break;
                         }
