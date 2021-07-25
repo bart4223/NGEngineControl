@@ -39,10 +39,9 @@ NGJointControl jointElbow = NGJointControl(JOINT_2);
 NGGripperControl gripper = NGGripperControl(ENGINE_0);
 NGUnitControl unitTool = NGUnitControl(TOOL, TOOLADDRESS);
 
-enum workModeSpec { wmsReadJointBase, wmsMoveJointBase, wmsSimulateJointBase, wmsGripper, wmsToggleGripper, wmsReadJointShoulder, wmsMoveJointShoulder, wmsReadJointElbow, wmsMoveJointElbow };
+enum workModeSpec { wmsGripper, wmsReadJointBase, wmsMoveJointBase, wmsReadJointShoulder, wmsMoveJointShoulder, wmsReadJointElbow, wmsMoveJointElbow };
 
-workModeSpec _workModeSpec = wmsToggleGripper;
-bool _gripperToggle = false;
+workModeSpec _workModeSpec = wmsGripper;
  
 void setup() {
     setGlobalUnit(&unitTool);
@@ -55,7 +54,9 @@ void setup() {
     unitTool.registerJoint(JOINTELBOW, &jointElbow, JOINTELBOWMINRAD, JOINTELBOWMAXRAD);
     unitTool.registerGripper(GRIPPER, &gripper, GRIPPERMINSPEED, GRIPPERMAXSPEED);
     unitTool.initialize();
-    unitTool.setWorkMode(wmNone);
+    #if (PROD == false)
+    unitTool.setWorkMode(wmMemoryObserver);
+    #endif
     unitTool.clearInfo();
 }
 
@@ -68,9 +69,6 @@ void loop() {
         case wmsMoveJointBase:
           moveJoint(JOINTBASE);
           break;
-        case wmsSimulateJointBase:
-          unitTool.jointSimulate(JOINTBASE);
-          break;
         case wmsReadJointShoulder:
           unitTool.jointRead(JOINTSHOULDER);
           break;
@@ -82,14 +80,6 @@ void loop() {
           break;
         case wmsMoveJointElbow:
           moveJoint(JOINTELBOW);
-          break;
-        case wmsToggleGripper:
-          if (_gripperToggle) {
-            unitTool.gripperGrip(GRIPPER);
-          } else {
-            unitTool.gripperRelease(GRIPPER);
-          }
-          _gripperToggle = !_gripperToggle;
           break;
         case wmsGripper:
           int readed = 0;
