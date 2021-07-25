@@ -1,4 +1,4 @@
-#define PROD false //false,true
+#define PROD true //false,true
 #if (PROD == false)
 #include <NGLCDNotification.h>
 #endif
@@ -25,7 +25,9 @@ void setup() {
     unitMotion.registerNotification(&notificationLCD);
     #endif
     unitMotion.initialize();
-    unitMotion.setWorkMode(wmNone);
+    #if (PROD == false)
+    unitMotion.setWorkMode(wmObserveMemory);
+    #endif
     unitMotion.clearInfo();
 }
 
