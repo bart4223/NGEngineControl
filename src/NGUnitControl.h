@@ -18,7 +18,7 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
-#define _VERSION "0.6"
+#define _VERSION "0.7"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -149,6 +149,8 @@ public:
     int jointGetMaxRad(char* name);
     
     bool jointMove(char* name, int targetRad);
+    
+    bool jointMoveZero(char* name);
     
     void jointMoveStepToMax(char* name);
     

@@ -89,6 +89,8 @@ public:
     
     bool move(int targetRad);
     
+    bool moveZero();
+    
     void simulate();
    
 };

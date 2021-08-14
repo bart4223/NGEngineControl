@@ -375,12 +375,12 @@ void NGUnitControl::processingLoop() {
         _receivedDataCount = 0;
     }
     for (int i = 0; i < _jointsCount; i++) {
-        if (_jointData[i].simulate) {
-            _joints[i]->simulate();
-        } else if (_jointData[i].targetRad != 0) {
+        if (_jointData[i].targetRad != 0) {
             if (_joints[i]->move(_jointData[i].targetRad)) {
                 _jointData[i].targetRad = 0;
             }
+        } else if (_jointData[i].simulate) {
+            _joints[i]->simulate();
         }
     }
     for (int i = 0; i < _grippersCount; i++) {
@@ -508,6 +508,15 @@ bool NGUnitControl::jointMove(char* name, int targetRad) {
                 writeInfo(log);
             }
         }
+    }
+    return res;
+}
+
+bool NGUnitControl::jointMoveZero(char* name) {
+    int index = _getJointIndex(name);
+    bool res = index >= 0;
+    if (res) {
+        res = _joints[index]->moveZero();
     }
     return res;
 }

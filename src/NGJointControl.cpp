@@ -128,18 +128,17 @@ bool NGJointControl::move(int targetRad) {
     return res;
 }
 
+bool NGJointControl::moveZero() {
+    return move(_maxJointRad - ((_maxJointRad - _minJointRad) / 2));
+}
+
 void NGJointControl::simulate() {
     read();
-    bool reached;
-    if (_currentJointRad >= _maxJointRad - ((_maxJointRad - _minJointRad) / 2)) {
-        do {
-            reached = move(_minJointRad);
-        } while (reached);
+    if (_currentJointRad <= _maxJointRad - ((_maxJointRad - _minJointRad) / 2)) {
+        move(_maxJointRad);
     }
     else {
-        do {
-            reached = move(_maxJointRad);
-        } while (reached);
+        move(_minJointRad);
     }
 }
 
