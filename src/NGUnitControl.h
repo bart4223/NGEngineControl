@@ -18,20 +18,32 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
-#define _VERSION "0.5"
+#define _VERSION "0.6"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
+#define COMMANDDELAY 200
 
 #define ENGINECOUNT  3
 #define JOINTCOUNT   3
 #define GRIPPERCOUNT 3
+#define COMMANDCOUNT 5
 
 #define JOINTMOVESTEP 10
 
 void _unitWireReceiveEvent(int byteCount);
 
 void _unitWireRequestEvent();
+
+enum commandKind { ckNone, ckJointSimulate, ckGripperSimulate };
+
+struct commandDataStruct
+{
+    char* command;
+    commandKind kind;
+    char* name;
+};
+typedef struct commandDataStruct commandData;
 
 struct engineDataStruct
 {
@@ -46,6 +58,7 @@ struct jointDataStruct
     int minRad;
     int maxRad;
     int targetRad;
+    bool simulate;
 };
 typedef struct jointDataStruct jointData;
 
@@ -54,12 +67,15 @@ struct gripperDataStruct
     char* name;
     int minSpeed;
     int maxSpeed;
+    bool simulate;
 };
 typedef struct gripperDataStruct gripperData;
 
 class NGUnitControl : public NGCustomUnitControl {
     
 private:
+    commandData _commandData[COMMANDCOUNT];
+    int _commandCount = 0;
     NGEngineControl *_engines[ENGINECOUNT];
     engineData _engineData[ENGINECOUNT];
     int _enginesCount = 0;
@@ -85,6 +101,8 @@ protected:
     
     void _processingReceivedDataGripper();
     
+    bool _processingCommand();
+    
     int _getNameSizeFromReceivedData();
     
     int _getEngineIndex(char* name);
@@ -105,6 +123,8 @@ public:
     void initialize();
     
     void processingLoop();
+    
+    void registerCommand(char* command, commandKind kind, char* name);
     
     void registerEngine(char* name, NGEngineControl *engine);
     
@@ -145,6 +165,8 @@ public:
     void gripperGrip(char* name);
     
     void gripperRelease(char* name);
+    
+    void gripperSimulate(char* name);
 
     void requestData(byte* data);
 };

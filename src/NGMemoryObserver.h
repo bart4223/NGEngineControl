@@ -18,6 +18,8 @@
 extern "C" {
 #endif
 
+#define NODELAY 0
+
 int freeMemory();
 void observeMemory(unsigned int sleep);
 

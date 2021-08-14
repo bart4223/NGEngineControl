@@ -21,6 +21,8 @@
 #define DEFAULTRELEASEDELAYONE   900
 #define DEFAULTRELEASEDELAYTWO  1600
 
+#define SIMULATEDELAY 250
+
 class NGGripperControl {
 
 private:
@@ -49,6 +51,8 @@ public:
     void release();
     
     void release(unsigned long delayOne, unsigned long delayTwo);
+    
+    void simulate();
     
 };
     

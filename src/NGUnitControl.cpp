@@ -138,6 +138,7 @@ void NGUnitControl::_processingReceivedDataJoint() {
         n[size - 1] = '\0';
     }
     int currentrad;
+    int joint;
     switch (_receivedData[CMDOperation]) {
         case CMDONop:
             _nop();
@@ -155,7 +156,10 @@ void NGUnitControl::_processingReceivedDataJoint() {
         case CMDOJointSimulate:
             clearInfo();
             writeInfo((char*)"simulate");
-            jointSimulate(n);
+            joint = _getJointIndex(n);
+            if (joint >= 0) {
+                _jointData[joint].simulate = !_jointData[joint].simulate;
+            }
             break;
         case CMDOJointMoveStepToMax:
             clearInfo();
@@ -192,6 +196,7 @@ void NGUnitControl::_processingReceivedDataJoint() {
 void NGUnitControl::_processingReceivedDataGripper() {
     char* n = NULL;
     int size = _getNameSizeFromReceivedData();
+    int gripper;
     if (size > 0) {
         n = (char*)malloc(size);
         memcpy(n, _receivedData + CMDOffset, size);
@@ -211,10 +216,64 @@ void NGUnitControl::_processingReceivedDataGripper() {
             writeInfo((char*)"release");
             gripperRelease(n);
             break;
+        case CMDOGripperSimulate:
+            clearInfo();
+            writeInfo((char*)"simulate");
+            gripper = _getGripperIndex(n);
+            if (gripper >= 0) {
+                _gripperData[gripper].simulate = !_gripperData[gripper].simulate;
+            }
+            break;
     }
     if (n != NULL) {
         free(n);
     }
+}
+
+bool NGUnitControl::_processingCommand() {
+    bool res;
+    int readed = 0;
+    int index;
+    byte input[10];
+    while (Serial.available()) {
+        input[readed] = Serial.read();
+        if (input[readed] != '\n') {
+            readed++;
+        }
+    }
+    if (readed >= 1) {
+        for (int i = 0; i < _commandCount; i++) {
+            if (strlen(_commandData[i].command) == readed) {
+                int x = 0;
+                for (int j = 0; j < readed; j++) {
+                    if (input[j] == _commandData[i].command[j]) {
+                        x++;
+                    }
+                }
+                res = x == readed;
+                if (res) {
+                    switch (_commandData[i].kind) {
+                        case ckNone:
+                            break;
+                        case ckJointSimulate:
+                            index = _getJointIndex(_commandData[i].name);
+                            if (index >= 0) {
+                                _jointData[index].simulate = !_jointData[index].simulate;
+                            }
+                            break;
+                        case ckGripperSimulate:
+                            index = _getGripperIndex(_commandData[i].name);
+                            if (index >= 0) {
+                                _gripperData[index].simulate = !_gripperData[index].simulate;
+                            }
+                            break;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return res;
 }
 
 int NGUnitControl::_getNameSizeFromReceivedData() {
@@ -300,6 +359,13 @@ void NGUnitControl::processingLoop() {
         case wmObserveMemory:
             observeMemory(OBSERVEMEMORYDELAY);
             break;
+        case wmCommand:
+            if (!_processingCommand()) {
+                delay(COMMANDDELAY);
+            } else {
+                observeMemory(NODELAY);
+            }
+            break;
         case wmSpec:
             observeMemory(OBSERVEMEMORYDELAY);
             break;
@@ -309,11 +375,32 @@ void NGUnitControl::processingLoop() {
         _receivedDataCount = 0;
     }
     for (int i = 0; i < _jointsCount; i++) {
-        if (_jointData[i].targetRad != 0) {
+        if (_jointData[i].simulate) {
+            _joints[i]->simulate();
+        } else if (_jointData[i].targetRad != 0) {
             if (_joints[i]->move(_jointData[i].targetRad)) {
                 _jointData[i].targetRad = 0;
             }
         }
+    }
+    for (int i = 0; i < _grippersCount; i++) {
+        if (_gripperData[i].simulate) {
+            _grippers[i]->simulate();
+        }
+    }
+}
+
+void NGUnitControl::registerCommand(char* command, commandKind kind, char* name) {
+    commandData cd;
+    cd.command = command;
+    cd.kind = kind;
+    cd.name = name;
+    _commandData[_commandCount] = cd;
+    _commandCount++;
+    if (_logging) {
+        char log[100];
+        sprintf(log, "Command \"%s->%s\" registered", command, name);
+        writeInfo(log);
     }
 }
 
@@ -502,6 +589,13 @@ void NGUnitControl::gripperRelease(char* name) {
     int index = _getGripperIndex(name);
     if (index >= 0) {
         _grippers[index]->release();
+    }
+}
+
+void NGUnitControl::gripperSimulate(char* name) {
+    int index = _getGripperIndex(name);
+    if (index >= 0) {
+        _grippers[index]->simulate();
     }
 }
 

@@ -71,8 +71,9 @@
 
 #define CMDOGripperGrip       0x01
 #define CMDOGripperRelease    0x02
+#define CMDOGripperSimulate   0x03
 
-enum workMode { wmNone, wmObserveMemory, wmSpec };
+enum workMode { wmNone, wmObserveMemory, wmCommand, wmSpec };
 
 class NGCustomUnitControl {
 

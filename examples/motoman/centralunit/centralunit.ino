@@ -56,6 +56,7 @@ void setup() {
     unitCentral.registerIRRemoteFunction(ftUp, IRP_APPLE, IRA_APPLE, IRC_APPLE_UP);
     unitCentral.registerIRRemoteFunction(ftDown, IRP_APPLE, IRA_APPLE, IRC_APPLE_DOWN);
     unitCentral.registerIRRemoteFunction(ftOK, IRP_APPLE, IRA_APPLE, IRC_APPLE_OK);
+    unitCentral.registerIRRemoteFunction(ftPlay, IRP_APPLE, IRA_APPLE, IRC_APPLE_PLAY);
     unitCentral.initialize();
     #if (PROD == false)
     unitCentral.setWorkMode(wmObserveMemory);

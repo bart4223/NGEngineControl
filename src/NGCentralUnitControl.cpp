@@ -46,11 +46,11 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                     if (_currentComponent > _componentCount - 1) {
                         _currentComponent = 0;
                         if (_componentCount == 0) {
-                            _currentComponent = -1;
+                            _currentComponent = NOCURRENTCOMPONENT;
                         }
                     }
                     clearInfo();
-                    if (_currentComponent >= 0) {
+                    if (_currentComponent > NOCURRENTCOMPONENT) {
                         char log[100];
                         switch (_component[_currentComponent].type) {
                             case ctJoint:
@@ -58,6 +58,15 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                                 _component[_currentComponent].min = (_receivedData[2] << 8) | (_receivedData[3]);
                                 _component[_currentComponent].max = (_receivedData[4] << 8) | (_receivedData[5]);
                                 sprintf(log, "%.4s.%.7s %d", _component[_currentComponent].unit, _component[_currentComponent].component, _component[_currentComponent].position);
+                                break;
+                            case ctGripper:
+                                _component[_currentComponent].min = CGRIPPERGRIP;
+                                _component[_currentComponent].max = CGRIPPERRELEASE;
+                                if (_component[_currentComponent].position == CGRIPPERGRIP) {
+                                    sprintf(log, "%s.%s grip", _component[_currentComponent].unit, _component[_currentComponent].component);
+                                } else {
+                                    sprintf(log, "%s.%s release", _component[_currentComponent].unit, _component[_currentComponent].component);
+                                }
                                 break;
                             default:
                                 sprintf(log, "%s.%s", _component[_currentComponent].unit, _component[_currentComponent].component);
@@ -68,7 +77,7 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                     delay(IRFUNCMENUDELAY);
                     break;
                 case ftLeft:
-                    if (_currentComponent >= 0) {
+                    if (_currentComponent > NOCURRENTCOMPONENT) {
                         switch (_component[_currentComponent].type) {
                             case ctJoint:
                                 char log[100];
@@ -85,7 +94,7 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                     }
                     break;
                 case ftRight:
-                    if (_currentComponent >= 0) {
+                    if (_currentComponent > NOCURRENTCOMPONENT) {
                         switch (_component[_currentComponent].type) {
                             case ctJoint:
                                 char log[100];
@@ -102,11 +111,11 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                     }
                     break;
                 case ftUp:
-                    if (_currentComponent >= 0) {
+                    if (_currentComponent > NOCURRENTCOMPONENT) {
                         switch (_component[_currentComponent].type) {
                             case ctJoint:
                                 char log[100];
-                                if (_component[_currentComponent].targetposition == -1) {
+                                if (_component[_currentComponent].targetposition == CNOTARGETPOSITION) {
                                     _component[_currentComponent].targetposition = _component[_currentComponent].position;
                                 } else {
                                     _component[_currentComponent].targetposition = _component[_currentComponent].targetposition + 10;
@@ -122,11 +131,11 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                     }
                     break;
                 case ftDown:
-                    if (_currentComponent >= 0) {
+                    if (_currentComponent > NOCURRENTCOMPONENT) {
                         switch (_component[_currentComponent].type) {
                             case ctJoint:
                                 char log[100];
-                                if (_component[_currentComponent].targetposition == -1) {
+                                if (_component[_currentComponent].targetposition == CNOTARGETPOSITION) {
                                     _component[_currentComponent].targetposition = _component[_currentComponent].position;
                                 } else {
                                     _component[_currentComponent].targetposition = _component[_currentComponent].targetposition - 10;
@@ -142,14 +151,14 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                     }
                     break;
                 case ftOK:
-                    if (_currentComponent >= 0) {
+                    if (_currentComponent > NOCURRENTCOMPONENT) {
                         switch (_component[_currentComponent].type) {
                             case ctJoint:
-                                if (_component[_currentComponent].targetposition != -1) {
+                                if (_component[_currentComponent].targetposition != CNOTARGETPOSITION) {
                                     sendUnitJointMove(_component[_currentComponent].unit, _component[_currentComponent].component,
                                         _component[_currentComponent].targetposition);
                                     _component[_currentComponent].position = _component[_currentComponent].targetposition;
-                                    _component[_currentComponent].targetposition = -1;
+                                    _component[_currentComponent].targetposition = CNOTARGETPOSITION;
                                 } else {
                                     char log[100];
                                     if (_component[_currentComponent].position <= _component[_currentComponent].min + 10) {
@@ -162,7 +171,48 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                                     writeInfo(log);
                                 }
                                 break;
+                            case ctGripper:
+                                if (_component[_currentComponent].targetposition != CNOTARGETPOSITION) {
+                                    if (_component[_currentComponent].targetposition == CGRIPPERGRIP) {
+                                        sendUnitGripperGrip(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                    } else {
+                                        sendUnitGripperRelease(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                    }
+                                    _component[_currentComponent].position = _component[_currentComponent].targetposition;
+                                    _component[_currentComponent].targetposition = CNOTARGETPOSITION;
+                                } else {
+                                    char log[100];
+                                    if (_component[_currentComponent].position == CGRIPPERGRIP) {
+                                        _component[_currentComponent].targetposition = _component[_currentComponent].max;
+                                    } else {
+                                        _component[_currentComponent].targetposition = _component[_currentComponent].min;
+                                    }
+                                    if (_component[_currentComponent].targetposition == CGRIPPERGRIP) {
+                                        sprintf(log, "%.4s.%.7s grip", _component[_currentComponent].unit, _component[_currentComponent].component);
+                                    } else {
+                                        sprintf(log, "%.4s.%.7s release", _component[_currentComponent].unit, _component[_currentComponent].component);
+                                    }
+                                    clearInfo();
+                                    writeInfo(log);
+                                }
+                                break;
                         }
+                    }
+                    break;
+                case ftPlay:
+                    if (_currentComponent > NOCURRENTCOMPONENT) {
+                        char log[100];
+                        switch (_component[_currentComponent].type) {
+                            case ctJoint:
+                                sendUnitJointSimulate(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                break;
+                            case ctGripper:
+                                sendUnitGripperSimulate(_component[_currentComponent].unit, _component[_currentComponent].component);
+                                break;
+                        }
+                        sprintf(log, "%.4s.%.7s simulate", _component[_currentComponent].unit, _component[_currentComponent].component);
+                        clearInfo();
+                        writeInfo(log);
                     }
                     break;
             }
@@ -235,7 +285,7 @@ void NGCentralUnitControl::registerComponent(componentType type, char* unit, cha
     c.position = 0;
     c.min = 0;
     c.max = 0;
-    c.targetposition = -1;
+    c.targetposition = CNOTARGETPOSITION;
     _component[_componentCount] = c;
     _componentCount++;
 }
@@ -259,6 +309,12 @@ void NGCentralUnitControl::sendUnitGripperGrip(char* name, char* gripper) {
 void NGCentralUnitControl::sendUnitGripperRelease(char* name, char* gripper) {
     byte cmd[MaxCMDLength];
     int size = _prepareCommand(CMDSGripper, CMDOGripperRelease, gripper, cmd);
+    sendUnitCommand(name, cmd, size);
+}
+
+void NGCentralUnitControl::sendUnitGripperSimulate(char* name, char* gripper) {
+    byte cmd[MaxCMDLength];
+    int size = _prepareCommand(CMDSGripper, CMDOGripperSimulate, gripper, cmd);
     sendUnitCommand(name, cmd, size);
 }
 

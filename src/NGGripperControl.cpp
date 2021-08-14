@@ -64,3 +64,10 @@ void NGGripperControl::release(unsigned long delayOne, unsigned long delayTwo) {
     delay(delayTwo);
     _engine.stop();
 }
+
+void NGGripperControl::simulate() {
+    release();
+    delay(SIMULATEDELAY);
+    grip();
+    delay(SIMULATEDELAY);
+}

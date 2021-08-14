@@ -15,13 +15,13 @@
 #define JOINTBASEMAXMOVETICKS 20
 #define _JOINTSHOULDER        "Shoulder"
 #define JOINTSHOULDER         (char*)_JOINTSHOULDER
-#define JOINTSHOULDERMINRAD   550
-#define JOINTSHOULDERMAXRAD   800
+#define JOINTSHOULDERMINRAD   300 //down
+#define JOINTSHOULDERMAXRAD   800 //up
 #define JOINTSHOULDERMAXSPEED 150
 #define _JOINTELBOW           "Elbow"
 #define JOINTELBOW            (char*)_JOINTELBOW
-#define JOINTELBOWMINRAD      500
-#define JOINTELBOWMAXRAD      870
+#define JOINTELBOWMINRAD      100 //down
+#define JOINTELBOWMAXRAD      800 //up
 #define JOINTELBOWMAXSPEED    150
 #define _GRIPPER              "Gripper"
 #define GRIPPER               (char*)_GRIPPER
@@ -31,6 +31,11 @@
 #define LCDADDRESS            0x27
 #define LCDCOLUMNS            16
 #define LCDLINES              2
+
+#define _COMMANDJOINTSIMULATE   "js"
+#define COMMANDJOINTSIMULATE    (char*)_COMMANDJOINTSIMULATE
+#define _COMMANDGRIPPERSIMULATE "gs"
+#define COMMANDGRIPPERSIMULATE  (char*)_COMMANDGRIPPERSIMULATE
 
 #if (PROD == false)
 NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
@@ -58,7 +63,9 @@ void setup() {
     unitTool.jointSetMaxSpeed(JOINTSHOULDER, JOINTSHOULDERMAXSPEED);
     unitTool.jointSetMaxSpeed(JOINTELBOW, JOINTELBOWMAXSPEED);
     #if (PROD == false)
-    unitTool.setWorkMode(wmSpec);
+    unitTool.registerCommand(COMMANDJOINTSIMULATE, ckJointSimulate, JOINTELBOW);
+    unitTool.registerCommand(COMMANDGRIPPERSIMULATE, ckGripperSimulate, GRIPPER);
+    unitTool.setWorkMode(wmCommand);
     #endif
     unitTool.clearInfo();
 }

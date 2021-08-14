@@ -16,13 +16,19 @@
 
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "0.7"
+#define _VERSION "0.8"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
 
 #define UNITCOUNT       3
 #define COMPONENTCOUNT  5
+
+#define NOCURRENTCOMPONENT  -1
+#define CNOTARGETPOSITION   -1
+
+#define CGRIPPERGRIP        0
+#define CGRIPPERRELEASE     1
 
 #define IRFUNCCOUNT     10
 #define IRFUNCMENUDELAY 100
@@ -141,6 +147,8 @@ public:
     void sendUnitGripperRelease(char* name, char* gripper);
 
     void sendUnitGripperGrip(char* name, char* gripper);
+    
+    void sendUnitGripperSimulate(char* name, char* gripper);
 
     bool sendUnitCommand(char* name, byte command[], int commandsize);
 

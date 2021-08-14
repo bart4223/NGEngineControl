@@ -119,6 +119,8 @@ bool NGJointControl::move(int targetRad) {
         }
     }
     _engine.stop();
+    delay(_engineMoveDelay);
+    read();
     bool res = (targetRad - _transducerThreshold) <= _currentJointRad && _currentJointRad <= (targetRad + _transducerThreshold);
     setLogging(res);
     read();
@@ -132,7 +134,6 @@ void NGJointControl::simulate() {
     if (_currentJointRad >= _maxJointRad - ((_maxJointRad - _minJointRad) / 2)) {
         do {
             reached = move(_minJointRad);
-
         } while (reached);
     }
     else {
