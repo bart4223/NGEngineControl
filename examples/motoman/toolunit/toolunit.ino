@@ -16,7 +16,7 @@
 #define _JOINTSHOULDER        "Shoulder"
 #define JOINTSHOULDER         (char*)_JOINTSHOULDER
 #define JOINTSHOULDERMINRAD   350 //down
-#define JOINTSHOULDERMAXRAD   650 //up
+#define JOINTSHOULDERMAXRAD   600 //up
 #define JOINTSHOULDERMAXSPEED 150
 #define _JOINTELBOW           "Elbow"
 #define JOINTELBOW            (char*)_JOINTELBOW
