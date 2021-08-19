@@ -58,10 +58,10 @@ void setup() {
     int mpDanceElbow = unitCentral.addMotionProfileComponent(mpDance, ctJoint, ELBOW);
     unitCentral.addMotionProfileComponentPosition(mpDanceBase, 850, 1000);
     unitCentral.addMotionProfileComponentPosition(mpDanceBase, 750, 1000);
-    unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, 400, 1000);
-    unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, 600, 1000);
-    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, 400, 1000);
-    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, 800, 1000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, 400, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, 600, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, 400, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, 800, 2000);
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
     unitCentral.registerIRRemoteFunction(ftMenu, IRP_APPLE, IRA_APPLE, IRC_APPLE_MENU);
     unitCentral.registerIRRemoteFunction(ftLeft, IRP_APPLE, IRA_APPLE, IRC_APPLE_LEFT);
