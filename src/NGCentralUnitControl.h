@@ -16,7 +16,7 @@
 
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "0.8"
+#define _VERSION "0.9"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -26,12 +26,17 @@
 
 #define NOCURRENTCOMPONENT  -1
 #define CNOTARGETPOSITION   -1
+#define NOPROFILE           -1
+#define NOPROFILESEQUENCE   -1
 
 #define CGRIPPERGRIP        0
 #define CGRIPPERRELEASE     1
 
-#define IRFUNCCOUNT     10
+#define IRFUNCCOUNT      10
 #define IRFUNCMENUDELAY 100
+
+#define MOTIONPROFILECOUNT         5
+#define MOTIONPROFILEPOSITIONCOUNT 5
 
 #define IRP_APPLE       0x14
 #define IRA_APPLE       0xA3
@@ -42,6 +47,12 @@
 #define IRC_APPLE_DOWN  0x0D
 #define IRC_APPLE_OK    0x5D
 #define IRC_APPLE_PLAY  0x5E
+
+#define ExceptionTooMuchUnitCount                   100
+#define ExceptionTooMuchComponentCount              101
+#define ExceptionTooMuchIRFuncCount                 102
+#define ExceptionTooMuchMotionProfileCount          103
+#define ExceptionTooMuchMotionProfilePositionCount  104
 
 enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
 
@@ -61,7 +72,19 @@ struct unitStruct
 };
 typedef struct unitStruct unit;
 
-enum componentType { ctEngine, ctJoint, ctGripper };
+enum componentType { ctEngine, ctJoint, ctGripper, ctMotionProfile };
+
+struct motionProfileStruct
+{
+    int profile;
+    char* component;
+    componentType type;
+    int position[MOTIONPROFILEPOSITIONCOUNT];
+    int positiondelay[MOTIONPROFILEPOSITIONCOUNT];
+    int count;
+    int sequence;
+};
+typedef struct motionProfileStruct motionProfile;
 
 struct componentStruct
 {
@@ -72,6 +95,8 @@ struct componentStruct
     int min;
     int max;
     int targetposition;
+    int profile;
+    bool play;
 };
 typedef struct componentStruct component;
 
@@ -94,13 +119,15 @@ private:
     bool _irremotedataReceived = false;
     irremotefunc _irremotefunc[IRFUNCCOUNT];
     int _irremotefuncCount = 0;
-    int _currentComponent = -1;
+    int _currentComponent = NOCURRENTCOMPONENT;
+    motionProfile _motionProfile[MOTIONPROFILECOUNT];
+    int _motionProfileCount = 0;
 
 protected:
     void _create(char* name, byte address, int serialRate);
     
     byte _getUnitAddress(char* name);
-
+    
     int _prepareCommand(byte subject, byte operation, char* name, byte command[]);
     
     void _processingReceivedData();
@@ -123,6 +150,12 @@ public:
     void registerUnit(char* name, byte address);
     
     void registerComponent(componentType type, char* unit, char* comp);
+    
+    int registerMotionProfile(char* profile, char* unit);
+    
+    int addMotionProfileComponent(int profile, componentType type, char* comp);
+    
+    void addMotionProfileComponentPosition(int profileComponent, int position, int positiondelay);
     
     void registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command);
     

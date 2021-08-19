@@ -64,12 +64,16 @@ workMode NGCustomUnitControl::getWorkMode() {
 }
 
 void NGCustomUnitControl::registerNotification(NGCustomNotification *notification) {
-    char log[100];
-    _notification[_notificationCount] = notification;
-    _notification[_notificationCount]->initialize();
-    _notificationCount++;
-    sprintf(log, "%s registered", _notification[_notificationCount - 1]->getName());
-    writeInfo(log);
+    if (_notificationCount < NOTIFICATIONCOUNT) {
+        char log[100];
+        _notification[_notificationCount] = notification;
+        _notification[_notificationCount]->initialize();
+        _notificationCount++;
+        sprintf(log, "%s registered", _notification[_notificationCount - 1]->getName());
+        writeInfo(log);
+    } else {
+        _raiseException(ExceptionTooMuchNotificationCount);
+    }    
 }
 
 void NGCustomUnitControl::receiveDataStart() {
@@ -99,6 +103,14 @@ void NGCustomUnitControl::_writeState() {
     for (int i = 0; i < _notificationCount; i++ ) {
         _notification[i]->writeInfo(state, 1, 0);
     }
+}
+
+void NGCustomUnitControl::_raiseException(int id) {
+    char info[100];
+    clearInfo();
+    _exceptionCount++;
+    sprintf(info, "Ex %d(%d)", id, _exceptionCount);
+    writeInfo(info);
 }
 
 void NGCustomUnitControl::clearInfo() {

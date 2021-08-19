@@ -45,6 +45,8 @@
 //   3. Byte - Name
 //    max. 9 Bytes + 1 Byte 0xFF as Separator
 
+#define NOTIFICATIONCOUNT 3
+
 #define CMDOffset           2
 #define MaxCMDLength        15
 #define CMDNameSeparator    0xFF
@@ -73,6 +75,9 @@
 #define CMDOGripperRelease    0x02
 #define CMDOGripperSimulate   0x03
 
+#define ExceptionUnknown                   1
+#define ExceptionTooMuchNotificationCount 10
+
 enum workMode { wmNone, wmObserveMemory, wmCommand, wmSpec };
 
 class NGCustomUnitControl {
@@ -84,19 +89,22 @@ protected:
     bool _initialized;
     bool _logging;
     int _serialRate;
-    NGCustomNotification *_notification[3];
+    NGCustomNotification *_notification[NOTIFICATIONCOUNT];
     int _notificationCount = 0;
     byte _receivedData[MaxCMDLength];
     int _receivedDataCount = 0;
     bool _receivingData = false;
     byte _requestedData[REQUESTEDDATALENGTH];
     workMode _workMode = wmNone;
+    int _exceptionCount = 0;
     
     void _create(char* name, byte address, int serialRate);
     
     void _clearState();
     
     void _writeState();
+    
+    void _raiseException(int id);
     
     virtual void _processingReceivedData();
 

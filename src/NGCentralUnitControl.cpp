@@ -204,14 +204,28 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                         char log[100];
                         switch (_component[_currentComponent].type) {
                             case ctJoint:
+                                _component[_currentComponent].play = !_component[_currentComponent].play;
                                 sendUnitJointSimulate(_component[_currentComponent].unit, _component[_currentComponent].component);
                                 break;
                             case ctGripper:
+                                _component[_currentComponent].play = !_component[_currentComponent].play;
                                 sendUnitGripperSimulate(_component[_currentComponent].unit, _component[_currentComponent].component);
                                 break;
+                            case ctMotionProfile:
+                                _component[_currentComponent].play = !_component[_currentComponent].play;
+                                for (int i = 0; i < _motionProfileCount; i++) {
+                                    if (_motionProfile[i].profile == _component[_currentComponent].profile) {
+                                        _motionProfile[i].sequence = NOPROFILESEQUENCE;
+                                    }
+                                }
+                                break;
                         }
-                        sprintf(log, "%.4s.%.7s simulate", _component[_currentComponent].unit, _component[_currentComponent].component);
                         clearInfo();
+                        if (_component[_currentComponent].play) {
+                            sprintf(log, "%.4s.%.7s play", _component[_currentComponent].unit, _component[_currentComponent].component);
+                        } else {
+                            sprintf(log, "%.4s.%.7s", _component[_currentComponent].unit, _component[_currentComponent].component);
+                        }
                         writeInfo(log);
                     }
                     break;
@@ -264,40 +278,127 @@ void NGCentralUnitControl::processingLoop() {
             observeMemory(OBSERVEMEMORYDELAY);
             break;
     }
+    for (int i = 0; i < _componentCount; i++) {
+        if (_component[i].play) {
+            switch (_component[i].type) {
+                case ctMotionProfile:
+                    if (_component[i].profile != NOPROFILE) {
+                        for (int j = 0; j < _motionProfileCount; j++) {
+                            if (_motionProfile[j].profile == _component[i].profile) {
+                                if (_motionProfile[j].sequence < _motionProfile[j].count - 1) {
+                                    _motionProfile[j].sequence++;
+                                } else {
+                                    _motionProfile[j].sequence = 0;
+                                }
+                                switch (_motionProfile[j].type) {
+                                    case ctJoint:
+                                        sendUnitJointMove(_component[i].unit, _motionProfile[j].component,_motionProfile[j].position[_motionProfile[j].sequence]);
+                                        delay(_motionProfile[j].positiondelay[_motionProfile[j].sequence]);
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    break;
+            }
+        }
+    }
 }
 
 void NGCentralUnitControl::registerUnit(char* name, byte address) {
-    char log[100];
-    unit u;
-    u.name = name;
-    u.address = address;
-    _unit[_unitCount] = u;
-    _unitCount++;
-    sprintf(log, "Unit %s registered", name);
-    writeInfo(log);
+    if (_unitCount < UNITCOUNT) {
+        char log[100];
+        unit u;
+        u.name = name;
+        u.address = address;
+        _unit[_unitCount] = u;
+        _unitCount++;
+        sprintf(log, "Unit %s registered", name);
+        writeInfo(log);
+    } else {
+        _raiseException(ExceptionTooMuchUnitCount);
+    }
 }
 
 void NGCentralUnitControl::registerComponent(componentType type, char* unit, char* comp) {
-    component c;
-    c.unit = unit;
-    c.component = comp;
-    c.type = type;
-    c.position = 0;
-    c.min = 0;
-    c.max = 0;
-    c.targetposition = CNOTARGETPOSITION;
-    _component[_componentCount] = c;
-    _componentCount++;
+    if (_componentCount < COMPONENTCOUNT) {
+        component c;
+        c.unit = unit;
+        c.component = comp;
+        c.type = type;
+        c.position = 0;
+        c.min = 0;
+        c.max = 0;
+        c.targetposition = CNOTARGETPOSITION;
+        c.profile = NOPROFILE;
+        _component[_componentCount] = c;
+        _componentCount++;
+    } else {
+        _raiseException(ExceptionTooMuchComponentCount);
+    }
+}
+
+int NGCentralUnitControl::registerMotionProfile(char* profile, char* unit) {
+    int res = -1;
+    if (_componentCount < COMPONENTCOUNT) {
+        if (_motionProfileCount < MOTIONPROFILECOUNT) {
+            component c;
+            c.unit = unit;
+            c.component = profile;
+            c.type = ctMotionProfile;
+            c.profile = _motionProfileCount;
+            _motionProfileCount++;
+            _component[_componentCount] = c;
+            _componentCount++;
+            res = c.profile;
+        } else {
+            _raiseException(ExceptionTooMuchMotionProfileCount);
+        }
+    } else {
+        _raiseException(ExceptionTooMuchComponentCount);
+    }
+    return res;
+}
+
+int NGCentralUnitControl::addMotionProfileComponent(int profile, componentType type, char* comp) {
+    int res = -1;
+    if (_motionProfileCount < MOTIONPROFILECOUNT) {
+        motionProfile mp;
+        mp.profile = profile;
+        mp.type = type;
+        mp.component = comp;
+        mp.sequence = NOPROFILESEQUENCE;
+        _motionProfile[_motionProfileCount] = mp;
+        res = _motionProfileCount;
+        _motionProfileCount++;
+    } else {
+        _raiseException(ExceptionTooMuchMotionProfileCount);
+    }
+    return res;
+}
+
+void NGCentralUnitControl::addMotionProfileComponentPosition(int profileComponent, int position, int positiondelay) {
+    if (_motionProfile[profileComponent].count < MOTIONPROFILEPOSITIONCOUNT) {
+        _motionProfile[profileComponent].position[_motionProfile[profileComponent].count] = position;
+        _motionProfile[profileComponent].positiondelay[_motionProfile[profileComponent].count] = positiondelay;
+        _motionProfile[profileComponent].count++;
+    } else {
+        _raiseException(ExceptionTooMuchMotionProfilePositionCount);
+    }
 }
 
 void NGCentralUnitControl::registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command) {
-    irremotefunc func;
-    func.protocol = protocol;
-    func.address = address;
-    func.command = command;
-    func.type = type;
-    _irremotefunc[_irremotefuncCount] = func;
-    _irremotefuncCount++;
+    if (_irremotefuncCount < IRFUNCCOUNT) {
+        irremotefunc func;
+        func.protocol = protocol;
+        func.address = address;
+        func.command = command;
+        func.type = type;
+        _irremotefunc[_irremotefuncCount] = func;
+        _irremotefuncCount++;
+    } else {
+        _raiseException(ExceptionTooMuchIRFuncCount);
+    }
 }
 
 void NGCentralUnitControl::sendUnitGripperGrip(char* name, char* gripper) {

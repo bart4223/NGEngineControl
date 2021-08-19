@@ -23,10 +23,10 @@
 #define JOINT_2             2
 #define JOINT_2_TRANSDUCER  2
 
-#define TRANSDUCERTHRESHOLD  3
-#define ENGINEMOVEDELAY     20
-#define DEFAULTENGINE       -1
-#define DEFAULTMAXMOVETICKS  0
+#define TRANSDUCERTHRESHOLD   3
+#define ENGINEMOVEDELAY      20
+#define DEFAULTENGINE        -1
+#define DEFAULTMAXMOVETICKS   0
 
 enum jointDirection { jdNone, jdLeft, jdRight };
 
@@ -82,6 +82,8 @@ public:
     int getMaxSpeed();
     
     void setLogging(bool logging);
+    
+    void setTransducerThreshold(int threshold);
     
     char* getName();
     

@@ -231,7 +231,7 @@ void NGUnitControl::_processingReceivedDataGripper() {
 }
 
 bool NGUnitControl::_processingCommand() {
-    bool res;
+    bool res = false;
     int readed = 0;
     int index;
     byte input[10];
@@ -271,6 +271,9 @@ bool NGUnitControl::_processingCommand() {
                     break;
                 }
             }
+        }
+        if (!res) {
+            observeMemory(NODELAY);
         }
     }
     return res;
@@ -569,6 +572,13 @@ void NGUnitControl::jointSetMaxSpeed(char* name, int speed) {
     int index = _getJointIndex(name);
     if (index >= 0) {
         _joints[index]->setMaxSpeed(speed);
+    }
+}
+
+void NGUnitControl::jointSetTransducerThreshold(char* name, int threshold) {
+    int index = _getJointIndex(name);
+    if (index >= 0) {
+        _joints[index]->setTransducerThreshold(threshold);
     }
 }
 

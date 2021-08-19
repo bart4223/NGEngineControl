@@ -151,6 +151,10 @@ void NGJointControl::setLogging(bool logging) {
     _engine.setLogging(_logging);
 }
 
+void NGJointControl::setTransducerThreshold(int threshold) {
+    _transducerThreshold = threshold;
+}
+
 void NGJointControl::setMinJointRad(int value) {
     _minJointRad = value;
 }

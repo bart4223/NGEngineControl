@@ -28,6 +28,9 @@
 #define _GRIPPER    "Gripper"
 #define GRIPPER     (char*)_GRIPPER
 
+#define _DANCE  "Dance"
+#define DANCE   (char*)_DANCE
+
 #define IRREMOTE    11
 
 #if (PROD == true)
@@ -49,6 +52,16 @@ void setup() {
     unitCentral.registerComponent(ctJoint, TOOL, SHOULDER);
     unitCentral.registerComponent(ctJoint, TOOL, ELBOW);
     unitCentral.registerComponent(ctGripper, TOOL, GRIPPER);
+    int mpDance = unitCentral.registerMotionProfile(DANCE, TOOL);
+    int mpDanceBase = unitCentral.addMotionProfileComponent(mpDance, ctJoint, BASE);
+    int mpDanceShoulder = unitCentral.addMotionProfileComponent(mpDance, ctJoint, SHOULDER);
+    int mpDanceElbow = unitCentral.addMotionProfileComponent(mpDance, ctJoint, ELBOW);
+    unitCentral.addMotionProfileComponentPosition(mpDanceBase, 850, 1000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceBase, 750, 1000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, 400, 1000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, 600, 1000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, 400, 1000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, 800, 1000);
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
     unitCentral.registerIRRemoteFunction(ftMenu, IRP_APPLE, IRA_APPLE, IRC_APPLE_MENU);
     unitCentral.registerIRRemoteFunction(ftLeft, IRP_APPLE, IRA_APPLE, IRC_APPLE_LEFT);
