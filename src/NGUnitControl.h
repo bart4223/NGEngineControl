@@ -18,7 +18,7 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
-#define _VERSION "0.8"
+#define _VERSION "0.9"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -70,6 +70,11 @@ struct gripperDataStruct
     bool simulate;
 };
 typedef struct gripperDataStruct gripperData;
+
+#define ExceptionTooMuchCommandCount    200
+#define ExceptionTooMuchEngineCount     201
+#define ExceptionTooMuchJointCount      202
+#define ExceptionTooMuchGripperCount    203
 
 class NGUnitControl : public NGCustomUnitControl {
     

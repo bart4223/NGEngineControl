@@ -394,16 +394,20 @@ void NGUnitControl::processingLoop() {
 }
 
 void NGUnitControl::registerCommand(char* command, commandKind kind, char* name) {
-    commandData cd;
-    cd.command = command;
-    cd.kind = kind;
-    cd.name = name;
-    _commandData[_commandCount] = cd;
-    _commandCount++;
-    if (_logging) {
-        char log[100];
-        sprintf(log, "Command \"%s->%s\" registered", command, name);
-        writeInfo(log);
+    if (_commandCount < COMMANDCOUNT) {
+        commandData cd;
+        cd.command = command;
+        cd.kind = kind;
+        cd.name = name;
+        _commandData[_commandCount] = cd;
+        _commandCount++;
+        if (_logging) {
+            char log[100];
+            sprintf(log, "Command \"%s->%s\" registered", command, name);
+            writeInfo(log);
+        }
+    } else {
+        _raiseException(ExceptionTooMuchCommandCount);
     }
 }
 
@@ -412,16 +416,20 @@ void NGUnitControl::registerEngine(char* name, NGEngineControl *engine) {
 }
 
 void NGUnitControl::registerEngine(char* name, NGEngineControl *engine, int initSpeed) {
-    engineData ed;
-    ed.name = name;
-    ed.initSpeed = initSpeed;
-    _engineData[_enginesCount] = ed;
-    _engines[_enginesCount] = engine;
-    _enginesCount++;
-    if (_logging) {
-        char log[100];
-        sprintf(log, "Engine \"%s.%s\" registered", _name, name);
-        writeInfo(log);
+    if (_enginesCount < ENGINECOUNT) {
+        engineData ed;
+        ed.name = name;
+        ed.initSpeed = initSpeed;
+        _engineData[_enginesCount] = ed;
+        _engines[_enginesCount] = engine;
+        _enginesCount++;
+        if (_logging) {
+            char log[100];
+            sprintf(log, "Engine \"%s.%s\" registered", _name, name);
+            writeInfo(log);
+        }
+    } else {
+        _raiseException(ExceptionTooMuchEngineCount);
     }
 }
 
@@ -455,21 +463,25 @@ void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad,
 }
 
 void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine) {
-    jointData jd;
-    jd.name = name;
-    jd.minRad = minRad;
-    jd.maxRad = maxRad;
-    jd.targetRad = 0;
-    _jointData[_jointsCount] = jd;
-    _joints[_jointsCount] = joint;
-    if (maxMoveTicks != DEFAULTMAXMOVETICKS) {
-        joint->setMaxMoveTicks(maxMoveTicks);
-    }
-    _jointsCount++;
-    if (_logging) {
-        char log[100];
-        sprintf(log, "Joint \"%s.%s\" registered", _name, name);
-        writeInfo(log);
+    if (_jointsCount < JOINTCOUNT) {
+        jointData jd;
+        jd.name = name;
+        jd.minRad = minRad;
+        jd.maxRad = maxRad;
+        jd.targetRad = 0;
+        _jointData[_jointsCount] = jd;
+        _joints[_jointsCount] = joint;
+        if (maxMoveTicks != DEFAULTMAXMOVETICKS) {
+            joint->setMaxMoveTicks(maxMoveTicks);
+        }
+        _jointsCount++;
+        if (_logging) {
+            char log[100];
+            sprintf(log, "Joint \"%s.%s\" registered", _name, name);
+            writeInfo(log);
+        }
+    } else {
+        _raiseException(ExceptionTooMuchJointCount);
     }
 }
 
@@ -583,17 +595,21 @@ void NGUnitControl::jointSetTransducerThreshold(char* name, int threshold) {
 }
 
 void NGUnitControl::registerGripper(char* name, NGGripperControl *gripper, int minSpeed, int maxSpeed) {
-    gripperData gd;
-    gd.name = name;
-    gd.minSpeed = minSpeed;
-    gd.maxSpeed = maxSpeed;
-    _gripperData[_grippersCount] = gd;
-    _grippers[_grippersCount] = gripper;
-    _grippersCount++;
-    if (_logging) {
-        char log[100];
-        sprintf(log, "Gripper \"%s.%s\" registered", _name, name);
-        writeInfo(log);
+    if (_grippersCount < GRIPPERCOUNT) {
+        gripperData gd;
+        gd.name = name;
+        gd.minSpeed = minSpeed;
+        gd.maxSpeed = maxSpeed;
+        _gripperData[_grippersCount] = gd;
+        _grippers[_grippersCount] = gripper;
+        _grippersCount++;
+        if (_logging) {
+            char log[100];
+            sprintf(log, "Gripper \"%s.%s\" registered", _name, name);
+            writeInfo(log);
+        }
+    } else {
+        _raiseException(ExceptionTooMuchGripperCount);
     }
 }
 
