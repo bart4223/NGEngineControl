@@ -16,7 +16,7 @@
 
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "0.9"
+#define _VERSION "1.0"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -29,8 +29,13 @@
 #define NOPROFILE           -1
 #define NOPROFILESEQUENCE   -1
 
-#define CGRIPPERGRIP        0
-#define CGRIPPERRELEASE     1
+#define CNODELAY 0
+
+#define CJOINTPOSITIONNONE  -1
+
+#define CGRIPPERNONE        -1
+#define CGRIPPERGRIP         0
+#define CGRIPPERRELEASE      1
 
 #define IRFUNCCOUNT      10
 #define IRFUNCMENUDELAY 100
@@ -154,6 +159,8 @@ public:
     int registerMotionProfile(char* profile, char* unit);
     
     int addMotionProfileComponent(int profile, componentType type, char* comp);
+    
+    void addMotionProfileComponentPosition(int profileComponent, int position);
     
     void addMotionProfileComponentPosition(int profileComponent, int position, int positiondelay);
     

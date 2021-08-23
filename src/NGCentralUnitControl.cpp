@@ -292,8 +292,19 @@ void NGCentralUnitControl::processingLoop() {
                                 }
                                 switch (_motionProfile[j].type) {
                                     case ctJoint:
-                                        sendUnitJointMove(_component[i].unit, _motionProfile[j].component,_motionProfile[j].position[_motionProfile[j].sequence]);
-                                        delay(_motionProfile[j].positiondelay[_motionProfile[j].sequence]);
+                                        if (_motionProfile[j].position[_motionProfile[j].sequence] != CJOINTPOSITIONNONE) {
+                                            sendUnitJointMove(_component[i].unit, _motionProfile[j].component,_motionProfile[j].position[_motionProfile[j].sequence]);
+                                            delay(_motionProfile[j].positiondelay[_motionProfile[j].sequence]);
+                                        }
+                                        break;
+                                    case ctGripper:
+                                        if (_motionProfile[j].position[_motionProfile[j].sequence] == CGRIPPERGRIP) {
+                                            sendUnitGripperGrip(_component[i].unit, _motionProfile[j].component);
+                                            delay(_motionProfile[j].positiondelay[_motionProfile[j].sequence]);
+                                        } else if (_motionProfile[j].position[_motionProfile[j].sequence] == CGRIPPERRELEASE) {
+                                            sendUnitGripperRelease(_component[i].unit, _motionProfile[j].component);
+                                            delay(_motionProfile[j].positiondelay[_motionProfile[j].sequence]);
+                                        }
                                         break;
                                 }
                             }
@@ -375,6 +386,10 @@ int NGCentralUnitControl::addMotionProfileComponent(int profile, componentType t
         _raiseException(ExceptionTooMuchMotionProfileCount);
     }
     return res;
+}
+
+void NGCentralUnitControl::addMotionProfileComponentPosition(int profileComponent, int position) {
+    addMotionProfileComponentPosition(profileComponent, position, CNODELAY);
 }
 
 void NGCentralUnitControl::addMotionProfileComponentPosition(int profileComponent, int position, int positiondelay) {

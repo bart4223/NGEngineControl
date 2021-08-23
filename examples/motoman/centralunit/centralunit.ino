@@ -56,12 +56,27 @@ void setup() {
     int mpDanceBase = unitCentral.addMotionProfileComponent(mpDance, ctJoint, BASE);
     int mpDanceShoulder = unitCentral.addMotionProfileComponent(mpDance, ctJoint, SHOULDER);
     int mpDanceElbow = unitCentral.addMotionProfileComponent(mpDance, ctJoint, ELBOW);
-    unitCentral.addMotionProfileComponentPosition(mpDanceBase, 850, 1000);
-    unitCentral.addMotionProfileComponentPosition(mpDanceBase, 750, 1000);
+    int mpDanceGripper = unitCentral.addMotionProfileComponent(mpDance, ctGripper, GRIPPER);
+    // Sequence 00
+    unitCentral.addMotionProfileComponentPosition(mpDanceGripper, CGRIPPERRELEASE, 4000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, 600, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, 800, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceBase, 850, 2000);
+    // Sequence 01
+    unitCentral.addMotionProfileComponentPosition(mpDanceGripper, CGRIPPERNONE);
     unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, 400, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, CJOINTPOSITIONNONE);
+    unitCentral.addMotionProfileComponentPosition(mpDanceBase, 750, 2000);
+    // Sequence 02
+    unitCentral.addMotionProfileComponentPosition(mpDanceGripper, CGRIPPERNONE);
     unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, 600, 2000);
     unitCentral.addMotionProfileComponentPosition(mpDanceElbow, 400, 2000);
-    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, 800, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceBase, CJOINTPOSITIONNONE);
+    // Sequence 03
+    unitCentral.addMotionProfileComponentPosition(mpDanceGripper, CGRIPPERGRIP, 4000);
+    unitCentral.addMotionProfileComponentPosition(mpDanceShoulder, CJOINTPOSITIONNONE);
+    unitCentral.addMotionProfileComponentPosition(mpDanceElbow, CJOINTPOSITIONNONE);
+    unitCentral.addMotionProfileComponentPosition(mpDanceBase, CJOINTPOSITIONNONE);
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
     unitCentral.registerIRRemoteFunction(ftMenu, IRP_APPLE, IRA_APPLE, IRC_APPLE_MENU);
     unitCentral.registerIRRemoteFunction(ftLeft, IRP_APPLE, IRA_APPLE, IRC_APPLE_LEFT);
