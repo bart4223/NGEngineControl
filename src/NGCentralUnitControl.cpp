@@ -118,7 +118,7 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                                 if (_component[_currentComponent].targetposition == CNOTARGETPOSITION) {
                                     _component[_currentComponent].targetposition = _component[_currentComponent].position;
                                 } else {
-                                    _component[_currentComponent].targetposition = _component[_currentComponent].targetposition + 10;
+                                    _component[_currentComponent].targetposition = _component[_currentComponent].targetposition + _component[_currentComponent].stepwidth;
                                     if (_component[_currentComponent].targetposition > _component[_currentComponent].max) {
                                         _component[_currentComponent].targetposition = _component[_currentComponent].max;
                                     }
@@ -138,7 +138,7 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                                 if (_component[_currentComponent].targetposition == CNOTARGETPOSITION) {
                                     _component[_currentComponent].targetposition = _component[_currentComponent].position;
                                 } else {
-                                    _component[_currentComponent].targetposition = _component[_currentComponent].targetposition - 10;
+                                    _component[_currentComponent].targetposition = _component[_currentComponent].targetposition - _component[_currentComponent].stepwidth;
                                     if (_component[_currentComponent].targetposition < _component[_currentComponent].min) {
                                         _component[_currentComponent].targetposition = _component[_currentComponent].min;
                                     }
@@ -161,7 +161,7 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                                     _component[_currentComponent].targetposition = CNOTARGETPOSITION;
                                 } else {
                                     char log[100];
-                                    if (_component[_currentComponent].position <= _component[_currentComponent].min + 10) {
+                                    if (_component[_currentComponent].position <= _component[_currentComponent].min + _component[_currentComponent].stepwidth) {
                                         _component[_currentComponent].targetposition = _component[_currentComponent].max;
                                     } else {
                                         _component[_currentComponent].targetposition = _component[_currentComponent].min;
@@ -332,6 +332,10 @@ void NGCentralUnitControl::registerUnit(char* name, byte address) {
 }
 
 void NGCentralUnitControl::registerComponent(componentType type, char* unit, char* comp) {
+    registerComponent(type, unit, comp, CDEFSTEPWIDTH);
+}
+
+void NGCentralUnitControl::registerComponent(componentType type, char* unit, char* comp, int stepwdith) {
     if (_componentCount < COMPONENTCOUNT) {
         component c;
         c.unit = unit;
@@ -342,6 +346,8 @@ void NGCentralUnitControl::registerComponent(componentType type, char* unit, cha
         c.max = 0;
         c.targetposition = CNOTARGETPOSITION;
         c.profile = NOPROFILE;
+        c.play = false;
+        c.stepwidth = stepwdith;
         _component[_componentCount] = c;
         _componentCount++;
     } else {

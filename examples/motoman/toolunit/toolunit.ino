@@ -18,6 +18,7 @@
 #define JOINTSHOULDERMAXRAD               600 //up
 #define JOINTSHOULDERMAXSPEED             150
 #define JOINTSHOULDERTRANSDUCERTHRESHOLD  10
+#define JOINTSHOULDERMOVESTEP             30
 
 #define _JOINTELBOW                       "Elbow"
 #define JOINTELBOW                        (char*)_JOINTELBOW
@@ -25,6 +26,7 @@
 #define JOINTELBOWMAXRAD                  900 //up
 #define JOINTELBOWMAXSPEED                150
 #define JOINTELBOWTRANSDUCERTHRESHOLD     10
+#define JOINTELBOWMOVESTEP                30
 
 #define _GRIPPER            "Gripper"
 #define GRIPPER             (char*)_GRIPPER
@@ -51,8 +53,8 @@ void setup() {
     setGlobalUnit(&unitTool);
     unitTool.registerNotification(&serialNotification);
     unitTool.registerJoint(JOINTBASE, &jointBase, JOINTBASEMINRAD, JOINTBASEMAXRAD);
-    unitTool.registerJoint(JOINTSHOULDER, &jointShoulder, JOINTSHOULDERMINRAD, JOINTSHOULDERMAXRAD);
-    unitTool.registerJoint(JOINTELBOW, &jointElbow, JOINTELBOWMINRAD, JOINTELBOWMAXRAD);
+    unitTool.registerJoint(JOINTSHOULDER, &jointShoulder, JOINTSHOULDERMINRAD, JOINTSHOULDERMAXRAD, DEFAULTMAXMOVETICKS, DEFAULTENGINE, JOINTSHOULDERMOVESTEP);
+    unitTool.registerJoint(JOINTELBOW, &jointElbow, JOINTELBOWMINRAD, JOINTELBOWMAXRAD, DEFAULTMAXMOVETICKS, DEFAULTENGINE, JOINTELBOWMOVESTEP);
     unitTool.registerGripper(GRIPPER, &gripper, GRIPPERMINSPEED, GRIPPERMAXSPEED);
     unitTool.initialize();
     unitTool.jointSetMaxSpeed(JOINTSHOULDER, JOINTSHOULDERMAXSPEED);

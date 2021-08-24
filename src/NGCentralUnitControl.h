@@ -16,13 +16,15 @@
 
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "1.0"
+#define _VERSION "1.1"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
 
 #define UNITCOUNT       3
 #define COMPONENTCOUNT  5
+
+#define CDEFSTEPWIDTH   10
 
 #define NOCURRENTCOMPONENT  -1
 #define CNOTARGETPOSITION   -1
@@ -41,7 +43,7 @@
 #define IRFUNCMENUDELAY 100
 
 #define MOTIONPROFILECOUNT         5
-#define MOTIONPROFILEPOSITIONCOUNT 5
+#define MOTIONPROFILEPOSITIONCOUNT 10
 
 #define IRP_APPLE       0x14
 #define IRA_APPLE       0xA3
@@ -102,6 +104,7 @@ struct componentStruct
     int targetposition;
     int profile;
     bool play;
+    int stepwidth;
 };
 typedef struct componentStruct component;
 
@@ -155,6 +158,8 @@ public:
     void registerUnit(char* name, byte address);
     
     void registerComponent(componentType type, char* unit, char* comp);
+    
+    void registerComponent(componentType type, char* unit, char* comp, int stepwdith);
     
     int registerMotionProfile(char* profile, char* unit);
     

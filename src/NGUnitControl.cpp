@@ -463,12 +463,17 @@ void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad,
 }
 
 void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine) {
+    registerJoint(name, joint, minRad, maxRad, maxMoveTicks, engine, DEFAULTJOINTMOVESTEP);
+}
+
+void NGUnitControl::registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine, int movestep) {
     if (_jointsCount < JOINTCOUNT) {
         jointData jd;
         jd.name = name;
         jd.minRad = minRad;
         jd.maxRad = maxRad;
         jd.targetRad = 0;
+        jd.movestep = movestep;
         _jointData[_jointsCount] = jd;
         _joints[_jointsCount] = joint;
         if (maxMoveTicks != DEFAULTMAXMOVETICKS) {
@@ -541,7 +546,7 @@ void NGUnitControl::jointMoveStepToMax(char* name) {
     if (index >= 0 ) {
         int currentrad = _joints[index]->read();
         if (currentrad < _joints[index]->getMaxJointRad()) {
-            int targetrad = currentrad + JOINTMOVESTEP;
+            int targetrad = currentrad + _jointData[index].movestep;
             if (targetrad > _joints[index]->getMaxJointRad()) {
                 targetrad = _joints[index]->getMaxJointRad();
             }
@@ -555,7 +560,7 @@ void NGUnitControl::jointMoveStepToMin(char* name) {
     if (index >= 0 ) {
         int currentrad = _joints[index]->read();
         if (currentrad > _joints[index]->getMinJointRad()) {
-            int targetrad = currentrad - JOINTMOVESTEP;
+            int targetrad = currentrad - _jointData[index].movestep;
             if (targetrad < _joints[index]->getMinJointRad()) {
                 targetrad = _joints[index]->getMinJointRad();
             }

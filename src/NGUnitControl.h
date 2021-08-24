@@ -18,7 +18,7 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
-#define _VERSION "0.9"
+#define _VERSION "1.0"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -29,7 +29,7 @@
 #define GRIPPERCOUNT 3
 #define COMMANDCOUNT 5
 
-#define JOINTMOVESTEP 10
+#define DEFAULTJOINTMOVESTEP 10
 
 void _unitWireReceiveEvent(int byteCount);
 
@@ -59,6 +59,7 @@ struct jointDataStruct
     int maxRad;
     int targetRad;
     bool simulate;
+    int movestep;
 };
 typedef struct jointDataStruct jointData;
 
@@ -146,6 +147,8 @@ public:
     void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks);
     
     void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine);
+    
+    void registerJoint(char* name, NGJointControl *joint, int minRad, int maxRad, int maxMoveTicks, int engine, int movestep);
     
     int jointRead(char* name);
     
