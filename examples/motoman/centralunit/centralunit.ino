@@ -1,6 +1,6 @@
 #define PROD  true  //false,true
-#define Dance true  //false,true
-#define Dude  false //false,true
+#define Dance false //false,true
+#define Dude  true  //false,true
 #if (PROD == true)
 #include <NGLCDNotification.h>
 #endif
@@ -62,20 +62,20 @@ void setup() {
     unitCentral.registerComponent(ctGripper, TOOL, GRIPPER);
     #if (Dance == true)
     int mp = unitCentral.registerMotionProfile(DANCE, TOOL);
-    int mpBase = unitCentral.addMotionProfileComponent(mp, ctJoint, BASE);
+    int mpGripper = unitCentral.addMotionProfileComponent(mp, ctGripper, GRIPPER);
     int mpShoulder = unitCentral.addMotionProfileComponent(mp, ctJoint, SHOULDER);
     int mpElbow = unitCentral.addMotionProfileComponent(mp, ctJoint, ELBOW);
-    int mpGripper = unitCentral.addMotionProfileComponent(mp, ctGripper, GRIPPER);
+    int mpBase = unitCentral.addMotionProfileComponent(mp, ctJoint, BASE);
     // Dance - Sequence 00
     unitCentral.addMotionProfileComponentPosition(mpGripper, CGRIPPERRELEASE, 4000);
     unitCentral.addMotionProfileComponentPosition(mpShoulder, 600, 2000);
     unitCentral.addMotionProfileComponentPosition(mpElbow, 800, 2000);
-    unitCentral.addMotionProfileComponentPosition(mpBase, 850, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpBase, 850, 3000);
     // Dance - Sequence 01
     unitCentral.addMotionProfileComponentPosition(mpGripper, CGRIPPERNONE);
     unitCentral.addMotionProfileComponentPosition(mpShoulder, 400, 2000);
     unitCentral.addMotionProfileComponentPosition(mpElbow, CJOINTPOSITIONNONE);
-    unitCentral.addMotionProfileComponentPosition(mpBase, 750, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpBase, 750, 3000);
     // Dance - Sequence 02
     unitCentral.addMotionProfileComponentPosition(mpGripper, CGRIPPERNONE);
     unitCentral.addMotionProfileComponentPosition(mpShoulder, 600, 2000);
@@ -89,19 +89,39 @@ void setup() {
     #endif
     #if (Dude == true)
     int mp = unitCentral.registerMotionProfile(DUDE, TOOL);
-    int mpBase = unitCentral.addMotionProfileComponent(mp, ctJoint, BASE);
+    int mpGripper = unitCentral.addMotionProfileComponent(mp, ctGripper, GRIPPER);
     int mpShoulder = unitCentral.addMotionProfileComponent(mp, ctJoint, SHOULDER);
     int mpElbow = unitCentral.addMotionProfileComponent(mp, ctJoint, ELBOW);
-    int mpGripper = unitCentral.addMotionProfileComponent(mp, ctGripper, GRIPPER);
+    int mpBase = unitCentral.addMotionProfileComponent(mp, ctJoint, BASE);
     // Dude - Sequence 00
     unitCentral.addMotionProfileComponentPosition(mpGripper, CGRIPPERNONE);
     unitCentral.addMotionProfileComponentPosition(mpShoulder, 600, 2000);
     unitCentral.addMotionProfileComponentPosition(mpElbow, 800, 2000);
-    unitCentral.addMotionProfileComponentPosition(mpBase, 850, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpBase, 750, 3000);
     // Dude - Sequence 01
     unitCentral.addMotionProfileComponentPosition(mpGripper, CGRIPPERRELEASE, 4000);
     unitCentral.addMotionProfileComponentPosition(mpShoulder, 400, 2000);
     unitCentral.addMotionProfileComponentPosition(mpElbow, 600, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpBase, CJOINTPOSITIONNONE);
+    // Dude - Sequence 02
+    unitCentral.addMotionProfileComponentPosition(mpGripper, CGRIPPERGRIP, 4000);
+    unitCentral.addMotionProfileComponentPosition(mpShoulder, 600, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpElbow, 800, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpBase, 850, 3000);
+    // Dude - Sequence 03
+    unitCentral.addMotionProfileComponentPosition(mpGripper, CGRIPPERNONE);
+    unitCentral.addMotionProfileComponentPosition(mpShoulder, 400, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpElbow, 600, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpBase, CJOINTPOSITIONNONE);
+    // Dude - Sequence 04
+    unitCentral.addMotionProfileComponentPosition(mpGripper, CGRIPPERRELEASE, 4000);
+    unitCentral.addMotionProfileComponentPosition(mpShoulder, 600, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpElbow, 800, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpBase, 800, 3000);
+    // Dude - Sequence 05
+    unitCentral.addMotionProfileComponentPosition(mpGripper, CGRIPPERGRIP, 4000);
+    unitCentral.addMotionProfileComponentPosition(mpShoulder, 500, 2000);
+    unitCentral.addMotionProfileComponentPosition(mpElbow, 700, 2000);
     unitCentral.addMotionProfileComponentPosition(mpBase, CJOINTPOSITIONNONE);
     #endif
     unitCentral.registerUnit(MOTION, MOTIONADDRESS);
