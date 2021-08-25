@@ -16,7 +16,7 @@
 
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "1.2"
+#define _VERSION "1.3"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -33,17 +33,15 @@
 
 #define CNODELAY 0
 
-#define CJOINTPOSITIONNONE  -1
-
-#define CGRIPPERNONE        -1
 #define CGRIPPERGRIP         0
 #define CGRIPPERRELEASE      1
 
 #define IRFUNCCOUNT      10
 #define IRFUNCMENUDELAY 100
 
-#define MOTIONPROFILECOUNT         5
-#define MOTIONPROFILEPOSITIONCOUNT 10
+#define MOTIONPROFILECOUNT           2
+#define MOTIONPROFILECOMPONENTCOUNT  5
+#define MOTIONPROFILEITEMCOUNT      20
 
 #define IRP_APPLE       0x14
 #define IRA_APPLE       0xA3
@@ -59,7 +57,8 @@
 #define ExceptionTooMuchComponentCount              101
 #define ExceptionTooMuchIRFuncCount                 102
 #define ExceptionTooMuchMotionProfileCount          103
-#define ExceptionTooMuchMotionProfilePositionCount  104
+#define ExceptionTooMuchMotionProfileComponentCount 104
+#define ExceptionTooMuchMotionProfileItemCount      105
 
 enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
 
@@ -81,14 +80,28 @@ typedef struct unitStruct unit;
 
 enum componentType { ctEngine, ctJoint, ctGripper, ctMotionProfile };
 
+struct motionProfileComponentStruct
+{
+    componentType type;
+    char* name;
+};
+typedef struct motionProfileComponentStruct motionProfileComponent;
+
+struct motionProfileItemStruct
+{
+    byte component;
+    int position;
+    int delay;
+};
+typedef struct motionProfileItemStruct motionProfileItem;
+
 struct motionProfileStruct
 {
-    int profile;
-    char* component;
-    componentType type;
-    int position[MOTIONPROFILEPOSITIONCOUNT];
-    int positiondelay[MOTIONPROFILEPOSITIONCOUNT];
-    int count;
+    motionProfileComponent components[MOTIONPROFILECOMPONENTCOUNT];
+    int componentCount;
+    motionProfileItem items[MOTIONPROFILEITEMCOUNT];
+    int itemCount;
+    bool infinite;
     int sequence;
 };
 typedef struct motionProfileStruct motionProfile;
@@ -105,7 +118,6 @@ struct componentStruct
     int profile;
     bool play;
     int stepwidth;
-    bool infinite;
 };
 typedef struct componentStruct component;
 
@@ -168,9 +180,9 @@ public:
     
     int addMotionProfileComponent(int profile, componentType type, char* comp);
     
-    void addMotionProfileComponentPosition(int profileComponent, int position);
+    void addMotionProfileItem(int profile, int component, int position);
     
-    void addMotionProfileComponentPosition(int profileComponent, int position, int positiondelay);
+    void addMotionProfileItem(int profile, int component, int position, int delay);
     
     void registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command);
     

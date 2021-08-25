@@ -212,11 +212,9 @@ void NGCentralUnitControl::_processingIRRemoteData() {
                                 sendUnitGripperSimulate(_component[_currentComponent].unit, _component[_currentComponent].component);
                                 break;
                             case ctMotionProfile:
-                                _component[_currentComponent].play = !_component[_currentComponent].play;
-                                for (int i = 0; i < _motionProfileCount; i++) {
-                                    if (_motionProfile[i].profile == _component[_currentComponent].profile) {
-                                        _motionProfile[i].sequence = NOPROFILESEQUENCE;
-                                    }
+                                if (_component[_currentComponent].profile != NOPROFILE) {
+                                    _component[_currentComponent].play = !_component[_currentComponent].play;
+                                    _motionProfile[_component[_currentComponent].profile].sequence = NOPROFILESEQUENCE;
                                 }
                                 break;
                         }
@@ -282,41 +280,38 @@ void NGCentralUnitControl::processingLoop() {
         if (_component[i].play) {
             switch (_component[i].type) {
                 case ctMotionProfile:
-                    if (_component[i].profile != NOPROFILE) {
-                        for (int j = 0; j < _motionProfileCount; j++) {
-                            if (_motionProfile[j].profile == _component[i].profile) {
-                                if (_motionProfile[j].sequence < _motionProfile[j].count - 1) {
-                                    _motionProfile[j].sequence++;
-                                } else {
-                                    if (_component[i].infinite) {
-                                        _motionProfile[j].sequence = 0;
-                                    } else {
-                                        char log[100];
-                                        _component[i].play = !_component[i].play;
-                                        clearInfo();
-                                        sprintf(log, "%.4s.%.7s", _component[_currentComponent].unit, _component[_currentComponent].component);
-                                        writeInfo(log);
-                                        break;
-                                    }
-                                }
-                                switch (_motionProfile[j].type) {
-                                    case ctJoint:
-                                        if (_motionProfile[j].position[_motionProfile[j].sequence] != CJOINTPOSITIONNONE) {
-                                            sendUnitJointMove(_component[i].unit, _motionProfile[j].component,_motionProfile[j].position[_motionProfile[j].sequence]);
-                                            delay(_motionProfile[j].positiondelay[_motionProfile[j].sequence]);
-                                        }
-                                        break;
-                                    case ctGripper:
-                                        if (_motionProfile[j].position[_motionProfile[j].sequence] == CGRIPPERGRIP) {
-                                            sendUnitGripperGrip(_component[i].unit, _motionProfile[j].component);
-                                            delay(_motionProfile[j].positiondelay[_motionProfile[j].sequence]);
-                                        } else if (_motionProfile[j].position[_motionProfile[j].sequence] == CGRIPPERRELEASE) {
-                                            sendUnitGripperRelease(_component[i].unit, _motionProfile[j].component);
-                                            delay(_motionProfile[j].positiondelay[_motionProfile[j].sequence]);
-                                        }
-                                        break;
-                                }
+                    int profile = _component[i].profile;
+                    if (profile != NOPROFILE) {
+                        if (_motionProfile[profile].sequence < _motionProfile[profile].itemCount - 1) {
+                            _motionProfile[profile].sequence++;
+                        } else {
+                            if (_motionProfile[profile].infinite) {
+                                _motionProfile[profile].sequence = 0;
+                            } else {
+                                char log[100];
+                                _component[i].play = !_component[i].play;
+                                clearInfo();
+                                sprintf(log, "%.4s.%.7s", _component[i].unit, _component[i].component);
+                                writeInfo(log);
+                                break;
                             }
+                        }
+                        motionProfileItem mpi = _motionProfile[profile].items[_motionProfile[profile].sequence];
+                        motionProfileComponent mpc = _motionProfile[profile].components[mpi.component];
+                        switch (mpc.type) {
+                            case ctJoint:
+                                sendUnitJointMove(_component[i].unit, mpc.name, mpi.position);
+                                delay(mpi.delay);
+                                break;
+                            case ctGripper:
+                                if (mpi.position == CGRIPPERGRIP) {
+                                    sendUnitGripperGrip(_component[i].unit, mpc.name);
+                                    delay(mpi.delay);
+                                } else if (mpi.position == CGRIPPERRELEASE) {
+                                    sendUnitGripperRelease(_component[i].unit, mpc.name);
+                                    delay(mpi.delay);
+                                }
+                                break;
                         }
                     }
                     break;
@@ -377,10 +372,13 @@ int NGCentralUnitControl::registerMotionProfile(char* profile, char* unit, bool 
             c.component = profile;
             c.type = ctMotionProfile;
             c.profile = _motionProfileCount;
-            c.infinite = infinite;
             _component[_componentCount] = c;
             _componentCount++;
-            res = c.profile;
+            motionProfile mp;
+            mp.infinite = infinite;
+            _motionProfile[_motionProfileCount] = mp;
+            _motionProfileCount++;
+            res = _component[_componentCount].profile;
         } else {
             _raiseException(ExceptionTooMuchMotionProfileCount);
         }
@@ -392,32 +390,33 @@ int NGCentralUnitControl::registerMotionProfile(char* profile, char* unit, bool 
 
 int NGCentralUnitControl::addMotionProfileComponent(int profile, componentType type, char* comp) {
     int res = -1;
-    if (_motionProfileCount < MOTIONPROFILECOUNT) {
-        motionProfile mp;
-        mp.profile = profile;
-        mp.type = type;
-        mp.component = comp;
-        mp.sequence = NOPROFILESEQUENCE;
-        _motionProfile[_motionProfileCount] = mp;
-        res = _motionProfileCount;
-        _motionProfileCount++;
+    if (_motionProfile[profile].componentCount < MOTIONPROFILECOMPONENTCOUNT) {
+        motionProfileComponent mpc;
+        mpc.type = type;
+        mpc.name = comp;
+        _motionProfile[profile].components[_motionProfile[profile].componentCount] = mpc;
+        res = _motionProfile[profile].componentCount;
+        _motionProfile[profile].componentCount++;
     } else {
-        _raiseException(ExceptionTooMuchMotionProfileCount);
+        _raiseException(ExceptionTooMuchMotionProfileComponentCount);
     }
     return res;
 }
 
-void NGCentralUnitControl::addMotionProfileComponentPosition(int profileComponent, int position) {
-    addMotionProfileComponentPosition(profileComponent, position, CNODELAY);
+void NGCentralUnitControl::addMotionProfileItem(int profile, int component, int position) {
+    addMotionProfileItem(profile, component, position, CNODELAY);
 }
 
-void NGCentralUnitControl::addMotionProfileComponentPosition(int profileComponent, int position, int positiondelay) {
-    if (_motionProfile[profileComponent].count < MOTIONPROFILEPOSITIONCOUNT) {
-        _motionProfile[profileComponent].position[_motionProfile[profileComponent].count] = position;
-        _motionProfile[profileComponent].positiondelay[_motionProfile[profileComponent].count] = positiondelay;
-        _motionProfile[profileComponent].count++;
+void NGCentralUnitControl::addMotionProfileItem(int profile, int component, int position, int delay) {
+    if (_motionProfile[profile].itemCount < MOTIONPROFILEITEMCOUNT) {
+        motionProfileItem mpi;
+        mpi.component = component;
+        mpi.position = position;
+        mpi.delay = delay;
+        _motionProfile[profile].items[_motionProfile[profile].itemCount] = mpi;
+        _motionProfile[profile].itemCount++;
     } else {
-        _raiseException(ExceptionTooMuchMotionProfilePositionCount);
+        _raiseException(ExceptionTooMuchMotionProfileItemCount);
     }
 }
 
