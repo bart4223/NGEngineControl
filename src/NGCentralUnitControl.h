@@ -16,13 +16,13 @@
 
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "1.3"
+#define _VERSION "1.4"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
 
 #define UNITCOUNT       3
-#define COMPONENTCOUNT  5
+#define COMPONENTCOUNT  6
 
 #define CDEFSTEPWIDTH   10
 

@@ -378,7 +378,7 @@ int NGCentralUnitControl::registerMotionProfile(char* profile, char* unit, bool 
             mp.infinite = infinite;
             _motionProfile[_motionProfileCount] = mp;
             _motionProfileCount++;
-            res = _component[_componentCount].profile;
+            res = _component[_componentCount - 1].profile;
         } else {
             _raiseException(ExceptionTooMuchMotionProfileCount);
         }
