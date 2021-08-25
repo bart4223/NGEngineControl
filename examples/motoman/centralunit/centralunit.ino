@@ -1,6 +1,6 @@
 #define PROD  true  //false,true
-#define Dance false //false,true
-#define Dude  true  //false,true
+#define Dance true  //false,true
+#define Dude  false //false,true
 #if (PROD == true)
 #include <NGLCDNotification.h>
 #endif
@@ -88,7 +88,7 @@ void setup() {
     unitCentral.addMotionProfileComponentPosition(mpBase, CJOINTPOSITIONNONE);
     #endif
     #if (Dude == true)
-    int mp = unitCentral.registerMotionProfile(DUDE, TOOL);
+    int mp = unitCentral.registerMotionProfile(DUDE, TOOL, false);
     int mpGripper = unitCentral.addMotionProfileComponent(mp, ctGripper, GRIPPER);
     int mpShoulder = unitCentral.addMotionProfileComponent(mp, ctJoint, SHOULDER);
     int mpElbow = unitCentral.addMotionProfileComponent(mp, ctJoint, ELBOW);

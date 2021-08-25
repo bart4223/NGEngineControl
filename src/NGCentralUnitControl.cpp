@@ -288,7 +288,16 @@ void NGCentralUnitControl::processingLoop() {
                                 if (_motionProfile[j].sequence < _motionProfile[j].count - 1) {
                                     _motionProfile[j].sequence++;
                                 } else {
-                                    _motionProfile[j].sequence = 0;
+                                    if (_component[i].infinite) {
+                                        _motionProfile[j].sequence = 0;
+                                    } else {
+                                        char log[100];
+                                        _component[i].play = !_component[i].play;
+                                        clearInfo();
+                                        sprintf(log, "%.4s.%.7s", _component[_currentComponent].unit, _component[_currentComponent].component);
+                                        writeInfo(log);
+                                        break;
+                                    }
                                 }
                                 switch (_motionProfile[j].type) {
                                     case ctJoint:
@@ -356,6 +365,10 @@ void NGCentralUnitControl::registerComponent(componentType type, char* unit, cha
 }
 
 int NGCentralUnitControl::registerMotionProfile(char* profile, char* unit) {
+    return registerMotionProfile(profile, unit, true);
+}
+
+int NGCentralUnitControl::registerMotionProfile(char* profile, char* unit, bool infinite) {
     int res = -1;
     if (_componentCount < COMPONENTCOUNT) {
         if (_motionProfileCount < MOTIONPROFILECOUNT) {
@@ -364,7 +377,7 @@ int NGCentralUnitControl::registerMotionProfile(char* profile, char* unit) {
             c.component = profile;
             c.type = ctMotionProfile;
             c.profile = _motionProfileCount;
-            _motionProfileCount++;
+            c.infinite = infinite;
             _component[_componentCount] = c;
             _componentCount++;
             res = c.profile;

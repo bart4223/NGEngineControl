@@ -16,7 +16,7 @@
 
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "1.1"
+#define _VERSION "1.2"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -105,6 +105,7 @@ struct componentStruct
     int profile;
     bool play;
     int stepwidth;
+    bool infinite;
 };
 typedef struct componentStruct component;
 
@@ -162,6 +163,8 @@ public:
     void registerComponent(componentType type, char* unit, char* comp, int stepwdith);
     
     int registerMotionProfile(char* profile, char* unit);
+    
+    int registerMotionProfile(char* profile, char* unit, bool infinite);
     
     int addMotionProfileComponent(int profile, componentType type, char* comp);
     
