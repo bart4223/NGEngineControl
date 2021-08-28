@@ -24,6 +24,10 @@
 		29647BC8253C5273003CBA13 /* NGEngineControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGEngineControl.cpp; sourceTree = "<group>"; };
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
+		299C0E1E26D7E7EC00F5A60D /* buggy.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = buggy.ino; sourceTree = "<group>"; };
+		299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSteeringControl.cpp; sourceTree = "<group>"; };
+		299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSteeringControl.h; sourceTree = "<group>"; };
+		299C0E2126DA1AE100F5A60D /* motomanB6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB6.png; sourceTree = "<group>"; };
 		29AF3EC1265F77370055A9FC /* EngineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngineShield.png; sourceTree = "<group>"; };
 		29B7A2C826C2E0D000D25BC8 /* motomanB5Central.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5Central.png; sourceTree = "<group>"; };
 		29B7A2C926C2E0F000D25BC8 /* motomanCentalUnit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanCentalUnit.png; sourceTree = "<group>"; };
@@ -120,6 +124,8 @@
 				292E8FF526620C690042F249 /* NGUnitControl.cpp */,
 				29D7EC3E2673D0A000009403 /* NGCentralUnitControl.h */,
 				29D7EC3D2673D0A000009403 /* NGCentralUnitControl.cpp */,
+				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
+				299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -127,10 +133,11 @@
 		29647BC2253C430C003CBA13 /* examples */ = {
 			isa = PBXGroup;
 			children = (
-				2905F124264F011D001B4A56 /* stop */,
 				29647BC9253C5F85003CBA13 /* simple */,
+				2905F124264F011D001B4A56 /* stop */,
 				29165F302549692B001D9497 /* profiles */,
 				29E6BA59263C6030007BCE9F /* motoman */,
+				299C0E1B26D75CCE00F5A60D /* buggy */,
 			);
 			path = examples;
 			sourceTree = "<group>";
@@ -158,6 +165,30 @@
 				298A66D12565501F00393741 /* eNGineShieldSchema.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		299C0E1B26D75CCE00F5A60D /* buggy */ = {
+			isa = PBXGroup;
+			children = (
+				299C0E1C26D75D2F00F5A60D /* images */,
+				299C0E1D26D75D6400F5A60D /* buggy */,
+			);
+			path = buggy;
+			sourceTree = "<group>";
+		};
+		299C0E1C26D75D2F00F5A60D /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		299C0E1D26D75D6400F5A60D /* buggy */ = {
+			isa = PBXGroup;
+			children = (
+				299C0E1E26D7E7EC00F5A60D /* buggy.ino */,
+			);
+			path = buggy;
 			sourceTree = "<group>";
 		};
 		29D7EC31266CE5EC00009403 /* toolunit */ = {
@@ -198,6 +229,7 @@
 		29E6BA5B263C6098007BCE9F /* images */ = {
 			isa = PBXGroup;
 			children = (
+				299C0E2126DA1AE100F5A60D /* motomanB6.png */,
 				29B7A2C926C2E0F000D25BC8 /* motomanCentalUnit.png */,
 				29B7A2C826C2E0D000D25BC8 /* motomanB5Central.png */,
 				29F2A78B26C2E059009C3822 /* motomanB5.png */,
