@@ -28,6 +28,7 @@
 		299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSteeringControl.cpp; sourceTree = "<group>"; };
 		299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSteeringControl.h; sourceTree = "<group>"; };
 		299C0E2126DA1AE100F5A60D /* motomanB6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB6.png; sourceTree = "<group>"; };
+		299C0E2226DA21FA00F5A60D /* motomanSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanSchema.png; sourceTree = "<group>"; };
 		29AF3EC1265F77370055A9FC /* EngineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngineShield.png; sourceTree = "<group>"; };
 		29B7A2C826C2E0D000D25BC8 /* motomanB5Central.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5Central.png; sourceTree = "<group>"; };
 		29B7A2C926C2E0F000D25BC8 /* motomanCentalUnit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanCentalUnit.png; sourceTree = "<group>"; };
@@ -229,6 +230,7 @@
 		29E6BA5B263C6098007BCE9F /* images */ = {
 			isa = PBXGroup;
 			children = (
+				299C0E2226DA21FA00F5A60D /* motomanSchema.png */,
 				299C0E2126DA1AE100F5A60D /* motomanB6.png */,
 				29B7A2C926C2E0F000D25BC8 /* motomanCentalUnit.png */,
 				29B7A2C826C2E0D000D25BC8 /* motomanB5Central.png */,
