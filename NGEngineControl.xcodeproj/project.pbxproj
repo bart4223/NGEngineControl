@@ -126,8 +126,8 @@
 				292E8FF526620C690042F249 /* NGUnitControl.cpp */,
 				29D7EC3E2673D0A000009403 /* NGCentralUnitControl.h */,
 				29D7EC3D2673D0A000009403 /* NGCentralUnitControl.cpp */,
-				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
 				299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */,
+				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";

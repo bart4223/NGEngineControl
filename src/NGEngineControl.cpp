@@ -78,6 +78,10 @@ void NGEngineControl::initialize(int speed) {
     }
 }
 
+int NGEngineControl::getID() {
+    return _engine;
+}
+
 void NGEngineControl::setLogging(bool logging) {
     _logging = logging;
 }

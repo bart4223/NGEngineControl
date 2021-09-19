@@ -79,6 +79,8 @@ public:
 
     bool stop(int interval);
     
+    int getID();
+    
 };
 
 #endif /* NGEngineControl_h */
