@@ -81,6 +81,8 @@ public:
     
     int getID();
     
+    int getSpeed();
+    
 };
 
 #endif /* NGEngineControl_h */

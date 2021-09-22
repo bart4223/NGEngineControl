@@ -8,11 +8,11 @@ void setup() {
 }
 
 void loop() {
-  sc.runFullSpeedForward();
+  sc.run(edForward, random(200, MAXSPEED));
   delay(2000);
   sc.stop();
   delay(2000);
-  sc.runFullSpeedBackward();
+  sc.run(edBackward, random(200, MAXSPEED));
   delay(2000);
   sc.stop();
   delay(2000);

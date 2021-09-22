@@ -56,18 +56,40 @@ void NGSteeringControl::runFullSpeedBackward() {
     run(edBackward, MAXSPEED);
 }
 
-void NGSteeringControl::run(engineDirection direction, int speed) {
+void NGSteeringControl::run(engineDirection direction) {
+    run(direction, NULLSPEED);
+}
+
+void NGSteeringControl::run(engineDirection direction, byte speed) {
     char log[100];
-    _engineLeft.setSpeed(speed);
-    _engineRight.setSpeed(speed);
+    if (speed > NULLSPEED) {
+        _speed = speed;
+    }
+    _engineLeft.setSpeed(_speed);
+    _engineRight.setSpeed(_speed);
     _engineLeft.run(direction);
     _engineRight.run(direction);
     if (_logging) {
         if (direction == edForward) {
-            sprintf(log, "Engines runs with speed %d forward", speed);
+            sprintf(log, "Engines runs with speed %d forward", _speed);
         } else {
-            sprintf(log, "Engines runs with speed %d backward", speed);
+            sprintf(log, "Engines runs with speed %d backward", _speed);
         }
         Serial.println(log);
     }
+}
+
+void NGSteeringControl::turnForward(turnDirection turn) {
+    switch (turn) {
+        case tdLeft:
+            _engineLeft.setSpeed(_speed / 2);
+            _engineRight.setSpeed(_speed);
+            break;
+        case tdRight:
+            _engineLeft.setSpeed(_speed);
+            _engineRight.setSpeed(_speed / 2);
+            break;
+    }
+    _engineLeft.run(edForward);
+    _engineRight.run(edForward);
 }

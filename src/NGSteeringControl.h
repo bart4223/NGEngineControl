@@ -16,6 +16,8 @@
 
 #include <NGEngineControl.h>
 
+enum turnDirection { tdLeft, tdRight };
+
 class NGSteeringControl {
 
 private:
@@ -25,6 +27,7 @@ private:
 protected:
     bool _initialized;
     bool _logging;
+    byte _speed;
     void _create(int engineLeft, int engineRight, int serialRate);
     
 public:
@@ -42,7 +45,11 @@ public:
     
     void runFullSpeedBackward();
     
-    void run(engineDirection direction, int speed);
+    void run(engineDirection direction);
+    
+    void run(engineDirection direction, byte speed);
+    
+    void turnForward(turnDirection turn);
 };
 
 #endif /* NGSteeringControl_h */
