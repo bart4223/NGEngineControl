@@ -1,0 +1,21 @@
+-Common
+  -soundMachine
+    -jingles
+  -lightSensor
+    -registerThreshold
+  -customUnit
+    -setup
+      -splash
+-Motoman
+  -Common
+    -TransportBox
+  -centralUnit
+  -toolUnit
+-Buggy
+  -Common
+    -TransportBox
+  -steeringControl
+    -turn
+  -motionProfil
+  -motionUnit
+    -motionProfil
