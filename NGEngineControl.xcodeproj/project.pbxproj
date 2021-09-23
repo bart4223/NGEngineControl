@@ -97,7 +97,6 @@
 				29647BC5253C4A53003CBA13 /* LICENSE */,
 				29647BC4253C449A003CBA13 /* README.md */,
 				29647BC3253C43B2003CBA13 /* keywords.txt */,
-				2913C92D26FBBAE300D0AFC6 /* ToDo.txt */,
 				29647BC2253C430C003CBA13 /* examples */,
 				29647BC1253C42E8003CBA13 /* src */,
 			);
@@ -158,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				29647BCC253C7794003CBA13 /* images */,
+				2913C92D26FBBAE300D0AFC6 /* ToDo.txt */,
 			);
 			path = docs;
 			sourceTree = "<group>";
