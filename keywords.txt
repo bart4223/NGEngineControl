@@ -23,6 +23,9 @@ stop               KEYWORD2
 #######################################
 
 ENGINE_0           LITERAL1
+ENGINE_1           LITERAL1
+ENGINE_2           LITERAL1
+ENGINE_3           LITERAL1
 NONE               LITERAL1
 BACKWARD           LITERAL1
 FORWARD            LITERAL1

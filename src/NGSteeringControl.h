@@ -21,13 +21,13 @@ enum turnDirection { tdLeft, tdRight };
 class NGSteeringControl {
 
 private:
-    NGEngineControl _engineLeft = NGEngineControl();
-    NGEngineControl _engineRight = NGEngineControl();
-    
-protected:
     bool _initialized;
     bool _logging;
     byte _speed;
+    NGEngineControl _engineLeft = NGEngineControl();
+    NGEngineControl _engineRight = NGEngineControl();
+
+protected:
     void _create(int engineLeft, int engineRight, int serialRate);
     
 public:

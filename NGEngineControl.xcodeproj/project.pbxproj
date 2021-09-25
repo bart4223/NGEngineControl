@@ -12,6 +12,14 @@
 		2905F121264D385A001B4A56 /* NGUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUnitControl.h; sourceTree = "<group>"; };
 		2905F125264F0143001B4A56 /* stop.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = stop.ino; sourceTree = "<group>"; };
 		2913C92D26FBBAE300D0AFC6 /* ToDo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ToDo.txt; sourceTree = "<group>"; };
+		2913C92F26FF357300D0AFC6 /* NGSoundMachine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSoundMachine.cpp; sourceTree = "<group>"; };
+		2913C93026FF357300D0AFC6 /* NGSoundMachine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSoundMachine.h; sourceTree = "<group>"; };
+		2913C93126FF3D8D00D0AFC6 /* NGCustomJingle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomJingle.cpp; sourceTree = "<group>"; };
+		2913C93226FF3D8E00D0AFC6 /* NGCustomJingle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomJingle.h; sourceTree = "<group>"; };
+		2913C93326FF434A00D0AFC6 /* NGJingleGorilla.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleGorilla.cpp; sourceTree = "<group>"; };
+		2913C93426FF434A00D0AFC6 /* NGJingleGorilla.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleGorilla.h; sourceTree = "<group>"; };
+		2913C93B26FF687E00D0AFC6 /* NGJinglePopcorn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJinglePopcorn.cpp; sourceTree = "<group>"; };
+		2913C93C26FF687E00D0AFC6 /* NGJinglePopcorn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJinglePopcorn.h; sourceTree = "<group>"; };
 		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
 		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
@@ -80,6 +88,58 @@
 			path = stop;
 			sourceTree = "<group>";
 		};
+		2913C93526FF543500D0AFC6 /* sound */ = {
+			isa = PBXGroup;
+			children = (
+				2913C93026FF357300D0AFC6 /* NGSoundMachine.h */,
+				2913C92F26FF357300D0AFC6 /* NGSoundMachine.cpp */,
+				2913C93226FF3D8E00D0AFC6 /* NGCustomJingle.h */,
+				2913C93126FF3D8D00D0AFC6 /* NGCustomJingle.cpp */,
+				2913C93426FF434A00D0AFC6 /* NGJingleGorilla.h */,
+				2913C93326FF434A00D0AFC6 /* NGJingleGorilla.cpp */,
+				2913C93C26FF687E00D0AFC6 /* NGJinglePopcorn.h */,
+				2913C93B26FF687E00D0AFC6 /* NGJinglePopcorn.cpp */,
+			);
+			name = sound;
+			sourceTree = "<group>";
+		};
+		2913C93726FF54FA00D0AFC6 /* visuals */ = {
+			isa = PBXGroup;
+			children = (
+				29D7EC382673B88300009403 /* NGCustomNotification.h */,
+				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
+				29D7EC3A2673BFB800009403 /* NGSerialNotification.h */,
+				29D7EC392673BFB800009403 /* NGSerialNotification.cpp */,
+				29D7EC4026741FAB00009403 /* NGLCDNotification.h */,
+				29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */,
+			);
+			name = visuals;
+			sourceTree = "<group>";
+		};
+		2913C93926FF554A00D0AFC6 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				29D7EC362670DD2C00009403 /* NGCommon.cpp */,
+				29D7EC352670DC5100009403 /* NGCommon.h */,
+				29D7EC30266BF4E400009403 /* NGMemoryObserver.h */,
+				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
+			);
+			name = common;
+			sourceTree = "<group>";
+		};
+		2913C93A26FF67DB00D0AFC6 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				29D7EC342670D7D800009403 /* NGCustomUnitControl.h */,
+				29D7EC332670D7D800009403 /* NGCustomUnitControl.cpp */,
+				2905F121264D385A001B4A56 /* NGUnitControl.h */,
+				292E8FF526620C690042F249 /* NGUnitControl.cpp */,
+				29D7EC3E2673D0A000009403 /* NGCentralUnitControl.h */,
+				29D7EC3D2673D0A000009403 /* NGCentralUnitControl.cpp */,
+			);
+			name = app;
+			sourceTree = "<group>";
+		};
 		29165F302549692B001D9497 /* profiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,28 +165,16 @@
 		29647BC1253C42E8003CBA13 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				29D7EC352670DC5100009403 /* NGCommon.h */,
-				29D7EC362670DD2C00009403 /* NGCommon.cpp */,
-				29D7EC30266BF4E400009403 /* NGMemoryObserver.h */,
-				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
-				29D7EC382673B88300009403 /* NGCustomNotification.h */,
-				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
-				29D7EC3A2673BFB800009403 /* NGSerialNotification.h */,
-				29D7EC392673BFB800009403 /* NGSerialNotification.cpp */,
-				29D7EC4026741FAB00009403 /* NGLCDNotification.h */,
-				29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */,
+				2913C93926FF554A00D0AFC6 /* common */,
+				2913C93726FF54FA00D0AFC6 /* visuals */,
+				2913C93526FF543500D0AFC6 /* sound */,
+				2913C93A26FF67DB00D0AFC6 /* app */,
 				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
 				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
 				2905F11F264AD273001B4A56 /* NGJointControl.h */,
 				2905F120264AD58E001B4A56 /* NGJointControl.cpp */,
 				292E8FF3265FFAF50042F249 /* NGGripperControl.h */,
 				292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */,
-				29D7EC342670D7D800009403 /* NGCustomUnitControl.h */,
-				29D7EC332670D7D800009403 /* NGCustomUnitControl.cpp */,
-				2905F121264D385A001B4A56 /* NGUnitControl.h */,
-				292E8FF526620C690042F249 /* NGUnitControl.cpp */,
-				29D7EC3E2673D0A000009403 /* NGCentralUnitControl.h */,
-				29D7EC3D2673D0A000009403 /* NGCentralUnitControl.cpp */,
 				299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */,
 				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
 			);
