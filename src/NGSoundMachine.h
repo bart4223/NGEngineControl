@@ -15,11 +15,14 @@
 #endif
 
 #define DEFPINPIEZO 13
+#define MAXJINGLES   5
 
 class NGSoundMachine {
     
 private:
     int _pinPiezo;
+    NGCustomJingle *_jingles[MAXJINGLES];
+    int _jingleCount;
     
 protected:
     void _create(int pinPiezo);
@@ -31,9 +34,13 @@ public:
     
     void initialize();
     
-    void play(NGCustomJingle *jingle);
+    byte registerJingle(NGCustomJingle *jingle);
     
-    void play(NGCustomJingle *jingle, int tempo);
+    void playRandom();
+    
+    void play(byte jingle);
+    
+    void play(byte jingle, int tempo);
 };
 
 #endif /* NGSoundMachine_h */

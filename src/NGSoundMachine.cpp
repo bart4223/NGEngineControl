@@ -24,15 +24,28 @@ void NGSoundMachine::initialize() {
     pinMode(_pinPiezo, OUTPUT);
 }
 
-void NGSoundMachine::play(NGCustomJingle *jingle) {
-    play(jingle, jingle->getDefaultTempo());
+byte NGSoundMachine::registerJingle(NGCustomJingle *jingle) {
+    byte res = _jingleCount;
+    _jingles[_jingleCount] = jingle;
+    _jingleCount++;
+    return res;
 }
 
-void NGSoundMachine::play(NGCustomJingle *jingle, int tempo) {
-    jingle->reset();
-    while(jingle->hasTune()) {
-        int tune = jingle->getTune();
-        int beat = jingle->getBeat();
+void NGSoundMachine::playRandom() {
+    if (_jingleCount > 0) {
+        play(random(0, _jingleCount));
+    }
+}
+
+void NGSoundMachine::play(byte jingle) {
+    play(jingle, _jingles[jingle]->getDefaultTempo());
+}
+
+void NGSoundMachine::play(byte jingle, int tempo) {
+    _jingles[jingle]->reset();
+    while(_jingles[jingle]->hasTune()) {
+        int tune = _jingles[jingle]->getTune();
+        int beat = _jingles[jingle]->getBeat();
         if (tune == NO_NOTE) {
             noTone(_pinPiezo);
         } else {

@@ -20,6 +20,8 @@
 		2913C93426FF434A00D0AFC6 /* NGJingleGorilla.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleGorilla.h; sourceTree = "<group>"; };
 		2913C93B26FF687E00D0AFC6 /* NGJinglePopcorn.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJinglePopcorn.cpp; sourceTree = "<group>"; };
 		2913C93C26FF687E00D0AFC6 /* NGJinglePopcorn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJinglePopcorn.h; sourceTree = "<group>"; };
+		2913C93D26FF6ABF00D0AFC6 /* NGJingleSuperMario.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleSuperMario.cpp; sourceTree = "<group>"; };
+		2913C93E26FF6ABF00D0AFC6 /* NGJingleSuperMario.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleSuperMario.h; sourceTree = "<group>"; };
 		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
 		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
@@ -99,6 +101,8 @@
 				2913C93326FF434A00D0AFC6 /* NGJingleGorilla.cpp */,
 				2913C93C26FF687E00D0AFC6 /* NGJinglePopcorn.h */,
 				2913C93B26FF687E00D0AFC6 /* NGJinglePopcorn.cpp */,
+				2913C93E26FF6ABF00D0AFC6 /* NGJingleSuperMario.h */,
+				2913C93D26FF6ABF00D0AFC6 /* NGJingleSuperMario.cpp */,
 			);
 			name = sound;
 			sourceTree = "<group>";
