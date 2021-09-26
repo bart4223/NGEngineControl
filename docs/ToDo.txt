@@ -4,6 +4,7 @@
   -customUnit
     -setup
       -splash
+      -start
 -Motoman
   -Common
     -TransportBox
