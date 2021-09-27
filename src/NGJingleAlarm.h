@@ -29,10 +29,6 @@ public:
     NGJingleAlarm();
     
     int getDefaultTempo();
-    
-    int getTune();
-    
-    int getBeat();
 };
 
 #endif /* NGJingleAlarm_h */

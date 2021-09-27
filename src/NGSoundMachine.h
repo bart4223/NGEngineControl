@@ -15,7 +15,7 @@
 #endif
 
 #define DEFPINPIEZO 13
-#define MAXJINGLES   5
+#define MAXJINGLES  10
 
 class NGSoundMachine {
     

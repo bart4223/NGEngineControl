@@ -29,10 +29,6 @@ public:
     NGJingleSuperMarioShort();
     
     int getDefaultTempo();
-    
-    int getTune();
-    
-    int getBeat();
 };
 
 #endif /* NGJingleSuperMarioShort_h */

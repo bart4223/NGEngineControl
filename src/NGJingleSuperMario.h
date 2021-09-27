@@ -67,10 +67,6 @@ public:
     NGJingleSuperMario();
     
     int getDefaultTempo();
-    
-    int getTune();
-    
-    int getBeat();
 };
 
 #endif /* NGJingleSuperMario_h */

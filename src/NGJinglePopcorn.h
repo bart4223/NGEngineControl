@@ -48,10 +48,6 @@ public:
     NGJinglePopcorn();
     
     int getDefaultTempo();
-    
-    int getTune();
-    
-    int getBeat();
 };
 
 #endif /* NGJinglePopcorn_h */

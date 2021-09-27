@@ -111,6 +111,8 @@ protected:
     int _indexTune;
     int _indexBeat;
     int _length;
+    int *_tuneRef;
+    int *_beatRef;
     void _create();
     
 public:
@@ -121,9 +123,9 @@ public:
     
     virtual int getDefaultTempo();
     
-    virtual int getTune();
+    int getTune();
     
-    virtual int getBeat();
+    int getBeat();
 };
 
 #endif /* NGCustomJingle_h */

@@ -29,10 +29,6 @@ public:
     NGJingleGorilla();
     
     int getDefaultTempo();
-    
-    int getTune();
-    
-    int getBeat();
 };
 
 #endif /* NGJingleGorilla_h */

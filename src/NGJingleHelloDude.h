@@ -29,10 +29,6 @@ public:
     NGJingleHelloDude();
     
     int getDefaultTempo();
-    
-    int getTune();
-    
-    int getBeat();
 };
 
 #endif /* NGJingleHelloDude_h */

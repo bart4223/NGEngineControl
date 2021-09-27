@@ -20,3 +20,21 @@ void NGCustomJingle::reset() {
 bool NGCustomJingle::hasTune() {
     return _indexTune < _length;
 }
+
+int NGCustomJingle::getTune() {
+    int res = NO_NOTE;
+    if (_indexTune < _length) {
+        res = *(_tuneRef + _indexTune);
+        _indexTune++;
+    }
+    return res;
+}
+
+int NGCustomJingle::getBeat() {
+    int res = NO_NOTE;
+    if (_indexBeat < _length) {
+        res = *(_beatRef + _indexBeat);
+        _indexBeat++;
+    }
+    return res;
+}

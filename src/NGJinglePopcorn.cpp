@@ -13,27 +13,11 @@ NGJinglePopcorn::NGJinglePopcorn() {
 
 void NGJinglePopcorn::_create() {
     NGCustomJingle::_create();
+    _tuneRef = &_tune[0];
+    _beatRef = &_beat[0];
     _length = sizeof(_tune) / sizeof(int);
 }
 
 int NGJinglePopcorn::getDefaultTempo() {
     return 190;
-}
-
-int NGJinglePopcorn::getTune() {
-    int res = NO_NOTE;
-    if (_indexTune < _length) {
-        res = _tune[_indexTune];
-        _indexTune++;
-    }
-    return res;
-}
-
-int NGJinglePopcorn::getBeat() {
-    int res = NO_NOTE;
-    if (_indexBeat < _length) {
-        res = _beat[_indexBeat];
-        _indexBeat++;
-    }
-    return res;
 }
