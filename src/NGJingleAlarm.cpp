@@ -13,7 +13,7 @@ NGJingleAlarm::NGJingleAlarm() {
 
 void NGJingleAlarm::_create() {
     NGCustomJingle::_create();
-    _length = 8;
+    _length = sizeof(_tune) / sizeof(int);
 }
 
 int NGJingleAlarm::getDefaultTempo() {

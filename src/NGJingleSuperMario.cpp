@@ -13,7 +13,7 @@ NGJingleSuperMario::NGJingleSuperMario() {
 
 void NGJingleSuperMario::_create() {
     NGCustomJingle::_create();
-    _length = 90;
+    _length = sizeof(_tune) / sizeof(int);
 }
 
 int NGJingleSuperMario::getDefaultTempo() {

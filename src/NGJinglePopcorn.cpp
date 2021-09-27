@@ -13,7 +13,7 @@ NGJinglePopcorn::NGJinglePopcorn() {
 
 void NGJinglePopcorn::_create() {
     NGCustomJingle::_create();
-    _length = 64;
+    _length = sizeof(_tune) / sizeof(int);
 }
 
 int NGJinglePopcorn::getDefaultTempo() {

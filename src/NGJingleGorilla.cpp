@@ -13,7 +13,7 @@ NGJingleGorilla::NGJingleGorilla() {
 
 void NGJingleGorilla::_create() {
     NGCustomJingle::_create();
-    _length = 12;
+    _length = sizeof(_tune);
 }
 
 int NGJingleGorilla::getDefaultTempo() {

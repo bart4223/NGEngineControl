@@ -13,7 +13,7 @@ NGJingleHelloDude::NGJingleHelloDude() {
 
 void NGJingleHelloDude::_create() {
     NGCustomJingle::_create();
-    _length = 6;
+    _length = sizeof(_tune) / sizeof(int);
 }
 
 int NGJingleHelloDude::getDefaultTempo() {
