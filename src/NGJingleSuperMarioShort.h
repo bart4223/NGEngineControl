@@ -27,8 +27,6 @@ protected:
     
 public:
     NGJingleSuperMarioShort();
-    
-    int getDefaultTempo();
 };
 
 #endif /* NGJingleSuperMarioShort_h */

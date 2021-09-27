@@ -15,9 +15,6 @@ void NGJingleSuperMario::_create() {
     NGCustomJingle::_create();
     _tuneRef = &_tune[0];
     _beatRef = &_beat[0];
-    _length = sizeof(_tune) / sizeof(int);
-}
-
-int NGJingleSuperMario::getDefaultTempo() {
-    return 120;
+    _length = sizeof(_tune) / sizeof(_beat[0]);
+    _defaultTempo = 120;
 }

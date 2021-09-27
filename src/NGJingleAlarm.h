@@ -27,8 +27,6 @@ protected:
     
 public:
     NGJingleAlarm();
-    
-    int getDefaultTempo();
 };
 
 #endif /* NGJingleAlarm_h */

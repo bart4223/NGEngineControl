@@ -15,9 +15,6 @@ void NGJingleGorilla::_create() {
     NGCustomJingle::_create();
     _tuneRef = &_tune[0];
     _beatRef = &_beat[0];
-    _length = sizeof(_tune) / sizeof(int);
-}
-
-int NGJingleGorilla::getDefaultTempo() {
-    return 170;
+    _length = sizeof(_tune) / sizeof(_beat[0]);
+    _defaultTempo = 170;
 }

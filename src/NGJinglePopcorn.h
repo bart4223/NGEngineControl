@@ -46,8 +46,6 @@ protected:
     
 public:
     NGJinglePopcorn();
-    
-    int getDefaultTempo();
 };
 
 #endif /* NGJinglePopcorn_h */

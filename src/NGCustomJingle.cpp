@@ -21,6 +21,10 @@ bool NGCustomJingle::hasTune() {
     return _indexTune < _length;
 }
 
+int NGCustomJingle::getDefaultTempo() {
+    return _defaultTempo;
+}
+
 int NGCustomJingle::getTune() {
     int res = NO_NOTE;
     if (_indexTune < _length) {

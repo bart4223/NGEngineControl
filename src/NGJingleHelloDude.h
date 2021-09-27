@@ -27,8 +27,6 @@ protected:
     
 public:
     NGJingleHelloDude();
-    
-    int getDefaultTempo();
 };
 
 #endif /* NGJingleHelloDude_h */

@@ -65,8 +65,6 @@ protected:
     
 public:
     NGJingleSuperMario();
-    
-    int getDefaultTempo();
 };
 
 #endif /* NGJingleSuperMario_h */

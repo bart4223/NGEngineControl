@@ -27,8 +27,6 @@ protected:
     
 public:
     NGJingleGorilla();
-    
-    int getDefaultTempo();
 };
 
 #endif /* NGJingleGorilla_h */

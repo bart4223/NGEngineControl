@@ -111,6 +111,7 @@ protected:
     int _indexTune;
     int _indexBeat;
     int _length;
+    int _defaultTempo;
     int *_tuneRef;
     int *_beatRef;
     void _create();
@@ -121,7 +122,7 @@ public:
     
     bool hasTune();
     
-    virtual int getDefaultTempo();
+    int getDefaultTempo();
     
     int getTune();
     
