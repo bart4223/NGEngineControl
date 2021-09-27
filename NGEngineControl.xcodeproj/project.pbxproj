@@ -28,6 +28,8 @@
 		2913C944270077AE00D0AFC6 /* NGJingleHelloDude.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleHelloDude.h; sourceTree = "<group>"; };
 		2913C94527007BB200D0AFC6 /* NGJingleAlarm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleAlarm.cpp; sourceTree = "<group>"; };
 		2913C94627007BB200D0AFC6 /* NGJingleAlarm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleAlarm.h; sourceTree = "<group>"; };
+		2913C94827018CD900D0AFC6 /* NGLightSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGLightSensor.cpp; sourceTree = "<group>"; };
+		2913C94927018CD900D0AFC6 /* NGLightSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGLightSensor.h; sourceTree = "<group>"; };
 		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
 		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
@@ -156,6 +158,15 @@
 			name = app;
 			sourceTree = "<group>";
 		};
+		2913C94727018C9800D0AFC6 /* sensors */ = {
+			isa = PBXGroup;
+			children = (
+				2913C94927018CD900D0AFC6 /* NGLightSensor.h */,
+				2913C94827018CD900D0AFC6 /* NGLightSensor.cpp */,
+			);
+			name = sensors;
+			sourceTree = "<group>";
+		};
 		29165F302549692B001D9497 /* profiles */ = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +195,7 @@
 				2913C93926FF554A00D0AFC6 /* common */,
 				2913C93726FF54FA00D0AFC6 /* visuals */,
 				2913C93526FF543500D0AFC6 /* sound */,
+				2913C94727018C9800D0AFC6 /* sensors */,
 				2913C93A26FF67DB00D0AFC6 /* app */,
 				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
 				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
