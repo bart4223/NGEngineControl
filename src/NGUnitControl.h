@@ -21,7 +21,6 @@
 #define _VERSION "1.0"
 #define VERSION (char*)_VERSION
 
-#define OBSERVEMEMORYDELAY 5000
 #define COMMANDDELAY 200
 
 #define ENGINECOUNT  3

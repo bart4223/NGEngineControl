@@ -2,7 +2,7 @@
   -customUnit
     -setup
       -splash
-      -start
+        -SoundMachine
 -Motoman
   -Common
     -TransportBox

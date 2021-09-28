@@ -45,6 +45,8 @@
 //   3. Byte - Name
 //    max. 9 Bytes + 1 Byte 0xFF as Separator
 
+#define OBSERVEMEMORYDELAY 5000
+
 #define NOTIFICATIONCOUNT 3
 
 #define CMDOffset           2
@@ -97,6 +99,8 @@ protected:
     byte _requestedData[REQUESTEDDATALENGTH];
     workMode _workMode = wmNone;
     int _exceptionCount = 0;
+    int _pinStartup = -1;
+    bool _started = false;
     
     void _create(char* name, byte address, int serialRate);
     
@@ -117,7 +121,9 @@ public:
     
     workMode getWorkMode();
     
-    virtual void processingLoop();
+    void setStartup(int pinStartup);
+    
+    void processingLoop();
     
     void clearInfo();
 

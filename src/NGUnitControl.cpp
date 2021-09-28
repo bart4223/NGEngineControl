@@ -7,7 +7,7 @@
 
 #include "Wire.h"
 #include "NGCommon.h"
-#include <NGMemoryObserver.h>
+#include "NGMemoryObserver.h"
 #include "NGUnitControl.h"
 
 void _unitWireReceiveEvent(int byteCount) {
@@ -356,6 +356,7 @@ void NGUnitControl::initialize() {
 }
 
 void NGUnitControl::processingLoop() {
+    NGCustomUnitControl::processingLoop();
     switch (_workMode) {
         case wmNone:
             break;

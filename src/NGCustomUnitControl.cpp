@@ -49,7 +49,16 @@ void NGCustomUnitControl::_create(char* name, byte address, int serialRate) {
 }
 
 void NGCustomUnitControl::initialize() {
-    
+    if (_pinStartup != -1) {
+        pinMode(_pinStartup, INPUT_PULLUP);
+    }
+}
+
+void NGCustomUnitControl::processingLoop() {
+    if (_pinStartup != -1 && !_started) {
+        while(digitalRead(_pinStartup));
+    }
+    _started = true;
 }
 
 void NGCustomUnitControl::setWorkMode(workMode workmode) {
@@ -61,6 +70,10 @@ void NGCustomUnitControl::setWorkMode(workMode workmode) {
 
 workMode NGCustomUnitControl::getWorkMode() {
     return _workMode;
+}
+
+void NGCustomUnitControl::setStartup(int pinStartup) {
+    _pinStartup = pinStartup;
 }
 
 void NGCustomUnitControl::registerNotification(NGCustomNotification *notification) {

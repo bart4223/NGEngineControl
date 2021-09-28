@@ -1,25 +1,28 @@
-#include <NGSteeringControl.h>
+#define PROD false //false,true
 
-#define START A1
+#include <NGMotionUnitControl.h>
+#include <NGSerialNotification.h>
 
-NGSteeringControl sc = NGSteeringControl(ENGINE_0, ENGINE_1);
+#define _MOTION       "Motion"
+#define MOTION        (char*)_MOTION
+#define MOTIONADDRESS 0x21
+
+#define STARTUP A1
+
+NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION);
+NGSerialNotification notificationSerial = NGSerialNotification();
 
 void setup() {
-  pinMode(START, INPUT_PULLUP);
-  sc.initialize();
-  sc.stop();
-  Serial.println("wait for start...");
-  while(digitalRead(START));
-  Serial.println("...started");
+  setGlobalUnit(&unitMotion);
+  unitMotion.setStartup(STARTUP);
+  unitMotion.registerNotification(&notificationSerial);
+  unitMotion.initialize();
+  #if (PROD == false)
+  unitMotion.setWorkMode(wmObserveMemory);
+  #endif
+  unitMotion.clearInfo();
 }
 
 void loop() {
-  sc.run(edForward, random(100, MAXSPEED));
-  delay(2000);
-  sc.stop();
-  delay(2000);
-  sc.run(edBackward, random(100, MAXSPEED));
-  delay(2000);
-  sc.stop();
-  delay(2000);
+  unitMotion.processingLoop();
 }
