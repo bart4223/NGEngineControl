@@ -30,6 +30,8 @@
 		2913C94627007BB200D0AFC6 /* NGJingleAlarm.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleAlarm.h; sourceTree = "<group>"; };
 		2913C94827018CD900D0AFC6 /* NGLightSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGLightSensor.cpp; sourceTree = "<group>"; };
 		2913C94927018CD900D0AFC6 /* NGLightSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGLightSensor.h; sourceTree = "<group>"; };
+		2913C94C2702DE1500D0AFC6 /* NGFlashingLight.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGFlashingLight.cpp; sourceTree = "<group>"; };
+		2913C94D2702DE1500D0AFC6 /* NGFlashingLight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGFlashingLight.h; sourceTree = "<group>"; };
 		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
 		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
@@ -130,6 +132,8 @@
 				29D7EC392673BFB800009403 /* NGSerialNotification.cpp */,
 				29D7EC4026741FAB00009403 /* NGLCDNotification.h */,
 				29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */,
+				2913C94D2702DE1500D0AFC6 /* NGFlashingLight.h */,
+				2913C94C2702DE1500D0AFC6 /* NGFlashingLight.cpp */,
 			);
 			name = visuals;
 			sourceTree = "<group>";
