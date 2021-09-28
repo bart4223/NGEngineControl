@@ -14,6 +14,8 @@
 #include <WProgram.h>
 #endif
 
+#include <NGCustomJingle.h>
+
 #define DEFPINPIEZO 13
 #define MAXJINGLES  10
 
