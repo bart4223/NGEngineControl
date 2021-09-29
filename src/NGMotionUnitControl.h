@@ -34,6 +34,8 @@ protected:
     
     void _processingReceivedData();
     
+    void _playJingleSplash();
+    
 public:
     NGMotionUnitControl();
     

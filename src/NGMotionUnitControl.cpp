@@ -44,6 +44,15 @@ void NGMotionUnitControl::_processingReceivedData() {
     
 }
 
+void NGMotionUnitControl::_playJingleSplash() {
+    if (_jingleSplash != -1) {
+        for (int i = 0; i < 3; i++) {
+            _soundMachine->play(_jingleSplash);
+        }
+        _jingleSplash = -1;
+    }
+}
+
 void NGMotionUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     _steeringControl->initialize();
@@ -64,12 +73,7 @@ void NGMotionUnitControl::registerSplash(NGCustomJingle *jingle) {
 
 void NGMotionUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
-    if (_jingleSplash != -1) {
-        for (int i = 0; i < 3; i++) {
-            _soundMachine->play(_jingleSplash);
-        }
-        _jingleSplash = -1;
-    }
+    _playJingleSplash();
     switch (_workMode) {
         case wmNone:
             break;
