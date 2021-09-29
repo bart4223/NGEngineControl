@@ -34,6 +34,7 @@ void NGMotionUnitControl::_create(char* name, byte address, int serialRate, int 
     NGCustomUnitControl::_create(name, address, serialRate);
     _version = VERSION;
     _steeringControl = new NGSteeringControl(engineLeft, engineRight);
+    _soundMachine = new NGSoundMachine();
     Wire.begin(_address);
     //Wire.onReceive(_unitWireReceiveEvent);
     //Wire.onRequest(_unitWireRequestEvent);
@@ -47,6 +48,7 @@ void NGMotionUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     _steeringControl->initialize();
     _steeringControl->stop();
+    _soundMachine->initialize();
     _initialized = true;
     if (_logging) {
         char log[100];
@@ -56,8 +58,18 @@ void NGMotionUnitControl::initialize() {
     _writeState();
 }
 
+void NGMotionUnitControl::registerSplash(NGCustomJingle *jingle) {
+    _jingleSplash = _soundMachine->registerJingle(jingle);
+}
+
 void NGMotionUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
+    if (_jingleSplash != -1) {
+        for (int i = 0; i < 3; i++) {
+            _soundMachine->play(_jingleSplash);
+        }
+        _jingleSplash = -1;
+    }
     switch (_workMode) {
         case wmNone:
             break;

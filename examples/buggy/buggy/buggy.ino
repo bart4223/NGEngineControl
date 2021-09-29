@@ -1,7 +1,8 @@
-#define PROD false //false,true
+#define PROD true //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
+#include <NGJingleHelloDude.h>
 
 #define _MOTION       "Motion"
 #define MOTION        (char*)_MOTION
@@ -14,8 +15,13 @@ NGSerialNotification notificationSerial = NGSerialNotification();
 
 void setup() {
   setGlobalUnit(&unitMotion);
+  #if (PROD == true)
   unitMotion.setStartup(STARTUP);
+  #endif
   unitMotion.registerNotification(&notificationSerial);
+  #if (PROD == true)
+  unitMotion.registerSplash(new NGJingleHelloDude);
+  #endif
   unitMotion.initialize();
   #if (PROD == false)
   unitMotion.setWorkMode(wmObserveMemory);

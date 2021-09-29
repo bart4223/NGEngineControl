@@ -1,8 +1,5 @@
 -Common
   -customUnit
-    -setup
-      -splash
-        -SoundMachine
 -Motoman
   -Common
     -TransportBox

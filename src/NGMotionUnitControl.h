@@ -16,14 +16,18 @@
 
 #include <NGCustomUnitControl.h>
 #include <NGSteeringControl.h>
+#include <NGSoundMachine.h>
+#include <NGCustomJingle.h>
 
-#define _VERSION "0.1"
+#define _VERSION "0.2"
 #define VERSION (char*)_VERSION
 
 class NGMotionUnitControl : public NGCustomUnitControl {
 
 private:
     NGSteeringControl *_steeringControl;
+    NGSoundMachine *_soundMachine;
+    int _jingleSplash = -1;
     
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight);
@@ -42,6 +46,8 @@ public:
     NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight);
 
     void initialize();
+    
+    void registerSplash(NGCustomJingle *jingle);
     
     void processingLoop();
     
