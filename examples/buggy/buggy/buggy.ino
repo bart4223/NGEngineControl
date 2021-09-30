@@ -12,6 +12,7 @@
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION);
 NGSerialNotification notificationSerial = NGSerialNotification();
+NGJingleHelloDude jingleDude = NGJingleHelloDude();
 
 void setup() {
   setGlobalUnit(&unitMotion);
@@ -20,7 +21,7 @@ void setup() {
   #endif
   unitMotion.registerNotification(&notificationSerial);
   #if (PROD == true)
-  unitMotion.registerSplash(new NGJingleHelloDude);
+  unitMotion.registerSplash(&jingleDude);
   #endif
   unitMotion.initialize();
   #if (PROD == false)

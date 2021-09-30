@@ -5,7 +5,6 @@
 //  Created by Nils Grimmer on 28.09.21.
 //
 
-#include "Wire.h"
 #include "NGCommon.h"
 #include "NGMemoryObserver.h"
 #include "NGMotionUnitControl.h"
@@ -35,9 +34,6 @@ void NGMotionUnitControl::_create(char* name, byte address, int serialRate, int 
     _version = VERSION;
     _steeringControl = new NGSteeringControl(engineLeft, engineRight);
     _soundMachine = new NGSoundMachine();
-    Wire.begin(_address);
-    //Wire.onReceive(_unitWireReceiveEvent);
-    //Wire.onRequest(_unitWireRequestEvent);
 }
 
 void NGMotionUnitControl::_processingReceivedData() {
