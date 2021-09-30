@@ -8,7 +8,7 @@
 #define MOTION        (char*)_MOTION
 #define MOTIONADDRESS 0x21
 
-#define STARTUP A1
+#define PINSTARTUP A1
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION);
 NGSerialNotification notificationSerial = NGSerialNotification();
@@ -16,7 +16,7 @@ NGSerialNotification notificationSerial = NGSerialNotification();
 void setup() {
   setGlobalUnit(&unitMotion);
   #if (PROD == true)
-  unitMotion.setStartup(STARTUP);
+  unitMotion.setStartup(PINSTARTUP);
   #endif
   unitMotion.registerNotification(&notificationSerial);
   #if (PROD == true)
