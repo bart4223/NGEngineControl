@@ -17,15 +17,18 @@
 #define LIGHTSENSORTHRESHOLD  650
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION);
+NGSerialNotification serialNotification = NGSerialNotification();
+NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
+NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
 
 void setup() {
   setGlobalUnit(&unitMotion);
-  unitMotion.registerNotification(new NGSerialNotification());
+  unitMotion.registerNotification(&serialNotification);
   #if (PROD == true)
-  unitMotion.registerStartup(PINSTARTUP, new NGJingleHelloDude());
-  unitMotion.registerLightSensor(new NGLightSensor(PINLIGHTSENSOR), LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
+  unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
+  unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
   #else
-  unitMotion.registerLightSensor(new NGLightSensor(PINLIGHTSENSOR), LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
+  unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
   #endif
   unitMotion.initialize();
   #if (PROD == false)
