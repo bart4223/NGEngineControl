@@ -24,7 +24,7 @@ void NGSoundMachine::initialize() {
     pinMode(_pinPiezo, OUTPUT);
 }
 
-byte NGSoundMachine::registerJingle(NGCustomJingle *jingle) {
+int NGSoundMachine::registerJingle(NGCustomJingle *jingle) {
     byte res = _jingleCount;
     _jingles[_jingleCount] = jingle;
     _jingleCount++;

@@ -54,11 +54,14 @@ void NGCustomUnitControl::initialize() {
     }
 }
 
-void NGCustomUnitControl::processingLoop() {
-    if (_pinStartup != -1 && !_started) {
+void NGCustomUnitControl::startUp() {
+    if (_pinStartup != -1) {
         while(digitalRead(_pinStartup));
     }
-    _started = true;
+}
+
+void NGCustomUnitControl::processingLoop() {
+    
 }
 
 void NGCustomUnitControl::setWorkMode(workMode workmode) {
@@ -72,7 +75,7 @@ workMode NGCustomUnitControl::getWorkMode() {
     return _workMode;
 }
 
-void NGCustomUnitControl::setStartup(int pinStartup) {
+void NGCustomUnitControl::registerStartup(int pinStartup) {
     _pinStartup = pinStartup;
 }
 

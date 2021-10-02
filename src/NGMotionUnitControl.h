@@ -27,14 +27,14 @@ class NGMotionUnitControl : public NGCustomUnitControl {
 private:
     NGSteeringControl *_steeringControl;
     NGSoundMachine *_soundMachine;
-    int _jingleSplash = -1;
+    int _jingleStartup = -1;
     
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight);
     
     void _processingReceivedData();
     
-    void _playJingleSplash();
+    void _playJingleStartup();
     
 public:
     NGMotionUnitControl();
@@ -49,7 +49,9 @@ public:
 
     void initialize();
     
-    void registerSplash(NGCustomJingle *jingle);
+    void startUp();
+    
+    void registerStartup(int pinStartup, NGCustomJingle *jingle);
     
     void processingLoop();
     

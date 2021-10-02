@@ -40,12 +40,11 @@ void NGMotionUnitControl::_processingReceivedData() {
     
 }
 
-void NGMotionUnitControl::_playJingleSplash() {
-    if (_jingleSplash != -1) {
+void NGMotionUnitControl::_playJingleStartup() {
+    if (_jingleStartup != -1) {
         for (int i = 0; i < 3; i++) {
-            _soundMachine->play(_jingleSplash);
+            _soundMachine->play(_jingleStartup);
         }
-        _jingleSplash = -1;
     }
 }
 
@@ -63,13 +62,18 @@ void NGMotionUnitControl::initialize() {
     _writeState();
 }
 
-void NGMotionUnitControl::registerSplash(NGCustomJingle *jingle) {
-    _jingleSplash = _soundMachine->registerJingle(jingle);
+void NGMotionUnitControl::startUp() {
+    NGCustomUnitControl::startUp();
+    _playJingleStartup();
+}
+
+void NGMotionUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle) {
+    NGCustomUnitControl::registerStartup(pinStartup);
+    _jingleStartup = _soundMachine->registerJingle(jingle);
 }
 
 void NGMotionUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
-    _playJingleSplash();
     switch (_workMode) {
         case wmNone:
             break;

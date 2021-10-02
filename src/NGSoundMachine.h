@@ -36,7 +36,7 @@ public:
     
     void initialize();
     
-    byte registerJingle(NGCustomJingle *jingle);
+    int registerJingle(NGCustomJingle *jingle);
     
     void playRandom();
     

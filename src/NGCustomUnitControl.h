@@ -100,7 +100,6 @@ protected:
     workMode _workMode = wmNone;
     int _exceptionCount = 0;
     int _pinStartup = -1;
-    bool _started = false;
     
     void _create(char* name, byte address, int serialRate);
     
@@ -115,13 +114,15 @@ protected:
 public:
     void initialize();
     
+    void startUp();
+    
     void registerNotification(NGCustomNotification *notification);
     
     void setWorkMode(workMode workmode);
     
     workMode getWorkMode();
     
-    void setStartup(int pinStartup);
+    void registerStartup(int pinStartup);
     
     void processingLoop();
     
