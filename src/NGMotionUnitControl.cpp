@@ -42,9 +42,19 @@ void NGMotionUnitControl::_processingReceivedData() {
 
 void NGMotionUnitControl::_playJingleStartup() {
     if (_jingleStartup != -1) {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < _jingleStartupLoops; i++) {
             _soundMachine->play(_jingleStartup);
         }
+    }
+}
+
+void NGMotionUnitControl::_processingStartupLoop() {
+    _processingLightSensor();
+}
+
+void NGMotionUnitControl::_processingLightSensor() {
+    if (_lightSensor != nullptr) {
+        _lightSensor->determine();
     }
 }
 
@@ -53,6 +63,9 @@ void NGMotionUnitControl::initialize() {
     _steeringControl->initialize();
     _steeringControl->stop();
     _soundMachine->initialize();
+    if (_lightSensor != nullptr) {
+        _lightSensor->initialize();
+    }
     _initialized = true;
     if (_logging) {
         char log[100];
@@ -68,12 +81,27 @@ void NGMotionUnitControl::startUp() {
 }
 
 void NGMotionUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle) {
+    registerStartup(pinStartup, jingle, DEFSTARTUPLOOPSCOUNT);
+}
+
+void NGMotionUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle, int loops) {
     NGCustomUnitControl::registerStartup(pinStartup);
     _jingleStartup = _soundMachine->registerJingle(jingle);
+    _jingleStartupLoops = loops;
+}
+
+void NGMotionUnitControl::registerLightSensor(NGLightSensor *lightSensor, int threshold, thresholdLevel level, byte pin, thresholdValence valence) {
+    registerLightSensor(lightSensor, threshold, level, pin, valence, 0);
+}
+
+void NGMotionUnitControl::registerLightSensor(NGLightSensor *lightSensor, int threshold, thresholdLevel level, byte pin, thresholdValence valence, int delay) {
+    _lightSensor = lightSensor;
+    _lightSensor->registerThreshold(threshold, level, pin, valence, delay);
 }
 
 void NGMotionUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
+    _processingLightSensor();
     switch (_workMode) {
         case wmNone:
             break;

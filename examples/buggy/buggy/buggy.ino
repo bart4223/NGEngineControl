@@ -9,17 +9,23 @@
 #define MOTION        (char*)_MOTION
 #define MOTIONADDRESS 0x21
 
-#define PINSTARTUP  A1
+#define PINSTARTUP      A1
+#define PINLIGHTSENSOR  A0
+#define PINLIGHT         4
+
+#define LIGHTSENSORDELAY      100
+#define LIGHTSENSORTHRESHOLD  650
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION);
-NGSerialNotification notificationSerial = NGSerialNotification();
-NGJingleHelloDude jingleDude = NGJingleHelloDude();
 
 void setup() {
   setGlobalUnit(&unitMotion);
-  unitMotion.registerNotification(&notificationSerial);
+  unitMotion.registerNotification(new NGSerialNotification());
   #if (PROD == true)
-  unitMotion.registerStartup(PINSTARTUP, &jingleDude);
+  unitMotion.registerStartup(PINSTARTUP, new NGJingleHelloDude());
+  unitMotion.registerLightSensor(new NGLightSensor(PINLIGHTSENSOR), LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
+  #else
+  unitMotion.registerLightSensor(new NGLightSensor(PINLIGHTSENSOR), LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
   #endif
   unitMotion.initialize();
   #if (PROD == false)

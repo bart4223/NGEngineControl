@@ -56,7 +56,9 @@ void NGCustomUnitControl::initialize() {
 
 void NGCustomUnitControl::startUp() {
     if (_pinStartup != -1) {
-        while(digitalRead(_pinStartup));
+        while(digitalRead(_pinStartup)) {
+            _processingStartupLoop();
+        }
     }
 }
 

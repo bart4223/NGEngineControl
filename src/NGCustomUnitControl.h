@@ -110,6 +110,8 @@ protected:
     void _raiseException(int id);
     
     virtual void _processingReceivedData();
+    
+    virtual void _processingStartupLoop();
 
 public:
     void initialize();
