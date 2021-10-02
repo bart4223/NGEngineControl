@@ -24,7 +24,7 @@ class NGSoundMachine {
 private:
     int _pinPiezo;
     NGCustomJingle *_jingles[MAXJINGLES];
-    int _jingleCount;
+    int _jingleCount = 0;
     
 protected:
     void _create(int pinPiezo);
