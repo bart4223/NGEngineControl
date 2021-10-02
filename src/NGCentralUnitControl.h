@@ -16,7 +16,7 @@
 
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "1.4"
+#define _VERSION "1.5"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -154,6 +154,8 @@ protected:
     void _processingReceivedData();
     
     void _processingIRRemoteData();
+    
+    void _processingStartupLoop();
     
 public:
     NGCentralUnitControl();

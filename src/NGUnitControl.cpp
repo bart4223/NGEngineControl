@@ -279,6 +279,10 @@ bool NGUnitControl::_processingCommand() {
     return res;
 }
 
+void NGUnitControl::_processingStartupLoop() {
+
+}
+
 int NGUnitControl::_getNameSizeFromReceivedData() {
     int res = 1;
     for (int i = CMDOffset; i < _receivedDataCount; i++) {

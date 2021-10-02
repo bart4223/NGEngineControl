@@ -232,6 +232,10 @@ void NGCentralUnitControl::_processingIRRemoteData() {
     }
 }
 
+void NGCentralUnitControl::_processingStartupLoop() {
+
+}
+
 byte NGCentralUnitControl::_getUnitAddress(char* name) {
     for (int i = 0; i < _unitCount; i++) {
         if (_unit[i].name == name) {
