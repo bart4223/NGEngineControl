@@ -46,6 +46,7 @@
 		29647BC7253C515C003CBA13 /* NGEngineControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGEngineControl.h; sourceTree = "<group>"; };
 		29647BC8253C5273003CBA13 /* NGEngineControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGEngineControl.cpp; sourceTree = "<group>"; };
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
+		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		299C0E1E26D7E7EC00F5A60D /* buggy.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = buggy.ino; sourceTree = "<group>"; };
 		299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSteeringControl.cpp; sourceTree = "<group>"; };
@@ -267,6 +268,7 @@
 		299C0E1C26D75D2F00F5A60D /* images */ = {
 			isa = PBXGroup;
 			children = (
+				297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */,
 			);
 			path = images;
 			sourceTree = "<group>";

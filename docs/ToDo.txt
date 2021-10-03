@@ -10,6 +10,6 @@
     -TransportBox
   -steeringControl
     -turn
-  -motionProfil
+  -motionSequence
   -motionUnit
-    -motionProfil
+    -motionSequence
