@@ -8,8 +8,7 @@
 -Buggy
   -Common
     -TransportBox
-  -steeringControl
-    -turn
-  -motionSequence
   -motionUnit
+    -steeringControl
+      -turn
     -motionSequence
