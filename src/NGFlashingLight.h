@@ -23,6 +23,7 @@ private:
     int _interval;
     unsigned long _millis;
     bool _flashing;
+    bool _on = false;
     
 protected:
     _create(byte pinFlashingLight, int interval);
@@ -33,6 +34,12 @@ public:
     NGFlashingLight(byte pinFlashingLight, int interval);
     
     void initialize();
+    
+    void setOn(bool on);
+    
+    bool IsOn();
+    
+    bool ToogleOn();
     
     void processingLoop();
 };

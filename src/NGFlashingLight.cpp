@@ -28,7 +28,7 @@ void NGFlashingLight::initialize() {
 
 void NGFlashingLight::processingLoop() {
     unsigned long m = millis();
-    if (m - _millis >= _interval) {
+    if (_on && (m - _millis >= _interval)) {
         _flashing = !_flashing;
         if (_flashing) {
             digitalWrite(_pinFlashingLight, HIGH);
@@ -37,4 +37,19 @@ void NGFlashingLight::processingLoop() {
         }
         _millis = m;
     }
+}
+
+void NGFlashingLight::setOn(bool on) {
+    _on = on;
+    if (!_on) {
+        digitalWrite(_pinFlashingLight, LOW);
+    }
+}
+
+bool NGFlashingLight::IsOn() {
+    return _on;
+}
+
+bool NGFlashingLight::ToogleOn() {
+    setOn(!IsOn());
 }

@@ -58,6 +58,15 @@ void NGMotionUnitControl::_processingLightSensor() {
     }
 }
 
+void NGMotionUnitControl::_processingFlashingLights() {
+    if (_flashingLightLeft != nullptr) {
+        _flashingLightLeft->processingLoop();
+    }
+    if (_flashingLightRight != nullptr) {
+        _flashingLightRight->processingLoop();
+    }
+}
+
 void NGMotionUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     _steeringControl->initialize();
@@ -65,6 +74,12 @@ void NGMotionUnitControl::initialize() {
     _soundMachine->initialize();
     if (_lightSensor != nullptr) {
         _lightSensor->initialize();
+    }
+    if (_flashingLightLeft != nullptr) {
+        _flashingLightLeft->initialize();
+    }
+    if (_flashingLightRight != nullptr) {
+        _flashingLightRight->initialize();
     }
     _initialized = true;
     if (_logging) {
@@ -99,9 +114,15 @@ void NGMotionUnitControl::registerLightSensor(NGLightSensor *lightSensor, int th
     _lightSensor->registerThreshold(threshold, level, pin, valence, delay);
 }
 
+void NGMotionUnitControl::registerFlashingLights(NGFlashingLight *flashingLightLeft, NGFlashingLight *flashingLightRight) {
+    _flashingLightLeft = flashingLightLeft;
+    _flashingLightRight = flashingLightRight;
+}
+
 void NGMotionUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
     _processingLightSensor();
+    _processingFlashingLights();
     switch (_workMode) {
         case wmNone:
             break;
@@ -116,4 +137,24 @@ void NGMotionUnitControl::processingLoop() {
 
 void NGMotionUnitControl::requestData(byte* data) {
     
+}
+
+void NGMotionUnitControl::setFlashingLight(flashingLightSide side, bool on) {
+    switch(side) {
+        case flsLeft:
+            if (_flashingLightLeft != nullptr) {
+                _flashingLightLeft->setOn(on);
+            }
+            break;
+        case flsRight:
+            if (_flashingLightRight != nullptr) {
+                _flashingLightRight->setOn(on);
+            }
+            break;
+    }
+}
+
+void NGMotionUnitControl::setWarningLight(bool on) {
+    setFlashingLight(flsLeft, on);
+    setFlashingLight(flsRight, on);
 }

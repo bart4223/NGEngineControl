@@ -4,22 +4,29 @@
 #include <NGSerialNotification.h>
 #include <NGJingleHelloDude.h>
 #include <NGLightSensor.h>
+#include <NGFlashingLight.h>
 
 #define _MOTION       "Motion"
 #define MOTION        (char*)_MOTION
 #define MOTIONADDRESS 0x21
 
-#define PINSTARTUP      A1
-#define PINLIGHTSENSOR  A0
-#define PINLIGHT         4
+#define PINSTARTUP           A1
+#define PINLIGHTSENSOR       A0
+#define PINLIGHT              4
+#define PINFLASHINGLIGHTLEFT  7
+#define PINFLASHINGLIGHTRIGHT 8
 
-#define LIGHTSENSORDELAY      100
+#define LIGHTSENSORDELAY      200
 #define LIGHTSENSORTHRESHOLD  650
+
+#define FLASHINGLIGHTINTERVAL 250
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION);
 NGSerialNotification serialNotification = NGSerialNotification();
 NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
+NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTERVAL);
+NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
 
 void setup() {
   setGlobalUnit(&unitMotion);
@@ -30,6 +37,7 @@ void setup() {
   #else
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
   #endif
+  unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.initialize();
   #if (PROD == false)
   unitMotion.setWorkMode(wmObserveMemory);
@@ -39,5 +47,6 @@ void setup() {
 }
 
 void loop() {
+  unitMotion.setWarningLight(millis() < 15000);
   unitMotion.processingLoop();
 }

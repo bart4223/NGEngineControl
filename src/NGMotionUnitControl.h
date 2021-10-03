@@ -19,11 +19,14 @@
 #include <NGSoundMachine.h>
 #include <NGCustomJingle.h>
 #include <NGLightSensor.h>
+#include <NGFlashingLight.h>
 
-#define _VERSION "0.3"
+#define _VERSION "0.4"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
+
+enum flashingLightSide {flsLeft, flsRight};
 
 class NGMotionUnitControl : public NGCustomUnitControl {
 
@@ -33,6 +36,8 @@ private:
     int _jingleStartup = -1;
     int _jingleStartupLoops = 0;
     NGLightSensor *_lightSensor = nullptr;
+    NGFlashingLight *_flashingLightLeft = nullptr;
+    NGFlashingLight *_flashingLightRight = nullptr;
     
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight);
@@ -44,6 +49,8 @@ protected:
     void _processingLightSensor();
     
     void _processingStartupLoop();
+    
+    void _processingFlashingLights();
     
 public:
     NGMotionUnitControl();
@@ -68,9 +75,15 @@ public:
     
     void registerLightSensor(NGLightSensor *lightSensor, int threshold, thresholdLevel level, byte pin, thresholdValence valence, int delay);
     
+    void registerFlashingLights(NGFlashingLight *flashingLightLeft, NGFlashingLight *flashingLightRight);
+    
     void processingLoop();
     
     void requestData(byte* data);
+    
+    void setFlashingLight(flashingLightSide side, bool on);
+    
+    void setWarningLight(bool on);
 };
 
 #endif /* NGMotionUnitControl_h */
