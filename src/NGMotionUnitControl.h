@@ -21,12 +21,37 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 
-#define _VERSION "0.5"
+#define _VERSION "0.6"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
 
-enum flashingLightSide {flsLeft, flsRight};
+#define MAXMOTIONSEQUENCECOUNT     5
+#define MAXMOTIONSEQUENCEITEMCOUNT 2
+
+enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight};
+
+enum motionSequenceKind {mskStraight};
+
+struct motionSequenceItemStruct
+{
+    turnDirection turn;
+    engineDirection direction;
+    byte speed;
+    flashingLightSide light;
+    int duration; // seconds, 0 = infinite
+};
+typedef struct motionSequenceItemStruct motionSequenceItem;
+
+struct motionSequenceStruct
+{
+    motionSequenceKind kind;
+    motionSequenceItemStruct items[MAXMOTIONSEQUENCEITEMCOUNT];
+    byte itemCount;
+    byte currentItem;
+    long int currentStarts;
+};
+typedef struct motionSequenceStruct motionSequence;
 
 class NGMotionUnitControl : public NGCustomUnitControl {
 
@@ -38,6 +63,9 @@ private:
     NGLightSensor *_lightSensor = nullptr;
     NGFlashingLight *_flashingLightLeft = nullptr;
     NGFlashingLight *_flashingLightRight = nullptr;
+    motionSequenceStruct _motionSequence[MAXMOTIONSEQUENCECOUNT];
+    int _motionSequenceCount = 0;
+    int _currentMotionSequence = -1;
     
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight);
@@ -51,6 +79,10 @@ protected:
     void _processingStartupLoop();
     
     void _processingFlashingLights();
+    
+    void _processingMotionSequence();
+    
+    void _processingMotionSequenceItem(motionSequenceItem item);
     
 public:
     NGMotionUnitControl();
@@ -76,6 +108,16 @@ public:
     void registerLightSensor(NGLightSensor *lightSensor, int threshold, thresholdLevel level, byte pin, thresholdValence valence, int delay);
     
     void registerFlashingLights(NGFlashingLight *flashingLightLeft, NGFlashingLight *flashingLightRight);
+    
+    byte registerMotionSequence(motionSequenceKind kind);
+    
+    void addMotionSequenceItemStop(byte motionSequence, int duration);
+    
+    void addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn);
+    
+    void addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration);
+    
+    void addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration, flashingLightSide light);
     
     void processingLoop();
     

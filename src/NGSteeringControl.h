@@ -16,7 +16,7 @@
 
 #include <NGEngineControl.h>
 
-enum turnDirection { tdLeft, tdRight };
+enum turnDirection { tdNone, tdLeft, tdRight };
 
 class NGSteeringControl {
 

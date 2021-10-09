@@ -67,6 +67,51 @@ void NGMotionUnitControl::_processingFlashingLights() {
     }
 }
 
+void NGMotionUnitControl::_processingMotionSequence() {
+    if (_currentMotionSequence == -1) {
+        if (_motionSequenceCount > 0) {
+            _currentMotionSequence = random(0, _motionSequenceCount);
+            _motionSequence[_currentMotionSequence].currentItem = 0;
+            _motionSequence[_currentMotionSequence].currentStarts = 0;
+        }
+    }
+    if (_currentMotionSequence >= 0) {
+        if (_motionSequence[_currentMotionSequence].currentItem < _motionSequence[_currentMotionSequence].itemCount) {
+            if (_motionSequence[_currentMotionSequence].currentStarts == 0) {
+                _motionSequence[_currentMotionSequence].currentStarts = millis();
+                _processingMotionSequenceItem(_motionSequence[_currentMotionSequence].items[_motionSequence[_currentMotionSequence].currentItem]);
+            } else {
+                int duraction = _motionSequence[_currentMotionSequence].items[_motionSequence[_currentMotionSequence].currentItem].duration;
+                if (duraction != 0) {
+                    if ((_motionSequence[_currentMotionSequence].currentStarts + duraction * 1000) < millis()) {
+                        _motionSequence[_currentMotionSequence].currentItem++;
+                        _motionSequence[_currentMotionSequence].currentStarts = 0;
+                    }
+                }
+            }
+        } else {
+            _currentMotionSequence = -1;
+        }
+    }
+}
+
+void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item) {
+    switch (item.turn) {
+        case tdNone:
+            if (item.direction == edNone) {
+                _steeringControl->stop();
+            } else {
+                _steeringControl->run(item.direction, item.speed);
+            }
+            break;
+    }
+    if (item.light == flsNone) {
+        setFlashingLight(flsBoth, false);
+    } else {
+        setFlashingLight(item.light, item.light != flsNone);
+    }
+}
+
 void NGMotionUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     _steeringControl->initialize();
@@ -84,7 +129,7 @@ void NGMotionUnitControl::initialize() {
     _initialized = true;
     if (_logging) {
         char log[100];
-        sprintf(log, "...Unit \"%s\" with steering initialized", _name );
+        sprintf(log, "...Unit \"%s\" with steering initialized", _name);
         writeInfo(log);
     }
     _writeState();
@@ -120,10 +165,46 @@ void NGMotionUnitControl::registerFlashingLights(NGFlashingLight *flashingLightL
     _flashingLightRight = flashingLightRight;
 }
 
+byte NGMotionUnitControl::registerMotionSequence(motionSequenceKind kind) {
+    byte res = _motionSequenceCount;
+    motionSequence mss;
+    mss.kind = kind;
+    mss.itemCount = 0;
+    mss.currentItem = 0;
+    mss.currentStarts = 0;
+    _motionSequence[_motionSequenceCount] = mss;
+    _motionSequenceCount++;
+    return res;
+}
+
+void NGMotionUnitControl::addMotionSequenceItemStop(byte motionSequence, int duration) {
+    addMotionSequenceItem(motionSequence, 0, edNone, tdNone, duration);
+}
+
+void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn) {
+    addMotionSequenceItem(motionSequence, speed, direction, turn, 0);
+}
+
+void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration) {
+    addMotionSequenceItem(motionSequence, speed, direction, turn, duration, flsNone);
+}
+
+void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration, flashingLightSide light) {
+    motionSequenceItem msi;
+    msi.speed = speed;
+    msi.direction = direction;
+    msi.turn = turn;
+    msi.duration = duration;
+    msi.light = light;
+    _motionSequence[motionSequence].items[_motionSequence[motionSequence].itemCount] = msi;
+    _motionSequence[motionSequence].itemCount++;
+}
+
 void NGMotionUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
     _processingLightSensor();
     _processingFlashingLights();
+    _processingMotionSequence();
     switch (_workMode) {
         case wmNone:
             break;
@@ -141,21 +222,18 @@ void NGMotionUnitControl::requestData(byte* data) {
 }
 
 void NGMotionUnitControl::setFlashingLight(flashingLightSide side, bool on) {
-    switch(side) {
-        case flsLeft:
-            if (_flashingLightLeft != nullptr) {
-                _flashingLightLeft->setOn(on);
-            }
-            break;
-        case flsRight:
-            if (_flashingLightRight != nullptr) {
-                _flashingLightRight->setOn(on);
-            }
-            break;
+    if (_flashingLightLeft != nullptr) {
+        if (side == flsBoth || side == flsLeft) {
+            _flashingLightLeft->setOn(on);
+        }
+    }
+    if (_flashingLightRight != nullptr) {
+        if (side == flsBoth || side == flsRight) {
+            _flashingLightRight->setOn(on);
+        }
     }
 }
 
 void NGMotionUnitControl::setWarningLight(bool on) {
-    setFlashingLight(flsLeft, on);
-    setFlashingLight(flsRight, on);
+    setFlashingLight(flsBoth, on);
 }

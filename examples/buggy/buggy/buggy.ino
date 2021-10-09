@@ -16,10 +16,12 @@
 #define PINFLASHINGLIGHTLEFT  7
 #define PINFLASHINGLIGHTRIGHT 8
 
-#define LIGHTSENSORDELAY      400
+#define LIGHTSENSORDELAY      500
 #define LIGHTSENSORTHRESHOLD  650
 
 #define FLASHINGLIGHTINTERVAL 250
+
+#define SPEEDEASY 200
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION);
 NGSerialNotification serialNotification = NGSerialNotification();
@@ -27,8 +29,6 @@ NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
 NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTERVAL);
 NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
-
-long int startUp;
 
 void setup() {
   setGlobalUnit(&unitMotion);
@@ -40,15 +40,17 @@ void setup() {
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
+  byte ms = unitMotion.registerMotionSequence(mskStraight);
+  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1, flsBoth);
+  unitMotion.addMotionSequenceItemStop(ms, 3);
   unitMotion.initialize();
   #if (PROD == false)
   unitMotion.setWorkMode(wmObserveMemory);
   #endif
-  startUp = unitMotion.startUp();
+  unitMotion.startUp();
   unitMotion.clearInfo();
 }
 
 void loop() {
-  unitMotion.setWarningLight((millis() - startUp) < 15000);
   unitMotion.processingLoop();
 }
