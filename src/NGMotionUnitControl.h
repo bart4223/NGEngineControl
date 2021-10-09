@@ -21,17 +21,17 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 
-#define _VERSION "0.7"
+#define _VERSION "0.8"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
 
 #define MAXMOTIONSEQUENCECOUNT     5
-#define MAXMOTIONSEQUENCEITEMCOUNT 2
+#define MAXMOTIONSEQUENCEITEMCOUNT 3
 
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight};
 
-enum motionSequenceKind {mskStraight};
+enum motionSequenceKind {mskStraight, mskLeft, mskRight};
 
 struct motionSequenceItemStruct
 {
@@ -39,7 +39,7 @@ struct motionSequenceItemStruct
     engineDirection direction;
     byte speed;
     flashingLightSide light;
-    int duration; // seconds, 0 = infinite
+    int duration; // milliseconds, 0 = infinite
 };
 typedef struct motionSequenceItemStruct motionSequenceItem;
 

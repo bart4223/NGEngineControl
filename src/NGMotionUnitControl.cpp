@@ -83,7 +83,7 @@ void NGMotionUnitControl::_processingMotionSequence() {
             } else {
                 int duraction = _motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem].duration;
                 if (duraction != 0) {
-                    if ((_currentMotionSequenceItemStarts + duraction * 1000) < millis()) {
+                    if ((_currentMotionSequenceItemStarts + duraction) < millis()) {
                         _currentMotionSequenceItem++;
                         _currentMotionSequenceItemStarts = 0;
                     }

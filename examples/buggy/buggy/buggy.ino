@@ -21,7 +21,8 @@
 
 #define FLASHINGLIGHTINTERVAL 250
 
-#define SPEEDEASY 200
+#define SPEEDEASY   200
+#define SPEEDCURVE  100
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION);
 NGSerialNotification serialNotification = NGSerialNotification();
@@ -41,8 +42,9 @@ void setup() {
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   byte ms = unitMotion.registerMotionSequence(mskStraight);
-  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1, flsBoth);
-  unitMotion.addMotionSequenceItemStop(ms, 3);
+  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1000, flsLeft);
+  unitMotion.addMotionSequenceItem(ms, SPEEDCURVE, edForward, tdLeft, 250, flsLeft);
+  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1000);
   unitMotion.initialize();
   #if (PROD == false)
   unitMotion.setWorkMode(wmObserveMemory);

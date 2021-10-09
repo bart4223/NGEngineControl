@@ -80,16 +80,23 @@ void NGSteeringControl::run(engineDirection direction, byte speed) {
 }
 
 void NGSteeringControl::turnForward(turnDirection turn) {
+    turnForward(turn, NULLSPEED);
+}
+
+void NGSteeringControl::turnForward(turnDirection turn, byte speed) {
+    if (speed > NULLSPEED) {
+        _speed = speed;
+    }
+    _engineLeft.setSpeed(_speed);
+    _engineRight.setSpeed(_speed);
     switch (turn) {
         case tdLeft:
-            _engineLeft.setSpeed(_speed / 2);
-            _engineRight.setSpeed(_speed);
+            _engineLeft.run(edBackward);
+            _engineRight.run(edForward);
             break;
         case tdRight:
-            _engineLeft.setSpeed(_speed);
-            _engineRight.setSpeed(_speed / 2);
+            _engineLeft.run(edForward);
+            _engineRight.run(edBackward);
             break;
     }
-    _engineLeft.run(edForward);
-    _engineRight.run(edForward);
 }
