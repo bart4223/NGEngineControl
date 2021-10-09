@@ -21,7 +21,7 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 
-#define _VERSION "0.6"
+#define _VERSION "0.7"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -48,8 +48,6 @@ struct motionSequenceStruct
     motionSequenceKind kind;
     motionSequenceItemStruct items[MAXMOTIONSEQUENCEITEMCOUNT];
     byte itemCount;
-    byte currentItem;
-    long int currentStarts;
 };
 typedef struct motionSequenceStruct motionSequence;
 
@@ -66,7 +64,9 @@ private:
     motionSequenceStruct _motionSequence[MAXMOTIONSEQUENCECOUNT];
     int _motionSequenceCount = 0;
     int _currentMotionSequence = -1;
-    
+    long int _currentMotionSequenceItemStarts = 0;
+    byte _currentMotionSequenceItem = 0;
+
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight);
     

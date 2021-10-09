@@ -71,21 +71,21 @@ void NGMotionUnitControl::_processingMotionSequence() {
     if (_currentMotionSequence == -1) {
         if (_motionSequenceCount > 0) {
             _currentMotionSequence = random(0, _motionSequenceCount);
-            _motionSequence[_currentMotionSequence].currentItem = 0;
-            _motionSequence[_currentMotionSequence].currentStarts = 0;
+            _currentMotionSequenceItem = 0;
+            _currentMotionSequenceItemStarts = 0;
         }
     }
     if (_currentMotionSequence >= 0) {
-        if (_motionSequence[_currentMotionSequence].currentItem < _motionSequence[_currentMotionSequence].itemCount) {
-            if (_motionSequence[_currentMotionSequence].currentStarts == 0) {
-                _motionSequence[_currentMotionSequence].currentStarts = millis();
-                _processingMotionSequenceItem(_motionSequence[_currentMotionSequence].items[_motionSequence[_currentMotionSequence].currentItem]);
+        if (_currentMotionSequenceItem < _motionSequence[_currentMotionSequence].itemCount) {
+            if (_currentMotionSequenceItemStarts == 0) {
+                _currentMotionSequenceItemStarts = millis();
+                _processingMotionSequenceItem(_motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem]);
             } else {
-                int duraction = _motionSequence[_currentMotionSequence].items[_motionSequence[_currentMotionSequence].currentItem].duration;
+                int duraction = _motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem].duration;
                 if (duraction != 0) {
-                    if ((_motionSequence[_currentMotionSequence].currentStarts + duraction * 1000) < millis()) {
-                        _motionSequence[_currentMotionSequence].currentItem++;
-                        _motionSequence[_currentMotionSequence].currentStarts = 0;
+                    if ((_currentMotionSequenceItemStarts + duraction * 1000) < millis()) {
+                        _currentMotionSequenceItem++;
+                        _currentMotionSequenceItemStarts = 0;
                     }
                 }
             }
@@ -102,6 +102,11 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
                 _steeringControl->stop();
             } else {
                 _steeringControl->run(item.direction, item.speed);
+            }
+            break;
+        case tdLeft: tdRight:
+            if (item.direction == edForward) {
+                _steeringControl->turnForward(item.turn);
             }
             break;
     }
@@ -170,8 +175,6 @@ byte NGMotionUnitControl::registerMotionSequence(motionSequenceKind kind) {
     motionSequence mss;
     mss.kind = kind;
     mss.itemCount = 0;
-    mss.currentItem = 0;
-    mss.currentStarts = 0;
     _motionSequence[_motionSequenceCount] = mss;
     _motionSequenceCount++;
     return res;
