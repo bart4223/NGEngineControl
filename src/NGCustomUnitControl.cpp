@@ -6,6 +6,7 @@
 //
 
 #include "NGCommon.h"
+#include "NGMemoryObserver.h"
 #include "NGCustomUnitControl.h"
 
 void setGlobalUnit(NGCustomUnitControl *unit) {
@@ -55,6 +56,7 @@ void NGCustomUnitControl::initialize() {
 }
 
 long int NGCustomUnitControl::startUp() {
+    observeMemory(0);
     if (_pinStartup != -1) {
         while(digitalRead(_pinStartup)) {
             _processingStartupLoop();
