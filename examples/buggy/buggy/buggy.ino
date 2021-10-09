@@ -2,9 +2,9 @@
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
-#include <NGJingleHelloDude.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
+#include <NGJingleHelloDude.h>
 
 #define _MOTION       "Motion"
 #define MOTION        (char*)_MOTION
@@ -28,6 +28,8 @@ NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
 NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTERVAL);
 NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
 
+long int startUp;
+
 void setup() {
   setGlobalUnit(&unitMotion);
   unitMotion.registerNotification(&serialNotification);
@@ -42,11 +44,11 @@ void setup() {
   #if (PROD == false)
   unitMotion.setWorkMode(wmObserveMemory);
   #endif
-  unitMotion.startUp();
+  startUp = unitMotion.startUp();
   unitMotion.clearInfo();
 }
 
 void loop() {
-  unitMotion.setWarningLight(millis() < 15000);
+  unitMotion.setWarningLight((millis() - startUp) < 15000);
   unitMotion.processingLoop();
 }

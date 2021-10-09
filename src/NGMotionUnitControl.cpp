@@ -90,9 +90,10 @@ void NGMotionUnitControl::initialize() {
     _writeState();
 }
 
-void NGMotionUnitControl::startUp() {
-    NGCustomUnitControl::startUp();
+long int NGMotionUnitControl::startUp() {
+    long int res = NGCustomUnitControl::startUp();
     _playJingleStartup();
+    return res;
 }
 
 void NGMotionUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle) {

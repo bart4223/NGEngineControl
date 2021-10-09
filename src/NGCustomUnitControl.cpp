@@ -54,12 +54,13 @@ void NGCustomUnitControl::initialize() {
     }
 }
 
-void NGCustomUnitControl::startUp() {
+long int NGCustomUnitControl::startUp() {
     if (_pinStartup != -1) {
         while(digitalRead(_pinStartup)) {
             _processingStartupLoop();
         }
     }
+    return millis();
 }
 
 void NGCustomUnitControl::processingLoop() {

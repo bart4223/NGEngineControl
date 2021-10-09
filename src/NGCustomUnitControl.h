@@ -116,7 +116,7 @@ protected:
 public:
     void initialize();
     
-    void startUp();
+    long int startUp();
     
     void registerNotification(NGCustomNotification *notification);
     

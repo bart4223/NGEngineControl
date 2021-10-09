@@ -21,7 +21,7 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 
-#define _VERSION "0.4"
+#define _VERSION "0.5"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -65,7 +65,7 @@ public:
 
     void initialize();
     
-    void startUp();
+    long int startUp();
     
     void registerStartup(int pinStartup, NGCustomJingle *jingle);
     
