@@ -1,4 +1,6 @@
-#define PROD true //false,true
+#define PROD              true  //false,true
+#define ScenarioStartStop false //false,true
+#define ScenarioTurnLeft  true  //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
@@ -9,6 +11,9 @@
 #define _MOTION       "Motion"
 #define MOTION        (char*)_MOTION
 #define MOTIONADDRESS 0x21
+
+#define ENGINEOFFSETLEFT    15
+#define ENGINEOFFSETRIGHT  -15
 
 #define PINSTARTUP           A1
 #define PINLIGHTSENSOR       A0
@@ -24,7 +29,7 @@
 #define SPEEDEASY   200
 #define SPEEDCURVE  100
 
-NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION);
+NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
 NGSerialNotification serialNotification = NGSerialNotification();
 NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
@@ -41,10 +46,17 @@ void setup() {
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
+  #if (ScenarioStartStop == true)
   byte ms = unitMotion.registerMotionSequence(mskStraight);
+  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 2000, flsBoth);
+  unitMotion.addMotionSequenceItemStop(ms, 3000);
+  #endif
+  #if (ScenarioTurnLeft == true)
+  byte ms = unitMotion.registerMotionSequence(mskLeft);
   unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1000, flsLeft);
-  unitMotion.addMotionSequenceItem(ms, SPEEDCURVE, edForward, tdLeft, 250, flsLeft);
+  unitMotion.addMotionSequenceItem(ms, SPEEDCURVE, edForward, tdLeft, 350, flsLeft);
   unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1000);
+  #endif
   unitMotion.initialize();
   #if (PROD == false)
   unitMotion.setWorkMode(wmObserveMemory);

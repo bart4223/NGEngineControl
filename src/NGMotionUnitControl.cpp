@@ -7,32 +7,41 @@
 
 #include "NGCommon.h"
 #include "NGMemoryObserver.h"
+#include "NGSteeringControl.h"
 #include "NGMotionUnitControl.h"
 
 NGMotionUnitControl::NGMotionUnitControl() {
-    _create(NONAME, NOADDRESS, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1);
+    _create(NONAME, NOADDRESS, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET);
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name) {
-    _create(name, NOADDRESS, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1);
+    _create(name, NOADDRESS, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET);
+}
+
+NGMotionUnitControl::NGMotionUnitControl(char* name, int offsetEngineLeft, int offsetEngineRight) {
+    _create(name, NOADDRESS, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, offsetEngineLeft, offsetEngineRight);
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name, byte address) {
-    _create(name, address, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1);
+    _create(name, address, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET);
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRate) {
-    _create(name, address, serialRate, ENGINE_0, ENGINE_1);
+    _create(name, address, serialRate, ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET);
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight) {
-    _create(name, address, serialRate, engineLeft, engineRight);
+    _create(name, address, serialRate, engineLeft, engineRight, ENGINENULLOFFSET, ENGINENULLOFFSET);
 }
 
-void NGMotionUnitControl::_create(char* name, byte address, int serialRate, int engineLeft, int engineRight) {
+NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight) {
+    _create(name, address, serialRate, engineLeft, engineRight, offsetEngineLeft, offsetEngineRight);
+}
+
+void NGMotionUnitControl::_create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight) {
     NGCustomUnitControl::_create(name, address, serialRate);
     _version = VERSION;
-    _steeringControl = new NGSteeringControl(engineLeft, engineRight);
+    _steeringControl = new NGSteeringControl(engineLeft, engineRight, offsetEngineLeft, offsetEngineRight);
     _soundMachine = new NGSoundMachine();
 }
 

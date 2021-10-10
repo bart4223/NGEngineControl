@@ -21,7 +21,7 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 
-#define _VERSION "0.8"
+#define _VERSION "0.9"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -68,7 +68,7 @@ private:
     byte _currentMotionSequenceItem = 0;
 
 protected:
-    void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight);
+    void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
     
     void _processingReceivedData();
     
@@ -88,12 +88,16 @@ public:
     NGMotionUnitControl();
     
     NGMotionUnitControl(char* name);
+    
+    NGMotionUnitControl(char* name, int offsetEngineLeft, int offsetEngineRight);
                   
     NGMotionUnitControl(char* name, byte address);
     
     NGMotionUnitControl(char* name, byte address, int serialRate);
     
     NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight);
+    
+    NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
 
     void initialize();
     

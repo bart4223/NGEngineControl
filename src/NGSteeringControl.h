@@ -16,6 +16,8 @@
 
 #include <NGEngineControl.h>
 
+#define ENGINENULLOFFSET 0
+
 enum turnDirection { tdNone, tdLeft, tdRight };
 
 class NGSteeringControl {
@@ -26,16 +28,24 @@ private:
     byte _speed;
     NGEngineControl _engineLeft = NGEngineControl();
     NGEngineControl _engineRight = NGEngineControl();
+    int _offsetEngineLeft = 0;
+    int _offsetEngineRight = 0;
 
 protected:
-    void _create(int engineLeft, int engineRight, int serialRate);
+    void _create(int engineLeft, int engineRight, int serialRate, int offsetEngineLeft, int offsetEngineRight);
+    
+    byte _calcEngineSpeed(byte speed, int offset);
     
 public:
     NGSteeringControl();
     
     NGSteeringControl(int engineLeft, int engineRight);
     
+    NGSteeringControl(int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
+    
     NGSteeringControl(int engineLeft, int engineRight, int serialRate);
+    
+    NGSteeringControl(int engineLeft, int engineRight, int serialRate, int offsetEngineLeft, int offsetEngineRight);
     
     void initialize();
     
