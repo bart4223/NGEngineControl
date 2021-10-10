@@ -21,7 +21,7 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 
-#define _VERSION "0.9"
+#define _VERSION "1.0"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -29,7 +29,7 @@
 #define MAXMOTIONSEQUENCECOUNT     5
 #define MAXMOTIONSEQUENCEITEMCOUNT 3
 
-enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight};
+enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
 
 enum motionSequenceKind {mskStraight, mskLeft, mskRight};
 
@@ -66,6 +66,7 @@ private:
     int _currentMotionSequence = -1;
     long int _currentMotionSequenceItemStarts = 0;
     byte _currentMotionSequenceItem = 0;
+    int _brakeLightPin = -1;
 
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
@@ -113,9 +114,13 @@ public:
     
     void registerFlashingLights(NGFlashingLight *flashingLightLeft, NGFlashingLight *flashingLightRight);
     
+    void registerBrakeLight(int brakeLightPin);
+    
     byte registerMotionSequence(motionSequenceKind kind);
     
     void addMotionSequenceItemStop(byte motionSequence, int duration);
+    
+    void addMotionSequenceItemStop(byte motionSequence, int duration, flashingLightSide light);
     
     void addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn);
     

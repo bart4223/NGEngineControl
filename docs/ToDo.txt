@@ -11,4 +11,3 @@
   -motionUnit
     -steeringControl
       -softturn
-    -motionSequence

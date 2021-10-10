@@ -1,6 +1,6 @@
 #define PROD              true  //false,true
-#define ScenarioStartStop false //false,true
-#define ScenarioTurnLeft  true  //false,true
+#define ScenarioStartStop true  //false,true
+#define ScenarioTurnLeft  false //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
@@ -15,8 +15,9 @@
 #define ENGINEOFFSETLEFT    15
 #define ENGINEOFFSETRIGHT  -15
 
-#define PINSTARTUP           A1
 #define PINLIGHTSENSOR       A0
+#define PINSTARTUP           A1
+#define PINBRAKELIGHT         2
 #define PINLIGHT              4
 #define PINFLASHINGLIGHTLEFT  7
 #define PINFLASHINGLIGHTRIGHT 8
@@ -46,10 +47,12 @@ void setup() {
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
+  unitMotion.registerBrakeLight(PINBRAKELIGHT);
   #if (ScenarioStartStop == true)
   byte ms = unitMotion.registerMotionSequence(mskStraight);
-  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 2000, flsBoth);
-  unitMotion.addMotionSequenceItemStop(ms, 3000);
+  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1500);
+  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 500, flsBrake);
+  unitMotion.addMotionSequenceItemStop(ms, 3000, flsBrake);
   #endif
   #if (ScenarioTurnLeft == true)
   byte ms = unitMotion.registerMotionSequence(mskLeft);

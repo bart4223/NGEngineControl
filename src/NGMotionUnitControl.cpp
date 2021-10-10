@@ -121,6 +121,7 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
     }
     if (item.light == flsNone) {
         setFlashingLight(flsBoth, false);
+        setFlashingLight(flsBrake, false);
     } else {
         setFlashingLight(item.light, item.light != flsNone);
     }
@@ -139,6 +140,9 @@ void NGMotionUnitControl::initialize() {
     }
     if (_flashingLightRight != nullptr) {
         _flashingLightRight->initialize();
+    }
+    if (_brakeLightPin != -1) {
+        pinMode(_brakeLightPin, OUTPUT);
     }
     _initialized = true;
     if (_logging) {
@@ -179,6 +183,10 @@ void NGMotionUnitControl::registerFlashingLights(NGFlashingLight *flashingLightL
     _flashingLightRight = flashingLightRight;
 }
 
+void NGMotionUnitControl::registerBrakeLight(int brakeLightPin) {
+    _brakeLightPin = brakeLightPin;
+}
+
 byte NGMotionUnitControl::registerMotionSequence(motionSequenceKind kind) {
     byte res = _motionSequenceCount;
     motionSequence mss;
@@ -190,7 +198,11 @@ byte NGMotionUnitControl::registerMotionSequence(motionSequenceKind kind) {
 }
 
 void NGMotionUnitControl::addMotionSequenceItemStop(byte motionSequence, int duration) {
-    addMotionSequenceItem(motionSequence, 0, edNone, tdNone, duration);
+    addMotionSequenceItemStop(motionSequence, duration, flsNone);
+}
+
+void NGMotionUnitControl::addMotionSequenceItemStop(byte motionSequence, int duration, flashingLightSide light) {
+    addMotionSequenceItem(motionSequence, 0, edNone, tdNone, duration, light);
 }
 
 void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn) {
@@ -242,6 +254,13 @@ void NGMotionUnitControl::setFlashingLight(flashingLightSide side, bool on) {
     if (_flashingLightRight != nullptr) {
         if (side == flsBoth || side == flsRight) {
             _flashingLightRight->setOn(on);
+        }
+    }
+    if (_brakeLightPin != -1) {
+        if (on) {
+            digitalWrite(_brakeLightPin, HIGH);
+        } else {
+            digitalWrite(_brakeLightPin, LOW);
         }
     }
 }
