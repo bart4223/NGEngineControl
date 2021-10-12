@@ -1,6 +1,8 @@
-#define PROD              true  //false,true
-#define ScenarioStartStop true  //false,true
-#define ScenarioTurnLeft  false //false,true
+#define PROD  true  //false,true
+
+#define ScenarioStartStop     false //false,true
+#define ScenarioTurnLeft      true  //false,true
+#define ScenarioTurnLeftSoft  true  //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
@@ -28,7 +30,11 @@
 #define FLASHINGLIGHTINTERVAL 250
 
 #define SPEEDEASY   200
+#if (ScenarioTurnLeftSoft == true)
+#define SPEEDCURVE  150
+#else
 #define SPEEDCURVE  100
+#endif
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
 NGSerialNotification serialNotification = NGSerialNotification();
@@ -36,6 +42,8 @@ NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
 NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTERVAL);
 NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
+
+byte MotionSequence = 0;
 
 void setup() {
   setGlobalUnit(&unitMotion);
@@ -49,16 +57,22 @@ void setup() {
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
   #if (ScenarioStartStop == true)
-  byte ms = unitMotion.registerMotionSequence(mskStraight);
-  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1500);
-  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 500, flsBrake);
-  unitMotion.addMotionSequenceItemStop(ms, 3000, flsBrake);
+  MotionSequence = unitMotion.registerMotionSequence(mskStraight);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1500);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 500, flsBrake);
+  unitMotion.addMotionSequenceItemStop(MotionSequence, 3000, flsBrake);
   #endif
   #if (ScenarioTurnLeft == true)
-  byte ms = unitMotion.registerMotionSequence(mskLeft);
-  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1000, flsLeft);
-  unitMotion.addMotionSequenceItem(ms, SPEEDCURVE, edForward, tdLeft, 350, flsLeft);
-  unitMotion.addMotionSequenceItem(ms, SPEEDEASY, edForward, tdNone, 1000);
+  MotionSequence = unitMotion.registerMotionSequence(mskLeft);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000, flsLeft);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDCURVE, edForward, tdLeft, 350, flsLeft);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000);
+  #endif
+  #if (ScenarioTurnLeftSoft == true)
+  MotionSequence = unitMotion.registerMotionSequence(mskLeft);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000, flsLeft);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDCURVE, edForward, tdLeftSoft, 1250, flsLeft);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000);
   #endif
   unitMotion.initialize();
   #if (PROD == false)

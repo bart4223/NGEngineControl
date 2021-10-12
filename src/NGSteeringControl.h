@@ -18,7 +18,7 @@
 
 #define ENGINENULLOFFSET 0
 
-enum turnDirection { tdNone, tdLeft, tdRight };
+enum turnDirection { tdNone, tdLeft, tdRight, tdLeftSoft, tdRightSoft };
 
 class NGSteeringControl {
 

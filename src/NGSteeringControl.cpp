@@ -112,17 +112,39 @@ void NGSteeringControl::turnForward(turnDirection turn, byte speed) {
         _speed = speed;
     }
     byte s = _calcEngineSpeed(_speed, _offsetEngineLeft);
-    _engineLeft.setSpeed(s);
+    if (turn == tdLeftSoft) {
+        _engineLeft.setSpeed(s / 2);
+    } else if (turn == tdRightSoft) {
+        _engineLeft.setSpeed(s * 1.16);
+    } else {
+        _engineLeft.setSpeed(s);
+    }
     s = _calcEngineSpeed(_speed, _offsetEngineRight);
-    _engineRight.setSpeed(s);
+    if (turn == tdLeftSoft) {
+        _engineRight.setSpeed(s * 1.16);
+    } else if (turn == tdRightSoft) {
+        _engineRight.setSpeed(s / 2);
+    } else {
+        _engineRight.setSpeed(s);
+    }
     switch (turn) {
         case tdLeft:
-            _engineLeft.run(edBackward);
+        case tdLeftSoft:
+            if (turn == tdLeftSoft) {
+                _engineLeft.run(edForward);
+            } else {
+                _engineLeft.run(edBackward);
+            }
             _engineRight.run(edForward);
             break;
         case tdRight:
+        case tdRightSoft:
             _engineLeft.run(edForward);
-            _engineRight.run(edBackward);
+            if (turn == tdRightSoft) {
+                _engineRight.run(edForward);
+            } else {
+                _engineRight.run(edBackward);
+            }
             break;
     }
 }

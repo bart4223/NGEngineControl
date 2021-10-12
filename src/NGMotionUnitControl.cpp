@@ -113,7 +113,9 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
                 _steeringControl->run(item.direction, item.speed);
             }
             break;
-        case tdLeft: tdRight:
+        case tdLeft:
+        case tdLeftSoft:
+        case tdRight:
             if (item.direction == edForward) {
                 _steeringControl->turnForward(item.turn);
             }
@@ -257,10 +259,12 @@ void NGMotionUnitControl::setFlashingLight(flashingLightSide side, bool on) {
         }
     }
     if (_brakeLightPin != -1) {
-        if (on) {
-            digitalWrite(_brakeLightPin, HIGH);
-        } else {
-            digitalWrite(_brakeLightPin, LOW);
+        if (side == flsBrake) {
+            if (on) {
+                digitalWrite(_brakeLightPin, HIGH);
+            } else {
+                digitalWrite(_brakeLightPin, LOW);
+            }
         }
     }
 }
