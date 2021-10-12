@@ -116,6 +116,7 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
         case tdLeft:
         case tdLeftSoft:
         case tdRight:
+        case tdRightSoft:
             if (item.direction == edForward) {
                 _steeringControl->turnForward(item.turn);
             }

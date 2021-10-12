@@ -1,8 +1,10 @@
 #define PROD  true  //false,true
 
 #define ScenarioStartStop     false //false,true
-#define ScenarioTurnLeft      true  //false,true
+#define ScenarioTurnLeft      false //false,true
 #define ScenarioTurnLeftSoft  true  //false,true
+#define ScenarioTurnRight     false //false,true
+#define ScenarioTurnRightSoft true  //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
@@ -31,6 +33,8 @@
 
 #define SPEEDEASY   200
 #if (ScenarioTurnLeftSoft == true)
+#define SPEEDCURVE  150
+#elif (ScenarioTurnRightSoft == true)
 #define SPEEDCURVE  150
 #else
 #define SPEEDCURVE  100
@@ -72,6 +76,18 @@ void setup() {
   MotionSequence = unitMotion.registerMotionSequence(mskLeft);
   unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000, flsLeft);
   unitMotion.addMotionSequenceItem(MotionSequence, SPEEDCURVE, edForward, tdLeftSoft, 1250, flsLeft);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000);
+  #endif
+  #if (ScenarioTurnRight == true)
+  MotionSequence = unitMotion.registerMotionSequence(mskRight);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000, flsRight);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDCURVE, edForward, tdRight, 350, flsRight);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000);
+  #endif
+  #if (ScenarioTurnRightSoft == true)
+  MotionSequence = unitMotion.registerMotionSequence(mskRight);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000, flsRight);
+  unitMotion.addMotionSequenceItem(MotionSequence, SPEEDCURVE, edForward, tdRightSoft, 1250, flsRight);
   unitMotion.addMotionSequenceItem(MotionSequence, SPEEDEASY, edForward, tdNone, 1000);
   #endif
   unitMotion.initialize();
