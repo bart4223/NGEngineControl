@@ -49,9 +49,10 @@
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
-		29958E5927174A31007048E3 /* simpleforwardturns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleforwardturns.txt; sourceTree = "<group>"; };
-		29958E5A27174B89007048E3 /* simplebackwardturns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simplebackwardturns.txt; sourceTree = "<group>"; };
+		29958E5927174A31007048E3 /* simpleForwardTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleForwardTurns.txt; sourceTree = "<group>"; };
+		29958E5A27174B89007048E3 /* simpleBackwardTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleBackwardTurns.txt; sourceTree = "<group>"; };
 		29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceDefinitions.h; sourceTree = "<group>"; };
+		29958E5D2718BF5E007048E3 /* simpleStartStop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleStartStop.txt; sourceTree = "<group>"; };
 		299C0E1E26D7E7EC00F5A60D /* buggy.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = buggy.ino; sourceTree = "<group>"; };
 		299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSteeringControl.cpp; sourceTree = "<group>"; };
 		299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSteeringControl.h; sourceTree = "<group>"; };
@@ -264,8 +265,9 @@
 		29958E58271749D8007048E3 /* sequences */ = {
 			isa = PBXGroup;
 			children = (
-				29958E5927174A31007048E3 /* simpleforwardturns.txt */,
-				29958E5A27174B89007048E3 /* simplebackwardturns.txt */,
+				29958E5927174A31007048E3 /* simpleForwardTurns.txt */,
+				29958E5A27174B89007048E3 /* simpleBackwardTurns.txt */,
+				29958E5D2718BF5E007048E3 /* simpleStartStop.txt */,
 			);
 			path = sequences;
 			sourceTree = "<group>";
