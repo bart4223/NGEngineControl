@@ -62,6 +62,10 @@ public:
     void turnForward(turnDirection turn);
     
     void turnForward(turnDirection turn, byte speed);
+    
+    void turnBackward(turnDirection turn);
+    
+    void turnBackward(turnDirection turn, byte speed);
 };
 
 #endif /* NGSteeringControl_h */

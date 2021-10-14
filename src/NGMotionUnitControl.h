@@ -21,13 +21,13 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 
-#define _VERSION "1.2"
+#define _VERSION "1.3"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
 
-#define MAXMOTIONSEQUENCECOUNT     10
-#define MAXMOTIONSEQUENCEITEMCOUNT 3
+#define MAXMOTIONSEQUENCECOUNT     8
+#define MAXMOTIONSEQUENCEITEMCOUNT 4
 
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
 

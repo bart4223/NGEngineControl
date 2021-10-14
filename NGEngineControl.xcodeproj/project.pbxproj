@@ -49,6 +49,9 @@
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
+		29958E5927174A31007048E3 /* simpleforwardturns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleforwardturns.txt; sourceTree = "<group>"; };
+		29958E5A27174B89007048E3 /* simplebackwardturns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simplebackwardturns.txt; sourceTree = "<group>"; };
+		29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceDefinitions.h; sourceTree = "<group>"; };
 		299C0E1E26D7E7EC00F5A60D /* buggy.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = buggy.ino; sourceTree = "<group>"; };
 		299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSteeringControl.cpp; sourceTree = "<group>"; };
 		299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSteeringControl.h; sourceTree = "<group>"; };
@@ -206,6 +209,7 @@
 				2913C93726FF54FA00D0AFC6 /* visuals */,
 				2913C93526FF543500D0AFC6 /* sound */,
 				2913C94727018C9800D0AFC6 /* sensors */,
+				29958E5B2718A7A4007048E3 /* specs */,
 				2913C93A26FF67DB00D0AFC6 /* app */,
 				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
 				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
@@ -257,9 +261,27 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		29958E58271749D8007048E3 /* sequences */ = {
+			isa = PBXGroup;
+			children = (
+				29958E5927174A31007048E3 /* simpleforwardturns.txt */,
+				29958E5A27174B89007048E3 /* simplebackwardturns.txt */,
+			);
+			path = sequences;
+			sourceTree = "<group>";
+		};
+		29958E5B2718A7A4007048E3 /* specs */ = {
+			isa = PBXGroup;
+			children = (
+				29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */,
+			);
+			name = specs;
+			sourceTree = "<group>";
+		};
 		299C0E1B26D75CCE00F5A60D /* buggy */ = {
 			isa = PBXGroup;
 			children = (
+				29958E58271749D8007048E3 /* sequences */,
 				299C0E1C26D75D2F00F5A60D /* images */,
 				299C0E1D26D75D6400F5A60D /* buggy */,
 			);

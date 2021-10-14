@@ -148,3 +148,50 @@ void NGSteeringControl::turnForward(turnDirection turn, byte speed) {
             break;
     }
 }
+
+
+void NGSteeringControl::turnBackward(turnDirection turn) {
+    turnBackward(turn, NULLSPEED);
+}
+
+void NGSteeringControl::turnBackward(turnDirection turn, byte speed) {
+    if (speed > NULLSPEED) {
+        _speed = speed;
+    }
+    byte s = _calcEngineSpeed(_speed, _offsetEngineLeft);
+    if (turn == tdLeftSoft) {
+        _engineLeft.setSpeed(s / 2);
+    } else if (turn == tdRightSoft) {
+        _engineLeft.setSpeed(s * 1.16);
+    } else {
+        _engineLeft.setSpeed(s);
+    }
+    s = _calcEngineSpeed(_speed, _offsetEngineRight);
+    if (turn == tdLeftSoft) {
+        _engineRight.setSpeed(s * 1.16);
+    } else if (turn == tdRightSoft) {
+        _engineRight.setSpeed(s / 2);
+    } else {
+        _engineRight.setSpeed(s);
+    }
+    switch (turn) {
+        case tdLeft:
+        case tdLeftSoft:
+            if (turn == tdLeftSoft) {
+                _engineLeft.run(edBackward);
+            } else {
+                _engineLeft.run(edForward);
+            }
+            _engineRight.run(edBackward);
+            break;
+        case tdRight:
+        case tdRightSoft:
+            _engineLeft.run(edBackward);
+            if (turn == tdRightSoft) {
+                _engineRight.run(edBackward);
+            } else {
+                _engineRight.run(edForward);
+            }
+            break;
+    }
+}

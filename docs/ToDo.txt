@@ -9,3 +9,5 @@
   -Common
     -TransportBox
   -motionUnit
+    -CustomMotionMimic
+      -CaveExplorer
