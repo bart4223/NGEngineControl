@@ -21,7 +21,7 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 
-#define _VERSION "1.3"
+#define _VERSION "1.4"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -58,6 +58,7 @@ private:
     NGSoundMachine *_soundMachine;
     int _jingleStartup = -1;
     int _jingleStartupLoops = 0;
+    int _jingleBackward = -1;
     NGLightSensor *_lightSensor = nullptr;
     NGFlashingLight *_flashingLightLeft = nullptr;
     NGFlashingLight *_flashingLightRight = nullptr;
@@ -73,7 +74,11 @@ protected:
     
     void _processingReceivedData();
     
+    void _playJingle(byte jingle);
+    
     void _playJingleStartup();
+    
+    void _playJingleBackward();
     
     void _processingLightSensor();
     
@@ -92,6 +97,8 @@ public:
     
     NGMotionUnitControl(char* name, int offsetEngineLeft, int offsetEngineRight);
                   
+    NGMotionUnitControl(char* name, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
+    
     NGMotionUnitControl(char* name, byte address);
     
     NGMotionUnitControl(char* name, byte address, int serialRate);
@@ -127,6 +134,8 @@ public:
     void addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration);
     
     void addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration, flashingLightSide light);
+    
+    void registerJingleBackward(NGCustomJingle *jingle);
     
     void processingLoop();
     

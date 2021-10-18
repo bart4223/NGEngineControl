@@ -22,6 +22,10 @@ NGMotionUnitControl::NGMotionUnitControl(char* name, int offsetEngineLeft, int o
     _create(name, NOADDRESS, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, offsetEngineLeft, offsetEngineRight);
 }
 
+NGMotionUnitControl::NGMotionUnitControl(char* name, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight) {
+    _create(name, NOADDRESS, DEFAULTSERIALRATE, engineLeft, engineRight, offsetEngineLeft, offsetEngineRight);
+}
+
 NGMotionUnitControl::NGMotionUnitControl(char* name, byte address) {
     _create(name, address, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET);
 }
@@ -49,11 +53,21 @@ void NGMotionUnitControl::_processingReceivedData() {
     
 }
 
+void NGMotionUnitControl::_playJingle(byte jingle) {
+    _soundMachine->play(jingle);
+}
+
 void NGMotionUnitControl::_playJingleStartup() {
     if (_jingleStartup != -1) {
         for (int i = 0; i < _jingleStartupLoops; i++) {
-            _soundMachine->play(_jingleStartup);
+            _playJingle(_jingleStartup);
         }
+    }
+}
+
+void NGMotionUnitControl::_playJingleBackward() {
+    if (_jingleBackward != -1) {
+        _playJingle(_jingleBackward);
     }
 }
 
@@ -97,6 +111,9 @@ void NGMotionUnitControl::_processingMotionSequence() {
                         _currentMotionSequenceItemStarts = 0;
                     }
                 }
+            }
+            if (_motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem].direction == edBackward) {
+                _playJingleBackward();
             }
         } else {
             _currentMotionSequence = -1;
@@ -227,6 +244,10 @@ void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed,
     msi.light = light;
     _motionSequence[motionSequence].items[_motionSequence[motionSequence].itemCount] = msi;
     _motionSequence[motionSequence].itemCount++;
+}
+
+void NGMotionUnitControl::registerJingleBackward(NGCustomJingle *jingle) {
+    _jingleBackward = _soundMachine->registerJingle(jingle);
 }
 
 void NGMotionUnitControl::processingLoop() {

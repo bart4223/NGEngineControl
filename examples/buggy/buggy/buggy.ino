@@ -11,14 +11,15 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 #include <NGJingleHelloDude.h>
+#include <NGJingleBackward.h>
 #include <NGMotionSequenceDefinitions.h>
 
 #define _MOTION       "Motion"
 #define MOTION        (char*)_MOTION
 #define MOTIONADDRESS 0x21
 
-#define ENGINEOFFSETLEFT    15
-#define ENGINEOFFSETRIGHT  -15
+#define ENGINEOFFSETLEFT    25
+#define ENGINEOFFSETRIGHT  -25
 
 #define PINLIGHTSENSOR       A0
 #define PINSTARTUP           A1
@@ -35,18 +36,20 @@
 #define SPEEDEASY   200
 #define SPEEDCURVE  150
 
-NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
+NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINE_2, ENGINE_1, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
 NGSerialNotification serialNotification = NGSerialNotification();
-NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
 NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTERVAL);
 NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
+NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
+NGJingleBackward jingleBackward = NGJingleBackward();
 
 void setup() {
   setGlobalUnit(&unitMotion);
   unitMotion.registerNotification(&serialNotification);
   #if (PROD == true)
   unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
+  unitMotion.registerJingleBackward(&jingleBackward);
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
   #else
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
