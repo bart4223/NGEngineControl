@@ -12,7 +12,9 @@
 #include <NGFlashingLight.h>
 #include <NGJingleHelloDude.h>
 #include <NGJingleBackward.h>
+#include <NGJingleAlarm.h>
 #include <NGMotionSequenceDefinitions.h>
+#include <NGCaveExplorer.h>
 
 #define _MOTION       "Motion"
 #define MOTION        (char*)_MOTION
@@ -43,6 +45,8 @@ NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTE
 NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
 NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGJingleBackward jingleBackward = NGJingleBackward();
+NGJingleAlarm jingleAlarm = NGJingleAlarm();
+NGCaveExplorer caveExplorer = NGCaveExplorer();
 
 void setup() {
   setGlobalUnit(&unitMotion);
@@ -50,12 +54,14 @@ void setup() {
   #if (PROD == true)
   unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
   unitMotion.registerJingleBackward(&jingleBackward);
+  unitMotion.registerJingleAlarm(&jingleAlarm);
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
   #else
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
+  //unitMotion.registerMotionMimic(&caveExplorer);
   DEF_MOTION_SEQUENCE_START;
   #if (ScenarioStartStop == true)
   DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;

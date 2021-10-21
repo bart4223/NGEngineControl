@@ -8,14 +8,14 @@
 #ifndef NGMotionSequenceDefinitions_h
 #define NGMotionSequenceDefinitions_h
 
-#define DEF_MOTION_SEQUENCE_START byte MotionSequence = 0
+#define DEF_MOTION_SEQUENCE_START byte MotionSequence = -1
 
 #define DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT MotionSequence = unitMotion.registerMotionSequence(mskStraight)
-#define DEF_MOTION_SEQUENCE_END_STRAIGHT MotionSequence = 0
+#define DEF_MOTION_SEQUENCE_END_STRAIGHT MotionSequence = -1
 #define DEF_MOTION_SEQUENCE_BEGIN_LEFT MotionSequence = unitMotion.registerMotionSequence(mskLeft)
-#define DEF_MOTION_SEQUENCE_END_LEFT MotionSequence = 0
+#define DEF_MOTION_SEQUENCE_END_LEFT MotionSequence = -1
 #define DEF_MOTION_SEQUENCE_BEGIN_RIGHT MotionSequence = unitMotion.registerMotionSequence(mskRight)
-#define DEF_MOTION_SEQUENCE_END_RIGHT MotionSequence = 0
+#define DEF_MOTION_SEQUENCE_END_RIGHT MotionSequence = -1
 
 // Foward
 #define DEF_MOTION_SEQUENCE_FORWARD(Speed, Time) unitMotion.addMotionSequenceItem(MotionSequence, Speed, edForward, tdNone, Time)

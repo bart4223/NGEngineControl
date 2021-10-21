@@ -71,6 +71,12 @@ void NGMotionUnitControl::_playJingleBackward() {
     }
 }
 
+void NGMotionUnitControl::_playJingleAlarm() {
+    if (_jingleAlarm != -1) {
+        _playJingle(_jingleAlarm);
+    }
+}
+
 void NGMotionUnitControl::_processingStartupLoop() {
     _processingLightSensor();
 }
@@ -92,11 +98,7 @@ void NGMotionUnitControl::_processingFlashingLights() {
 
 void NGMotionUnitControl::_processingMotionSequence() {
     if (_currentMotionSequence == -1) {
-        if (_motionSequenceCount > 0) {
-            _currentMotionSequence = random(0, _motionSequenceCount);
-            _currentMotionSequenceItem = 0;
-            _currentMotionSequenceItemStarts = 0;
-        }
+        _determineCurrentMotionSequence();
     }
     if (_currentMotionSequence >= 0) {
         if (_currentMotionSequenceItem < _motionSequence[_currentMotionSequence].itemCount) {
@@ -149,6 +151,31 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
     }
 }
 
+void NGMotionUnitControl::_determineCurrentMotionSequence() {
+    _currentMotionSequence = -1;
+    if (_motionSequenceCount > 0) {
+        if (_motionMimic != nullptr) {
+            motionSequenceKind kind = _motionMimic->determineNextMotionSequence();
+            for (int i = 0; i < _motionSequenceCount; i++) {
+                if (_motionSequence[i].kind == kind) {
+                    _currentMotionSequence = i;
+                    if (random(0, 2) == 0) {
+                        break;
+                    }
+                }
+            }
+        } else {
+            _currentMotionSequence = random(0, _motionSequenceCount);
+        }
+    }
+    if (_currentMotionSequence >= 0) {
+        _currentMotionSequenceItem = 0;
+        _currentMotionSequenceItemStarts = 0;
+    } else {
+        _playJingleAlarm();
+    }
+}
+
 void NGMotionUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     _steeringControl->initialize();
@@ -165,6 +192,9 @@ void NGMotionUnitControl::initialize() {
     }
     if (_brakeLightPin != -1) {
         pinMode(_brakeLightPin, OUTPUT);
+    }
+    if (_motionMimic != nullptr) {
+        _motionMimic->initialize();
     }
     _initialized = true;
     if (_logging) {
@@ -248,6 +278,14 @@ void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed,
 
 void NGMotionUnitControl::registerJingleBackward(NGCustomJingle *jingle) {
     _jingleBackward = _soundMachine->registerJingle(jingle);
+}
+
+void NGMotionUnitControl::registerJingleAlarm(NGCustomJingle *jingle) {
+    _jingleAlarm = _soundMachine->registerJingle(jingle);
+}
+
+void NGMotionUnitControl::registerMotionMimic(NGCustomMotionMimic *mimic) {
+    _motionMimic = mimic;
 }
 
 void NGMotionUnitControl::processingLoop() {

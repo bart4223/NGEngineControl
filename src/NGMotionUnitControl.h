@@ -20,8 +20,9 @@
 #include <NGCustomJingle.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
+#include <NGCustomMotionMimic.h>
 
-#define _VERSION "1.4"
+#define _VERSION "1.5"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -30,8 +31,6 @@
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
-
-enum motionSequenceKind {mskStraight, mskLeft, mskRight};
 
 struct motionSequenceItemStruct
 {
@@ -59,6 +58,7 @@ private:
     int _jingleStartup = -1;
     int _jingleStartupLoops = 0;
     int _jingleBackward = -1;
+    int _jingleAlarm = -1;
     NGLightSensor *_lightSensor = nullptr;
     NGFlashingLight *_flashingLightLeft = nullptr;
     NGFlashingLight *_flashingLightRight = nullptr;
@@ -68,6 +68,7 @@ private:
     long int _currentMotionSequenceItemStarts = 0;
     byte _currentMotionSequenceItem = 0;
     int _brakeLightPin = -1;
+    NGCustomMotionMimic *_motionMimic = nullptr;
 
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
@@ -80,6 +81,8 @@ protected:
     
     void _playJingleBackward();
     
+    void _playJingleAlarm();
+    
     void _processingLightSensor();
     
     void _processingStartupLoop();
@@ -89,6 +92,8 @@ protected:
     void _processingMotionSequence();
     
     void _processingMotionSequenceItem(motionSequenceItem item);
+    
+    void _determineCurrentMotionSequence();
     
 public:
     NGMotionUnitControl();
@@ -136,6 +141,10 @@ public:
     void addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration, flashingLightSide light);
     
     void registerJingleBackward(NGCustomJingle *jingle);
+    
+    void registerJingleAlarm(NGCustomJingle *jingle);
+    
+    void registerMotionMimic(NGCustomMotionMimic *mimic);
     
     void processingLoop();
     
