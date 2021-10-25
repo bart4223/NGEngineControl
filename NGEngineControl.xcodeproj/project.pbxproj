@@ -66,6 +66,10 @@
 		29B37621271E901500D8780B /* NGCustomMotionMimic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomMotionMimic.h; sourceTree = "<group>"; };
 		29B376222721310000D8780B /* NGCaveExplorer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCaveExplorer.cpp; sourceTree = "<group>"; };
 		29B376232721310000D8780B /* NGCaveExplorer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCaveExplorer.h; sourceTree = "<group>"; };
+		29B376242726816300D8780B /* NGCustomObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomObjectRecognizer.cpp; sourceTree = "<group>"; };
+		29B376252726816300D8780B /* NGCustomObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomObjectRecognizer.h; sourceTree = "<group>"; };
+		29B376262726FE7C00D8780B /* NGContactObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGContactObjectRecognizer.cpp; sourceTree = "<group>"; };
+		29B376272726FE7C00D8780B /* NGContactObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGContactObjectRecognizer.h; sourceTree = "<group>"; };
 		29B7A2C826C2E0D000D25BC8 /* motomanB5Central.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5Central.png; sourceTree = "<group>"; };
 		29B7A2C926C2E0F000D25BC8 /* motomanCentalUnit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanCentalUnit.png; sourceTree = "<group>"; };
 		29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMemoryObserver.cpp; sourceTree = "<group>"; };
@@ -185,6 +189,10 @@
 			children = (
 				2913C94927018CD900D0AFC6 /* NGLightSensor.h */,
 				2913C94827018CD900D0AFC6 /* NGLightSensor.cpp */,
+				29B376252726816300D8780B /* NGCustomObjectRecognizer.h */,
+				29B376242726816300D8780B /* NGCustomObjectRecognizer.cpp */,
+				29B376272726FE7C00D8780B /* NGContactObjectRecognizer.h */,
+				29B376262726FE7C00D8780B /* NGContactObjectRecognizer.cpp */,
 			);
 			name = sensors;
 			sourceTree = "<group>";
