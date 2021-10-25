@@ -1,8 +1,8 @@
 #define PROD true  //false,true
 
-#define ScenarioStartStop             true   //false,true
-#define ScenarioForwardTurnLeftSoft   false  //false,true
-#define ScenarioForwardTurnRightSoft  false  //false,true
+#define ScenarioStartStop             false  //false,true
+#define ScenarioForwardTurnLeftSoft   true   //false,true
+#define ScenarioForwardTurnRightSoft  true   //false,true
 #define ScenarioBackwardTurnLeftSoft  false  //false,true
 #define ScenarioBackwardTurnRightSoft false  //false,true
 

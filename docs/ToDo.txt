@@ -1,5 +1,10 @@
 -Common
   -customUnit
+  -customObjectRecognizer
+    -Detected
+    -HasDetected
+    -DetectionLost
+    -ContactObjectRecognizer
 -Motoman
   -Common
     -TransportBox

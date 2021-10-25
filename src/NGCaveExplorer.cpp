@@ -32,6 +32,7 @@ motionSequenceKind NGCaveExplorer::determineNextMotionSequence() {
             } else {
                 _lastKind = mskRight;
             }
+            break;
     }
     return _lastKind;
 }
