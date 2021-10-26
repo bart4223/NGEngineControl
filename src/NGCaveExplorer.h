@@ -29,7 +29,7 @@ public:
     
     void initialize();
     
-    motionSequenceKind determineNextMotionSequence();
+    motionSequenceKind determineNextMotionSequenceKind();
 };
 
 #endif /* NGCaveExplorer_h */

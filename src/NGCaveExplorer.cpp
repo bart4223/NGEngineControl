@@ -16,10 +16,10 @@ void NGCaveExplorer::_create() {
 }
 
 void NGCaveExplorer::initialize() {
-    NGCustomMotionMimic::initialize();
+    
 }
 
-motionSequenceKind NGCaveExplorer::determineNextMotionSequence() {
+motionSequenceKind NGCaveExplorer::determineNextMotionSequenceKind() {
     switch(_lastKind) {
         case mskNone:
         case mskLeft:

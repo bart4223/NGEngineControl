@@ -23,7 +23,7 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "1.7"
+#define _VERSION "1.8"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -32,7 +32,15 @@
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 #define MAXOBECTRECOGNIZERCOUNT    3
 
+enum objectRecognizerMountedPosition {ormpNone, ormpLeft, ormpRight};
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
+
+struct objectRecognizerStruct
+{
+    objectRecognizerMountedPosition mounted;
+    NGCustomObjectRecognizer *recognizer;
+};
+typedef struct objectRecognizerStruct objectRecognizer;
 
 struct motionSequenceItemStruct
 {
@@ -64,15 +72,16 @@ private:
     NGLightSensor *_lightSensor = nullptr;
     NGFlashingLight *_flashingLightLeft = nullptr;
     NGFlashingLight *_flashingLightRight = nullptr;
-    motionSequenceStruct _motionSequence[MAXMOTIONSEQUENCECOUNT];
+    motionSequence _motionSequence[MAXMOTIONSEQUENCECOUNT];
     int _motionSequenceCount = 0;
     int _currentMotionSequence = -1;
     long int _currentMotionSequenceItemStarts = 0;
     byte _currentMotionSequenceItem = 0;
     int _brakeLightPin = -1;
     NGCustomMotionMimic *_motionMimic = nullptr;
-    NGCustomObjectRecognizer *_objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
+    objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
     int _objectRecognizerCount = 0;
+    int _firedObjectRecognizer = -1;
 
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
@@ -153,6 +162,8 @@ public:
     void registerMotionMimic(NGCustomMotionMimic *mimic);
     
     void registerObjectRecognizer(NGCustomObjectRecognizer *recognizer);
+    
+    void registerObjectRecognizer(objectRecognizerMountedPosition mounted, NGCustomObjectRecognizer *recognizer);
     
     void processingLoop();
     

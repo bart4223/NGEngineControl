@@ -29,13 +29,14 @@
 #define PINFLASHINGLIGHTLEFT  7
 #define PINFLASHINGLIGHTRIGHT 8
 
-#define LIGHTSENSORDELAY      500
+#define LIGHTSENSORDELAY      1000
 #define LIGHTSENSORTHRESHOLD  650
 
 #define FLASHINGLIGHTINTERVAL 250
 
 #define SPEEDEASY   200
 #define SPEEDCURVE  150
+#define SPEEDBACK   120
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINE_2, ENGINE_1, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
 NGSerialNotification serialNotification = NGSerialNotification();
@@ -62,8 +63,8 @@ void setup() {
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
-  unitMotion.registerObjectRecognizer(&corLeft);
-  unitMotion.registerObjectRecognizer(&corRight);
+  unitMotion.registerObjectRecognizer(ormpLeft, &corLeft);
+  unitMotion.registerObjectRecognizer(ormpRight, &corRight);
   #if (ScenarioCaveExplorer == true)
   unitMotion.registerMotionMimic(&caveExplorer);
   // forward
@@ -73,12 +74,12 @@ void setup() {
   DEF_MOTION_SEQUENCE_END_STRAIGHT;
   // Left
   DEF_MOTION_SEQUENCE_BEGIN_LEFT;
-  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTLEFT(SPEEDEASY, 1500);
+  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTLEFT(SPEEDBACK, 1500);
   DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 1250);
   DEF_MOTION_SEQUENCE_END_LEFT;
   // Right
   DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
-  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTRIGHT(SPEEDEASY, 1500);
+  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTRIGHT(SPEEDBACK, 1500);
   DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1250);
   DEF_MOTION_SEQUENCE_END_RIGHT;
   #endif

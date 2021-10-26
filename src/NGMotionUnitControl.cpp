@@ -97,9 +97,11 @@ void NGMotionUnitControl::_processingFlashingLights() {
 }
 
 void NGMotionUnitControl::_processingObjectRecognizer() {
+    _firedObjectRecognizer = -1;
     for (int i = 0; i < _objectRecognizerCount; i++) {
-        if (_objectRecognizer[i]->detected()) {
+        if (_objectRecognizer[i].recognizer->detected()) {
             _currentMotionSequence = -1;
+            _firedObjectRecognizer = i;
             break;
         }
     }
@@ -164,7 +166,21 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
     _currentMotionSequence = -1;
     if (_motionSequenceCount > 0) {
         if (_motionMimic != nullptr) {
-            motionSequenceKind kind = _motionMimic->determineNextMotionSequence();
+            motionSequenceKind kind = _motionMimic->determineNextMotionSequenceKind();
+            if (_firedObjectRecognizer >= 0) {
+                switch(_objectRecognizer[_firedObjectRecognizer].mounted) {
+                    case ormpLeft:
+                        if (kind == mskLeft) {
+                            kind = mskRight;
+                        }
+                        break;
+                    case ormpRight:
+                        if (kind == mskRight) {
+                            kind = mskLeft;
+                        }
+                        break;
+                }
+            }
             for (int i = 0; i < _motionSequenceCount; i++) {
                 if (_motionSequence[i].kind == kind) {
                     _currentMotionSequence = i;
@@ -206,7 +222,7 @@ void NGMotionUnitControl::initialize() {
         _motionMimic->initialize();
     }
     for (int i = 0; i < _objectRecognizerCount; i++) {
-        _objectRecognizer[i]->initialize();
+        _objectRecognizer[i].recognizer->initialize();
     }
     _initialized = true;
     if (_logging) {
@@ -301,7 +317,14 @@ void NGMotionUnitControl::registerMotionMimic(NGCustomMotionMimic *mimic) {
 }
 
 void NGMotionUnitControl::registerObjectRecognizer(NGCustomObjectRecognizer *recognizer) {
-    _objectRecognizer[_objectRecognizerCount] = recognizer;
+    registerObjectRecognizer(ormpNone, recognizer);
+}
+
+void NGMotionUnitControl::registerObjectRecognizer(objectRecognizerMountedPosition mounted, NGCustomObjectRecognizer *recognizer) {
+    objectRecognizer objRec;
+    objRec.mounted = mounted;
+    objRec.recognizer = recognizer;
+    _objectRecognizer[_objectRecognizerCount] = objRec;
     _objectRecognizerCount++;
 }
 

@@ -19,9 +19,9 @@ enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight};
 class NGCustomMotionMimic {
     
 public:
-    void initialize();
+    virtual void initialize();
     
-    virtual motionSequenceKind determineNextMotionSequence();
+    virtual motionSequenceKind determineNextMotionSequenceKind();
 };
 
 #endif /* NGCustomMotionMimic_h */

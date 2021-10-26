@@ -6,7 +6,3 @@
 //
 
 #include "NGCustomMotionMimic.h"
-
-void NGCustomMotionMimic::initialize() {
-    
-}
