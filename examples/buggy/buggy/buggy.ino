@@ -1,10 +1,6 @@
 #define PROD true  //false,true
 
-#define ScenarioStartStop             false  //false,true
-#define ScenarioForwardTurnLeftSoft   true   //false,true
-#define ScenarioForwardTurnRightSoft  true   //false,true
-#define ScenarioBackwardTurnLeftSoft  false  //false,true
-#define ScenarioBackwardTurnRightSoft false  //false,true
+#define ScenarioCaveExplorer true  //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
@@ -14,6 +10,7 @@
 #include <NGJingleBackward.h>
 #include <NGJingleAlarm.h>
 #include <NGMotionSequenceDefinitions.h>
+#include <NGContactObjectRecognizer.h>
 #include <NGCaveExplorer.h>
 
 #define _MOTION       "Motion"
@@ -25,6 +22,8 @@
 
 #define PINLIGHTSENSOR       A0
 #define PINSTARTUP           A1
+#define PINCORLEFT           A2
+#define PINCORRIGHT          A3
 #define PINBRAKELIGHT         2
 #define PINLIGHT              4
 #define PINFLASHINGLIGHTLEFT  7
@@ -46,6 +45,8 @@ NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTIN
 NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGJingleBackward jingleBackward = NGJingleBackward();
 NGJingleAlarm jingleAlarm = NGJingleAlarm();
+NGContactObjectRecognizer corLeft = NGContactObjectRecognizer(PINCORLEFT);
+NGContactObjectRecognizer corRight = NGContactObjectRecognizer(PINCORRIGHT);
 NGCaveExplorer caveExplorer = NGCaveExplorer();
 
 void setup() {
@@ -61,42 +62,24 @@ void setup() {
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
-  //unitMotion.registerMotionMimic(&caveExplorer);
+  unitMotion.registerObjectRecognizer(&corLeft);
+  unitMotion.registerObjectRecognizer(&corRight);
+  #if (ScenarioCaveExplorer == true)
+  unitMotion.registerMotionMimic(&caveExplorer);
+  // forward
   DEF_MOTION_SEQUENCE_START;
-  #if (ScenarioStartStop == true)
   DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
-  DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 1250);
-  DEF_MOTION_SEQUENCE_FORWARD_WITH_BRAKE(SPEEDEASY, 750);
-  DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(500);
-  DEF_MOTION_SEQUENCE_STOP(2500);
+  DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 0);
   DEF_MOTION_SEQUENCE_END_STRAIGHT;
-  #endif
-  #if (ScenarioForwardTurnLeftSoft == true)
+  // Left
   DEF_MOTION_SEQUENCE_BEGIN_LEFT;
-  DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTLEFT(SPEEDEASY, 1000);
-  DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 950);
-  DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 1000);
+  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTLEFT(SPEEDEASY, 1500);
+  DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 1250);
   DEF_MOTION_SEQUENCE_END_LEFT;
-  #endif
-  #if (ScenarioForwardTurnRightSoft == true)
+  // Right
   DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
-  DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTRIGHT(SPEEDEASY, 1000);
-  DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 950);
-  DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 1000);
-  DEF_MOTION_SEQUENCE_END_RIGHT;
-  #endif
-  #if (ScenarioBackwardTurnLeftSoft == true)
-  DEF_MOTION_SEQUENCE_BEGIN_LEFT;
-  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTLEFT(SPEEDEASY, 1000);
-  DEF_MOTION_SEQUENCE_BACKWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 950);
-  DEF_MOTION_SEQUENCE_BACKWARD(SPEEDEASY, 1000);
-  DEF_MOTION_SEQUENCE_END_LEFT;
-  #endif
-  #if (ScenarioBackwardTurnRightSoft == true)
-  DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
-  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTRIGHT(SPEEDEASY, 1000);
-  DEF_MOTION_SEQUENCE_BACKWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 950);
-  DEF_MOTION_SEQUENCE_BACKWARD(SPEEDEASY, 1000);
+  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTRIGHT(SPEEDEASY, 1500);
+  DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1250);
   DEF_MOTION_SEQUENCE_END_RIGHT;
   #endif
   unitMotion.initialize();

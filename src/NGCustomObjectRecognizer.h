@@ -17,11 +17,11 @@
 class NGCustomObjectRecognizer {
 
 public:
-    void initialize();
+    virtual void initialize();
     
-    bool virtual detected();
+    virtual bool detected();
     
-    bool virtual hasDetected();
+    virtual bool hasDetected();
 };
 
 #endif /* NGCustomObjectRecognizer_h */

@@ -25,7 +25,6 @@ void NGContactObjectRecognizer::_create(contactPinMode pinMode, byte pin) {
 }
 
 void NGContactObjectRecognizer::initialize() {
-    NGCustomObjectRecognizer::initialize();
     switch(_pinMode) {
         case cpmInput:
             pinMode(_pin, INPUT);

@@ -21,14 +21,16 @@
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 #include <NGCustomMotionMimic.h>
+#include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "1.6"
+#define _VERSION "1.7"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
 
 #define MAXMOTIONSEQUENCECOUNT     8
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
+#define MAXOBECTRECOGNIZERCOUNT    3
 
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
 
@@ -69,6 +71,8 @@ private:
     byte _currentMotionSequenceItem = 0;
     int _brakeLightPin = -1;
     NGCustomMotionMimic *_motionMimic = nullptr;
+    NGCustomObjectRecognizer *_objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
+    int _objectRecognizerCount = 0;
 
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
@@ -88,6 +92,8 @@ protected:
     void _processingStartupLoop();
     
     void _processingFlashingLights();
+    
+    void _processingObjectRecognizer();
     
     void _processingMotionSequence();
     
@@ -145,6 +151,8 @@ public:
     void registerJingleAlarm(NGCustomJingle *jingle);
     
     void registerMotionMimic(NGCustomMotionMimic *mimic);
+    
+    void registerObjectRecognizer(NGCustomObjectRecognizer *recognizer);
     
     void processingLoop();
     

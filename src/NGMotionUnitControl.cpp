@@ -96,6 +96,15 @@ void NGMotionUnitControl::_processingFlashingLights() {
     }
 }
 
+void NGMotionUnitControl::_processingObjectRecognizer() {
+    for (int i = 0; i < _objectRecognizerCount; i++) {
+        if (_objectRecognizer[i]->detected()) {
+            _currentMotionSequence = -1;
+            break;
+        }
+    }
+}
+
 void NGMotionUnitControl::_processingMotionSequence() {
     if (_currentMotionSequence == -1) {
         _determineCurrentMotionSequence();
@@ -196,6 +205,9 @@ void NGMotionUnitControl::initialize() {
     if (_motionMimic != nullptr) {
         _motionMimic->initialize();
     }
+    for (int i = 0; i < _objectRecognizerCount; i++) {
+        _objectRecognizer[i]->initialize();
+    }
     _initialized = true;
     if (_logging) {
         char log[100];
@@ -288,10 +300,16 @@ void NGMotionUnitControl::registerMotionMimic(NGCustomMotionMimic *mimic) {
     _motionMimic = mimic;
 }
 
+void NGMotionUnitControl::registerObjectRecognizer(NGCustomObjectRecognizer *recognizer) {
+    _objectRecognizer[_objectRecognizerCount] = recognizer;
+    _objectRecognizerCount++;
+}
+
 void NGMotionUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
     _processingLightSensor();
     _processingFlashingLights();
+    _processingObjectRecognizer();
     _processingMotionSequence();
     switch (_workMode) {
         case wmNone:

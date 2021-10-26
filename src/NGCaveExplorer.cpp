@@ -21,12 +21,12 @@ void NGCaveExplorer::initialize() {
 
 motionSequenceKind NGCaveExplorer::determineNextMotionSequence() {
     switch(_lastKind) {
-        mskNone:
-        mskLeft:
-        mskRight:
+        case mskNone:
+        case mskLeft:
+        case mskRight:
             _lastKind = mskStraight;
             break;
-        mskStraight:
+        case mskStraight:
             if (random(0, 2) == 0) {
                 _lastKind = mskLeft;
             } else {

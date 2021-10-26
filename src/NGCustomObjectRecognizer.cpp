@@ -6,7 +6,3 @@
 //
 
 #include "NGCustomObjectRecognizer.h"
-
-void NGCustomObjectRecognizer::initialize() {
-    
-}
