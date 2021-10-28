@@ -77,6 +77,12 @@ void NGMotionUnitControl::_playJingleAlarm() {
     }
 }
 
+void NGMotionUnitControl::_playJingleThinking() {
+    if (_jingleThinking != -1) {
+        _playJingle(_jingleThinking);
+    }
+}
+
 void NGMotionUnitControl::_processingStartupLoop() {
     _processingLightSensor();
 }
@@ -139,6 +145,12 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
         case tdNone:
             if (item.direction == edNone) {
                 _steeringControl->stop();
+                if (_motionMimic != nullptr) {
+                    int count = _motionMimic->thinkingDelay();
+                    for (int i = 0; i < count; i++) {
+                        _playJingleThinking();
+                    }
+                }
             } else {
                 _steeringControl->run(item.direction, item.speed);
             }
@@ -167,7 +179,7 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
     if (_motionSequenceCount > 0) {
         if (_motionMimic != nullptr) {
             motionSequenceKind kind = _motionMimic->determineNextMotionSequenceKind();
-            if (_firedObjectRecognizer >= 0) {
+            if (_firedObjectRecognizer >= 0 && _motionMimic->correctNextMotionSequenceKind()) {
                 switch(_objectRecognizer[_firedObjectRecognizer].mounted) {
                     case ormpLeft:
                         if (kind == mskLeft) {
@@ -184,7 +196,7 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
             for (int i = 0; i < _motionSequenceCount; i++) {
                 if (_motionSequence[i].kind == kind) {
                     _currentMotionSequence = i;
-                    if (random(0, 2) == 0) {
+                    if (getYesOrNo()) {
                         break;
                     }
                 }
@@ -310,6 +322,10 @@ void NGMotionUnitControl::registerJingleBackward(NGCustomJingle *jingle) {
 
 void NGMotionUnitControl::registerJingleAlarm(NGCustomJingle *jingle) {
     _jingleAlarm = _soundMachine->registerJingle(jingle);
+}
+
+void NGMotionUnitControl::registerJingleThinking(NGCustomJingle *jingle) {
+    _jingleThinking = _soundMachine->registerJingle(jingle);
 }
 
 void NGMotionUnitControl::registerMotionMimic(NGCustomMotionMimic *mimic) {

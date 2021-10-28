@@ -9,6 +9,7 @@
 #include <NGJingleHelloDude.h>
 #include <NGJingleBackward.h>
 #include <NGJingleAlarm.h>
+#include <NGJingleThinking.h>
 #include <NGMotionSequenceDefinitions.h>
 #include <NGContactObjectRecognizer.h>
 #include <NGCaveExplorer.h>
@@ -46,6 +47,7 @@ NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTIN
 NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGJingleBackward jingleBackward = NGJingleBackward();
 NGJingleAlarm jingleAlarm = NGJingleAlarm();
+NGJingleThinking jingleThinking = NGJingleThinking();
 NGContactObjectRecognizer corLeft = NGContactObjectRecognizer(PINCORLEFT);
 NGContactObjectRecognizer corRight = NGContactObjectRecognizer(PINCORRIGHT);
 NGCaveExplorer caveExplorer = NGCaveExplorer();
@@ -57,6 +59,7 @@ void setup() {
   unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
   unitMotion.registerJingleBackward(&jingleBackward);
   unitMotion.registerJingleAlarm(&jingleAlarm);
+  unitMotion.registerJingleThinking(&jingleThinking);
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
   #else
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
@@ -74,14 +77,23 @@ void setup() {
   DEF_MOTION_SEQUENCE_END_STRAIGHT;
   // Left
   DEF_MOTION_SEQUENCE_BEGIN_LEFT;
-  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTLEFT(SPEEDBACK, 1500);
+  DEF_MOTION_SEQUENCE_BACKWARD(SPEEDBACK, 500);
+  DEF_MOTION_SEQUENCE_BACKWARD_WITH_BRAKE(SPEEDBACK, 1000);
+  DEF_MOTION_SEQUENCE_STOP(1500);
   DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 1250);
   DEF_MOTION_SEQUENCE_END_LEFT;
   // Right
   DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
-  DEF_MOTION_SEQUENCE_BACKWARD_WITH_LIGHTRIGHT(SPEEDBACK, 1500);
+  DEF_MOTION_SEQUENCE_BACKWARD(SPEEDBACK, 500);
+  DEF_MOTION_SEQUENCE_BACKWARD_WITH_BRAKE(SPEEDBACK, 1000);
+  DEF_MOTION_SEQUENCE_STOP(1500);
   DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1250);
   DEF_MOTION_SEQUENCE_END_RIGHT;
+  // Stop
+  DEF_MOTION_SEQUENCE_BEGIN_STOP;
+  DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(500);
+  DEF_MOTION_SEQUENCE_STOP(2500);
+  DEF_MOTION_SEQUENCE_END_STOP;
   #endif
   unitMotion.initialize();
   #if (PROD == false)

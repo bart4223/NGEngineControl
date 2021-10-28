@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 21.10.21.
 //
 
+#include "NGCommon.h"
 #include "NGCaveExplorer.h"
 
 NGCaveExplorer::NGCaveExplorer() {
@@ -35,4 +36,12 @@ motionSequenceKind NGCaveExplorer::determineNextMotionSequenceKind() {
             break;
     }
     return _lastKind;
+}
+
+bool NGCaveExplorer::correctNextMotionSequenceKind() {
+    return getYesOrNo();
+}
+
+int NGCaveExplorer::thinkingDelay() {
+    return random(0, 4);
 }

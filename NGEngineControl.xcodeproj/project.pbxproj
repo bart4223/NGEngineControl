@@ -59,6 +59,8 @@
 		299C0E2126DA1AE100F5A60D /* motomanB6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB6.png; sourceTree = "<group>"; };
 		299C0E2226DA21FA00F5A60D /* motomanSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanSchema.png; sourceTree = "<group>"; };
 		299C0E2B26DA2BDC00F5A60D /* motomanDude.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanDude.png; sourceTree = "<group>"; };
+		299DEBE9272A6DE7004B3B59 /* NGJingleThinking.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleThinking.cpp; sourceTree = "<group>"; };
+		299DEBEA272A6DE7004B3B59 /* NGJingleThinking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleThinking.h; sourceTree = "<group>"; };
 		29AF3EC1265F77370055A9FC /* EngineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngineShield.png; sourceTree = "<group>"; };
 		29B3761E271DF56300D8780B /* NGJingleBackward.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBackward.cpp; sourceTree = "<group>"; };
 		29B3761F271DF56300D8780B /* NGJingleBackward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBackward.h; sourceTree = "<group>"; };
@@ -139,6 +141,8 @@
 				2913C94527007BB200D0AFC6 /* NGJingleAlarm.cpp */,
 				29B3761F271DF56300D8780B /* NGJingleBackward.h */,
 				29B3761E271DF56300D8780B /* NGJingleBackward.cpp */,
+				299DEBEA272A6DE7004B3B59 /* NGJingleThinking.h */,
+				299DEBE9272A6DE7004B3B59 /* NGJingleThinking.cpp */,
 			);
 			name = sound;
 			sourceTree = "<group>";
@@ -161,8 +165,8 @@
 		2913C93926FF554A00D0AFC6 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				29D7EC362670DD2C00009403 /* NGCommon.cpp */,
 				29D7EC352670DC5100009403 /* NGCommon.h */,
+				29D7EC362670DD2C00009403 /* NGCommon.cpp */,
 				29D7EC30266BF4E400009403 /* NGMemoryObserver.h */,
 				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
 			);

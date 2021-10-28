@@ -14,7 +14,7 @@
 #include <WProgram.h>
 #endif
 
-enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight};
+enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight, mskStop};
 
 class NGCustomMotionMimic {
     
@@ -22,6 +22,10 @@ public:
     virtual void initialize();
     
     virtual motionSequenceKind determineNextMotionSequenceKind();
+    
+    virtual bool correctNextMotionSequenceKind();
+    
+    virtual int thinkingDelay();
 };
 
 #endif /* NGCustomMotionMimic_h */

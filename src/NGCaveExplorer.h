@@ -30,6 +30,10 @@ public:
     void initialize();
     
     motionSequenceKind determineNextMotionSequenceKind();
+    
+    bool correctNextMotionSequenceKind();
+    
+    int thinkingDelay();
 };
 
 #endif /* NGCaveExplorer_h */

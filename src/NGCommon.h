@@ -21,4 +21,6 @@ static bool _globalSerialStarted = false;
 
 void _ensureGlobalSerial(int serialRate);
 
+bool getYesOrNo();
+
 #endif /* NGCommon_h */

@@ -13,3 +13,7 @@ void _ensureGlobalSerial(int serialRate) {
         _globalSerialStarted = true;
     }
 }
+
+bool getYesOrNo() {
+    return (random(0, 2) == 0);
+}

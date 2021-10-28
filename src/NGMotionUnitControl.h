@@ -23,7 +23,7 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "1.8"
+#define _VERSION "1.9"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -69,6 +69,7 @@ private:
     int _jingleStartupLoops = 0;
     int _jingleBackward = -1;
     int _jingleAlarm = -1;
+    int _jingleThinking = -1;
     NGLightSensor *_lightSensor = nullptr;
     NGFlashingLight *_flashingLightLeft = nullptr;
     NGFlashingLight *_flashingLightRight = nullptr;
@@ -95,6 +96,8 @@ protected:
     void _playJingleBackward();
     
     void _playJingleAlarm();
+    
+    void _playJingleThinking();
     
     void _processingLightSensor();
     
@@ -158,6 +161,8 @@ public:
     void registerJingleBackward(NGCustomJingle *jingle);
     
     void registerJingleAlarm(NGCustomJingle *jingle);
+    
+    void registerJingleThinking(NGCustomJingle *jingle);
     
     void registerMotionMimic(NGCustomMotionMimic *mimic);
     

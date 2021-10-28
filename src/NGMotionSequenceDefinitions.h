@@ -16,6 +16,8 @@
 #define DEF_MOTION_SEQUENCE_END_LEFT MotionSequence = -1
 #define DEF_MOTION_SEQUENCE_BEGIN_RIGHT MotionSequence = unitMotion.registerMotionSequence(mskRight)
 #define DEF_MOTION_SEQUENCE_END_RIGHT MotionSequence = -1
+#define DEF_MOTION_SEQUENCE_BEGIN_STOP MotionSequence = unitMotion.registerMotionSequence(mskStop)
+#define DEF_MOTION_SEQUENCE_END_STOP MotionSequence = -1
 
 // Foward
 #define DEF_MOTION_SEQUENCE_FORWARD(Speed, Time) unitMotion.addMotionSequenceItem(MotionSequence, Speed, edForward, tdNone, Time)
