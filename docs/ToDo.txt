@@ -1,5 +1,6 @@
 -Common
   -customUnit
+  -UltrasonicObjectRecognizer
 -Motoman
   -Common
     -TransportBox
@@ -11,3 +12,4 @@
   -motionUnit
     -CustomMotionMimic
       -CaveExplorerPlus
+      -Retriever
