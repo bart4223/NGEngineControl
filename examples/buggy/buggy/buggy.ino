@@ -12,7 +12,10 @@
 #include <NGJingleThinking.h>
 #include <NGMotionSequenceDefinitions.h>
 #include <NGContactObjectRecognizer.h>
+#include <NGLaserCannon.h>
+#if (ScenarioCaveExplorer == true)
 #include <NGCaveExplorer.h>
+#endif
 
 #define _MOTION       "Motion"
 #define MOTION        (char*)_MOTION
@@ -62,7 +65,10 @@ NGJingleAlarm jingleAlarm = NGJingleAlarm();
 NGJingleThinking jingleThinking = NGJingleThinking();
 NGContactObjectRecognizer corLeft = NGContactObjectRecognizer(PINCORLEFT);
 NGContactObjectRecognizer corRight = NGContactObjectRecognizer(PINCORRIGHT);
+NGLaserCannon lc = NGLaserCannon(PINLASERCANNON);
+#if (ScenarioCaveExplorer == true)
 NGCaveExplorer caveExplorer = NGCaveExplorer();
+#endif
 
 void setup() {
   setGlobalUnit(&unitMotion);
@@ -73,13 +79,16 @@ void setup() {
   unitMotion.registerJingleAlarm(&jingleAlarm);
   unitMotion.registerJingleThinking(&jingleThinking);
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
+  unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLASERCANNON, tvHigh, LIGHTSENSORDELAY);
   #else
   unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
+  unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLASERCANNON, tvHigh);
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
   unitMotion.registerObjectRecognizer(ormpLeft, &corLeft);
   unitMotion.registerObjectRecognizer(ormpRight, &corRight);
+  unitMotion.registerLaserCannon(&lc);
   #if (ScenarioCaveExplorer == true)
   unitMotion.registerMotionMimic(&caveExplorer);
   // forward

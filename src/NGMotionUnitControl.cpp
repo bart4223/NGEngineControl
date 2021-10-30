@@ -83,6 +83,18 @@ void NGMotionUnitControl::_playJingleThinking() {
     }
 }
 
+void NGMotionUnitControl::_laserCannonFireOn() {
+    if (_laserCannon != nullptr) {
+        _laserCannon->fireOn();
+    }
+}
+
+void NGMotionUnitControl::_laserCannonFireOff() {
+    if (_laserCannon != nullptr) {
+        _laserCannon->fireOff();
+    }
+}
+
 void NGMotionUnitControl::_processingStartupLoop() {
     _processingLightSensor();
 }
@@ -236,6 +248,9 @@ void NGMotionUnitControl::initialize() {
     for (int i = 0; i < _objectRecognizerCount; i++) {
         _objectRecognizer[i].recognizer->initialize();
     }
+    if (_laserCannon != nullptr) {
+        _laserCannon->initialize();
+    }
     _initialized = true;
     if (_logging) {
         char log[100];
@@ -342,6 +357,10 @@ void NGMotionUnitControl::registerObjectRecognizer(objectRecognizerMountedPositi
     objRec.recognizer = recognizer;
     _objectRecognizer[_objectRecognizerCount] = objRec;
     _objectRecognizerCount++;
+}
+
+void NGMotionUnitControl::registerLaserCannon(NGLaserCannon *lasercannon) {
+    _laserCannon = lasercannon;
 }
 
 void NGMotionUnitControl::processingLoop() {

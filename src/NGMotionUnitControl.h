@@ -20,10 +20,11 @@
 #include <NGCustomJingle.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
+#include <NGLaserCannon.h>
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "1.9"
+#define _VERSION "2.0"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -83,6 +84,7 @@ private:
     objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
     int _objectRecognizerCount = 0;
     int _firedObjectRecognizer = -1;
+    NGLaserCannon *_laserCannon = nullptr;
 
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
@@ -98,6 +100,10 @@ protected:
     void _playJingleAlarm();
     
     void _playJingleThinking();
+    
+    void _laserCannonFireOn();
+    
+    void _laserCannonFireOff();
     
     void _processingLightSensor();
     
@@ -169,6 +175,8 @@ public:
     void registerObjectRecognizer(NGCustomObjectRecognizer *recognizer);
     
     void registerObjectRecognizer(objectRecognizerMountedPosition mounted, NGCustomObjectRecognizer *recognizer);
+    
+    void registerLaserCannon(NGLaserCannon *lasercannon);
     
     void processingLoop();
     
