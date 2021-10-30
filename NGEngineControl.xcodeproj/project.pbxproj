@@ -61,6 +61,8 @@
 		299C0E2B26DA2BDC00F5A60D /* motomanDude.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanDude.png; sourceTree = "<group>"; };
 		299DEBE9272A6DE7004B3B59 /* NGJingleThinking.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleThinking.cpp; sourceTree = "<group>"; };
 		299DEBEA272A6DE7004B3B59 /* NGJingleThinking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleThinking.h; sourceTree = "<group>"; };
+		299DEBEB272C6D02004B3B59 /* NGLaserCannon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGLaserCannon.cpp; sourceTree = "<group>"; };
+		299DEBEC272C6D02004B3B59 /* NGLaserCannon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGLaserCannon.h; sourceTree = "<group>"; };
 		29AF3EC1265F77370055A9FC /* EngineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngineShield.png; sourceTree = "<group>"; };
 		29B3761E271DF56300D8780B /* NGJingleBackward.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBackward.cpp; sourceTree = "<group>"; };
 		29B3761F271DF56300D8780B /* NGJingleBackward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBackward.h; sourceTree = "<group>"; };
@@ -158,6 +160,8 @@
 				29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */,
 				2913C94D2702DE1500D0AFC6 /* NGFlashingLight.h */,
 				2913C94C2702DE1500D0AFC6 /* NGFlashingLight.cpp */,
+				299DEBEC272C6D02004B3B59 /* NGLaserCannon.h */,
+				299DEBEB272C6D02004B3B59 /* NGLaserCannon.cpp */,
 			);
 			name = visuals;
 			sourceTree = "<group>";
