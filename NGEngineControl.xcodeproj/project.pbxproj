@@ -48,6 +48,8 @@
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
 		296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUltrasonicObjectRecognizer.cpp; sourceTree = "<group>"; };
 		296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltrasonicObjectRecognizer.h; sourceTree = "<group>"; };
+		296CD4E8272ED298003E27DA /* buggyC1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1a.png; sourceTree = "<group>"; };
+		296CD4E9272ED298003E27DA /* buggyC1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1.png; sourceTree = "<group>"; };
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
@@ -327,6 +329,8 @@
 			children = (
 				297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */,
 				29958E572711CA5B007048E3 /* buggyC0.png */,
+				296CD4E9272ED298003E27DA /* buggyC1.png */,
+				296CD4E8272ED298003E27DA /* buggyC1a.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
