@@ -26,7 +26,8 @@ private:
     int _minDistance;
     int _maxDistance;
     bool _detected = false;
-    
+    unsigned long _distance = 0;
+
 protected:
     void _create(byte pinTrigger, byte pinEcho, int minDistance, int maxDistance);
     
@@ -42,6 +43,8 @@ public:
     bool detected();
     
     bool hasDetected();
+    
+    int getCloseness();
 };
 
 #endif /* NGUltrasonicObjectRecognizer_h */

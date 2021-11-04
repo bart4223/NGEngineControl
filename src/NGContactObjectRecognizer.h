@@ -42,6 +42,8 @@ public:
     bool detected();
     
     bool hasDetected();
+    
+    int getCloseness();
 };
 
 #endif /* NGContactObjectRecognizer_h */

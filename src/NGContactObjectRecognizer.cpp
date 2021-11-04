@@ -65,3 +65,7 @@ bool NGContactObjectRecognizer::detected() {
 bool NGContactObjectRecognizer::hasDetected() {
     return _detected;
 }
+
+int NGContactObjectRecognizer::getCloseness() {
+    return 0;
+}
