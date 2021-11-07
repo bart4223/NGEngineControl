@@ -14,14 +14,16 @@
 #include <WProgram.h>
 #endif
 
-enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight, mskStop};
+#define NONECONTACT -1
+
+enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight, mskStop, mskBack};
 
 class NGCustomMotionMimic {
     
 public:
     virtual void initialize();
     
-    virtual motionSequenceKind determineNextMotionSequenceKind();
+    virtual motionSequenceKind determineNextMotionSequenceKind(int closeness);
     
     virtual bool correctNextMotionSequenceKind();
     

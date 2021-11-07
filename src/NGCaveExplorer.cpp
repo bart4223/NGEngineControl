@@ -20,18 +20,36 @@ void NGCaveExplorer::initialize() {
     
 }
 
-motionSequenceKind NGCaveExplorer::determineNextMotionSequenceKind() {
+motionSequenceKind NGCaveExplorer::determineNextMotionSequenceKind(int closeness) {
+    motionSequenceKind kind = _lastKind;
     switch(_lastKind) {
         case mskNone:
-        case mskLeft:
-        case mskRight:
             _lastKind = mskStraight;
             break;
+        case mskLeft:
+        case mskRight:
+            if (closeness >= 0 && closeness < _backwardCloseness) {
+                _lastKind = mskBack;
+            } else if (closeness == NONECONTACT) {
+                _lastKind = mskStraight;
+            }
+            break;
         case mskStraight:
-            if (random(0, 2) == 0) {
+            if (closeness >= 0 && closeness < _backwardCloseness) {
+                _lastKind = mskBack;
+            } else if (getYesOrNo()) {
                 _lastKind = mskLeft;
             } else {
                 _lastKind = mskRight;
+            }
+            break;
+        case mskBack:
+            if (closeness == NONECONTACT) {
+                if (getYesOrNo()) {
+                    _lastKind = mskLeft;
+                } else {
+                    _lastKind = mskRight;
+                }
             }
             break;
     }
@@ -44,4 +62,8 @@ bool NGCaveExplorer::correctNextMotionSequenceKind() {
 
 int NGCaveExplorer::thinkingDelay() {
     return random(0, 4);
+}
+
+void NGCaveExplorer::setBackwardCloseness(int closeness) {
+    _backwardCloseness = closeness;
 }

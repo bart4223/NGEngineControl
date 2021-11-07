@@ -16,10 +16,13 @@
 
 #include "NGCustomMotionMimic.h"
 
+#define DEFBACKWARDCLOSENESS 5
+
 class NGCaveExplorer : public NGCustomMotionMimic {
   
 private:
     motionSequenceKind _lastKind = mskNone;
+    int _backwardCloseness = DEFBACKWARDCLOSENESS;
     
 protected:
     void _create();
@@ -29,11 +32,13 @@ public:
     
     void initialize();
     
-    motionSequenceKind determineNextMotionSequenceKind();
+    motionSequenceKind determineNextMotionSequenceKind(int closeness);
     
     bool correctNextMotionSequenceKind();
     
     int thinkingDelay();
+    
+    void setBackwardCloseness(int closeness);
 };
 
 #endif /* NGCaveExplorer_h */

@@ -190,7 +190,11 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
     _currentMotionSequence = -1;
     if (_motionSequenceCount > 0) {
         if (_motionMimic != nullptr) {
-            motionSequenceKind kind = _motionMimic->determineNextMotionSequenceKind();
+            int closeness = NONECONTACT;
+            if (_firedObjectRecognizer >= 0) {
+                closeness = _objectRecognizer[_firedObjectRecognizer].recognizer->getCloseness();
+            }
+            motionSequenceKind kind = _motionMimic->determineNextMotionSequenceKind(closeness);
             if (_firedObjectRecognizer >= 0 && _motionMimic->correctNextMotionSequenceKind()) {
                 switch(_objectRecognizer[_firedObjectRecognizer].mounted) {
                     case ormpLeft:

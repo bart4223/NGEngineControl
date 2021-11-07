@@ -10,5 +10,4 @@
     -TransportBox
   -motionUnit
     -CustomMotionMimic
-      -CaveExplorerPlus
       -Retriever

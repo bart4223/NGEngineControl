@@ -12,6 +12,8 @@
 
 #define DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT MotionSequence = unitMotion.registerMotionSequence(mskStraight)
 #define DEF_MOTION_SEQUENCE_END_STRAIGHT MotionSequence = -1
+#define DEF_MOTION_SEQUENCE_BEGIN_BACK MotionSequence = unitMotion.registerMotionSequence(mskBack)
+#define DEF_MOTION_SEQUENCE_END_BACK MotionSequence = -1
 #define DEF_MOTION_SEQUENCE_BEGIN_LEFT MotionSequence = unitMotion.registerMotionSequence(mskLeft)
 #define DEF_MOTION_SEQUENCE_END_LEFT MotionSequence = -1
 #define DEF_MOTION_SEQUENCE_BEGIN_RIGHT MotionSequence = unitMotion.registerMotionSequence(mskRight)
