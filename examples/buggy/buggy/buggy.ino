@@ -10,9 +10,10 @@
 #include <NGJingleBackward.h>
 #include <NGJingleAlarm.h>
 #include <NGJingleThinking.h>
+#include <NGLaserCannon.h>
 #include <NGMotionSequenceDefinitions.h>
 #include <NGContactObjectRecognizer.h>
-#include <NGLaserCannon.h>
+#include <NGUltrasonicObjectRecognizer.h>
 #if (ScenarioCaveExplorer == true)
 #include <NGCaveExplorer.h>
 #endif
@@ -50,6 +51,8 @@
 
 #define FLASHINGLIGHTINTERVAL 250
 
+#define ULTRASONICMAXDISTANCE 15
+
 #define SPEEDEASY   200
 #define SPEEDCURVE  150
 #define SPEEDBACK   120
@@ -65,6 +68,7 @@ NGJingleAlarm jingleAlarm = NGJingleAlarm();
 NGJingleThinking jingleThinking = NGJingleThinking();
 NGContactObjectRecognizer corLeft = NGContactObjectRecognizer(PINCORLEFT);
 NGContactObjectRecognizer corRight = NGContactObjectRecognizer(PINCORRIGHT);
+NGUltrasonicObjectRecognizer corUS = NGUltrasonicObjectRecognizer(PINULTRASONICTRIGGER, PINULTRASONICECHO, ULTRASONICMAXDISTANCE);
 NGLaserCannon lc = NGLaserCannon(PINLASERCANNON);
 #if (ScenarioCaveExplorer == true)
 NGCaveExplorer caveExplorer = NGCaveExplorer();
@@ -86,9 +90,10 @@ void setup() {
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
+  unitMotion.registerLaserCannon(&lc);
   unitMotion.registerObjectRecognizer(ormpLeft, &corLeft);
   unitMotion.registerObjectRecognizer(ormpRight, &corRight);
-  unitMotion.registerLaserCannon(&lc);
+  unitMotion.registerObjectRecognizer(ormpFront, &corUS);
   #if (ScenarioCaveExplorer == true)
   unitMotion.registerMotionMimic(&caveExplorer);
   // forward

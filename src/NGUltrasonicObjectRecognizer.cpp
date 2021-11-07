@@ -28,12 +28,14 @@ void NGUltrasonicObjectRecognizer::initialize() {
 }
 
 bool NGUltrasonicObjectRecognizer::detected() {
-    digitalWrite(_pinTrigger, LOW);
-    delayMicroseconds(2);
-    digitalWrite(_pinTrigger, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(_pinTrigger, LOW);
-    _distance = pulseIn(_pinEcho, HIGH, ULTRASONICTIMEOUT) / 58.224; // cm
+    for (int i = 0; i < _countMeasurements; i++) {
+        digitalWrite(_pinTrigger, LOW);
+        delayMicroseconds(2);
+        digitalWrite(_pinTrigger, HIGH);
+        delayMicroseconds(10);
+        digitalWrite(_pinTrigger, LOW);
+        _distance =  pulseIn(_pinEcho, HIGH, ULTRASONICTIMEOUT) / 58.224; // cm
+    }
     _detected = (_distance > _minDistance && _distance <= _maxDistance);
     return _detected;
 }

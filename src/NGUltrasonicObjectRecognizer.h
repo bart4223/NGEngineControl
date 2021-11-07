@@ -17,6 +17,7 @@
 #include <NGCustomObjectRecognizer.h>
 
 #define ULTRASONICTIMEOUT 3000
+#define DEFCOUNTMEASUREMENTS 2
 
 class NGUltrasonicObjectRecognizer : public NGCustomObjectRecognizer {
     
@@ -26,7 +27,8 @@ private:
     int _minDistance;
     int _maxDistance;
     bool _detected = false;
-    unsigned long _distance = 0;
+    int _countMeasurements = DEFCOUNTMEASUREMENTS;
+    unsigned long _distance = 0.0;
 
 protected:
     void _create(byte pinTrigger, byte pinEcho, int minDistance, int maxDistance);
