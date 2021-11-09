@@ -43,6 +43,10 @@ public:
     void play(byte jingle);
     
     void play(byte jingle, int tempo);
+    
+    int getJingleCount();
+    
+    int getMaxJingleCount();
 };
 
 #endif /* NGSoundMachine_h */

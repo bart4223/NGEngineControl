@@ -49,12 +49,34 @@ void NGMotionUnitControl::_create(char* name, byte address, int serialRate, int 
     _soundMachine = new NGSoundMachine();
 }
 
+void NGMotionUnitControl::_initializeCore() {
+    _soundMachine->initialize();
+    _playJingleBoot();
+    _steeringControl->initialize();
+    _steeringControl->stop();
+}
+
 void NGMotionUnitControl::_processingReceivedData() {
     
 }
 
+int NGMotionUnitControl::_registerJingle(NGCustomJingle *jingle) {
+    if (_soundMachine->getJingleCount() < _soundMachine->getMaxJingleCount()) {
+        return _soundMachine->registerJingle(jingle);
+    } else {
+        _raiseException(ExceptionTooMuchJingleCount);
+    }
+    return -1;
+}
+
 void NGMotionUnitControl::_playJingle(byte jingle) {
     _soundMachine->play(jingle);
+}
+
+void NGMotionUnitControl::_playJingleBoot() {
+    if (_jingleBoot != -1) {
+        _playJingle(_jingleBoot);
+    }
 }
 
 void NGMotionUnitControl::_playJingleStartup() {
@@ -231,9 +253,7 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
 
 void NGMotionUnitControl::initialize() {
     NGCustomUnitControl::initialize();
-    _steeringControl->initialize();
-    _steeringControl->stop();
-    _soundMachine->initialize();
+    _initializeCore();
     if (_lightSensor != nullptr) {
         _lightSensor->initialize();
     }
@@ -270,13 +290,17 @@ long int NGMotionUnitControl::startUp() {
     return res;
 }
 
+void NGMotionUnitControl::registerBoot(NGCustomJingle *jingle) {
+    _jingleBoot = _registerJingle(jingle);
+}
+
 void NGMotionUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle) {
     registerStartup(pinStartup, jingle, DEFSTARTUPLOOPSCOUNT);
 }
 
 void NGMotionUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle, int loops) {
     NGCustomUnitControl::registerStartup(pinStartup);
-    _jingleStartup = _soundMachine->registerJingle(jingle);
+    _jingleStartup = _registerJingle(jingle);
     _jingleStartupLoops = loops;
 }
 
@@ -336,15 +360,15 @@ void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed,
 }
 
 void NGMotionUnitControl::registerJingleBackward(NGCustomJingle *jingle) {
-    _jingleBackward = _soundMachine->registerJingle(jingle);
+    _jingleBackward = _registerJingle(jingle);
 }
 
 void NGMotionUnitControl::registerJingleAlarm(NGCustomJingle *jingle) {
-    _jingleAlarm = _soundMachine->registerJingle(jingle);
+    _jingleAlarm = _registerJingle(jingle);
 }
 
 void NGMotionUnitControl::registerJingleThinking(NGCustomJingle *jingle) {
-    _jingleThinking = _soundMachine->registerJingle(jingle);
+    _jingleThinking = _registerJingle(jingle);
 }
 
 void NGMotionUnitControl::registerMotionMimic(NGCustomMotionMimic *mimic) {

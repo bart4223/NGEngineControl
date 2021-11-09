@@ -10,6 +10,7 @@
 #include <NGJingleBackward.h>
 #include <NGJingleAlarm.h>
 #include <NGJingleThinking.h>
+#include <NGJingleBoot.h>
 #include <NGLaserCannon.h>
 #include <NGMotionSequenceDefinitions.h>
 #include <NGContactObjectRecognizer.h>
@@ -66,6 +67,7 @@ NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGJingleBackward jingleBackward = NGJingleBackward();
 NGJingleAlarm jingleAlarm = NGJingleAlarm();
 NGJingleThinking jingleThinking = NGJingleThinking();
+NGJingleBoot jingleBoot = NGJingleBoot();
 NGContactObjectRecognizer corLeft = NGContactObjectRecognizer(PINCORLEFT);
 NGContactObjectRecognizer corRight = NGContactObjectRecognizer(PINCORRIGHT);
 NGUltrasonicObjectRecognizer corUS = NGUltrasonicObjectRecognizer(PINULTRASONICTRIGGER, PINULTRASONICECHO, ULTRASONICMAXDISTANCE);
@@ -78,6 +80,7 @@ void setup() {
   setGlobalUnit(&unitMotion);
   unitMotion.registerNotification(&serialNotification);
   #if (PROD == true)
+  unitMotion.registerBoot(&jingleBoot);
   unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
   unitMotion.registerJingleBackward(&jingleBackward);
   unitMotion.registerJingleAlarm(&jingleAlarm);

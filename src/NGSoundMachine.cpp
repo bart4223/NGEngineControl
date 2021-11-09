@@ -55,3 +55,11 @@ void NGSoundMachine::play(byte jingle, int tempo) {
         delay(tempo / 10);
     }
 }
+
+int NGSoundMachine::getJingleCount() {
+    return _jingleCount;
+}
+
+int NGSoundMachine::getMaxJingleCount() {
+    return MAXJINGLES;
+}

@@ -99,6 +99,8 @@
 		29D7EC4226750DEE00009403 /* motionunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motionunit.ino; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
 		29F2A78B26C2E059009C3822 /* motomanB5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5.png; sourceTree = "<group>"; };
+		29F56DE3273AE41E00BBBB68 /* NGJingleBoot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBoot.cpp; sourceTree = "<group>"; };
+		29F56DE4273AE41E00BBBB68 /* NGJingleBoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBoot.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -149,6 +151,8 @@
 				29B3761E271DF56300D8780B /* NGJingleBackward.cpp */,
 				299DEBEA272A6DE7004B3B59 /* NGJingleThinking.h */,
 				299DEBE9272A6DE7004B3B59 /* NGJingleThinking.cpp */,
+				29F56DE4273AE41E00BBBB68 /* NGJingleBoot.h */,
+				29F56DE3273AE41E00BBBB68 /* NGJingleBoot.cpp */,
 			);
 			name = sound;
 			sourceTree = "<group>";

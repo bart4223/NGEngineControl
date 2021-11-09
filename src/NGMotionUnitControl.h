@@ -24,7 +24,7 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "2.2"
+#define _VERSION "2.3"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -32,6 +32,8 @@
 #define MAXMOTIONSEQUENCECOUNT     8
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 #define MAXOBECTRECOGNIZERCOUNT    3
+
+#define ExceptionTooMuchJingleCount 300
 
 enum objectRecognizerMountedPosition {ormpNone, ormpLeft, ormpRight, ormpFront, ormpBack};
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
@@ -71,6 +73,7 @@ private:
     int _jingleBackward = -1;
     int _jingleAlarm = -1;
     int _jingleThinking = -1;
+    int _jingleBoot = -1;
     NGLightSensor *_lightSensor = nullptr;
     NGFlashingLight *_flashingLightLeft = nullptr;
     NGFlashingLight *_flashingLightRight = nullptr;
@@ -89,9 +92,15 @@ private:
 protected:
     void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
     
+    void _initializeCore();
+    
     void _processingReceivedData();
     
+    int _registerJingle(NGCustomJingle *jingle);
+    
     void _playJingle(byte jingle);
+    
+    void _playJingleBoot();
     
     void _playJingleStartup();
     
@@ -139,6 +148,8 @@ public:
     void initialize();
     
     long int startUp();
+    
+    void registerBoot(NGCustomJingle *jingle);
     
     void registerStartup(int pinStartup, NGCustomJingle *jingle);
     
