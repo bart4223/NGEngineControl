@@ -26,16 +26,16 @@ motionSequenceKind NGBotRetriever::determineNextMotionSequenceKind(int closeness
             _lastKind = mskStraight;
             break;
         case mskStraight:
-            if (closeness != NONECONTACT) {
-                _lastKind = mskRight;
-                _avoid = true;
-            } else {
-                _avoid = false;
-            }
+            _lastKind = mskStop;
+            _sequenceProcessed++;
             break;
-        case mskRight:
+        case mskStop:
+            _lastKind = mskFullTurn;
+            _sequenceProcessed++;
+            break;
+        case mskFullTurn:
             _lastKind = mskStraight;
-            _avoid = false;
+            _sequenceProcessed++;
             break;
     }
     return _lastKind;
@@ -46,9 +46,9 @@ bool NGBotRetriever::correctNextMotionSequenceKind() {
 }
 
 int NGBotRetriever::thinkingDelay() {
-    return 0;
+    return false;
 }
 
 bool NGBotRetriever::nextMotionSequenceNecessary(int closeness) {
-    return !_avoid || closeness == 0;
+    return _sequenceProcessed < 5;
 }

@@ -1,7 +1,7 @@
 #define PROD true //false,true
 
-#define ScenarioCaveExplorer true  //false,true
-#define ScenarioBotRetriever false //false,true
+#define ScenarioCaveExplorer false //false,true
+#define ScenarioBotRetriever true  //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
@@ -100,10 +100,10 @@ void setup() {
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
   unitMotion.registerLaserCannon(&lc);
+  #if (ScenarioCaveExplorer == true)
   unitMotion.registerObjectRecognizer(ormpLeft, &corLeft);
   unitMotion.registerObjectRecognizer(ormpRight, &corRight);
   unitMotion.registerObjectRecognizer(ormpFront, &corUS);
-  #if (ScenarioCaveExplorer == true)
   mimic.setBackwardCloseness(ULTRASONICMAXDISTANCE / 2);
   unitMotion.registerMotionMimic(&mimic);
   // forward
@@ -132,18 +132,18 @@ void setup() {
   // forward
   DEF_MOTION_SEQUENCE_START;
   DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
-  DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 0);
+  DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 2500);
   DEF_MOTION_SEQUENCE_END_STRAIGHT;
-  // right
-  DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
-  DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTRIGHT(SPEEDCURVE, 250);
-  DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1750);
-  DEF_MOTION_SEQUENCE_END_RIGHT;
+  // fullturn
+  DEF_MOTION_SEQUENCE_BEGIN_FULLTURN;
+  DEF_MOTION_SEQUENCE_FULLTURN(SPEEDCURVE, 750);
+  DEF_MOTION_SEQUENCE_STOP_NONE(100);
+  DEF_MOTION_SEQUENCE_END_FULLTURN;
   // stop
   DEF_MOTION_SEQUENCE_BEGIN_STOP;
-  DEF_MOTION_SEQUENCE_FORWARD_WITH_BRAKE(SPEEDEASY, 250);
+  DEF_MOTION_SEQUENCE_FORWARD_WITH_BRAKE(SPEEDEASY, 500);
   DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(1000);
-  DEF_MOTION_SEQUENCE_STOP_NONE(0);
+  DEF_MOTION_SEQUENCE_STOP_NONE(100);
   DEF_MOTION_SEQUENCE_END_STOP;
   #endif
   unitMotion.initialize();

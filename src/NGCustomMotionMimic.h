@@ -16,7 +16,7 @@
 
 #define NONECONTACT -1
 
-enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight, mskStop, mskBack};
+enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight, mskStop, mskBack, mskFullTurn};
 
 class NGCustomMotionMimic {
     

@@ -20,7 +20,7 @@ class NGBotRetriever : public NGCustomMotionMimic {
   
 private:
     motionSequenceKind _lastKind = mskNone;
-    bool _avoid = false;
+    int _sequenceProcessed = 0;
     
 protected:
     void _create();

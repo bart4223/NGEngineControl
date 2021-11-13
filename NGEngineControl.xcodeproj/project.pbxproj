@@ -103,6 +103,7 @@
 		29F56DE4273AE41E00BBBB68 /* NGJingleBoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBoot.h; sourceTree = "<group>"; };
 		29F56DE5273AF32F00BBBB68 /* NGBotRetriever.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBotRetriever.cpp; sourceTree = "<group>"; };
 		29F56DE6273AF32F00BBBB68 /* NGBotRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBotRetriever.h; sourceTree = "<group>"; };
+		29F56DE727401A2C00BBBB68 /* simpleFullTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleFullTurns.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -304,6 +305,7 @@
 				29958E5927174A31007048E3 /* simpleForwardTurns.txt */,
 				29958E5A27174B89007048E3 /* simpleBackwardTurns.txt */,
 				29958E5D2718BF5E007048E3 /* simpleStartStop.txt */,
+				29F56DE727401A2C00BBBB68 /* simpleFullTurns.txt */,
 			);
 			path = sequences;
 			sourceTree = "<group>";

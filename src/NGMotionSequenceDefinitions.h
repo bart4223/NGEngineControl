@@ -20,6 +20,8 @@
 #define DEF_MOTION_SEQUENCE_END_RIGHT MotionSequence = -1
 #define DEF_MOTION_SEQUENCE_BEGIN_STOP MotionSequence = unitMotion.registerMotionSequence(mskStop)
 #define DEF_MOTION_SEQUENCE_END_STOP MotionSequence = -1
+#define DEF_MOTION_SEQUENCE_BEGIN_FULLTURN MotionSequence = unitMotion.registerMotionSequence(mskFullTurn)
+#define DEF_MOTION_SEQUENCE_END_FULLTURN MotionSequence = -1
 
 // Foward
 #define DEF_MOTION_SEQUENCE_FORWARD(Speed, Time) unitMotion.addMotionSequenceItem(MotionSequence, Speed, edForward, tdNone, Time)
@@ -47,5 +49,8 @@
 #define DEF_MOTION_SEQUENCE_STOP(Time) unitMotion.addMotionSequenceItemStop(MotionSequence, Time)
 #define DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(Time) unitMotion.addMotionSequenceItemStop(MotionSequence, Time, flsBrake)
 #define DEF_MOTION_SEQUENCE_STOP_NONE(Time) unitMotion.addMotionSequenceItemStop(MotionSequence, Time, flsNone)
+
+// FullTurn
+#define DEF_MOTION_SEQUENCE_FULLTURN(Speed, Time) unitMotion.addMotionSequenceItem(MotionSequence, Speed, edForward, tdRight, Time, flsNone);
 
 #endif /* NGMotionSequenceDefinitions_h */

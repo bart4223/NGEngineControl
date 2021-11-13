@@ -215,6 +215,8 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
             if (_firedObjectRecognizer >= 0) {
                 closeness = _objectRecognizer[_firedObjectRecognizer].recognizer->getCloseness();
                 newMotionSequence = _motionMimic->nextMotionSequenceNecessary(closeness);
+            } else if (_objectRecognizerCount == 0) {
+                newMotionSequence = _motionMimic->nextMotionSequenceNecessary(closeness);
             }
             if (newMotionSequence) {
                 _currentMotionSequence = -1;
