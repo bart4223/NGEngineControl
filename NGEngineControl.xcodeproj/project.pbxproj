@@ -101,6 +101,8 @@
 		29F2A78B26C2E059009C3822 /* motomanB5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5.png; sourceTree = "<group>"; };
 		29F56DE3273AE41E00BBBB68 /* NGJingleBoot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBoot.cpp; sourceTree = "<group>"; };
 		29F56DE4273AE41E00BBBB68 /* NGJingleBoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBoot.h; sourceTree = "<group>"; };
+		29F56DE5273AF32F00BBBB68 /* NGBotRetriever.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBotRetriever.cpp; sourceTree = "<group>"; };
+		29F56DE6273AF32F00BBBB68 /* NGBotRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBotRetriever.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -314,6 +316,8 @@
 				29B37620271E901500D8780B /* NGCustomMotionMimic.cpp */,
 				29B376232721310000D8780B /* NGCaveExplorer.h */,
 				29B376222721310000D8780B /* NGCaveExplorer.cpp */,
+				29F56DE6273AF32F00BBBB68 /* NGBotRetriever.h */,
+				29F56DE5273AF32F00BBBB68 /* NGBotRetriever.cpp */,
 			);
 			name = specs;
 			sourceTree = "<group>";

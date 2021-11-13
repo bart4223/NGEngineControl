@@ -1,12 +1,12 @@
 //
-//  NGCaveExplorer.h
+//  NGBotRetriever.h
 //  NGEngineControl
 //
-//  Created by Nils Grimmer on 21.10.21.
+//  Created by Nils Grimmer on 09.11.21.
 //
 
-#ifndef NGCaveExplorer_h
-#define NGCaveExplorer_h
+#ifndef NGBotRetriever_h
+#define NGBotRetriever_h
 
 #if (ARDUINO >= 100)
 #include <Arduino.h>
@@ -16,20 +16,17 @@
 
 #include "NGCustomMotionMimic.h"
 
-#define DEFBACKWARDCLOSENESS 5
-
-class NGCaveExplorer : public NGCustomMotionMimic {
+class NGBotRetriever : public NGCustomMotionMimic {
   
 private:
     motionSequenceKind _lastKind = mskNone;
-    int _backwardCloseness = DEFBACKWARDCLOSENESS;
     bool _avoid = false;
     
 protected:
     void _create();
     
 public:
-    NGCaveExplorer();
+    NGBotRetriever();
     
     void initialize();
     
@@ -44,4 +41,4 @@ public:
     void setBackwardCloseness(int closeness);
 };
 
-#endif /* NGCaveExplorer_h */
+#endif /* NGBotRetriever_h */

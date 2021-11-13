@@ -1,6 +1,7 @@
 #define PROD true //false,true
 
-#define ScenarioCaveExplorer true //false,true
+#define ScenarioCaveExplorer true  //false,true
+#define ScenarioBotRetriever false //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
@@ -17,6 +18,9 @@
 #include <NGUltrasonicObjectRecognizer.h>
 #if (ScenarioCaveExplorer == true)
 #include <NGCaveExplorer.h>
+#endif
+#if (ScenarioBotRetriever == true)
+#include <NGBotRetriever.h>
 #endif
 
 #define _MOTION       "Motion"
@@ -52,7 +56,7 @@
 
 #define FLASHINGLIGHTINTERVAL 250
 
-#define ULTRASONICMAXDISTANCE 20
+#define ULTRASONICMAXDISTANCE 30
 
 #define SPEEDEASY   200
 #define SPEEDCURVE  150
@@ -73,7 +77,9 @@ NGContactObjectRecognizer corRight = NGContactObjectRecognizer(PINCORRIGHT);
 NGUltrasonicObjectRecognizer corUS = NGUltrasonicObjectRecognizer(PINULTRASONICTRIGGER, PINULTRASONICECHO, ULTRASONICMAXDISTANCE);
 NGLaserCannon lc = NGLaserCannon(PINLASERCANNON);
 #if (ScenarioCaveExplorer == true)
-NGCaveExplorer caveExplorer = NGCaveExplorer();
+NGCaveExplorer mimic = NGCaveExplorer();
+#elif (ScenarioBotRetriever == true)
+NGBotRetriever mimic = NGBotRetriever();
 #endif
 
 void setup() {
@@ -98,8 +104,8 @@ void setup() {
   unitMotion.registerObjectRecognizer(ormpRight, &corRight);
   unitMotion.registerObjectRecognizer(ormpFront, &corUS);
   #if (ScenarioCaveExplorer == true)
-  caveExplorer.setBackwardCloseness(ULTRASONICMAXDISTANCE / 2);
-  unitMotion.registerMotionMimic(&caveExplorer);
+  mimic.setBackwardCloseness(ULTRASONICMAXDISTANCE / 2);
+  unitMotion.registerMotionMimic(&mimic);
   // forward
   DEF_MOTION_SEQUENCE_START;
   DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
@@ -114,13 +120,31 @@ void setup() {
   // left
   DEF_MOTION_SEQUENCE_BEGIN_LEFT;
   DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTLEFT(SPEEDCURVE, 250);
-  DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 1250);
+  DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 1750);
   DEF_MOTION_SEQUENCE_END_LEFT;
   // right
   DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
   DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTRIGHT(SPEEDCURVE, 250);
-  DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1250);
+  DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1750);
   DEF_MOTION_SEQUENCE_END_RIGHT;
+  #elif (ScenarioBotRetriever == true)
+  unitMotion.registerMotionMimic(&mimic);
+  // forward
+  DEF_MOTION_SEQUENCE_START;
+  DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
+  DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 0);
+  DEF_MOTION_SEQUENCE_END_STRAIGHT;
+  // right
+  DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
+  DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTRIGHT(SPEEDCURVE, 250);
+  DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1750);
+  DEF_MOTION_SEQUENCE_END_RIGHT;
+  // stop
+  DEF_MOTION_SEQUENCE_BEGIN_STOP;
+  DEF_MOTION_SEQUENCE_FORWARD_WITH_BRAKE(SPEEDEASY, 250);
+  DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(1000);
+  DEF_MOTION_SEQUENCE_STOP_NONE(0);
+  DEF_MOTION_SEQUENCE_END_STOP;
   #endif
   unitMotion.initialize();
   #if (PROD == false)

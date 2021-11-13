@@ -25,6 +25,8 @@ public:
     
     virtual motionSequenceKind determineNextMotionSequenceKind(int closeness);
     
+    virtual bool nextMotionSequenceNecessary(int closeness);
+    
     virtual bool correctNextMotionSequenceKind();
     
     virtual int thinkingDelay();

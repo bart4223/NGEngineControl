@@ -46,5 +46,6 @@
 // Stop
 #define DEF_MOTION_SEQUENCE_STOP(Time) unitMotion.addMotionSequenceItemStop(MotionSequence, Time)
 #define DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(Time) unitMotion.addMotionSequenceItemStop(MotionSequence, Time, flsBrake)
+#define DEF_MOTION_SEQUENCE_STOP_NONE(Time) unitMotion.addMotionSequenceItemStop(MotionSequence, Time, flsNone)
 
 #endif /* NGMotionSequenceDefinitions_h */

@@ -24,7 +24,7 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "2.3"
+#define _VERSION "2.4"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -33,7 +33,10 @@
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 #define MAXOBECTRECOGNIZERCOUNT    3
 
-#define ExceptionTooMuchJingleCount 300
+#define ExceptionTooMuchJingleCount             300
+#define ExceptionTooMuchObjectRecognizerCount   301
+#define ExceptionTooMuchMotionSequenceCount     302
+#define ExceptionTooMuchMotionSequenceItemCount 303
 
 enum objectRecognizerMountedPosition {ormpNone, ormpLeft, ormpRight, ormpFront, ormpBack};
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};

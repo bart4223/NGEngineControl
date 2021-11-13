@@ -140,7 +140,6 @@ void NGMotionUnitControl::_processingObjectRecognizer() {
     _firedObjectRecognizer = -1;
     for (int i = 0; i < _objectRecognizerCount; i++) {
         if (_objectRecognizer[i].recognizer->detected()) {
-            _currentMotionSequence = -1;
             _firedObjectRecognizer = i;
             break;
         }
@@ -148,7 +147,7 @@ void NGMotionUnitControl::_processingObjectRecognizer() {
 }
 
 void NGMotionUnitControl::_processingMotionSequence() {
-    if (_currentMotionSequence == -1) {
+    if (_currentMotionSequence == -1 || _firedObjectRecognizer != -1) {
         _determineCurrentMotionSequence();
     }
     if (_currentMotionSequence >= 0) {
@@ -209,45 +208,53 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
 }
 
 void NGMotionUnitControl::_determineCurrentMotionSequence() {
-    _currentMotionSequence = -1;
+    bool newMotionSequence = true;
     if (_motionSequenceCount > 0) {
         if (_motionMimic != nullptr) {
             int closeness = NONECONTACT;
             if (_firedObjectRecognizer >= 0) {
                 closeness = _objectRecognizer[_firedObjectRecognizer].recognizer->getCloseness();
+                newMotionSequence = _motionMimic->nextMotionSequenceNecessary(closeness);
             }
-            motionSequenceKind kind = _motionMimic->determineNextMotionSequenceKind(closeness);
-            if (_firedObjectRecognizer >= 0 && _motionMimic->correctNextMotionSequenceKind()) {
-                switch(_objectRecognizer[_firedObjectRecognizer].mounted) {
-                    case ormpLeft:
-                        if (kind == mskLeft) {
-                            kind = mskRight;
-                        }
-                        break;
-                    case ormpRight:
-                        if (kind == mskRight) {
-                            kind = mskLeft;
-                        }
-                        break;
+            if (newMotionSequence) {
+                _currentMotionSequence = -1;
+                motionSequenceKind kind = _motionMimic->determineNextMotionSequenceKind(closeness);
+                if (_firedObjectRecognizer >= 0 && _motionMimic->correctNextMotionSequenceKind()) {
+                    switch(_objectRecognizer[_firedObjectRecognizer].mounted) {
+                        case ormpLeft:
+                            if (kind == mskLeft) {
+                                kind = mskRight;
+                            }
+                            break;
+                        case ormpRight:
+                            if (kind == mskRight) {
+                                kind = mskLeft;
+                            }
+                            break;
+                    }
                 }
-            }
-            for (int i = 0; i < _motionSequenceCount; i++) {
-                if (_motionSequence[i].kind == kind) {
-                    _currentMotionSequence = i;
-                    if (getYesOrNo()) {
-                        break;
+                for (int i = 0; i < _motionSequenceCount; i++) {
+                    if (_motionSequence[i].kind == kind) {
+                        _currentMotionSequence = i;
+                        if (getYesOrNo()) {
+                            break;
+                        }
                     }
                 }
             }
         } else {
             _currentMotionSequence = random(0, _motionSequenceCount);
         }
-    }
-    if (_currentMotionSequence >= 0) {
-        _currentMotionSequenceItem = 0;
-        _currentMotionSequenceItemStarts = 0;
     } else {
-        _playJingleAlarm();
+        _currentMotionSequence = -1;
+    }
+    if (newMotionSequence) {
+        if (_currentMotionSequence >= 0) {
+            _currentMotionSequenceItem = 0;
+            _currentMotionSequenceItemStarts = 0;
+        } else {
+            _playJingleAlarm();
+        }
     }
 }
 
@@ -324,11 +331,15 @@ void NGMotionUnitControl::registerBrakeLight(int brakeLightPin) {
 
 byte NGMotionUnitControl::registerMotionSequence(motionSequenceKind kind) {
     byte res = _motionSequenceCount;
-    motionSequence mss;
-    mss.kind = kind;
-    mss.itemCount = 0;
-    _motionSequence[_motionSequenceCount] = mss;
-    _motionSequenceCount++;
+    if (_motionSequenceCount < MAXMOTIONSEQUENCECOUNT) {
+        motionSequence mss;
+        mss.kind = kind;
+        mss.itemCount = 0;
+        _motionSequence[_motionSequenceCount] = mss;
+        _motionSequenceCount++;
+    } else {
+        _raiseException(ExceptionTooMuchMotionSequenceCount);
+    }
     return res;
 }
 
@@ -349,14 +360,18 @@ void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed,
 }
 
 void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration, flashingLightSide light) {
-    motionSequenceItem msi;
-    msi.speed = speed;
-    msi.direction = direction;
-    msi.turn = turn;
-    msi.duration = duration;
-    msi.light = light;
-    _motionSequence[motionSequence].items[_motionSequence[motionSequence].itemCount] = msi;
-    _motionSequence[motionSequence].itemCount++;
+    if (_motionSequence[motionSequence].itemCount < MAXMOTIONSEQUENCEITEMCOUNT) {
+        motionSequenceItem msi;
+        msi.speed = speed;
+        msi.direction = direction;
+        msi.turn = turn;
+        msi.duration = duration;
+        msi.light = light;
+        _motionSequence[motionSequence].items[_motionSequence[motionSequence].itemCount] = msi;
+        _motionSequence[motionSequence].itemCount++;
+    } else {
+        _raiseException(ExceptionTooMuchMotionSequenceItemCount);
+    }
 }
 
 void NGMotionUnitControl::registerJingleBackward(NGCustomJingle *jingle) {
@@ -380,11 +395,15 @@ void NGMotionUnitControl::registerObjectRecognizer(NGCustomObjectRecognizer *rec
 }
 
 void NGMotionUnitControl::registerObjectRecognizer(objectRecognizerMountedPosition mounted, NGCustomObjectRecognizer *recognizer) {
-    objectRecognizer objRec;
-    objRec.mounted = mounted;
-    objRec.recognizer = recognizer;
-    _objectRecognizer[_objectRecognizerCount] = objRec;
-    _objectRecognizerCount++;
+    if (_objectRecognizerCount < MAXOBECTRECOGNIZERCOUNT) {
+        objectRecognizer objRec;
+        objRec.mounted = mounted;
+        objRec.recognizer = recognizer;
+        _objectRecognizer[_objectRecognizerCount] = objRec;
+        _objectRecognizerCount++;
+    } else {
+        _raiseException(ExceptionTooMuchObjectRecognizerCount);
+    }
 }
 
 void NGMotionUnitControl::registerLaserCannon(NGLaserCannon *lasercannon) {
