@@ -104,6 +104,12 @@
 		29F56DE5273AF32F00BBBB68 /* NGBotRetriever.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBotRetriever.cpp; sourceTree = "<group>"; };
 		29F56DE6273AF32F00BBBB68 /* NGBotRetriever.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBotRetriever.h; sourceTree = "<group>"; };
 		29F56DE727401A2C00BBBB68 /* simpleFullTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleFullTurns.txt; sourceTree = "<group>"; };
+		29F56DE927410B6600BBBB68 /* soundmachine.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = soundmachine.ino; sourceTree = "<group>"; };
+		29F56DEB27410C5100BBBB68 /* lightsensor.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = lightsensor.ino; sourceTree = "<group>"; };
+		29F56DED27410C9600BBBB68 /* flashinglight.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = flashinglight.ino; sourceTree = "<group>"; };
+		29F56DEF27410CE700BBBB68 /* ultrasonic.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = ultrasonic.ino; sourceTree = "<group>"; };
+		29F56DF127410D3100BBBB68 /* contact.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = contact.ino; sourceTree = "<group>"; };
+		29F56DF327410D6D00BBBB68 /* lasercannon.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = lasercannon.ino; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -264,6 +270,12 @@
 		29647BC2253C430C003CBA13 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				29F56DE827410B3C00BBBB68 /* soundmachine */,
+				29F56DEA27410C1A00BBBB68 /* lightsensor */,
+				29F56DEC27410C6900BBBB68 /* flashinglight */,
+				29F56DF227410D5900BBBB68 /* lasercannon */,
+				29F56DF027410D1D00BBBB68 /* contact */,
+				29F56DEE27410CCB00BBBB68 /* ultrasonic */,
 				29647BC9253C5F85003CBA13 /* simple */,
 				2905F124264F011D001B4A56 /* stop */,
 				29165F302549692B001D9497 /* profiles */,
@@ -400,6 +412,54 @@
 				29E6BA5A263C6070007BCE9F /* motomanB3.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		29F56DE827410B3C00BBBB68 /* soundmachine */ = {
+			isa = PBXGroup;
+			children = (
+				29F56DE927410B6600BBBB68 /* soundmachine.ino */,
+			);
+			path = soundmachine;
+			sourceTree = "<group>";
+		};
+		29F56DEA27410C1A00BBBB68 /* lightsensor */ = {
+			isa = PBXGroup;
+			children = (
+				29F56DEB27410C5100BBBB68 /* lightsensor.ino */,
+			);
+			path = lightsensor;
+			sourceTree = "<group>";
+		};
+		29F56DEC27410C6900BBBB68 /* flashinglight */ = {
+			isa = PBXGroup;
+			children = (
+				29F56DED27410C9600BBBB68 /* flashinglight.ino */,
+			);
+			path = flashinglight;
+			sourceTree = "<group>";
+		};
+		29F56DEE27410CCB00BBBB68 /* ultrasonic */ = {
+			isa = PBXGroup;
+			children = (
+				29F56DEF27410CE700BBBB68 /* ultrasonic.ino */,
+			);
+			path = ultrasonic;
+			sourceTree = "<group>";
+		};
+		29F56DF027410D1D00BBBB68 /* contact */ = {
+			isa = PBXGroup;
+			children = (
+				29F56DF127410D3100BBBB68 /* contact.ino */,
+			);
+			path = contact;
+			sourceTree = "<group>";
+		};
+		29F56DF227410D5900BBBB68 /* lasercannon */ = {
+			isa = PBXGroup;
+			children = (
+				29F56DF327410D6D00BBBB68 /* lasercannon.ino */,
+			);
+			path = lasercannon;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
