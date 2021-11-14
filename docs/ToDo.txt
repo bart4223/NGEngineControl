@@ -5,6 +5,7 @@
     -TransportBox
   -centralUnit
   -toolUnit
+  -motionUnit
 -Buggy
   -Common
     -TransportBox
