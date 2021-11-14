@@ -3,7 +3,7 @@
 #include <NGLCDNotification.h>
 #endif
 #include <NGSerialNotification.h>
-#include <NGUnitControl.h>
+#include <NGMotionUnitControl.h>
 
 #define _MOTION       "Motion"
 #define MOTION        (char*)_MOTION
@@ -16,7 +16,7 @@
 NGLCDNotification notificationLCD = NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
 #endif
 NGSerialNotification notificationSerial = NGSerialNotification();
-NGUnitControl unitMotion = NGUnitControl(MOTION, MOTIONADDRESS);
+NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, MOTIONADDRESS);
 
 void setup() {
     setGlobalUnit(&unitMotion);
