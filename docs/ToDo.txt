@@ -10,3 +10,4 @@
   -Common
     -TransportBox
   -motionUnit
+    -I2C

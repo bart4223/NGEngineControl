@@ -111,6 +111,7 @@
 		29F56DF127410D3100BBBB68 /* contact.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = contact.ino; sourceTree = "<group>"; };
 		29F56DF327410D6D00BBBB68 /* lasercannon.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = lasercannon.ino; sourceTree = "<group>"; };
 		29F56DF527410DCD00BBBB68 /* first.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = first.ino; sourceTree = "<group>"; };
+		29F56DF627462D0D00BBBB68 /* NGMotionUnitControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NGMotionUnitControl.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -309,6 +310,7 @@
 			children = (
 				29AF3EC1265F77370055A9FC /* EngineShield.png */,
 				298A66D12565501F00393741 /* eNGineShieldSchema.png */,
+				29F56DF627462D0D00BBBB68 /* NGMotionUnitControl.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
