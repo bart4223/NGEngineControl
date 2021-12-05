@@ -98,6 +98,8 @@
 		29D7EC4026741FAB00009403 /* NGLCDNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGLCDNotification.h; sourceTree = "<group>"; };
 		29D7EC4226750DEE00009403 /* motionunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motionunit.ino; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
+		29EA905B275BABCA00F3C556 /* OLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = OLED.ino; sourceTree = "<group>"; };
+		29EA905C275D22E300F3C556 /* buggyC2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC2.png; sourceTree = "<group>"; };
 		29F2A78B26C2E059009C3822 /* motomanB5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5.png; sourceTree = "<group>"; };
 		29F56DE3273AE41E00BBBB68 /* NGJingleBoot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBoot.cpp; sourceTree = "<group>"; };
 		29F56DE4273AE41E00BBBB68 /* NGJingleBoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBoot.h; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				29F56DF227410D5900BBBB68 /* lasercannon */,
 				29F56DF027410D1D00BBBB68 /* contact */,
 				29F56DEE27410CCB00BBBB68 /* ultrasonic */,
+				29EA905A275BAB8600F3C556 /* OLED */,
 				29647BC9253C5F85003CBA13 /* simple */,
 				2905F124264F011D001B4A56 /* stop */,
 				29165F302549692B001D9497 /* profiles */,
@@ -353,6 +356,7 @@
 		299C0E1C26D75D2F00F5A60D /* images */ = {
 			isa = PBXGroup;
 			children = (
+				29EA905C275D22E300F3C556 /* buggyC2.png */,
 				297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */,
 				29958E572711CA5B007048E3 /* buggyC0.png */,
 				296CD4E9272ED298003E27DA /* buggyC1.png */,
@@ -416,6 +420,14 @@
 				29E6BA5A263C6070007BCE9F /* motomanB3.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		29EA905A275BAB8600F3C556 /* OLED */ = {
+			isa = PBXGroup;
+			children = (
+				29EA905B275BABCA00F3C556 /* OLED.ino */,
+			);
+			path = OLED;
 			sourceTree = "<group>";
 		};
 		29F56DE827410B3C00BBBB68 /* soundmachine */ = {
