@@ -356,11 +356,11 @@
 		299C0E1C26D75D2F00F5A60D /* images */ = {
 			isa = PBXGroup;
 			children = (
-				29EA905C275D22E300F3C556 /* buggyC2.png */,
 				297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */,
 				29958E572711CA5B007048E3 /* buggyC0.png */,
 				296CD4E9272ED298003E27DA /* buggyC1.png */,
 				296CD4E8272ED298003E27DA /* buggyC1a.png */,
+				29EA905C275D22E300F3C556 /* buggyC2.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
