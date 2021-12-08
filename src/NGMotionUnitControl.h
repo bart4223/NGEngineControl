@@ -14,6 +14,7 @@
 #include <WProgram.h>
 #endif
 
+#include <NGCommon.h>
 #include <NGCustomUnitControl.h>
 #include <NGSteeringControl.h>
 #include <NGSoundMachine.h>
@@ -24,14 +25,20 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "2.6"
+#define _VERSION "2.7"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
 
+#ifdef NG_PLATFORM_MEGA
+#define MAXMOTIONSEQUENCECOUNT     20
+#define MAXMOTIONSEQUENCEITEMCOUNT 5
+#define MAXOBECTRECOGNIZERCOUNT    10
+#else
 #define MAXMOTIONSEQUENCECOUNT     8
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 #define MAXOBECTRECOGNIZERCOUNT    3
+#endif
 
 #define ExceptionTooMuchJingleCount             300
 #define ExceptionTooMuchObjectRecognizerCount   301

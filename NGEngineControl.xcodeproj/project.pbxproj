@@ -100,6 +100,8 @@
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
 		29EA905B275BABCA00F3C556 /* OLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = OLED.ino; sourceTree = "<group>"; };
 		29EA905C275D22E300F3C556 /* buggyC2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC2.png; sourceTree = "<group>"; };
+		29EA905D275F387A00F3C556 /* NGOLEDNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGOLEDNotification.cpp; sourceTree = "<group>"; };
+		29EA905E275F387A00F3C556 /* NGOLEDNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGOLEDNotification.h; sourceTree = "<group>"; };
 		29F2A78B26C2E059009C3822 /* motomanB5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5.png; sourceTree = "<group>"; };
 		29F56DE3273AE41E00BBBB68 /* NGJingleBoot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBoot.cpp; sourceTree = "<group>"; };
 		29F56DE4273AE41E00BBBB68 /* NGJingleBoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBoot.h; sourceTree = "<group>"; };
@@ -179,6 +181,8 @@
 				29D7EC392673BFB800009403 /* NGSerialNotification.cpp */,
 				29D7EC4026741FAB00009403 /* NGLCDNotification.h */,
 				29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */,
+				29EA905E275F387A00F3C556 /* NGOLEDNotification.h */,
+				29EA905D275F387A00F3C556 /* NGOLEDNotification.cpp */,
 				2913C94D2702DE1500D0AFC6 /* NGFlashingLight.h */,
 				2913C94C2702DE1500D0AFC6 /* NGFlashingLight.cpp */,
 				299DEBEC272C6D02004B3B59 /* NGLaserCannon.h */,

@@ -14,6 +14,12 @@
 #include <WProgram.h>
 #endif
 
+#ifdef ARDUINO_AVR_UNO
+#define NG_PLATFORM_UNO
+#elif ARDUINO_AVR_MEGA2560
+#define NG_PLATFORM_MEGA
+#endif
+
 #define DEFAULTSERIALRATE   9600
 #define NONAME              (char*)""
 

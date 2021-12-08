@@ -1,24 +1,23 @@
-#include <Wire.h>
-#include <SSD1306Ascii.h>
-#include <SSD1306AsciiWire.h>
-#define I2C_ADDRESS 0x3C
+#include <NGMemoryObserver.h>
+#include <NGOLEDNotification.h>
 
-SSD1306AsciiWire oled;
+#define OLEDADDRESS    0x3C
+#define OLEDCOLUMNS    16
+#define OLEDLINES      8
+#define OLEDLINEFACTOR 4
+
+NGOLEDNotification *oled;
 
 void setup() {
+  Serial.begin(9600);
   Wire.begin();
-  //Wire.setClock(400000L);
-  oled.begin(&Adafruit128x64, I2C_ADDRESS);
-  oled.setFont(System5x7);
+  oled = new NGOLEDNotification(OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
+  oled->initialize();
 }
 
 void loop()
 {
-  oled.clear();
-  oled.println("Ich");
-  oled.println("liebe");
-  oled.println("Dich");
-  oled.println("liebste");
-  oled.println("K");
-  delay(2000);
+  oled->writeInfo("Hello world Hello world Hello world", 0);
+  oled->writeInfo("Hello world Hello world Hello world", 1);
+  observeMemory(5000);
 }
