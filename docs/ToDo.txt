@@ -1,6 +1,5 @@
 -Common
   -customUnit
-  -NGQuestionDialog
 -Motoman
   -Common
     -TransportBox
@@ -9,6 +8,7 @@
   -motionUnit
 -Buggy
   -Common
-    -TransportBox
   -motionUnit
     -I2C
+    -OLEDNotification
+    -MimicQuestion
