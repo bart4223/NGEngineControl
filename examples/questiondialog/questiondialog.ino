@@ -11,10 +11,10 @@ void setup() {
 }
 
 void loop() {
-  Serial.println("Ja/Nein?");
+  Serial.println("Yes/No?");
   if (dlg.confirm()) {
-    Serial.println("Ja!");
+    Serial.println("Yes!");
   } else {
-    Serial.println("Nein!");
+    Serial.println("No!");
   }
 }
