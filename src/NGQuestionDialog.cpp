@@ -41,6 +41,8 @@ bool NGQuestionDialog::confirm() {
             doBreak = !digitalRead(_pinNo);
         }
     }
-    delay(_delay);
+    if (_delay > 0) {
+        delay(_delay);
+    }
     return res;
 }
