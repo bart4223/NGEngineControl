@@ -179,7 +179,11 @@ void setup() {
   #endif
   unitMotion.startUp();
   unitMotion.clearInfo();
-  unitMotion.writeInfo("Moves...");
+  if (ms == msNone) {
+    unitMotion.writeInfo("Error!");
+  } else {
+    unitMotion.writeInfo("Hi folks, moves...");
+  }
 }
 
 void loop() {
