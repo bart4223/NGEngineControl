@@ -47,3 +47,7 @@ bool NGUltrasonicObjectRecognizer::hasDetected() {
 int NGUltrasonicObjectRecognizer::getCloseness() {
     return (int)_distance;
 }
+
+char* NGUltrasonicObjectRecognizer::getName() {
+    return (char*)"Ultrasonic";
+}

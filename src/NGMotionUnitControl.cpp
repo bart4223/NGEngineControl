@@ -5,7 +5,9 @@
 //  Created by Nils Grimmer on 28.09.21.
 //
 
+#include "Wire.h"
 #include "NGCommon.h"
+#include "NGUnitControl.h"
 #include "NGMemoryObserver.h"
 #include "NGSteeringControl.h"
 #include "NGMotionUnitControl.h"
@@ -47,6 +49,13 @@ void NGMotionUnitControl::_create(char* name, byte address, int serialRate, int 
     _version = VERSION;
     _steeringControl = new NGSteeringControl(engineLeft, engineRight, offsetEngineLeft, offsetEngineRight);
     _soundMachine = new NGSoundMachine();
+    if (_address == NOADDRESS) {
+        Wire.begin();
+    } else {
+        Wire.begin(_address);
+        Wire.onReceive(_unitWireReceiveEvent);
+        Wire.onRequest(_unitWireRequestEvent);
+    }
 }
 
 void NGMotionUnitControl::_initializeCore() {
@@ -265,24 +274,56 @@ void NGMotionUnitControl::initialize() {
     _initializeCore();
     if (_lightSensor != nullptr) {
         _lightSensor->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Light sensor initialized");
+        }
+        #endif
     }
     if (_flashingLightLeft != nullptr) {
         _flashingLightLeft->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Flashing light left initialized");
+        }
+        #endif
     }
     if (_flashingLightRight != nullptr) {
         _flashingLightRight->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Flashing light right initialized");
+        }
+        #endif
     }
     if (_brakeLightPin != -1) {
         pinMode(_brakeLightPin, OUTPUT);
     }
     if (_motionMimic != nullptr) {
         _motionMimic->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Mimic initialized");
+        }
+        #endif
     }
     for (int i = 0; i < _objectRecognizerCount; i++) {
         _objectRecognizer[i].recognizer->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            char log[100];
+            sprintf(log, "Object Recognizer \"%s\" initialized", _objectRecognizer[i].recognizer->getName());
+            writeInfo(log);
+        }
+        #endif
     }
     if (_laserCannon != nullptr) {
         _laserCannon->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Laser cannon initialized");
+        }
+        #endif
     }
     _initialized = true;
     if (_logging) {

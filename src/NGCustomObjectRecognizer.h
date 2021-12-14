@@ -24,6 +24,8 @@ public:
     virtual bool hasDetected();
     
     virtual int getCloseness();
+    
+    virtual char* getName();
 };
 
 #endif /* NGCustomObjectRecognizer_h */

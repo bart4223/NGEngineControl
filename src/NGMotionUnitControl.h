@@ -25,7 +25,7 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "2.7"
+#define _VERSION "2.8"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT 3
@@ -35,7 +35,7 @@
 #define MAXMOTIONSEQUENCEITEMCOUNT 5
 #define MAXOBECTRECOGNIZERCOUNT    10
 #else
-#define MAXMOTIONSEQUENCECOUNT     8
+#define MAXMOTIONSEQUENCECOUNT     6
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 #define MAXOBECTRECOGNIZERCOUNT    3
 #endif

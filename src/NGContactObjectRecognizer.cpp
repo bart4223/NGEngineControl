@@ -69,3 +69,7 @@ bool NGContactObjectRecognizer::hasDetected() {
 int NGContactObjectRecognizer::getCloseness() {
     return 0;
 }
+
+char* NGContactObjectRecognizer::getName() {
+    return (char*)"Contact";
+}

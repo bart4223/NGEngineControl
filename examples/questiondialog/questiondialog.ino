@@ -1,7 +1,7 @@
 #include <NGQuestionDialog.h>
 
-#define PINNO  A4
-#define PINYES A5
+#define PINNO  A0
+#define PINYES A1
 
 NGQuestionDialog dlg = NGQuestionDialog(PINYES, PINNO);
 

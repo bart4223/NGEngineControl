@@ -1,10 +1,9 @@
 #define PROD true //false,true
 
-#define ScenarioCaveExplorer true  //false,true
-#define ScenarioBotRetriever false //false,true
-
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
+#include <NGOLEDNotification.h>
+#include <NGQuestionDialog.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 #include <NGJingleHelloDude.h>
@@ -16,12 +15,8 @@
 #include <NGMotionSequenceDefinitions.h>
 #include <NGContactObjectRecognizer.h>
 #include <NGUltrasonicObjectRecognizer.h>
-#if (ScenarioCaveExplorer == true)
 #include <NGCaveExplorer.h>
-#endif
-#if (ScenarioBotRetriever == true)
 #include <NGBotRetriever.h>
-#endif
 
 #define _MOTION       "Motion"
 #define MOTION        (char*)_MOTION
@@ -36,8 +31,12 @@
 #define PINCORRIGHT          A3
 #define PINFREE00            A4
 #define PINFREE01            A5
-#define PINFREE02             0
-#define PINFREE03             1
+#define PINFREE02            A6
+#define PINFREE03            A7
+#define PINQUESTIONDLGNO     A8
+#define PINQUESTIONDLGYES    A9
+#define PINFREE04             0
+#define PINFREE05             1
 #define PINBRAKELIGHT         2
 #define PINENGINERIGHT1       3
 #define PINLIGHT              4
@@ -58,12 +57,21 @@
 
 #define ULTRASONICMAXDISTANCE 30
 
+#define OLEDADDRESS    0x3C
+#define OLEDCOLUMNS    16
+#define OLEDLINES      8
+#define OLEDLINEFACTOR 4
+
 #define SPEEDEASY   200
 #define SPEEDCURVE  150
 #define SPEEDBACK   120
 
+enum mimicScenario {msNone, msCaveExplorer, msBotRetriever};
+
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINE_2, ENGINE_1, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
 NGSerialNotification serialNotification = NGSerialNotification();
+NGOLEDNotification *oledNotification;
+NGQuestionDialog dlgQuestion = NGQuestionDialog(PINQUESTIONDLGYES, PINQUESTIONDLGNO);
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
 NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTERVAL);
 NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
@@ -76,15 +84,26 @@ NGContactObjectRecognizer corLeft = NGContactObjectRecognizer(PINCORLEFT);
 NGContactObjectRecognizer corRight = NGContactObjectRecognizer(PINCORRIGHT);
 NGUltrasonicObjectRecognizer corUS = NGUltrasonicObjectRecognizer(PINULTRASONICTRIGGER, PINULTRASONICECHO, ULTRASONICMAXDISTANCE);
 NGLaserCannon lc = NGLaserCannon(PINLASERCANNON);
-#if (ScenarioCaveExplorer == true)
-NGCaveExplorer mimic = NGCaveExplorer();
-#elif (ScenarioBotRetriever == true)
-NGBotRetriever mimic = NGBotRetriever();
-#endif
+NGCaveExplorer mimicCaveExplorer = NGCaveExplorer();
+NGBotRetriever mimicBotRetriever = NGBotRetriever();
 
 void setup() {
   setGlobalUnit(&unitMotion);
   unitMotion.registerNotification(&serialNotification);
+  oledNotification = new NGOLEDNotification(OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
+  unitMotion.registerNotification(oledNotification);
+  unitMotion.clearInfo();
+  unitMotion.writeInfo("Mimic Cave-Explorer?");
+  mimicScenario ms = msNone;
+  if (dlgQuestion.confirm()) {
+    ms = msCaveExplorer;
+  } else {
+    unitMotion.clearInfo();
+    unitMotion.writeInfo("Mimic Bot-Retriever?");
+    if (dlgQuestion.confirm()) {
+      ms = msBotRetriever;
+    }
+  }
   #if (PROD == true)
   unitMotion.registerBoot(&jingleBoot);
   unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
@@ -100,58 +119,67 @@ void setup() {
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
   unitMotion.registerLaserCannon(&lc);
-  #if (ScenarioCaveExplorer == true)
-  unitMotion.registerObjectRecognizer(ormpLeft, &corLeft);
-  unitMotion.registerObjectRecognizer(ormpRight, &corRight);
-  unitMotion.registerObjectRecognizer(ormpFront, &corUS);
-  mimic.setBackwardCloseness(ULTRASONICMAXDISTANCE / 2);
-  unitMotion.registerMotionMimic(&mimic);
-  // forward
+  unitMotion.clearInfo();
   DEF_MOTION_SEQUENCE_START;
-  DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
-  DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 0);
-  DEF_MOTION_SEQUENCE_END_STRAIGHT;
-  // backward
-  DEF_MOTION_SEQUENCE_BEGIN_BACK;
-  DEF_MOTION_SEQUENCE_BACKWARD(SPEEDBACK, 500);
-  DEF_MOTION_SEQUENCE_BACKWARD_WITH_BRAKE(SPEEDBACK, 1000);
-  DEF_MOTION_SEQUENCE_STOP(1500);
-  DEF_MOTION_SEQUENCE_END_BACK;
-  // left
-  DEF_MOTION_SEQUENCE_BEGIN_LEFT;
-  DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTLEFT(SPEEDCURVE, 250);
-  DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 1250);
-  DEF_MOTION_SEQUENCE_END_LEFT;
-  // right
-  DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
-  DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTRIGHT(SPEEDCURVE, 250);
-  DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1250);
-  DEF_MOTION_SEQUENCE_END_RIGHT;
-  #elif (ScenarioBotRetriever == true)
-  unitMotion.registerMotionMimic(&mimic);
-  // forward
-  DEF_MOTION_SEQUENCE_START;
-  DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
-  DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 2500);
-  DEF_MOTION_SEQUENCE_END_STRAIGHT;
-  // fullturn
-  DEF_MOTION_SEQUENCE_BEGIN_FULLTURN;
-  DEF_MOTION_SEQUENCE_FULLTURN(SPEEDCURVE, 550);
-  DEF_MOTION_SEQUENCE_STOP_NONE(100);
-  DEF_MOTION_SEQUENCE_END_FULLTURN;
-  // stop
-  DEF_MOTION_SEQUENCE_BEGIN_STOP;
-  DEF_MOTION_SEQUENCE_FORWARD_WITH_BRAKE(SPEEDEASY, 500);
-  DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(1000);
-  DEF_MOTION_SEQUENCE_STOP_NONE(100);
-  DEF_MOTION_SEQUENCE_END_STOP;
-  #endif
+  switch (ms) {
+    case msNone:
+      unitMotion.writeInfo("No Mimic choosed!");
+      break;
+    case msCaveExplorer:
+      unitMotion.writeInfo("...Mimic Cave-Explorer choosed");
+      unitMotion.registerObjectRecognizer(ormpLeft, &corLeft);
+      unitMotion.registerObjectRecognizer(ormpRight, &corRight);
+      unitMotion.registerObjectRecognizer(ormpFront, &corUS);
+      mimicCaveExplorer.setBackwardCloseness(ULTRASONICMAXDISTANCE / 2);
+      unitMotion.registerMotionMimic(&mimicCaveExplorer);
+      // forward
+      DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
+      DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 0);
+      DEF_MOTION_SEQUENCE_END_STRAIGHT;
+      // backward
+      DEF_MOTION_SEQUENCE_BEGIN_BACK;
+      DEF_MOTION_SEQUENCE_BACKWARD(SPEEDBACK, 500);
+      DEF_MOTION_SEQUENCE_BACKWARD_WITH_BRAKE(SPEEDBACK, 1000);
+      DEF_MOTION_SEQUENCE_STOP(1500);
+      DEF_MOTION_SEQUENCE_END_BACK;
+      // left
+      DEF_MOTION_SEQUENCE_BEGIN_LEFT;
+      DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTLEFT(SPEEDCURVE, 250);
+      DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 1250);
+      DEF_MOTION_SEQUENCE_END_LEFT;
+      // right
+      DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
+      DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTRIGHT(SPEEDCURVE, 250);
+      DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1250);
+      DEF_MOTION_SEQUENCE_END_RIGHT;
+      break;
+    case msBotRetriever:
+      unitMotion.writeInfo("...Mimic Bot-Retriever choosed");
+      unitMotion.registerMotionMimic(&mimicBotRetriever);
+      // forward
+      DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
+      DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 2500);
+      DEF_MOTION_SEQUENCE_END_STRAIGHT;
+      // fullturn
+      DEF_MOTION_SEQUENCE_BEGIN_FULLTURN;
+      DEF_MOTION_SEQUENCE_FULLTURN(SPEEDCURVE, 550);
+      DEF_MOTION_SEQUENCE_STOP_NONE(100);
+      DEF_MOTION_SEQUENCE_END_FULLTURN;
+      // stop
+      DEF_MOTION_SEQUENCE_BEGIN_STOP;
+      DEF_MOTION_SEQUENCE_FORWARD_WITH_BRAKE(SPEEDEASY, 500);
+      DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(1000);
+      DEF_MOTION_SEQUENCE_STOP_NONE(100);
+      DEF_MOTION_SEQUENCE_END_STOP;
+      break;
+  }
   unitMotion.initialize();
   #if (PROD == false)
   unitMotion.setWorkMode(wmObserveMemory);
   #endif
   unitMotion.startUp();
   unitMotion.clearInfo();
+  unitMotion.writeInfo("Moves...");
 }
 
 void loop() {

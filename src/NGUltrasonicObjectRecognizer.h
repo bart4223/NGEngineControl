@@ -47,6 +47,8 @@ public:
     bool hasDetected();
     
     int getCloseness();
+    
+    char* getName();
 };
 
 #endif /* NGUltrasonicObjectRecognizer_h */

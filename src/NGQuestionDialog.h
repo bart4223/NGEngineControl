@@ -22,9 +22,11 @@ private:
     byte _pinYes;
     byte _pinNo;
     int _delay;
+    bool _initialized = false;
     
 protected:
     void _create(byte pinYes, byte pinNo, int delay);
+    void _ensureInitialize();
     
 public:
     NGQuestionDialog(byte pinYes, byte pinNo);

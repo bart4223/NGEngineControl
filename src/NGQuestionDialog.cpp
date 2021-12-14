@@ -21,9 +21,16 @@ void NGQuestionDialog::_create(byte pinYes, byte pinNo, int delay) {
     _delay = delay;
 }
 
+void NGQuestionDialog::_ensureInitialize() {
+    if (!_initialized) {
+        initialize();
+    }
+}
+
 void NGQuestionDialog::initialize() {
     pinMode(_pinYes, INPUT_PULLUP);
     pinMode(_pinNo, INPUT_PULLUP);
+    _initialized = true;
 }
 
 void NGQuestionDialog::setDelay(int delay) {
@@ -31,6 +38,7 @@ void NGQuestionDialog::setDelay(int delay) {
 }
 
 bool NGQuestionDialog::confirm() {
+    _ensureInitialize();
     bool res = false;
     bool doBreak = false;
     while(!doBreak) {
