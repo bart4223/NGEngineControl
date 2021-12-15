@@ -6,9 +6,7 @@
   -centralUnit
   -toolUnit
   -motionUnit
+    -I2C
 -Buggy
   -Common
   -motionUnit
-    -I2C
-    -OLEDNotification
-    -MimicQuestion
