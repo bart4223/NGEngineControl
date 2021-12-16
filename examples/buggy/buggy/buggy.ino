@@ -27,44 +27,44 @@
 #define OLEDLINES         8
 #define OLEDLINEFACTOR    4
 
-#define PINLIGHTSENSOR       A0
-#define PINSTARTUP           A1
-#define PINCORLEFT           A2
-#define PINCORRIGHT          A3
-#define PINFREE00            A4
-#define PINFREE01            A5
-#define PINFREE02            A6
-#define PINFREE03            A7
-#define PINQUESTIONDLGNO     A8
-#define PINQUESTIONDLGYES    A9
-#define PINFREE04             0
-#define PINFREE05             1
-#define PINBRAKELIGHT         2
-#define PINENGINERIGHT1       3
-#define PINLIGHT              4
-#define PINENGINELEFT1        5
-#define PINENGINELEFT2        6
-#define PINFLASHINGLIGHTLEFT  7
-#define PINFLASHINGLIGHTRIGHT 8
-#define PINENGINERIGHT2       9
-#define PINULTRASONICTRIGGER 10
-#define PINULTRASONICECHO    11
-#define PINLASERCANNON       12
-#define PINPIEZOSOUND        13
+#define PINLIGHTSENSOR          A0
+#define PINSTARTUP              A1
+#define PINCORLEFT              A2
+#define PINCORRIGHT             A3
+#define PINFREE00               A4
+#define PINFREE01               A5
+#define PINFREE02               A6
+#define PINFREE03               A7
+#define PINQUESTIONDLGNO        A8
+#define PINQUESTIONDLGYES       A9
+#define PINFREE04                0
+#define PINFREE05                1
+#define PINBRAKELIGHT            2
+#define PINENGINERIGHT1          3
+#define PINLIGHT                 4
+#define PINENGINELEFT1           5
+#define PINENGINELEFT2           6
+#define PINFLASHINGLIGHTLEFT     7
+#define PINFLASHINGLIGHTRIGHT    8
+#define PINENGINERIGHT2          9
+#define PINULTRASONICTRIGGER    10
+#define PINULTRASONICECHO       11
+#define PINLASERCANNON          12
+#define PINPIEZOSOUND           13
 
 #define LIGHTSENSORDELAY      1000
-#define LIGHTSENSORTHRESHOLD  650
+#define LIGHTSENSORTHRESHOLD   650
 
-#define FLASHINGLIGHTINTERVAL 250
+#define FLASHINGLIGHTINTERVAL  250
 
-#define ULTRASONICMAXDISTANCE 30
+#define ULTRASONICMAXDISTANCE   30
 
 #define ENGINEOFFSETLEFT    15
 #define ENGINEOFFSETRIGHT  -15
 
-#define SPEEDEASY   200
-#define SPEEDCURVE  150
-#define SPEEDBACK   120
+#define SPEEDEASY     200
+#define SPEEDCURVE    150
+#define SPEEDBACK     120
 
 enum mimicScenario {msNone, msCaveExplorer, msBotRetriever};
 
