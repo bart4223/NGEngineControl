@@ -18,12 +18,14 @@
 #include <NGCaveExplorer.h>
 #include <NGBotRetriever.h>
 
-#define _MOTION       "Motion"
-#define MOTION        (char*)_MOTION
-#define MOTIONADDRESS 0x21
+#define _MOTION           "Motion"
+#define MOTION            (char*)_MOTION
+#define MOTIONADDRESS     0x21
 
-#define ENGINEOFFSETLEFT    15
-#define ENGINEOFFSETRIGHT  -15
+#define OLEDADDRESS       0x3C
+#define OLEDCOLUMNS       16
+#define OLEDLINES         8
+#define OLEDLINEFACTOR    4
 
 #define PINLIGHTSENSOR       A0
 #define PINSTARTUP           A1
@@ -57,10 +59,8 @@
 
 #define ULTRASONICMAXDISTANCE 30
 
-#define OLEDADDRESS    0x3C
-#define OLEDCOLUMNS    16
-#define OLEDLINES      8
-#define OLEDLINEFACTOR 4
+#define ENGINEOFFSETLEFT    15
+#define ENGINEOFFSETRIGHT  -15
 
 #define SPEEDEASY   200
 #define SPEEDCURVE  150
