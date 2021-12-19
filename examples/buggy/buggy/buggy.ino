@@ -6,11 +6,12 @@
 #include <NGQuestionDialog.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
+#include <NGJingleBoot.h>
+#include <NGJingleBeep.h>
 #include <NGJingleHelloDude.h>
 #include <NGJingleBackward.h>
 #include <NGJingleAlarm.h>
 #include <NGJingleThinking.h>
-#include <NGJingleBoot.h>
 #include <NGLaserCannon.h>
 #include <NGMotionSequenceDefinitions.h>
 #include <NGContactObjectRecognizer.h>
@@ -76,11 +77,12 @@ NGQuestionDialog dlgQuestion = NGQuestionDialog(PINQUESTIONDLGYES, PINQUESTIONDL
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
 NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTERVAL);
 NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
+NGJingleBoot jingleBoot = NGJingleBoot();
+NGJingleBeep jingleBeep = NGJingleBeep();
 NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
 NGJingleBackward jingleBackward = NGJingleBackward();
 NGJingleAlarm jingleAlarm = NGJingleAlarm();
 NGJingleThinking jingleThinking = NGJingleThinking();
-NGJingleBoot jingleBoot = NGJingleBoot();
 NGContactObjectRecognizer corLeft = NGContactObjectRecognizer(PINCORLEFT);
 NGContactObjectRecognizer corRight = NGContactObjectRecognizer(PINCORRIGHT);
 NGUltrasonicObjectRecognizer corUS = NGUltrasonicObjectRecognizer(PINULTRASONICTRIGGER, PINULTRASONICECHO, ULTRASONICMAXDISTANCE);
@@ -90,6 +92,7 @@ NGBotRetriever mimicBotRetriever = NGBotRetriever();
 
 void setup() {
   setGlobalUnit(&unitMotion);
+  unitMotion.registerBeep(&jingleBeep);
   unitMotion.registerNotification(&serialNotification);
   oledNotification = new NGOLEDNotification(OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitMotion.registerNotification(oledNotification);
@@ -97,13 +100,16 @@ void setup() {
   unitMotion.writeInfo("Mimic Cave-Explorer?");
   mimicScenario ms = msNone;
   if (dlgQuestion.confirm()) {
+    unitMotion.beep();
     ms = msCaveExplorer;
   } else {
+    unitMotion.beep();
     unitMotion.clearInfo();
     unitMotion.writeInfo("Mimic Bot-Retriever?");
     if (dlgQuestion.confirm()) {
       ms = msBotRetriever;
     }
+    unitMotion.beep();
   }
   #if (PROD == true)
   unitMotion.registerBoot(&jingleBoot);
