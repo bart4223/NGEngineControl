@@ -51,6 +51,7 @@
 #define PINULTRASONICECHO       11
 #define PINLASERCANNON          12
 #define PINPIEZOSOUND           13
+#define PINBACKWARDLIGHT        22
 
 #define LIGHTSENSORDELAY      1000
 #define LIGHTSENSORTHRESHOLD   650
@@ -118,6 +119,7 @@ void setup() {
   #endif
   unitMotion.registerFlashingLights(&flLeft, &flRight);
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
+  unitMotion.registerBackwardLight(PINBACKWARDLIGHT);
   unitMotion.registerLaserCannon(&lc);
   unitMotion.clearInfo();
   DEF_MOTION_SEQUENCE_START;

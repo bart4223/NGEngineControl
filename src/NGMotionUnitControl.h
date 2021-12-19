@@ -93,6 +93,7 @@ private:
     long int _currentMotionSequenceItemStarts = 0;
     byte _currentMotionSequenceItem = 0;
     int _brakeLightPin = -1;
+    int _backwardLightPin = -1;
     NGCustomMotionMimic *_motionMimic = nullptr;
     objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
     int _objectRecognizerCount = 0;
@@ -172,6 +173,8 @@ public:
     void registerFlashingLights(NGFlashingLight *flashingLightLeft, NGFlashingLight *flashingLightRight);
     
     void registerBrakeLight(int brakeLightPin);
+    
+    void registerBackwardLight(int brakeLightPin);
     
     byte registerMotionSequence(motionSequenceKind kind);
     

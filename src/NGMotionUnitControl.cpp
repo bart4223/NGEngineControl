@@ -174,7 +174,12 @@ void NGMotionUnitControl::_processingMotionSequence() {
                 }
             }
             if (_motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem].direction == edBackward) {
+                if (_backwardLightPin != -1) {
+                    digitalWrite(_backwardLightPin, HIGH);
+                }
                 _playJingleBackward();
+            } else {
+                digitalWrite(_backwardLightPin, LOW);
             }
         } else {
             _currentMotionSequence = -1;
@@ -299,6 +304,9 @@ void NGMotionUnitControl::initialize() {
     if (_brakeLightPin != -1) {
         pinMode(_brakeLightPin, OUTPUT);
     }
+    if (_backwardLightPin != -1) {
+        pinMode(_backwardLightPin, OUTPUT);
+    }
     if (_motionMimic != nullptr) {
         _motionMimic->initialize();
         #ifdef NG_PLATFORM_MEGA
@@ -372,6 +380,9 @@ void NGMotionUnitControl::registerBrakeLight(int brakeLightPin) {
     _brakeLightPin = brakeLightPin;
 }
 
+void NGMotionUnitControl::registerBackwardLight(int backwardLightPin) {
+    _backwardLightPin = backwardLightPin;
+}
 byte NGMotionUnitControl::registerMotionSequence(motionSequenceKind kind) {
     byte res = _motionSequenceCount;
     if (_motionSequenceCount < MAXMOTIONSEQUENCECOUNT) {
