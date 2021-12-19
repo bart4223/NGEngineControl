@@ -39,6 +39,8 @@
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
+		293B4CD7276F75F4009EC17A /* NGJingleBeep.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBeep.cpp; sourceTree = "<group>"; };
+		293B4CD8276F75F4009EC17A /* NGJingleBeep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBeep.h; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -171,6 +173,8 @@
 				299DEBE9272A6DE7004B3B59 /* NGJingleThinking.cpp */,
 				29F56DE4273AE41E00BBBB68 /* NGJingleBoot.h */,
 				29F56DE3273AE41E00BBBB68 /* NGJingleBoot.cpp */,
+				293B4CD8276F75F4009EC17A /* NGJingleBeep.h */,
+				293B4CD7276F75F4009EC17A /* NGJingleBeep.cpp */,
 			);
 			name = sound;
 			sourceTree = "<group>";

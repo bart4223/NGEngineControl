@@ -85,6 +85,7 @@ private:
     int _jingleAlarm = -1;
     int _jingleThinking = -1;
     int _jingleBoot = -1;
+    int _jingleBeep = -1;
     NGLightSensor *_lightSensor = nullptr;
     NGFlashingLight *_flashingLightLeft = nullptr;
     NGFlashingLight *_flashingLightRight = nullptr;
@@ -123,6 +124,8 @@ protected:
     void _playJingle(byte jingle);
     
     void _playJingleBoot();
+    
+    void _playJingleBeep();
     
     void _playJingleStartup();
     
@@ -175,6 +178,8 @@ public:
     
     void registerBoot(NGCustomJingle *jingle);
     
+    void registerBeep(NGCustomJingle *jingle);
+    
     void registerStartup(int pinStartup, NGCustomJingle *jingle);
     
     void registerStartup(int pinStartup, NGCustomJingle *jingle, int loops);
@@ -224,6 +229,8 @@ public:
     void setFlashingLight(flashingLightSide side, bool on);
     
     void setWarningLight(bool on);
+    
+    void beep();
 };
 
 #endif /* NGMotionUnitControl_h */

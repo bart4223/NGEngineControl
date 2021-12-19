@@ -104,6 +104,11 @@ void NGMotionUnitControl::_playJingleBoot() {
     }
 }
 
+void NGMotionUnitControl::_playJingleBeep() {
+    if (_jingleBeep != -1) {
+        _playJingle(_jingleBeep);
+    }
+}
 void NGMotionUnitControl::_playJingleStartup() {
     if (_jingleStartup != -1) {
         for (int i = 0; i < _jingleStartupLoops; i++) {
@@ -296,6 +301,7 @@ void NGMotionUnitControl::_determineMotionInterruption() {
             if (!digitalRead(_motionInterruptionPin)) {
                 _motionInterrupted = true;
                 _steeringStop();
+                beep();
                 #ifdef NG_PLATFORM_MEGA
                 clearInfo();
                 writeInfo("Interruption!");
@@ -303,6 +309,7 @@ void NGMotionUnitControl::_determineMotionInterruption() {
                 delay(DEFINTERRUPTIONDELAY);
             }
         } else if (!digitalRead(_motionInterruptionPin)) {
+            beep();
             _motionInterrupted = false;
             _resetCurrentMotionSequence();
             #ifdef NG_PLATFORM_MEGA
@@ -390,6 +397,10 @@ long int NGMotionUnitControl::startUp() {
 
 void NGMotionUnitControl::registerBoot(NGCustomJingle *jingle) {
     _jingleBoot = _registerJingle(jingle);
+}
+
+void NGMotionUnitControl::registerBeep(NGCustomJingle *jingle) {
+    _jingleBeep = _registerJingle(jingle);
 }
 
 void NGMotionUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle) {
@@ -558,4 +569,8 @@ void NGMotionUnitControl::setFlashingLight(flashingLightSide side, bool on) {
 
 void NGMotionUnitControl::setWarningLight(bool on) {
     setFlashingLight(flsBoth, on);
+}
+
+void NGMotionUnitControl::beep() {
+    _playJingleBeep();
 }
