@@ -28,7 +28,8 @@
 #define _VERSION "2.8"
 #define VERSION (char*)_VERSION
 
-#define DEFSTARTUPLOOPSCOUNT 3
+#define DEFSTARTUPLOOPSCOUNT    3
+#define DEFINTERRUPTIONDELAY 1000
 
 #ifdef NG_PLATFORM_MEGA
 #define MAXMOTIONSEQUENCECOUNT     20
@@ -98,6 +99,8 @@ private:
     objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
     int _objectRecognizerCount = 0;
     int _firedObjectRecognizer = -1;
+    bool _motionInterrupted = false;
+    int _motionInterruptionPin = -1;
     NGLaserCannon *_laserCannon = nullptr;
 
 protected:
@@ -105,7 +108,15 @@ protected:
     
     void _initializeCore();
     
+    void _initializeStreering();
+
+    void _initializeSoundMachine();
+    
     void _processingReceivedData();
+    
+    void _steeringStop();
+    
+    void _resetCurrentMotionSequence();
     
     int _registerJingle(NGCustomJingle *jingle);
     
@@ -138,6 +149,8 @@ protected:
     void _processingMotionSequenceItem(motionSequenceItem item);
     
     void _determineCurrentMotionSequence();
+    
+    void _determineMotionInterruption();
     
 public:
     NGMotionUnitControl();
@@ -175,6 +188,8 @@ public:
     void registerBrakeLight(int brakeLightPin);
     
     void registerBackwardLight(int brakeLightPin);
+    
+    void registerMotionInterruption(int interruptionPin);
     
     byte registerMotionSequence(motionSequenceKind kind);
     

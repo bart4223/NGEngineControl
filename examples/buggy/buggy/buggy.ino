@@ -108,6 +108,7 @@ void setup() {
   #if (PROD == true)
   unitMotion.registerBoot(&jingleBoot);
   unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
+  unitMotion.registerMotionInterruption(PINSTARTUP);
   unitMotion.registerJingleBackward(&jingleBackward);
   unitMotion.registerJingleAlarm(&jingleAlarm);
   unitMotion.registerJingleThinking(&jingleThinking);

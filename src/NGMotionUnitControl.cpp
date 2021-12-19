@@ -59,14 +59,30 @@ void NGMotionUnitControl::_create(char* name, byte address, int serialRate, int 
 }
 
 void NGMotionUnitControl::_initializeCore() {
-    _soundMachine->initialize();
+    _initializeSoundMachine();
     _playJingleBoot();
+    _initializeStreering();
+    _steeringStop();
+}
+
+void NGMotionUnitControl::_initializeSoundMachine() {
+    _soundMachine->initialize();
+}
+
+void NGMotionUnitControl::_initializeStreering() {
     _steeringControl->initialize();
-    _steeringControl->stop();
 }
 
 void NGMotionUnitControl::_processingReceivedData() {
     
+}
+
+void NGMotionUnitControl::_steeringStop() {
+    _steeringControl->stop();
+}
+
+void NGMotionUnitControl::_resetCurrentMotionSequence() {
+    _currentMotionSequence = -1;
 }
 
 int NGMotionUnitControl::_registerJingle(NGCustomJingle *jingle) {
@@ -182,7 +198,7 @@ void NGMotionUnitControl::_processingMotionSequence() {
                 digitalWrite(_backwardLightPin, LOW);
             }
         } else {
-            _currentMotionSequence = -1;
+            _resetCurrentMotionSequence();
         }
     }
 }
@@ -233,7 +249,7 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
                 newMotionSequence = _motionMimic->nextMotionSequenceNecessary(closeness);
             }
             if (newMotionSequence) {
-                _currentMotionSequence = -1;
+                _resetCurrentMotionSequence();
                 motionSequenceKind kind = _motionMimic->determineNextMotionSequenceKind(closeness);
                 if (_firedObjectRecognizer >= 0 && _motionMimic->correctNextMotionSequenceKind()) {
                     switch(_objectRecognizer[_firedObjectRecognizer].mounted) {
@@ -262,7 +278,7 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
             _currentMotionSequence = random(0, _motionSequenceCount);
         }
     } else {
-        _currentMotionSequence = -1;
+        _resetCurrentMotionSequence();
     }
     if (newMotionSequence) {
         if (_currentMotionSequence >= 0) {
@@ -270,6 +286,30 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
             _currentMotionSequenceItemStarts = 0;
         } else {
             _playJingleAlarm();
+        }
+    }
+}
+
+void NGMotionUnitControl::_determineMotionInterruption() {
+    if (_motionInterruptionPin != -1) {
+        if (!_motionInterrupted) {
+            if (!digitalRead(_motionInterruptionPin)) {
+                _motionInterrupted = true;
+                _steeringStop();
+                #ifdef NG_PLATFORM_MEGA
+                clearInfo();
+                writeInfo("Interruption!");
+                #endif
+                delay(DEFINTERRUPTIONDELAY);
+            }
+        } else if (!digitalRead(_motionInterruptionPin)) {
+            _motionInterrupted = false;
+            _resetCurrentMotionSequence();
+            #ifdef NG_PLATFORM_MEGA
+            clearInfo();
+            writeInfo("Go on...");
+            #endif
+            delay(DEFINTERRUPTIONDELAY);
         }
     }
 }
@@ -383,6 +423,11 @@ void NGMotionUnitControl::registerBrakeLight(int brakeLightPin) {
 void NGMotionUnitControl::registerBackwardLight(int backwardLightPin) {
     _backwardLightPin = backwardLightPin;
 }
+
+void NGMotionUnitControl::registerMotionInterruption(int interruptionPin) {
+    _motionInterruptionPin = interruptionPin;
+}
+
 byte NGMotionUnitControl::registerMotionSequence(motionSequenceKind kind) {
     byte res = _motionSequenceCount;
     if (_motionSequenceCount < MAXMOTIONSEQUENCECOUNT) {
@@ -469,7 +514,10 @@ void NGMotionUnitControl::processingLoop() {
     _processingLightSensor();
     _processingFlashingLights();
     _processingObjectRecognizer();
-    _processingMotionSequence();
+    _determineMotionInterruption();
+    if (!_motionInterrupted) {
+        _processingMotionSequence();
+    }
     switch (_workMode) {
         case wmNone:
             break;
