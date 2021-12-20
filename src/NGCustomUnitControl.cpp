@@ -120,7 +120,11 @@ void NGCustomUnitControl::_clearState() {
 void NGCustomUnitControl::_writeState() {
     char state[100];
     _clearState();
+    #ifdef NG_PLATFORM_MEGA
+    sprintf(state, "%s %s wM%d (C) by NG MMXXI", _name, _version, _workMode);
+    #else
     sprintf(state, "%s %s wM%d", _name, _version, _workMode);
+    #endif
     for (int i = 0; i < _notificationCount; i++ ) {
         _notification[i]->writeInfo(state, 1, 0);
     }
