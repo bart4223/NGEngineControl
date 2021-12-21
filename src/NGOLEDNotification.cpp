@@ -8,15 +8,30 @@
 #include "NGOLEDNotification.h"
 
 NGOLEDNotification::NGOLEDNotification(byte address, int columns, int lines) {
-    _create(address, columns, lines, DEFLINEFACTOR);
+    _create(ot128x64, address, columns, lines, DEFLINEFACTOR);
+}
+
+NGOLEDNotification::NGOLEDNotification(oledTechnology technology, byte address, int columns, int lines) {
+    _create(technology, address, columns, lines, DEFLINEFACTOR);
 }
 
 NGOLEDNotification::NGOLEDNotification(byte address, int columns, int lines, int linefactor) {
-    _create(address, columns, lines, linefactor);
+    _create(ot128x64, address, columns, lines, linefactor);
 }
 
-void NGOLEDNotification::_create(byte address, int columns, int lines, int linefactor) {
-    _oled.begin(&Adafruit128x64, address);
+NGOLEDNotification::NGOLEDNotification(oledTechnology technology, byte address, int columns, int lines, int linefactor) {
+    _create(technology, address, columns, lines, linefactor);
+}
+
+void NGOLEDNotification::_create(oledTechnology technology, byte address, int columns, int lines, int linefactor) {
+    switch (technology) {
+        case ot128x64:
+            _oled.begin(&Adafruit128x64, address);
+            break;
+        case ot128x32:
+            _oled.begin(&Adafruit128x32, address);
+            break;
+    }
     _columns = columns;
     _lines = lines;
     _linefactor = linefactor;

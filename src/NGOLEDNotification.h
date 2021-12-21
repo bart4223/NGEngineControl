@@ -28,6 +28,8 @@
 #endif
 #define DEFLINEFACTOR   1
 
+enum oledTechnology {ot128x64, ot128x32};
+
 class NGOLEDNotification : public NGCustomNotification {
 
 private:
@@ -38,7 +40,7 @@ private:
     SSD1306AsciiWire _oled;
     
 protected:
-    void _create(byte address, int columns, int lines, int linefactor);
+    void _create(oledTechnology technology, byte address, int columns, int lines, int linefactor);
     void _write(char* value, int line, int column);
     void _clear();
     void _clear(int line);
@@ -46,7 +48,9 @@ protected:
 
 public:
     NGOLEDNotification(byte address, int columns, int lines);
+    NGOLEDNotification(oledTechnology technology, byte address, int columns, int lines);
     NGOLEDNotification(byte address, int columns, int lines, int linefactor);
+    NGOLEDNotification(oledTechnology technology, byte address, int columns, int lines, int linefactor);
     void initialize();
     char* getName();
     void clear();
