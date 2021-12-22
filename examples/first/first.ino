@@ -1,15 +1,18 @@
-const int led = 13;
-const int sleep = 1000;
+#include <NGMemoryObserver.h>
+
+#define LEDPIN   13
+#define SLEEP  1000
+
 void setup() {
   Serial.begin(9600);
-  pinMode(led, OUTPUT);
-  digitalWrite(led, LOW);
+  pinMode(LEDPIN, OUTPUT);
+  digitalWrite(LEDPIN, LOW);
 }
 
 void loop() {
-  digitalWrite(led, HIGH);
+  digitalWrite(LEDPIN, HIGH);
   Serial.println("Hello world");
-  delay(sleep);
-  digitalWrite(led, LOW);
-  delay(sleep);
+  delay(SLEEP);
+  digitalWrite(LEDPIN, LOW);
+  observeMemory(SLEEP);
 }
