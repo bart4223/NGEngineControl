@@ -1,4 +1,5 @@
 #define PROD true //false,true
+#define XMAS true //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSerialNotification.h>
@@ -8,7 +9,11 @@
 #include <NGFlashingLight.h>
 #include <NGJingleBoot.h>
 #include <NGJingleBeep.h>
+#if (XMAS == true)
+#include <NGJingleJingleBells.h>
+#else
 #include <NGJingleHelloDude.h>
+#endif
 #include <NGJingleBackward.h>
 #include <NGJingleAlarm.h>
 #include <NGJingleThinking.h>
@@ -79,7 +84,11 @@ NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTE
 NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
 NGJingleBoot jingleBoot = NGJingleBoot();
 NGJingleBeep jingleBeep = NGJingleBeep();
+#if (XMAS == true)
+NGJingleJingleBells jingleJingleBells = NGJingleJingleBells();
+#else
 NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
+#endif
 NGJingleBackward jingleBackward = NGJingleBackward();
 NGJingleAlarm jingleAlarm = NGJingleAlarm();
 NGJingleThinking jingleThinking = NGJingleThinking();
@@ -113,7 +122,11 @@ void setup() {
   }
   #if (PROD == true)
   unitMotion.registerBoot(&jingleBoot);
+  #if (XMAS == true)
+  unitMotion.registerStartup(PINSTARTUP, &jingleJingleBells, 1);
+  #else
   unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
+  #endif
   unitMotion.registerMotionInterruption(PINSTARTUP);
   unitMotion.registerJingleBackward(&jingleBackward);
   unitMotion.registerJingleAlarm(&jingleAlarm);
