@@ -36,6 +36,9 @@
 		2913C94F27033B8600D0AFC6 /* NGMotionUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionUnitControl.h; sourceTree = "<group>"; };
 		29165F3125496946001D9497 /* profile1.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile1.ino; sourceTree = "<group>"; };
 		29165F32254B5C14001D9497 /* profile2.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = profile2.ino; sourceTree = "<group>"; };
+		29232B392779D44C00B85C8E /* NGDuoLED.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGDuoLED.cpp; sourceTree = "<group>"; };
+		29232B3A2779D44C00B85C8E /* NGDuoLED.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGDuoLED.h; sourceTree = "<group>"; };
+		29232B3C2779D56800B85C8E /* duoLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = duoLED.ino; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 				2913C94C2702DE1500D0AFC6 /* NGFlashingLight.cpp */,
 				299DEBEC272C6D02004B3B59 /* NGLaserCannon.h */,
 				299DEBEB272C6D02004B3B59 /* NGLaserCannon.cpp */,
+				29232B3A2779D44C00B85C8E /* NGDuoLED.h */,
+				29232B392779D44C00B85C8E /* NGDuoLED.cpp */,
 			);
 			name = visuals;
 			sourceTree = "<group>";
@@ -258,6 +263,14 @@
 			path = profiles;
 			sourceTree = "<group>";
 		};
+		29232B3B2779D53F00B85C8E /* duoLED */ = {
+			isa = PBXGroup;
+			children = (
+				29232B3C2779D56800B85C8E /* duoLED.ino */,
+			);
+			path = duoLED;
+			sourceTree = "<group>";
+		};
 		29647BBA253C42A5003CBA13 = {
 			isa = PBXGroup;
 			children = (
@@ -295,6 +308,7 @@
 		29647BC2253C430C003CBA13 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				29232B3B2779D53F00B85C8E /* duoLED */,
 				29F56DF427410DBE00BBBB68 /* first */,
 				29EA90612763333100F3C556 /* questiondialog */,
 				29F56DE827410B3C00BBBB68 /* soundmachine */,
