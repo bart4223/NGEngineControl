@@ -21,16 +21,20 @@
 // Middle = 5V
 // Right  = GND
 
+#define DEFTEMPSENSORTYPE DHT11
+
 class NGTemperatureSensor {
 
 private:
     DHT *_dht;
 
 protected:
-    _create(int pinSensor);
+    _create(int pinSensor, int sensorType);
 
 public:
     NGTemperatureSensor(int pinSensor);
+
+    NGTemperatureSensor(int pinSensor, int sensorType);
     
     void initialize();
     

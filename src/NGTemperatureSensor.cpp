@@ -9,11 +9,15 @@
 #include "NGTemperatureSensor.h"
 
 NGTemperatureSensor::NGTemperatureSensor(int pinSensor) {
-    _create(pinSensor);
+    _create(pinSensor, DEFTEMPSENSORTYPE);
 }
 
-NGTemperatureSensor::_create(int pinSensor) {
-    _dht = new DHT(pinSensor, DHT11);
+NGTemperatureSensor::NGTemperatureSensor(int pinSensor, int sensorType) {
+    _create(pinSensor, sensorType);
+}
+
+NGTemperatureSensor::_create(int pinSensor, int sensorType) {
+    _dht = new DHT(pinSensor, sensorType);
 }
 
 void NGTemperatureSensor::initialize() {
