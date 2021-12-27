@@ -39,6 +39,7 @@
 		29232B392779D44C00B85C8E /* NGDuoLED.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGDuoLED.cpp; sourceTree = "<group>"; };
 		29232B3A2779D44C00B85C8E /* NGDuoLED.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGDuoLED.h; sourceTree = "<group>"; };
 		29232B3C2779D56800B85C8E /* duoLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = duoLED.ino; sourceTree = "<group>"; };
+		29232B3D2779EEC800B85C8E /* buggyC3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC3.png; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
@@ -397,6 +398,7 @@
 				296CD4E9272ED298003E27DA /* buggyC1.png */,
 				296CD4E8272ED298003E27DA /* buggyC1a.png */,
 				29EA905C275D22E300F3C556 /* buggyC2.png */,
+				29232B3D2779EEC800B85C8E /* buggyC3.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
