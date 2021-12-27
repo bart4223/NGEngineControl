@@ -40,6 +40,11 @@
 		29232B3A2779D44C00B85C8E /* NGDuoLED.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGDuoLED.h; sourceTree = "<group>"; };
 		29232B3C2779D56800B85C8E /* duoLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = duoLED.ino; sourceTree = "<group>"; };
 		29232B3D2779EEC800B85C8E /* buggyC3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC3.png; sourceTree = "<group>"; };
+		29232B3E277A0FB300B85C8E /* NGTemperatureSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGTemperatureSensor.cpp; sourceTree = "<group>"; };
+		29232B3F277A0FB300B85C8E /* NGTemperatureSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGTemperatureSensor.h; sourceTree = "<group>"; };
+		29232B41277A144100B85C8E /* temperaturesensor.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = temperaturesensor.ino; sourceTree = "<group>"; };
+		29232B42277A17B800B85C8E /* NGStrings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGStrings.cpp; sourceTree = "<group>"; };
+		29232B43277A17B800B85C8E /* NGStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGStrings.h; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
@@ -221,6 +226,8 @@
 				29D7EC362670DD2C00009403 /* NGCommon.cpp */,
 				29D7EC30266BF4E400009403 /* NGMemoryObserver.h */,
 				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
+				29232B43277A17B800B85C8E /* NGStrings.h */,
+				29232B42277A17B800B85C8E /* NGStrings.cpp */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -245,6 +252,8 @@
 			children = (
 				2913C94927018CD900D0AFC6 /* NGLightSensor.h */,
 				2913C94827018CD900D0AFC6 /* NGLightSensor.cpp */,
+				29232B3F277A0FB300B85C8E /* NGTemperatureSensor.h */,
+				29232B3E277A0FB300B85C8E /* NGTemperatureSensor.cpp */,
 				29B376252726816300D8780B /* NGCustomObjectRecognizer.h */,
 				29B376242726816300D8780B /* NGCustomObjectRecognizer.cpp */,
 				29B376272726FE7C00D8780B /* NGContactObjectRecognizer.h */,
@@ -270,6 +279,14 @@
 				29232B3C2779D56800B85C8E /* duoLED.ino */,
 			);
 			path = duoLED;
+			sourceTree = "<group>";
+		};
+		29232B40277A13F600B85C8E /* temperaturesensor */ = {
+			isa = PBXGroup;
+			children = (
+				29232B41277A144100B85C8E /* temperaturesensor.ino */,
+			);
+			path = temperaturesensor;
 			sourceTree = "<group>";
 		};
 		29647BBA253C42A5003CBA13 = {
@@ -309,13 +326,14 @@
 		29647BC2253C430C003CBA13 /* examples */ = {
 			isa = PBXGroup;
 			children = (
-				29232B3B2779D53F00B85C8E /* duoLED */,
 				29F56DF427410DBE00BBBB68 /* first */,
 				29EA90612763333100F3C556 /* questiondialog */,
 				29F56DE827410B3C00BBBB68 /* soundmachine */,
 				29F56DEA27410C1A00BBBB68 /* lightsensor */,
+				29232B40277A13F600B85C8E /* temperaturesensor */,
 				29F56DEC27410C6900BBBB68 /* flashinglight */,
 				29F56DF227410D5900BBBB68 /* lasercannon */,
+				29232B3B2779D53F00B85C8E /* duoLED */,
 				29F56DF027410D1D00BBBB68 /* contact */,
 				29F56DEE27410CCB00BBBB68 /* ultrasonic */,
 				29EA905A275BAB8600F3C556 /* OLED */,
