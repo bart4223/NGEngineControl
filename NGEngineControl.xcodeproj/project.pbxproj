@@ -45,6 +45,9 @@
 		29232B41277A144100B85C8E /* temperaturesensor.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = temperaturesensor.ino; sourceTree = "<group>"; };
 		29232B42277A17B800B85C8E /* NGStrings.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGStrings.cpp; sourceTree = "<group>"; };
 		29232B43277A17B800B85C8E /* NGStrings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGStrings.h; sourceTree = "<group>"; };
+		29232B44277CBE6D00B85C8E /* NGRelaisControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGRelaisControl.cpp; sourceTree = "<group>"; };
+		29232B45277CBE6D00B85C8E /* NGRelaisControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGRelaisControl.h; sourceTree = "<group>"; };
+		29232B47277CBFE800B85C8E /* relaiscontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = relaiscontrol.ino; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
@@ -289,6 +292,14 @@
 			path = temperaturesensor;
 			sourceTree = "<group>";
 		};
+		29232B46277CBFB400B85C8E /* relaiscontrol */ = {
+			isa = PBXGroup;
+			children = (
+				29232B47277CBFE800B85C8E /* relaiscontrol.ino */,
+			);
+			path = relaiscontrol;
+			sourceTree = "<group>";
+		};
 		29647BBA253C42A5003CBA13 = {
 			isa = PBXGroup;
 			children = (
@@ -319,6 +330,8 @@
 				292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */,
 				299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */,
 				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
+				29232B45277CBE6D00B85C8E /* NGRelaisControl.h */,
+				29232B44277CBE6D00B85C8E /* NGRelaisControl.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -328,6 +341,7 @@
 			children = (
 				29F56DF427410DBE00BBBB68 /* first */,
 				29EA90612763333100F3C556 /* questiondialog */,
+				29232B46277CBFB400B85C8E /* relaiscontrol */,
 				29F56DE827410B3C00BBBB68 /* soundmachine */,
 				29F56DEA27410C1A00BBBB68 /* lightsensor */,
 				29232B40277A13F600B85C8E /* temperaturesensor */,
