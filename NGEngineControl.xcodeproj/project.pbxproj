@@ -48,6 +48,9 @@
 		29232B44277CBE6D00B85C8E /* NGRelaisControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGRelaisControl.cpp; sourceTree = "<group>"; };
 		29232B45277CBE6D00B85C8E /* NGRelaisControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGRelaisControl.h; sourceTree = "<group>"; };
 		29232B47277CBFE800B85C8E /* relaiscontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = relaiscontrol.ino; sourceTree = "<group>"; };
+		29232B49277D87A100B85C8E /* NGRealTimeClock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGRealTimeClock.cpp; sourceTree = "<group>"; };
+		29232B4A277D87A100B85C8E /* NGRealTimeClock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGRealTimeClock.h; sourceTree = "<group>"; };
+		29232B4C277D8BEA00B85C8E /* realtimeclock.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = realtimeclock.ino; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
@@ -300,6 +303,23 @@
 			path = relaiscontrol;
 			sourceTree = "<group>";
 		};
+		29232B48277D874100B85C8E /* misc */ = {
+			isa = PBXGroup;
+			children = (
+				29232B4A277D87A100B85C8E /* NGRealTimeClock.h */,
+				29232B49277D87A100B85C8E /* NGRealTimeClock.cpp */,
+			);
+			name = misc;
+			sourceTree = "<group>";
+		};
+		29232B4B277D8BC200B85C8E /* realtimeclock */ = {
+			isa = PBXGroup;
+			children = (
+				29232B4C277D8BEA00B85C8E /* realtimeclock.ino */,
+			);
+			path = realtimeclock;
+			sourceTree = "<group>";
+		};
 		29647BBA253C42A5003CBA13 = {
 			isa = PBXGroup;
 			children = (
@@ -317,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				2913C93926FF554A00D0AFC6 /* common */,
+				29232B48277D874100B85C8E /* misc */,
 				2913C93726FF54FA00D0AFC6 /* visuals */,
 				2913C93526FF543500D0AFC6 /* sound */,
 				2913C94727018C9800D0AFC6 /* sensors */,
@@ -342,6 +363,7 @@
 				29F56DF427410DBE00BBBB68 /* first */,
 				29EA90612763333100F3C556 /* questiondialog */,
 				29232B46277CBFB400B85C8E /* relaiscontrol */,
+				29232B4B277D8BC200B85C8E /* realtimeclock */,
 				29F56DE827410B3C00BBBB68 /* soundmachine */,
 				29F56DEA27410C1A00BBBB68 /* lightsensor */,
 				29232B40277A13F600B85C8E /* temperaturesensor */,

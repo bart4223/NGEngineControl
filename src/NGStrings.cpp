@@ -8,6 +8,19 @@
 #include "NGStrings.h"
 
 char* FloatToChar(float value) {
-    _NGstr = String(value);
-    return _NGstr.c_str();
+    String s = String(value);
+    char *res = malloc(s.length() + 1);
+    s.getBytes(res, s.length() + 1);
+    return res;
+}
+
+char* LeftPadInteger(int value, int digits) {
+    String s = String(value);
+    int count  = digits - s.length();
+    for (int i = count; i > 0; i--) {
+        s = "0" + s;
+    }
+    char *res = malloc(s.length() + 1);
+    s.getBytes(res, s.length() + 1);
+    return res;
 }

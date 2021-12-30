@@ -29,7 +29,10 @@ float NGTemperatureSensor::getTemperature() {
 }
 
 char* NGTemperatureSensor::getTemperatureAsChar() {
-    return FloatToChar(getTemperature());
+    char *temp = FloatToChar(getTemperature());
+    memcpy(_temperatureAsText, temp, strlen(temp));
+    free(temp);
+    return _temperatureAsText;
 }
 
 float NGTemperatureSensor::getHumidity() {
@@ -37,5 +40,8 @@ float NGTemperatureSensor::getHumidity() {
 }
 
 char* NGTemperatureSensor::getHumidityAsChar() {
-    return FloatToChar(getHumidity());
+    char *humi = FloatToChar(getHumidity());
+    memcpy(_humidityAsText, humi, strlen(humi));
+    free(humi);    
+    return _humidityAsText;
 }

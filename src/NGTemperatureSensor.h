@@ -27,6 +27,8 @@ class NGTemperatureSensor {
 
 private:
     DHT *_dht;
+    char _temperatureAsText[100];
+    char _humidityAsText[100];
 
 protected:
     _create(int pinSensor, int sensorType);
