@@ -11,5 +11,7 @@ void setup() {
 
 void loop() {
   Serial.println(rtc.getNowAsText());
+  Serial.println(rtc.getDateAsText());
+  Serial.println(rtc.getTimeAsText());
   observeMemory(DELAY);
 }

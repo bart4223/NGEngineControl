@@ -51,6 +51,8 @@
 		29232B49277D87A100B85C8E /* NGRealTimeClock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGRealTimeClock.cpp; sourceTree = "<group>"; };
 		29232B4A277D87A100B85C8E /* NGRealTimeClock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGRealTimeClock.h; sourceTree = "<group>"; };
 		29232B4C277D8BEA00B85C8E /* realtimeclock.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = realtimeclock.ino; sourceTree = "<group>"; };
+		29232B4D277F587B00B85C8E /* NGJingleMorseDit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleMorseDit.cpp; sourceTree = "<group>"; };
+		29232B4E277F587B00B85C8E /* NGJingleMorseDit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleMorseDit.h; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
@@ -198,6 +200,8 @@
 				293B4CD927771584009EC17A /* NGJingleJingleBells.cpp */,
 				293B4CDE27771F59009EC17A /* NGJingleChristmasSong.h */,
 				293B4CDD27771F59009EC17A /* NGJingleChristmasSong.cpp */,
+				29232B4E277F587B00B85C8E /* NGJingleMorseDit.h */,
+				29232B4D277F587B00B85C8E /* NGJingleMorseDit.cpp */,
 			);
 			name = sound;
 			sourceTree = "<group>";

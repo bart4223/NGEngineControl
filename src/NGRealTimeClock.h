@@ -22,10 +22,11 @@ class NGRealTimeClock {
 
 private:
     RTC_DS3231 *_rtc;
-    char _nowAsText[100];
+    String _nowAsString;
     
 protected:
     _create();
+    char* _getNowAsText(char* format);
 
 public:
     NGRealTimeClock();
@@ -37,6 +38,10 @@ public:
     DateTime getNow();
     
     char* getNowAsText();
+
+    char* getDateAsText();
+
+    char* getTimeAsText();
 };
 
 #endif /* NGRealTimeClock_h */

@@ -16,6 +16,11 @@ NGRealTimeClock::_create() {
     _rtc = new RTC_DS3231();
 }
 
+char* NGRealTimeClock::_getNowAsText(char *format) {
+    _nowAsString = getNow().toString(format);
+    return _nowAsString.c_str();
+}
+
 void NGRealTimeClock::initialize() {
     initialize(false);
 }
@@ -32,17 +37,18 @@ DateTime NGRealTimeClock::getNow() {
 }
 
 char* NGRealTimeClock::getNowAsText() {
-    DateTime now = getNow();
-    char *month = LeftPadInteger(now.month(), 2);
-    char *day = LeftPadInteger(now.day(), 2);
-    char *hour = LeftPadInteger(now.hour(), 2);
-    char *minute = LeftPadInteger(now.minute(), 2);
-    char *second = LeftPadInteger(now.second(), 2);
-    sprintf(_nowAsText, "%s.%s.%d %s:%s:%s", day, month, now.year(), hour, minute, second);
-    free(month);
-    free(day);
-    free(hour);
-    free(minute);
-    free(second);
-    return _nowAsText;
+    char buf[] = "DD.MM.YYYY hh:mm:ss";
+    return _getNowAsText(buf);
 }
+
+char* NGRealTimeClock::getDateAsText() {
+    char buf[] = "DD.MM.YYYY";
+    return _getNowAsText(buf);
+}
+
+char* NGRealTimeClock::getTimeAsText() {
+    char buf[] = "hh:mm:ss";
+    return _getNowAsText(buf);
+}
+
+
