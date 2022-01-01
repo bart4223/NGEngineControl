@@ -1,17 +1,17 @@
 //
-//  NGJingleMorseDit.cpp
+//  NGMorseDah.cpp
 //  NGEngineControl
 //
 //  Created by Nils Grimmer on 31.12.21.
 //
 
-#include "NGJingleMorseDit.h"
+#include "NGJingleMorseDah.h"
 
-NGJingleMorseDit::NGJingleMorseDit() {
+NGJingleMorseDah::NGJingleMorseDah() {
     _create();
 }
 
-void NGJingleMorseDit::_create() {
+void NGJingleMorseDah::_create() {
     NGCustomJingle::_create();
     _tuneRef = &_tune[0];
     _beatRef = &_beat[0];

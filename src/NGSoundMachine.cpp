@@ -37,6 +37,12 @@ void NGSoundMachine::playRandom() {
     }
 }
 
+void NGSoundMachine::playRandom(int tempo) {
+    if (_jingleCount > 0) {
+        play(random(0, _jingleCount), tempo);
+    }
+}
+
 void NGSoundMachine::play(byte jingle) {
     play(jingle, _jingles[jingle]->getDefaultTempo());
 }

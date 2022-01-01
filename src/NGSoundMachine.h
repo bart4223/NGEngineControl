@@ -40,6 +40,8 @@ public:
     
     void playRandom();
     
+    void playRandom(int tempo);
+    
     void play(byte jingle);
     
     void play(byte jingle, int tempo);

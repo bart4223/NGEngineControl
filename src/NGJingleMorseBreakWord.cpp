@@ -1,17 +1,17 @@
 //
-//  NGJingleMorseDit.cpp
+//  NGJingleMorseBreakWord.cpp
 //  NGEngineControl
 //
-//  Created by Nils Grimmer on 31.12.21.
+//  Created by Nils Grimmer on 01.01.22.
 //
 
-#include "NGJingleMorseDit.h"
+#include "NGJingleMorseBreakWord.h"
 
-NGJingleMorseDit::NGJingleMorseDit() {
+NGJingleMorseBreakWord::NGJingleMorseBreakWord() {
     _create();
 }
 
-void NGJingleMorseDit::_create() {
+void NGJingleMorseBreakWord::_create() {
     NGCustomJingle::_create();
     _tuneRef = &_tune[0];
     _beatRef = &_beat[0];
