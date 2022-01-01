@@ -59,6 +59,9 @@
 		29232B522780858200B85C8E /* NGJingleMorseBreakLetter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleMorseBreakLetter.h; sourceTree = "<group>"; };
 		29232B542780C83A00B85C8E /* NGJingleMorseBreakWord.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleMorseBreakWord.cpp; sourceTree = "<group>"; };
 		29232B552780C83A00B85C8E /* NGJingleMorseBreakWord.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleMorseBreakWord.h; sourceTree = "<group>"; };
+		29232B572780CB8B00B85C8E /* morsetonegenerator.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = morsetonegenerator.ino; sourceTree = "<group>"; };
+		29232B582780CBB200B85C8E /* NGMorseToneGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMorseToneGenerator.cpp; sourceTree = "<group>"; };
+		29232B592780CBB200B85C8E /* NGMorseToneGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMorseToneGenerator.h; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
@@ -178,10 +181,12 @@
 		2913C93526FF543500D0AFC6 /* sound */ = {
 			isa = PBXGroup;
 			children = (
-				2913C93026FF357300D0AFC6 /* NGSoundMachine.h */,
-				2913C92F26FF357300D0AFC6 /* NGSoundMachine.cpp */,
 				2913C93226FF3D8E00D0AFC6 /* NGCustomJingle.h */,
 				2913C93126FF3D8D00D0AFC6 /* NGCustomJingle.cpp */,
+				2913C93026FF357300D0AFC6 /* NGSoundMachine.h */,
+				2913C92F26FF357300D0AFC6 /* NGSoundMachine.cpp */,
+				29232B592780CBB200B85C8E /* NGMorseToneGenerator.h */,
+				29232B582780CBB200B85C8E /* NGMorseToneGenerator.cpp */,
 				29232B532780C7F400B85C8E /* jingles */,
 			);
 			name = sound;
@@ -344,6 +349,14 @@
 			name = jingles;
 			sourceTree = "<group>";
 		};
+		29232B562780CB6500B85C8E /* morsetonegenerator */ = {
+			isa = PBXGroup;
+			children = (
+				29232B572780CB8B00B85C8E /* morsetonegenerator.ino */,
+			);
+			path = morsetonegenerator;
+			sourceTree = "<group>";
+		};
 		29647BBA253C42A5003CBA13 = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +402,7 @@
 				29232B46277CBFB400B85C8E /* relaiscontrol */,
 				29232B4B277D8BC200B85C8E /* realtimeclock */,
 				29F56DE827410B3C00BBBB68 /* soundmachine */,
+				29232B562780CB6500B85C8E /* morsetonegenerator */,
 				29F56DEA27410C1A00BBBB68 /* lightsensor */,
 				29232B40277A13F600B85C8E /* temperaturesensor */,
 				29F56DEC27410C6900BBBB68 /* flashinglight */,
