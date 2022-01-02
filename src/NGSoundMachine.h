@@ -49,6 +49,8 @@ public:
     int getJingleCount();
     
     int getMaxJingleCount();
+    
+    int getDefaultTempo(byte jingle);
 };
 
 #endif /* NGSoundMachine_h */

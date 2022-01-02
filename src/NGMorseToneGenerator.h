@@ -36,6 +36,8 @@ protected:
     void _playJingleBreakLetter();
 
     void _playJingleBreakWord();
+    
+    void _playLetter(byte letter);
 
 public:
     NGMorseToneGenerator();
@@ -104,11 +106,75 @@ public:
     
     void playLetterZ();
     
-    void playLetter(char letter);
+    void playLetterAe();
+    
+    void playLetterOe();
+    
+    void playLetterUe();
+    
+    void playLetterSz();
+    
+    void playDigit1();
+    
+    void playDigit2();
+    
+    void playDigit3();
+    
+    void playDigit4();
+    
+    void playDigit5();
+    
+    void playDigit6();
+    
+    void playDigit7();
+    
+    void playDigit8();
+    
+    void playDigit9();
+    
+    void playDigit0();
+    
+    void playSignPoint();
+    
+    void playSignComma();
+    
+    void playSignDoublePoint();
+    
+    void playSignSemicolon();
+    
+    void playSignQuestionMark();
+    
+    void playSignExclamationMark();
+    
+    void playSignHyphen();
+    
+    void playSignUnderscore();
+    
+    void playSignBracketOpen();
+    
+    void playSignBracketClose();
+    
+    void playSignApostrophe();
+    
+    void playSignQuotationMarks();
+    
+    void playSignEqualSign();
+    
+    void playSignPlus();
+    
+    void playSignSlash();
+    
+    void playSignCommercialA();
+    
+    void playLetter(byte letter);
     
     void play(char* value);
     
     void playSOS();
+
+    void playQAM();
+    
+    void playCQ(char* name);
 };
 
 #endif /* NGMorseToneGenerator_h */

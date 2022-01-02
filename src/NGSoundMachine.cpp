@@ -44,7 +44,7 @@ void NGSoundMachine::playRandom(int tempo) {
 }
 
 void NGSoundMachine::play(byte jingle) {
-    play(jingle, _jingles[jingle]->getDefaultTempo());
+    play(jingle, getDefaultTempo(jingle));
 }
 
 void NGSoundMachine::play(byte jingle, int tempo) {
@@ -68,4 +68,8 @@ int NGSoundMachine::getJingleCount() {
 
 int NGSoundMachine::getMaxJingleCount() {
     return MAXJINGLES;
+}
+
+int NGSoundMachine::getDefaultTempo(byte jingle) {
+    return _jingles[jingle]->getDefaultTempo();
 }
