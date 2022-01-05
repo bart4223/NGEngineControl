@@ -23,13 +23,16 @@ class NGRealTimeClock {
 private:
     RTC_DS3231 *_rtc;
     String _nowAsString;
+    bool _use32K = false;
     
 protected:
-    _create();
+    _create(bool use32K);
     char* _getNowAsText(char* format);
 
 public:
     NGRealTimeClock();
+    
+    NGRealTimeClock(bool use32K);
     
     void initialize();
     
@@ -42,6 +45,8 @@ public:
     char* getDateAsText();
 
     char* getTimeAsText();
+    
+    bool isXMas();
 };
 
 #endif /* NGRealTimeClock_h */

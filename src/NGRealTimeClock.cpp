@@ -9,11 +9,16 @@
 #include "NGRealTimeClock.h"
 
 NGRealTimeClock::NGRealTimeClock() {
-    _create();
+    _create(false);
 }
 
-NGRealTimeClock::_create() {
+NGRealTimeClock::NGRealTimeClock(bool use32K) {
+    _create(use32K);
+}
+
+NGRealTimeClock::_create(bool use32K) {
     _rtc = new RTC_DS3231();
+    _use32K = use32K;
 }
 
 char* NGRealTimeClock::_getNowAsText(char *format) {
@@ -27,6 +32,9 @@ void NGRealTimeClock::initialize() {
 
 void NGRealTimeClock::initialize(bool adjust) {
     _rtc->begin();
+    if (!_use32K) {
+        _rtc->disable32K();
+    }
     if (adjust) {
         _rtc->adjust(DateTime(F(__DATE__), F(__TIME__)));
     }
@@ -51,4 +59,7 @@ char* NGRealTimeClock::getTimeAsText() {
     return _getNowAsText(buf);
 }
 
-
+bool NGRealTimeClock::isXMas() {
+    DateTime dt = getNow();
+    return (dt.month() == 12 && dt.day() > 23 && dt.day() < 27);
+}

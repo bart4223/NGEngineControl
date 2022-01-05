@@ -13,5 +13,8 @@ void loop() {
   Serial.println(rtc.getNowAsText());
   Serial.println(rtc.getDateAsText());
   Serial.println(rtc.getTimeAsText());
+  if (rtc.isXMas()) {
+    Serial.println("It's XMas ;o)");
+  }
   observeMemory(DELAY);
 }
