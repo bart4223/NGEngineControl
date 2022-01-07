@@ -54,6 +54,16 @@ char* NGRealTimeClock::getDateAsText() {
     return _getNowAsText(buf);
 }
 
+char* NGRealTimeClock::getYearAsText() {
+    char buf[] = "YYYY";
+    return _getNowAsText(buf);
+}
+
+char* NGRealTimeClock::getShortYearAsText() {
+    char buf[] = "YY";
+    return _getNowAsText(buf);
+}
+
 char* NGRealTimeClock::getTimeAsText() {
     char buf[] = "hh:mm:ss";
     return _getNowAsText(buf);

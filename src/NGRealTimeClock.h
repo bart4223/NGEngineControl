@@ -44,6 +44,10 @@ public:
 
     char* getDateAsText();
 
+    char* getYearAsText();
+
+    char* getShortYearAsText();
+    
     char* getTimeAsText();
     
     bool isXMas();

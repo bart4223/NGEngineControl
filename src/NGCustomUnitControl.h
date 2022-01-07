@@ -15,6 +15,7 @@
 #endif
 
 #include <NGCustomNotification.h>
+#include <NGRealTimeClock.h>
 
 #define NOADDRESS           0x00
 #define REQUESTEDDATALENGTH 6
@@ -100,7 +101,8 @@ protected:
     workMode _workMode = wmNone;
     int _exceptionCount = 0;
     int _pinStartup = -1;
-    
+    NGRealTimeClock *_rtc = nullptr;
+
     void _create(char* name, byte address, int serialRate);
     
     void _clearState();
@@ -117,6 +119,8 @@ public:
     void initialize();
     
     long int startUp();
+    
+    void registerRealTimeClock(NGRealTimeClock *rtc);
     
     void registerNotification(NGCustomNotification *notification);
     

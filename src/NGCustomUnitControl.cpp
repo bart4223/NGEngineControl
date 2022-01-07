@@ -84,6 +84,13 @@ void NGCustomUnitControl::registerStartup(int pinStartup) {
     _pinStartup = pinStartup;
 }
 
+void NGCustomUnitControl::registerRealTimeClock(NGRealTimeClock *rtc) {
+    _rtc = rtc;
+    #ifdef NG_PLATFORM_MEGA
+    writeInfo("RTC registered");
+    #endif
+}
+
 void NGCustomUnitControl::registerNotification(NGCustomNotification *notification) {
     if (_notificationCount < NOTIFICATIONCOUNT) {
         char log[100];
@@ -121,10 +128,17 @@ void NGCustomUnitControl::_writeState() {
     char state[100];
     _clearState();
     #ifdef NG_PLATFORM_MEGA
-    sprintf(state, "%s %s wM%d (C) by NG MMXXI", _name, _version, _workMode);
+    if (_rtc != nullptr) {
+        sprintf(state, "%s %s wM%d (C) by NG 2021-%s", _name, _version, _workMode, _rtc->getShortYearAsText());
+    } else {
+        sprintf(state, "%s %s wM%d (C) by NG MMXXII", _name, _version, _workMode);
+    }
     #else
     sprintf(state, "%s %s wM%d", _name, _version, _workMode);
     #endif
+    if (_rtc != nullptr) {
+        sprintf(state, "%s %s", state, _rtc->getDateAsText());
+    }
     for (int i = 0; i < _notificationCount; i++ ) {
         _notification[i]->writeInfo(state, 1, 0);
     }

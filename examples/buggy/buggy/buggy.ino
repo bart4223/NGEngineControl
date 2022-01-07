@@ -1,7 +1,7 @@
 #define PROD true //false,true
-#define XMAS true //false,true
 
 #include <NGMotionUnitControl.h>
+#include <NGRealTimeClock.h>
 #include <NGSerialNotification.h>
 #include <NGOLEDNotification.h>
 #include <NGQuestionDialog.h>
@@ -9,11 +9,8 @@
 #include <NGFlashingLight.h>
 #include <NGJingleBoot.h>
 #include <NGJingleBeep.h>
-#if (XMAS == true)
-#include <NGJingleJingleBells.h>
-#else
 #include <NGJingleHelloDude.h>
-#endif
+#include <NGJingleJingleBells.h>
 #include <NGJingleBackward.h>
 #include <NGJingleAlarm.h>
 #include <NGJingleThinking.h>
@@ -78,17 +75,15 @@ enum mimicScenario {msNone, msCaveExplorer, msBotRetriever};
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINE_2, ENGINE_1, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
 NGSerialNotification serialNotification = NGSerialNotification();
 NGOLEDNotification *oledNotification;
+NGRealTimeClock rtc = NGRealTimeClock();
 NGQuestionDialog dlgQuestion = NGQuestionDialog(PINQUESTIONDLGYES, PINQUESTIONDLGNO);
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
 NGFlashingLight flLeft = NGFlashingLight(PINFLASHINGLIGHTLEFT, FLASHINGLIGHTINTERVAL);
 NGFlashingLight flRight = NGFlashingLight(PINFLASHINGLIGHTRIGHT, FLASHINGLIGHTINTERVAL);
 NGJingleBoot jingleBoot = NGJingleBoot();
 NGJingleBeep jingleBeep = NGJingleBeep();
-#if (XMAS == true)
-NGJingleJingleBells jingleJingleBells = NGJingleJingleBells();
-#else
 NGJingleHelloDude jingleHelloDude = NGJingleHelloDude();
-#endif
+NGJingleJingleBells jingleJingleBells = NGJingleJingleBells();
 NGJingleBackward jingleBackward = NGJingleBackward();
 NGJingleAlarm jingleAlarm = NGJingleAlarm();
 NGJingleThinking jingleThinking = NGJingleThinking();
@@ -105,6 +100,8 @@ void setup() {
   unitMotion.registerNotification(&serialNotification);
   oledNotification = new NGOLEDNotification(OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitMotion.registerNotification(oledNotification);
+  rtc.initialize();
+  unitMotion.registerRealTimeClock(&rtc);
   unitMotion.clearInfo();
   unitMotion.writeInfo("Mimic Cave-Explorer?");
   mimicScenario ms = msNone;
@@ -122,11 +119,11 @@ void setup() {
   }
   #if (PROD == true)
   unitMotion.registerBoot(&jingleBoot);
-  #if (XMAS == true)
-  unitMotion.registerStartup(PINSTARTUP, &jingleJingleBells, 1);
-  #else
-  unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
-  #endif
+  if (rtc.isXMas()) {
+    unitMotion.registerStartup(PINSTARTUP, &jingleJingleBells, 1);
+  } else {
+    unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
+  }
   unitMotion.registerMotionInterruption(PINSTARTUP);
   unitMotion.registerJingleBackward(&jingleBackward);
   unitMotion.registerJingleAlarm(&jingleAlarm);
