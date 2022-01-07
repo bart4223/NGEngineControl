@@ -1,6 +1,5 @@
 -Common
   -customUnit
-    -RTC
 -Motoman
   -Common
     -TransportBox
@@ -11,4 +10,4 @@
 -Buggy
   -Common
   -motionUnit
-    -RTC
+    -TestSequence
