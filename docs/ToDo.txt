@@ -1,5 +1,7 @@
 -Common
+  -NGMorseToneNotification
   -customUnit
+    -TestSequence
 -Motoman
   -Common
     -TransportBox
@@ -10,4 +12,3 @@
 -Buggy
   -Common
   -motionUnit
-    -TestSequence

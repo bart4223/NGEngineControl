@@ -89,6 +89,9 @@
 		29958E5A27174B89007048E3 /* simpleBackwardTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleBackwardTurns.txt; sourceTree = "<group>"; };
 		29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceDefinitions.h; sourceTree = "<group>"; };
 		29958E5D2718BF5E007048E3 /* simpleStartStop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleStartStop.txt; sourceTree = "<group>"; };
+		2999D31B2791CE2500B88B53 /* NGI2CScanner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGI2CScanner.cpp; sourceTree = "<group>"; };
+		2999D31C2791CE2500B88B53 /* NGI2CScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGI2CScanner.h; sourceTree = "<group>"; };
+		2999D31E2792DC6E00B88B53 /* I2CScanner.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = I2CScanner.ino; sourceTree = "<group>"; };
 		299C0E1E26D7E7EC00F5A60D /* buggy.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = buggy.ino; sourceTree = "<group>"; };
 		299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSteeringControl.cpp; sourceTree = "<group>"; };
 		299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSteeringControl.h; sourceTree = "<group>"; };
@@ -151,6 +154,9 @@
 		29F56DF327410D6D00BBBB68 /* lasercannon.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = lasercannon.ino; sourceTree = "<group>"; };
 		29F56DF527410DCD00BBBB68 /* first.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = first.ino; sourceTree = "<group>"; };
 		29F56DF627462D0D00BBBB68 /* NGMotionUnitControl.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NGMotionUnitControl.png; sourceTree = "<group>"; };
+		29FD43C1278A0A7E00EAF0D9 /* NGCompass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCompass.cpp; sourceTree = "<group>"; };
+		29FD43C2278A0A7E00EAF0D9 /* NGCompass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCompass.h; sourceTree = "<group>"; };
+		29FD43C4278A0B7900EAF0D9 /* compass.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = compass.ino; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -250,6 +256,8 @@
 				2913C94827018CD900D0AFC6 /* NGLightSensor.cpp */,
 				29232B3F277A0FB300B85C8E /* NGTemperatureSensor.h */,
 				29232B3E277A0FB300B85C8E /* NGTemperatureSensor.cpp */,
+				29FD43C2278A0A7E00EAF0D9 /* NGCompass.h */,
+				29FD43C1278A0A7E00EAF0D9 /* NGCompass.cpp */,
 				29B376252726816300D8780B /* NGCustomObjectRecognizer.h */,
 				29B376242726816300D8780B /* NGCustomObjectRecognizer.cpp */,
 				29B376272726FE7C00D8780B /* NGContactObjectRecognizer.h */,
@@ -375,6 +383,7 @@
 			children = (
 				2913C93926FF554A00D0AFC6 /* common */,
 				29232B48277D874100B85C8E /* misc */,
+				2999D31A2791CDE700B88B53 /* communication */,
 				2913C93726FF54FA00D0AFC6 /* visuals */,
 				2913C93526FF543500D0AFC6 /* sound */,
 				2913C94727018C9800D0AFC6 /* sensors */,
@@ -405,12 +414,14 @@
 				29232B562780CB6500B85C8E /* morsetonegenerator */,
 				29F56DEA27410C1A00BBBB68 /* lightsensor */,
 				29232B40277A13F600B85C8E /* temperaturesensor */,
+				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29F56DEC27410C6900BBBB68 /* flashinglight */,
 				29F56DF227410D5900BBBB68 /* lasercannon */,
 				29232B3B2779D53F00B85C8E /* duoLED */,
 				29F56DF027410D1D00BBBB68 /* contact */,
 				29F56DEE27410CCB00BBBB68 /* ultrasonic */,
 				29EA905A275BAB8600F3C556 /* OLED */,
+				2999D31D2792DC4400B88B53 /* I2CScanner */,
 				29647BC9253C5F85003CBA13 /* simple */,
 				2905F124264F011D001B4A56 /* stop */,
 				29165F302549692B001D9497 /* profiles */,
@@ -470,6 +481,23 @@
 				29F56DE5273AF32F00BBBB68 /* NGBotRetriever.cpp */,
 			);
 			name = specs;
+			sourceTree = "<group>";
+		};
+		2999D31A2791CDE700B88B53 /* communication */ = {
+			isa = PBXGroup;
+			children = (
+				2999D31C2791CE2500B88B53 /* NGI2CScanner.h */,
+				2999D31B2791CE2500B88B53 /* NGI2CScanner.cpp */,
+			);
+			name = communication;
+			sourceTree = "<group>";
+		};
+		2999D31D2792DC4400B88B53 /* I2CScanner */ = {
+			isa = PBXGroup;
+			children = (
+				2999D31E2792DC6E00B88B53 /* I2CScanner.ino */,
+			);
+			path = I2CScanner;
 			sourceTree = "<group>";
 		};
 		299C0E1B26D75CCE00F5A60D /* buggy */ = {
@@ -622,6 +650,14 @@
 				29F56DF527410DCD00BBBB68 /* first.ino */,
 			);
 			path = first;
+			sourceTree = "<group>";
+		};
+		29FD43C3278A0B5800EAF0D9 /* compass */ = {
+			isa = PBXGroup;
+			children = (
+				29FD43C4278A0B7900EAF0D9 /* compass.ino */,
+			);
+			path = compass;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
