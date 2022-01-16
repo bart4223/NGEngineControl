@@ -35,7 +35,9 @@ void NGCompass::_readData(int *x, int *y, int *z) {
     Wire.beginTransmission(_address);
     Wire.write(0x00);
     Wire.endTransmission();
-    Wire.requestFrom(_address, 6);
+    uint8_t a = _address;
+    uint8_t b = 6;
+    Wire.requestFrom(a, b);
     *x = Wire.read();
     *x |= Wire.read() << 8;
     *y = Wire.read();
