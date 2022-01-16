@@ -44,18 +44,11 @@ void NGCompass::_readData(int *x, int *y, int *z) {
     *z |= Wire.read() << 8;
 }
 
-byte NGCompass::_setControlRegister(byte sampleRate, byte range, byte dataRate, byte mode) {
-    return _writeRegister(COMPASSREGISTER09, sampleRate | range | dataRate | mode);
-}
-
 void NGCompass::initialize() {
     Wire.begin();
-    reset();
-    _setControlRegister(_sampleRate, _range, _dataRate, _mode);
-}
-
-void NGCompass::reset() {
-    _writeRegister(COMPASSREGISTER10, 0x80);
+    _writeRegister(COMPASSREGISTER10, 0x80); // RESET
+    _writeRegister(COMPASSREGISTER09, _sampleRate | _range | _dataRate | _mode); // MODE
+    _writeRegister(COMPASSREGISTER11, 0x01); // SET/RESET-Period
 }
 
 float NGCompass::getDirection() {

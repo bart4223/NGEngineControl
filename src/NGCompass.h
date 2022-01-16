@@ -53,17 +53,13 @@ protected:
     byte _writeRegister(byte reg, byte val);
     
     void _readData(int *x, int *y, int *z);
-    
-    byte _setControlRegister(byte sampleRate, byte range, byte dataRate, byte mode);
-    
+        
 public:
     NGCompass();
     
     NGCompass(byte address);
     
     void initialize();
-    
-    void reset();
     
     float getDirection();
 };
