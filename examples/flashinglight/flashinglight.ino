@@ -4,7 +4,7 @@ NGFlashingLight fl = NGFlashingLight(8, 250);
 
 void setup() {
   fl.initialize();
-  fl.setOn();
+  fl.setOn(true);
 }
 
 void loop() {
