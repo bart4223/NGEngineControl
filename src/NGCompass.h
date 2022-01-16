@@ -14,8 +14,6 @@
 #include <WProgram.h>
 #endif
 
-#include "Wire.h"
-
 // GY-271 - QMC5883L
 // Control-Register 0x09, 0x0A and 0x0B
 
@@ -54,7 +52,7 @@ protected:
     
     byte _writeRegister(byte reg, byte val);
     
-    byte _readData(int *x, int *y, int *z);
+    void _readData(int *x, int *y, int *z);
     
     byte _setControlRegister(byte sampleRate, byte range, byte dataRate, byte mode);
     

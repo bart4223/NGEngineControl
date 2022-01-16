@@ -1,7 +1,7 @@
 #include <NGMemoryObserver.h>
 #include <NGCompass.h>
 
-#define DELAY 1000
+#define DELAY 3000
 
 NGCompass cmp = NGCompass();
 

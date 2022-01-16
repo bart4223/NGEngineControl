@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 08.01.22.
 //
 
+#include "Wire.h"
 #include "NGCompass.h"
 
 NGCompass::NGCompass() {
@@ -27,22 +28,20 @@ byte NGCompass::_writeRegister(byte reg, byte val) {
     Wire.beginTransmission(_address);
     Wire.write(reg);
     Wire.write(val);
-    byte res = Wire.endTransmission();
-    return res;
+    return Wire.endTransmission();
 }
 
-byte NGCompass::_readData(int *x, int *y, int *z) {
+void NGCompass::_readData(int *x, int *y, int *z) {
     Wire.beginTransmission(_address);
     Wire.write(0x00);
-    byte res = Wire.endTransmission();
+    Wire.endTransmission();
     Wire.requestFrom(_address, 6);
-    *x = Wire.read(); //LSB  x
-    *x |= Wire.read() << 8; //MSB  x
-    *y = Wire.read(); //LSB  z
-    *y |= Wire.read() << 8; //MSB z
-    *z = Wire.read(); //LSB y
-    *z |= Wire.read() << 8; //MSB y
-    return res;
+    *x = Wire.read();
+    *x |= Wire.read() << 8;
+    *y = Wire.read();
+    *y |= Wire.read() << 8;
+    *z = Wire.read();
+    *z |= Wire.read() << 8;
 }
 
 byte NGCompass::_setControlRegister(byte sampleRate, byte range, byte dataRate, byte mode) {
@@ -52,34 +51,16 @@ byte NGCompass::_setControlRegister(byte sampleRate, byte range, byte dataRate, 
 void NGCompass::initialize() {
     Wire.begin();
     reset();
-    byte res = _setControlRegister(_sampleRate, _range, _dataRate, _mode);
-    if (res != 0) {
-        Serial.println(res);
-    }
+    _setControlRegister(_sampleRate, _range, _dataRate, _mode);
 }
 
 void NGCompass::reset() {
-    byte res = _writeRegister(COMPASSREGISTER10, 0x80);
-    if (res != 0) {
-        Serial.println(res);
-    }
-    res = _writeRegister(COMPASSREGISTER11, 0x01);
-    if (res != 0) {
-        Serial.println(res);
-    }
+    _writeRegister(COMPASSREGISTER10, 0x80);
 }
 
 float NGCompass::getDirection() {
-    int x = 0;
-    int y = 0;
-    int z = 0;
-    byte err = _readData(&x, &y, &z);
-    if (err != 0) {
-        Serial.println(err);
-    }
-    Serial.println(x);
-    Serial.println(y);
-    Serial.println(z);
+    int x, y, z;
+    _readData(&x, &y, &z);
     float res = -atan2(y, x) * 180.0 / PI;
     return res + 180;
 }
