@@ -92,6 +92,8 @@
 		2999D31B2791CE2500B88B53 /* NGI2CScanner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGI2CScanner.cpp; sourceTree = "<group>"; };
 		2999D31C2791CE2500B88B53 /* NGI2CScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGI2CScanner.h; sourceTree = "<group>"; };
 		2999D31E2792DC6E00B88B53 /* I2CScanner.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = I2CScanner.ino; sourceTree = "<group>"; };
+		2999D31F2794482600B88B53 /* NGMorseToneNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMorseToneNotification.cpp; sourceTree = "<group>"; };
+		2999D3202794482600B88B53 /* NGMorseToneNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMorseToneNotification.h; sourceTree = "<group>"; };
 		299C0E1E26D7E7EC00F5A60D /* buggy.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = buggy.ino; sourceTree = "<group>"; };
 		299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSteeringControl.cpp; sourceTree = "<group>"; };
 		299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSteeringControl.h; sourceTree = "<group>"; };
@@ -193,6 +195,8 @@
 				2913C92F26FF357300D0AFC6 /* NGSoundMachine.cpp */,
 				29232B592780CBB200B85C8E /* NGMorseToneGenerator.h */,
 				29232B582780CBB200B85C8E /* NGMorseToneGenerator.cpp */,
+				2999D3202794482600B88B53 /* NGMorseToneNotification.h */,
+				2999D31F2794482600B88B53 /* NGMorseToneNotification.cpp */,
 				29232B532780C7F400B85C8E /* jingles */,
 			);
 			name = sound;
@@ -203,8 +207,6 @@
 			children = (
 				29EA90602761ECF700F3C556 /* NGQuestionDialog.h */,
 				29EA905F2761ECF700F3C556 /* NGQuestionDialog.cpp */,
-				29D7EC382673B88300009403 /* NGCustomNotification.h */,
-				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
 				29D7EC3A2673BFB800009403 /* NGSerialNotification.h */,
 				29D7EC392673BFB800009403 /* NGSerialNotification.cpp */,
 				29D7EC4026741FAB00009403 /* NGLCDNotification.h */,
@@ -304,6 +306,8 @@
 		29232B48277D874100B85C8E /* misc */ = {
 			isa = PBXGroup;
 			children = (
+				29D7EC382673B88300009403 /* NGCustomNotification.h */,
+				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
 				29232B4A277D87A100B85C8E /* NGRealTimeClock.h */,
 				29232B49277D87A100B85C8E /* NGRealTimeClock.cpp */,
 			);

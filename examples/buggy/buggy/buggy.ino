@@ -4,6 +4,7 @@
 #include <NGRealTimeClock.h>
 #include <NGSerialNotification.h>
 #include <NGOLEDNotification.h>
+#include <NGMorseToneNotification.h>
 #include <NGQuestionDialog.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
@@ -75,6 +76,7 @@ enum mimicScenario {msNone, msCaveExplorer, msBotRetriever};
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINE_2, ENGINE_1, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
 NGSerialNotification serialNotification = NGSerialNotification();
 NGOLEDNotification *oledNotification;
+NGMorseToneNotification morseToneNotification = NGMorseToneNotification();
 NGRealTimeClock rtc = NGRealTimeClock();
 NGQuestionDialog dlgQuestion = NGQuestionDialog(PINQUESTIONDLGYES, PINQUESTIONDLGNO);
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
@@ -100,11 +102,15 @@ void setup() {
   unitMotion.registerNotification(&serialNotification);
   oledNotification = new NGOLEDNotification(OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitMotion.registerNotification(oledNotification);
+  unitMotion.registerNotification(&morseToneNotification);
   rtc.initialize();
+  #if (PROD == true)
   unitMotion.registerRealTimeClock(&rtc);
-  unitMotion.clearInfo();
-  unitMotion.writeInfo("Mimic Cave-Explorer?");
+  #endif
   mimicScenario ms = msNone;
+  unitMotion.clearInfo();
+  #if (PROD == true)
+  unitMotion.writeInfo("Mimic Cave-Explorer?");
   if (dlgQuestion.confirm()) {
     unitMotion.beep();
     ms = msCaveExplorer;
@@ -117,8 +123,9 @@ void setup() {
     }
     unitMotion.beep();
   }
-  #if (PROD == true)
+  #endif
   unitMotion.registerBoot(&jingleBoot);
+  #if (PROD == true)
   if (rtc.isXMas()) {
     unitMotion.registerStartup(PINSTARTUP, &jingleJingleBells, 1);
   } else {
@@ -199,9 +206,9 @@ void setup() {
   unitMotion.startUp();
   unitMotion.clearInfo();
   if (ms == msNone) {
-    unitMotion.writeInfo("Error!");
+    unitMotion.writeInfo("#Error!#");
   } else {
-    unitMotion.writeInfo("Hi folks, moves...");
+    unitMotion.writeInfo("#Hi folks#, moves...");
   }
 }
 

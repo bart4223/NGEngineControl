@@ -16,18 +16,21 @@
 
 #include "NGSoundMachine.h"
 
+#define DEFPINPIEZO -1
+#define DEFNOJINGLE -1
+
 class NGMorseToneGenerator {
 
 private:
     NGSoundMachine *_sm;
-    int _jingleDit = -1;
-    int _jingleDah = -1;
-    int _jingleBreakLetter = -1;
-    int _jingleBreakWord = -1;
+    int _jingleDit = DEFNOJINGLE;
+    int _jingleDah = DEFNOJINGLE;
+    int _jingleBreakLetter = DEFNOJINGLE;
+    int _jingleBreakWord = DEFNOJINGLE;
     int _tempo = 0;
 
 protected:
-    void _create();
+    void _create(int pinPiezo);
     
     void _playJingleDit();
 
@@ -42,15 +45,25 @@ protected:
 public:
     NGMorseToneGenerator();
     
+    NGMorseToneGenerator(int pinPiezo);
+    
     void initialize();
     
     void registerJingleDit(NGCustomJingle *jingle);
     
+    bool hasJingleDit();
+    
     void registerJingleDah(NGCustomJingle *jingle);
+    
+    bool hasJingleDah();
     
     void registerJingleBreakLetter(NGCustomJingle *jingle);
     
+    bool hasJingleBreakLetter();
+    
     void registerJingleBreakWord(NGCustomJingle *jingle);
+    
+    bool hasJingleBreakWord();
     
     void setTempo(int tempo);
     

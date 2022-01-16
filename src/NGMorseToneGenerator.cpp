@@ -8,11 +8,19 @@
 #include "NGMorseToneGenerator.h"
 
 NGMorseToneGenerator::NGMorseToneGenerator() {
-    _create();
+    _create(DEFPINPIEZO);
 }
 
-void NGMorseToneGenerator::_create() {
-    _sm = new NGSoundMachine();
+NGMorseToneGenerator::NGMorseToneGenerator(int pinPiezo) {
+    _create(pinPiezo);
+}
+
+void NGMorseToneGenerator::_create(int pinPiezo) {
+    if (pinPiezo == DEFPINPIEZO) {
+        _sm = new NGSoundMachine();
+    } else {
+        _sm = new NGSoundMachine(pinPiezo);
+    }
 }
 
 void NGMorseToneGenerator::_playJingleDit() {
@@ -179,16 +187,32 @@ void NGMorseToneGenerator::registerJingleDit(NGCustomJingle *jingle) {
     _jingleDit = _sm->registerJingle(jingle);
 }
 
+bool NGMorseToneGenerator::hasJingleDit() {
+    return _jingleDit != DEFNOJINGLE;
+}
+
 void NGMorseToneGenerator::registerJingleDah(NGCustomJingle *jingle) {
     _jingleDah = _sm->registerJingle(jingle);
+}
+
+bool NGMorseToneGenerator::hasJingleDah() {
+    return _jingleDah != DEFNOJINGLE;
 }
 
 void NGMorseToneGenerator::registerJingleBreakLetter(NGCustomJingle *jingle) {
     _jingleBreakLetter = _sm->registerJingle(jingle);
 }
 
+bool NGMorseToneGenerator::hasJingleBreakLetter() {
+    return _jingleBreakLetter != DEFNOJINGLE;
+}
+
 void NGMorseToneGenerator::registerJingleBreakWord(NGCustomJingle *jingle) {
     _jingleBreakWord = _sm->registerJingle(jingle);
+}
+
+bool NGMorseToneGenerator::hasJingleBreakWord() {
+    return _jingleBreakWord != DEFNOJINGLE;
 }
 
 void NGMorseToneGenerator::setTempo(int tempo) {
