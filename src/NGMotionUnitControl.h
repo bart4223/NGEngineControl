@@ -25,7 +25,7 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "3.1"
+#define _VERSION "3.2"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT    3
