@@ -25,7 +25,7 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "3.3"
+#define _VERSION "3.4"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT    3
@@ -74,7 +74,7 @@ struct motionSequenceStruct
 };
 typedef struct motionSequenceStruct motionSequence;
 
-class NGMotionUnitControl : public NGCustomUnitControl {
+class NGMotionUnitControl : public NGCustomUnitControl, NGITestableComponent {
 
 private:
     NGSteeringControl *_steeringControl;
@@ -109,9 +109,29 @@ protected:
     
     void _initializeCore();
     
+    void _initializeLightSensor();
+    
+    void _initializeFlashingLightLeft();
+    
+    void _initializeFlashingLightRight();
+    
+    void _initializeBrakeLight();
+    
+    void _initializeBackwardLight();
+    
+    void _initializeMotionMimic();
+    
+    void _initializeObjectRecognizer();
+    
+    void _initializeLaserCannon();
+    
     void _initializeStreering();
 
     void _initializeSoundMachine();
+    
+    void _testSequenceStart();
+    
+    void _testSequenceStop();
     
     void _processingReceivedData();
     
@@ -231,6 +251,10 @@ public:
     void setWarningLight(bool on);
     
     void beep();
+    
+    void testSequenceStart();
+    
+    void testSequenceStop();
 };
 
 #endif /* NGMotionUnitControl_h */

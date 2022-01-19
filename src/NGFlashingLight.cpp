@@ -59,6 +59,7 @@ bool NGFlashingLight::ToogleOn() {
 }
 
 void NGFlashingLight::testSequenceStart() {
+    initialize();
     _switchFlashingLight(true);
 }
 

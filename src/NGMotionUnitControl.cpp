@@ -65,12 +65,110 @@ void NGMotionUnitControl::_initializeCore() {
     _steeringStop();
 }
 
+void NGMotionUnitControl::_initializeLightSensor() {
+    if (_lightSensor != nullptr) {
+        _lightSensor->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Light sensor initialized");
+        }
+        #endif
+    }
+}
+
+void NGMotionUnitControl::_initializeFlashingLightLeft() {
+    if (_flashingLightLeft != nullptr) {
+        _flashingLightLeft->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Flashing light left initialized");
+        }
+        #endif
+    }
+}
+
+void NGMotionUnitControl::_initializeFlashingLightRight() {
+    if (_flashingLightRight != nullptr) {
+        _flashingLightRight->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Flashing light right initialized");
+        }
+        #endif
+    }
+}
+
+void NGMotionUnitControl::_initializeBrakeLight() {
+    if (_brakeLightPin != -1) {
+        pinMode(_brakeLightPin, OUTPUT);
+    }
+}
+
+void NGMotionUnitControl::_initializeBackwardLight() {
+    if (_backwardLightPin != -1) {
+        pinMode(_backwardLightPin, OUTPUT);
+    }
+}
+
+void NGMotionUnitControl::_initializeMotionMimic() {
+    if (_motionMimic != nullptr) {
+        _motionMimic->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Mimic initialized");
+        }
+        #endif
+    }
+}
+
+void NGMotionUnitControl::_initializeObjectRecognizer() {
+    for (int i = 0; i < _objectRecognizerCount; i++) {
+        _objectRecognizer[i].recognizer->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            char log[100];
+            sprintf(log, "Object Recognizer \"%s\" initialized", _objectRecognizer[i].recognizer->getName());
+            writeInfo(log);
+        }
+        #endif
+    }
+}
+
+void NGMotionUnitControl::_initializeLaserCannon() {
+    if (_laserCannon != nullptr) {
+        _laserCannon->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        if (_logging) {
+            writeInfo("Laser cannon initialized");
+        }
+        #endif
+    }
+}
+
 void NGMotionUnitControl::_initializeSoundMachine() {
     _soundMachine->initialize();
 }
 
 void NGMotionUnitControl::_initializeStreering() {
     _steeringControl->initialize();
+}
+
+void NGMotionUnitControl::_testSequenceStart() {
+    if (_flashingLightLeft != nullptr) {
+        _flashingLightLeft->testSequenceStart();
+    }
+    if (_flashingLightRight != nullptr) {
+        _flashingLightRight->testSequenceStart();
+    }
+}
+
+void NGMotionUnitControl::_testSequenceStop() {
+    if (_flashingLightLeft != nullptr) {
+        _flashingLightLeft->testSequenceStop();
+    }
+    if (_flashingLightRight != nullptr) {
+        _flashingLightRight->testSequenceStop();
+    }
 }
 
 void NGMotionUnitControl::_processingReceivedData() {
@@ -324,62 +422,14 @@ void NGMotionUnitControl::_determineMotionInterruption() {
 void NGMotionUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     _initializeCore();
-    if (_lightSensor != nullptr) {
-        _lightSensor->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        if (_logging) {
-            writeInfo("Light sensor initialized");
-        }
-        #endif
-    }
-    if (_flashingLightLeft != nullptr) {
-        _flashingLightLeft->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        if (_logging) {
-            writeInfo("Flashing light left initialized");
-        }
-        #endif
-    }
-    if (_flashingLightRight != nullptr) {
-        _flashingLightRight->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        if (_logging) {
-            writeInfo("Flashing light right initialized");
-        }
-        #endif
-    }
-    if (_brakeLightPin != -1) {
-        pinMode(_brakeLightPin, OUTPUT);
-    }
-    if (_backwardLightPin != -1) {
-        pinMode(_backwardLightPin, OUTPUT);
-    }
-    if (_motionMimic != nullptr) {
-        _motionMimic->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        if (_logging) {
-            writeInfo("Mimic initialized");
-        }
-        #endif
-    }
-    for (int i = 0; i < _objectRecognizerCount; i++) {
-        _objectRecognizer[i].recognizer->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        if (_logging) {
-            char log[100];
-            sprintf(log, "Object Recognizer \"%s\" initialized", _objectRecognizer[i].recognizer->getName());
-            writeInfo(log);
-        }
-        #endif
-    }
-    if (_laserCannon != nullptr) {
-        _laserCannon->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        if (_logging) {
-            writeInfo("Laser cannon initialized");
-        }
-        #endif
-    }
+    _initializeLightSensor();
+    _initializeFlashingLightLeft();
+    _initializeFlashingLightRight();
+    _initializeBrakeLight();
+    _initializeBackwardLight();
+    _initializeMotionMimic();
+    _initializeObjectRecognizer();
+    _initializeLaserCannon();
     _initialized = true;
     if (_logging) {
         char log[100];
@@ -574,3 +624,12 @@ void NGMotionUnitControl::setWarningLight(bool on) {
 void NGMotionUnitControl::beep() {
     _playJingleBeep();
 }
+
+void NGMotionUnitControl::testSequenceStart() {
+    _testSequenceStart();
+}
+
+void NGMotionUnitControl::testSequenceStop() {
+    _testSequenceStop();
+}
+
