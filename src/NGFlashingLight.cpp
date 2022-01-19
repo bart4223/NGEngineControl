@@ -15,26 +15,30 @@ NGFlashingLight::NGFlashingLight(byte pinFlashingLight, int interval) {
     _create(pinFlashingLight, interval);
 }
 
-NGFlashingLight::_create(byte pinFlashingLight, int interval) {
+void NGFlashingLight::_create(byte pinFlashingLight, int interval) {
     _pinFlashingLight = pinFlashingLight;
     _interval = interval;
     _flashing = false;
 }
 
+void NGFlashingLight::_switchFlashingLight(bool on) {
+    if (on) {
+        digitalWrite(_pinFlashingLight, HIGH);
+    } else {
+        digitalWrite(_pinFlashingLight, LOW);
+    }
+}
+
 void NGFlashingLight::initialize() {
     pinMode(_pinFlashingLight, OUTPUT);
-    digitalWrite(_pinFlashingLight, LOW);
+    _switchFlashingLight(false);
 }
 
 void NGFlashingLight::processingLoop() {
     unsigned long m = millis();
     if (_on && (m - _millis >= _interval)) {
         _flashing = !_flashing;
-        if (_flashing) {
-            digitalWrite(_pinFlashingLight, HIGH);
-        } else {
-            digitalWrite(_pinFlashingLight, LOW);
-        }
+        _switchFlashingLight(_flashing);
         _millis = m;
     }
 }
@@ -42,7 +46,7 @@ void NGFlashingLight::processingLoop() {
 void NGFlashingLight::setOn(bool on) {
     _on = on;
     if (!_on) {
-        digitalWrite(_pinFlashingLight, LOW);
+        _switchFlashingLight(_on);
     }
 }
 
@@ -52,4 +56,12 @@ bool NGFlashingLight::IsOn() {
 
 bool NGFlashingLight::ToogleOn() {
     setOn(!IsOn());
+}
+
+void NGFlashingLight::testSequenceStart() {
+    _switchFlashingLight(true);
+}
+
+void NGFlashingLight::testSequenceStop() {
+    _switchFlashingLight(false);
 }

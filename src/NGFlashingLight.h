@@ -14,9 +14,11 @@
 #include <WProgram.h>
 #endif
 
+#include "NGITestableComponent.h";
+
 #define DEFFLASHINGINTERVAL 1000
 
-class NGFlashingLight {
+class NGFlashingLight : public NGITestableComponent {
     
 private:
     byte _pinFlashingLight;
@@ -26,7 +28,9 @@ private:
     bool _on = false;
     
 protected:
-    _create(byte pinFlashingLight, int interval);
+    void _create(byte pinFlashingLight, int interval);
+    
+    void _switchFlashingLight(bool on);
     
 public:
     NGFlashingLight(byte pinFlashingLight);
@@ -42,6 +46,10 @@ public:
     bool ToogleOn();
     
     void processingLoop();
+    
+    void testSequenceStart();
+
+    void testSequenceStop();
 };
 
 #endif /* NGFlashingLight_h */

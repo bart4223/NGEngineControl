@@ -37,11 +37,39 @@ void NGOLEDNotification::_create(oledTechnology technology, byte address, int co
     _linefactor = linefactor;
 }
 
-void NGOLEDNotification::_write(char* value, int line, int column ) {
+void NGOLEDNotification::_write(char* value, int line, int column) {
+    int len = 0;
+    char text[100];
+    // Condense substrings (#...#)
     for (int i = 0; i < strlen(value); i++) {
+        if (value[i] == '(') {
+            if (i + 1 < strlen(value)) {
+                if (value[i + 1] == '#') {
+                    i++;
+                    for (int j = i; j < strlen(value); j++) {
+                        if (value[j] == '#') {
+                            if (j + 1 < strlen(value)) {
+                                if (value[j + 1] == ')') {
+                                    i = i + 2;
+                                    break;
+                                }
+                            }
+                        } else {
+                            i++;
+                        }
+                    }
+                }
+            }
+        } else {
+            text[len] = value[i];
+            len++;
+        }
+    }
+    text[len] = '\0';
+    for (int i = 0; i < len; i++) {
         int x = (column + i)%_columns;
         int y = line * _linefactor + (column + i) / _columns;
-        _display[y][x] = value[i];
+        _display[y][x] = text[i];
     }
     _render();
 }

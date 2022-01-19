@@ -206,9 +206,9 @@ void setup() {
   unitMotion.startUp();
   unitMotion.clearInfo();
   if (ms == msNone) {
-    unitMotion.writeInfo("#Error!#");
+    unitMotion.writeInfo("Error(#SOS#)!");
   } else {
-    unitMotion.writeInfo("#Hi folks#, moves...");
+    unitMotion.writeInfo("Hi folks(#Hello#), moves...");
   }
 }
 

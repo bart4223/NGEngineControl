@@ -94,6 +94,7 @@
 		2999D31E2792DC6E00B88B53 /* I2CScanner.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = I2CScanner.ino; sourceTree = "<group>"; };
 		2999D31F2794482600B88B53 /* NGMorseToneNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMorseToneNotification.cpp; sourceTree = "<group>"; };
 		2999D3202794482600B88B53 /* NGMorseToneNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMorseToneNotification.h; sourceTree = "<group>"; };
+		2999D3212794841C00B88B53 /* NGITestableComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGITestableComponent.h; sourceTree = "<group>"; };
 		299C0E1E26D7E7EC00F5A60D /* buggy.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = buggy.ino; sourceTree = "<group>"; };
 		299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSteeringControl.cpp; sourceTree = "<group>"; };
 		299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSteeringControl.h; sourceTree = "<group>"; };
@@ -232,6 +233,7 @@
 				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
 				29232B43277A17B800B85C8E /* NGStrings.h */,
 				29232B42277A17B800B85C8E /* NGStrings.cpp */,
+				2999D3212794841C00B88B53 /* NGITestableComponent.h */,
 			);
 			name = common;
 			sourceTree = "<group>";
