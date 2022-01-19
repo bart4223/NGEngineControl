@@ -107,23 +107,6 @@ void setup() {
   #if (PROD == true)
   unitMotion.registerRealTimeClock(&rtc);
   #endif
-  mimicScenario ms = msNone;
-  unitMotion.clearInfo();
-  #if (PROD == true)
-  unitMotion.writeInfo("Mimic Cave-Explorer?");
-  if (dlgQuestion.confirm()) {
-    unitMotion.beep();
-    ms = msCaveExplorer;
-  } else {
-    unitMotion.beep();
-    unitMotion.clearInfo();
-    unitMotion.writeInfo("Mimic Bot-Retriever?");
-    if (dlgQuestion.confirm()) {
-      ms = msBotRetriever;
-    }
-    unitMotion.beep();
-  }
-  #endif
   unitMotion.registerBoot(&jingleBoot);
   #if (PROD == true)
   if (rtc.isXMas()) {
@@ -145,7 +128,23 @@ void setup() {
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
   unitMotion.registerBackwardLight(PINBACKWARDLIGHT);
   unitMotion.registerLaserCannon(&lc);
+  mimicScenario ms = msNone;
   unitMotion.clearInfo();
+  #if (PROD == true)
+  unitMotion.writeInfo("Mimic Cave-Explorer?");
+  if (dlgQuestion.confirm()) {
+    unitMotion.beep();
+    ms = msCaveExplorer;
+  } else {
+    unitMotion.beep();
+    unitMotion.clearInfo();
+    unitMotion.writeInfo("Mimic Bot-Retriever?");
+    if (dlgQuestion.confirm()) {
+      ms = msBotRetriever;
+    }
+    unitMotion.beep();
+  }
+  #endif
   DEF_MOTION_SEQUENCE_START;
   switch (ms) {
     case msNone:
