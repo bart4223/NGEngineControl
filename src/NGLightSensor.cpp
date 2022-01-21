@@ -80,3 +80,16 @@ void NGLightSensor::determine() {
         }
     }
 }
+
+void NGLightSensor::testSequenceStart() {
+    initialize();
+    for (int i = 0; i < _thresholdCount; i++) {
+        digitalWrite(_thresholds[i].pin, HIGH);
+    }
+}
+
+void NGLightSensor::testSequenceStop() {
+    for (int i = 0; i < _thresholdCount; i++) {
+        digitalWrite(_thresholds[i].pin, LOW);
+    }
+}

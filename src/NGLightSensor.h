@@ -14,6 +14,8 @@
 #include <WProgram.h>
 #endif
 
+#include <NGITestableComponent.h>
+
 #define DEFPINLIGHTSENSOR A0
 #define MAXTHRESHOLDCOUNT 5
 #define DEFTHRESHOLDDELAY 2000
@@ -32,7 +34,7 @@ struct sensorThresholdStruct
 };
 typedef struct sensorThresholdStruct sensorThreshold;
 
-class NGLightSensor {
+class NGLightSensor : public NGITestableComponent {
 
 private:
     byte _pinSensor;
@@ -54,6 +56,10 @@ public:
     void registerThreshold(int threshold, thresholdLevel level, byte pin, thresholdValence valence, int delay);
     
     void determine();
+    
+    void testSequenceStart();
+    
+    void testSequenceStop();
 };
 
 #endif /* NGLightSensor_h */

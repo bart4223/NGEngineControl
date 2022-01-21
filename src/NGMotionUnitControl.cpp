@@ -176,6 +176,9 @@ void NGMotionUnitControl::_testSequenceStart() {
         _initializeBackwardLight();
         setBackwardLight(true);
     }
+    if (_lightSensor != nullptr) {
+        _lightSensor->testSequenceStart();
+    }
 }
 
 void NGMotionUnitControl::_testSequenceStop() {
@@ -195,6 +198,9 @@ void NGMotionUnitControl::_testSequenceStop() {
     if (_backwardLightPin != -1) {
         _initializeBackwardLight();
         setBackwardLight(false);
+    }
+    if (_lightSensor != nullptr) {
+        _lightSensor->testSequenceStop();
     }
 }
 
