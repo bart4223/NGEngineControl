@@ -1,7 +1,6 @@
 -Common
-  -NGMorseToneNotification
+  -Compass
   -customUnit
-    -TestSequence
 -Motoman
   -Common
     -TransportBox
