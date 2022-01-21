@@ -14,7 +14,9 @@
 #include <WProgram.h>
 #endif
 
-class NGLaserCannon {
+#include <NGITestableComponent.h>
+
+class NGLaserCannon : public NGITestableComponent {
 
 private:
     byte _pinLaserCannon;
@@ -33,6 +35,10 @@ public:
     void fireOff();
     
     bool isFire();
+    
+    void testSequenceStart();
+    
+    void testSequenceStop();
 };
 
 #endif /* NGLaserCannon_h */

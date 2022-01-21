@@ -63,6 +63,11 @@ void NGMotionUnitControl::_initializeCore() {
     _playJingleBoot();
     _initializeStreering();
     _steeringStop();
+    #ifdef NG_PLATFORM_MEGA
+    if (_logging) {
+        writeInfo("Core initialized");
+    }
+    #endif
 }
 
 void NGMotionUnitControl::_initializeLightSensor() {
@@ -160,6 +165,17 @@ void NGMotionUnitControl::_testSequenceStart() {
     if (_flashingLightRight != nullptr) {
         _flashingLightRight->testSequenceStart();
     }
+    if (_laserCannon != nullptr) {
+        _laserCannon->testSequenceStart();
+    }
+    if (_brakeLightPin != -1) {
+        _initializeBrakeLight();
+        setBrakeLight(true);
+    }
+    if (_backwardLightPin != -1) {
+        _initializeBackwardLight();
+        setBackwardLight(true);
+    }
 }
 
 void NGMotionUnitControl::_testSequenceStop() {
@@ -168,6 +184,17 @@ void NGMotionUnitControl::_testSequenceStop() {
     }
     if (_flashingLightRight != nullptr) {
         _flashingLightRight->testSequenceStop();
+    }
+    if (_laserCannon != nullptr) {
+        _laserCannon->testSequenceStop();
+    }
+    if (_brakeLightPin != -1) {
+        _initializeBrakeLight();
+        setBrakeLight(false);
+    }
+    if (_backwardLightPin != -1) {
+        _initializeBackwardLight();
+        setBackwardLight(false);
     }
 }
 
@@ -293,12 +320,10 @@ void NGMotionUnitControl::_processingMotionSequence() {
                 }
             }
             if (_motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem].direction == edBackward) {
-                if (_backwardLightPin != -1) {
-                    digitalWrite(_backwardLightPin, HIGH);
-                }
+                setBackwardLight(true);
                 _playJingleBackward();
             } else {
-                digitalWrite(_backwardLightPin, LOW);
+                setBackwardLight(false);
             }
         } else {
             _resetCurrentMotionSequence();
@@ -606,14 +631,24 @@ void NGMotionUnitControl::setFlashingLight(flashingLightSide side, bool on) {
             _flashingLightRight->setOn(on);
         }
     }
-    if (_brakeLightPin != -1) {
-        if (side == flsBrake) {
-            if (on) {
-                digitalWrite(_brakeLightPin, HIGH);
-            } else {
-                digitalWrite(_brakeLightPin, LOW);
-            }
-        }
+    if (_brakeLightPin != -1 && side == flsBrake) {
+        setBrakeLight(on);
+    }
+}
+
+void NGMotionUnitControl::setBrakeLight(bool on) {
+    if (on) {
+        digitalWrite(_brakeLightPin, HIGH);
+    } else {
+        digitalWrite(_brakeLightPin, LOW);
+    }
+}
+
+void NGMotionUnitControl::setBackwardLight(bool on) {
+    if (on) {
+        digitalWrite(_backwardLightPin, HIGH);
+    } else {
+        digitalWrite(_backwardLightPin, LOW);
     }
 }
 

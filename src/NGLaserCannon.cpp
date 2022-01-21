@@ -33,3 +33,12 @@ void NGLaserCannon::fireOff() {
 bool NGLaserCannon::isFire() {
     return _fire;
 }
+
+void NGLaserCannon::testSequenceStart() {
+    initialize();
+    fireOn();
+}
+
+void NGLaserCannon::testSequenceStop() {
+    fireOff();
+}

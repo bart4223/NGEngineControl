@@ -128,6 +128,7 @@ void setup() {
   unitMotion.registerBrakeLight(PINBRAKELIGHT);
   unitMotion.registerBackwardLight(PINBACKWARDLIGHT);
   unitMotion.registerLaserCannon(&lc);
+  #if (PROD == true)
   bool doTest = true;
   unitMotion.testSequenceStart();
   unitMotion.clearInfo();
@@ -137,6 +138,7 @@ void setup() {
   }
   unitMotion.beep();
   unitMotion.testSequenceStop();
+  #endif
   mimicScenario ms = msNone;
   unitMotion.clearInfo();
   #if (PROD == true)

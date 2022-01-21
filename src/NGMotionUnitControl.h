@@ -25,7 +25,7 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "3.4"
+#define _VERSION "3.5"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT    3
@@ -247,6 +247,10 @@ public:
     void requestData(byte* data);
     
     void setFlashingLight(flashingLightSide side, bool on);
+    
+    void setBrakeLight(bool on);
+    
+    void setBackwardLight(bool on);
     
     void setWarningLight(bool on);
     
