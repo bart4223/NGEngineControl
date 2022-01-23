@@ -9,14 +9,23 @@
 #include "NGCompass.h"
 
 NGCompass::NGCompass() {
-    _create(COMPASSADDRESS, COMPASSOSR_128, COMPASSRNG_2G, COMPASSODR_100HZ, COMPASSMODECONTINUOUS);
+    _create(cttQMC, QMCADDRESS, QMCOSR_128, QMCRNG_2G, QMCODR_100HZ, QMCMODECONTINUOUS);
+}
+
+NGCompass::NGCompass(compassTechnologyType type) {
+    _create(type, QMCADDRESS, QMCOSR_128, QMCRNG_2G, QMCODR_100HZ, QMCMODECONTINUOUS);
 }
 
 NGCompass::NGCompass(byte address) {
-    _create(address, COMPASSOSR_128, COMPASSRNG_2G, COMPASSODR_100HZ, COMPASSMODECONTINUOUS);
+    _create(cttQMC, address, QMCOSR_128, QMCRNG_2G, QMCODR_100HZ, QMCMODECONTINUOUS);
 }
 
-NGCompass::_create(byte address, byte sampleRate, byte range, byte dataRate, byte mode) {
+NGCompass::NGCompass(compassTechnologyType type, byte address) {
+    _create(type, address, QMCOSR_128, QMCRNG_2G, QMCODR_100HZ, QMCMODECONTINUOUS);
+}
+
+NGCompass::_create(compassTechnologyType type, byte address, byte sampleRate, byte range, byte dataRate, byte mode) {
+    _type = type;
     _address = address;
     _sampleRate = sampleRate;
     _range = range;
@@ -32,31 +41,77 @@ byte NGCompass::_writeRegister(byte reg, byte val) {
 }
 
 void NGCompass::_readData(int *x, int *y, int *z) {
-    Wire.beginTransmission(_address);
-    Wire.write(0x00);
-    Wire.endTransmission();
-    uint8_t a = _address;
-    uint8_t b = 6;
-    Wire.requestFrom(a, b);
-    *x = Wire.read();
-    *x |= Wire.read() << 8;
-    *y = Wire.read();
-    *y |= Wire.read() << 8;
-    *z = Wire.read();
-    *z |= Wire.read() << 8;
+    uint8_t adr = _address;
+    uint8_t len = 6;
+    switch (_type) {
+        case cttQMC:
+            Wire.beginTransmission(_address);
+            Wire.write(0x00);
+            Wire.endTransmission();
+            Wire.requestFrom(adr, len);
+            *x = Wire.read();
+            *x |= Wire.read() << 8;
+            *y = Wire.read();
+            *y |= Wire.read() << 8;
+            *z = Wire.read();
+            *z |= Wire.read() << 8;
+            break;
+        case cttHMC:
+            Wire.beginTransmission(_address);
+            Wire.write(HMCDATAREGISTERBEGIN);
+            Wire.endTransmission();
+            Wire.beginTransmission(_address);
+            
+            Wire.requestFrom(adr, len);
+            *x = Wire.read() << 8;
+            *x |= Wire.read();
+            *z = Wire.read() << 8;
+            *z |= Wire.read();
+            *y = Wire.read() << 8;
+            *y |= Wire.read();
+            Wire.endTransmission();
+            break;
+    }
 }
 
 void NGCompass::initialize() {
     Wire.begin();
-    _writeRegister(COMPASSREGISTER10, 0x80); // RESET
-    _writeRegister(COMPASSREGISTER09, _sampleRate | _range | _dataRate | _mode); // MODE
-    _writeRegister(COMPASSREGISTER11, 0x01); // SET/RESET-Period
+    switch (_type) {
+        case cttQMC:
+            _writeRegister(QMCREGISTER10, 0x80); // RESET
+            _writeRegister(QMCREGISTER09, _sampleRate | _range | _dataRate | _mode); // MODE
+            _writeRegister(QMCREGISTER11, 0x01); // SET/RESET-Period
+            break;
+        case cttHMC:
+            _writeRegister(HMCMODEREGISTER, HMCMEASUREMENTCONTINUOUS);
+            break;
+    }
+}
+
+void NGCompass::setDeclination(float declination) {
+    _declination = declination;
 }
 
 float NGCompass::getDirection() {
     int x, y, z;
+    float res;
     _readData(&x, &y, &z);
-    float res = -atan2(y, x) * 180.0 / PI;
-    return res + 180;
+    switch (_type) {
+        case cttQMC:
+            res = -atan2(y, x) * 180.0 / PI;
+            res += 180.0;
+            break;
+        case cttHMC:
+            res = atan2(y, x) + _declination;
+            if (res < 0) {
+                res += 2 * PI;
+            }
+            if (res > 2 * PI) {
+                res -= 2 * PI;
+            }
+            res = res * 180.0 / M_PI;
+            break;
+    }
+    return res;
 }
 
