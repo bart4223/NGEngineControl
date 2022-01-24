@@ -61,7 +61,6 @@ void NGCompass::_readData(int *x, int *y, int *z) {
             Wire.write(HMCDATAREGISTERBEGIN);
             Wire.endTransmission();
             Wire.beginTransmission(_address);
-            
             Wire.requestFrom(adr, len);
             *x = Wire.read() << 8;
             *x |= Wire.read();
@@ -109,9 +108,8 @@ float NGCompass::getDirection() {
             if (res > 2 * PI) {
                 res -= 2 * PI;
             }
-            res = res * 180.0 / M_PI;
+            res = res * 180.0 / PI;
             break;
     }
     return res;
 }
-
