@@ -1,6 +1,7 @@
 -Common
   -Compass
-  -customUnit
+  -TimeOfFlight
+  -Gyroscope
 -Motoman
   -Common
     -TransportBox
