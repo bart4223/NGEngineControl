@@ -25,7 +25,7 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "3.6"
+#define _VERSION "3.7"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT    3
@@ -77,7 +77,7 @@ typedef struct motionSequenceStruct motionSequence;
 class NGMotionUnitControl : public NGCustomUnitControl, NGITestableComponent {
 
 private:
-    NGSteeringControl *_steeringControl;
+    NGSteeringControl *_steeringControl = nullptr;
     NGSoundMachine *_soundMachine;
     int _jingleStartup = -1;
     int _jingleStartupLoops = 0;
@@ -105,7 +105,7 @@ private:
     NGLaserCannon *_laserCannon = nullptr;
 
 protected:
-    void _create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
+    void _create(char* name, byte address, int serialRate, NGSteeringControl *steeringControl);
     
     void _initializeCore();
     
@@ -125,7 +125,7 @@ protected:
     
     void _initializeLaserCannon();
     
-    void _initializeStreering();
+    void _initializeSteering();
 
     void _initializeSoundMachine();
     
@@ -191,6 +191,12 @@ public:
     NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight);
     
     NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
+    
+    NGMotionUnitControl(char* name, NGSteeringControl *steeringControl);
+    
+    NGMotionUnitControl(char* name, byte address, NGSteeringControl *steeringControl);
+    
+    NGMotionUnitControl(char* name, byte address, int serialRate, NGSteeringControl *steeringControl);
 
     void initialize();
     

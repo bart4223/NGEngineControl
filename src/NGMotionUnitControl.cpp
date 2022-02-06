@@ -13,41 +13,53 @@
 #include "NGMotionUnitControl.h"
 
 NGMotionUnitControl::NGMotionUnitControl() {
-    _create(NONAME, NOADDRESS, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET);
+    _create(NONAME, NOADDRESS, DEFAULTSERIALRATE, new NGSteeringControl(ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET));
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name) {
-    _create(name, NOADDRESS, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET);
+    _create(name, NOADDRESS, DEFAULTSERIALRATE, new NGSteeringControl(ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET));
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name, int offsetEngineLeft, int offsetEngineRight) {
-    _create(name, NOADDRESS, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, offsetEngineLeft, offsetEngineRight);
+    _create(name, NOADDRESS, DEFAULTSERIALRATE, new NGSteeringControl(ENGINE_0, ENGINE_1, offsetEngineLeft, offsetEngineRight));
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight) {
-    _create(name, NOADDRESS, DEFAULTSERIALRATE, engineLeft, engineRight, offsetEngineLeft, offsetEngineRight);
+    _create(name, NOADDRESS, DEFAULTSERIALRATE, new NGSteeringControl(engineLeft, engineRight, offsetEngineLeft, offsetEngineRight));
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name, byte address) {
-    _create(name, address, DEFAULTSERIALRATE, ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET);
+    _create(name, address, DEFAULTSERIALRATE, new NGSteeringControl(ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET));
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRate) {
-    _create(name, address, serialRate, ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET);
+    _create(name, address, serialRate, new NGSteeringControl(ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET));
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight) {
-    _create(name, address, serialRate, engineLeft, engineRight, ENGINENULLOFFSET, ENGINENULLOFFSET);
+    _create(name, address, serialRate, new NGSteeringControl(engineLeft, engineRight, ENGINENULLOFFSET, ENGINENULLOFFSET));
 }
 
 NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight) {
-    _create(name, address, serialRate, engineLeft, engineRight, offsetEngineLeft, offsetEngineRight);
+    _create(name, address, serialRate, new NGSteeringControl(engineLeft, engineRight, offsetEngineLeft, offsetEngineRight));
 }
 
-void NGMotionUnitControl::_create(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight) {
+NGMotionUnitControl::NGMotionUnitControl(char* name, NGSteeringControl *steeringControl) {
+    _create(name, NOADDRESS, DEFAULTSERIALRATE, steeringControl);
+}
+
+NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, NGSteeringControl *steeringControl) {
+    _create(name, address, DEFAULTSERIALRATE, steeringControl);
+}
+
+NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRate, NGSteeringControl *steeringControl) {
+    _create(name, address, serialRate, steeringControl);
+}
+
+void NGMotionUnitControl::_create(char* name, byte address, int serialRate, NGSteeringControl *steeringControl) {
     NGCustomUnitControl::_create(name, address, serialRate);
     _version = VERSION;
-    _steeringControl = new NGSteeringControl(engineLeft, engineRight, offsetEngineLeft, offsetEngineRight);
+    _steeringControl = steeringControl;
     _soundMachine = new NGSoundMachine();
     if (_address == NOADDRESS) {
         Wire.begin();
@@ -61,7 +73,7 @@ void NGMotionUnitControl::_create(char* name, byte address, int serialRate, int 
 void NGMotionUnitControl::_initializeCore() {
     _initializeSoundMachine();
     _playJingleBoot();
-    _initializeStreering();
+    _initializeSteering();
     _steeringStop();
     #ifdef NG_PLATFORM_MEGA
     if (_logging) {
@@ -154,7 +166,7 @@ void NGMotionUnitControl::_initializeSoundMachine() {
     _soundMachine->initialize();
 }
 
-void NGMotionUnitControl::_initializeStreering() {
+void NGMotionUnitControl::_initializeSteering() {
     _steeringControl->initialize();
 }
 
