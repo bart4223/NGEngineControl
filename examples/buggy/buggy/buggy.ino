@@ -19,6 +19,7 @@
 #include <NGMotionSequenceDefinitions.h>
 #include <NGContactObjectRecognizer.h>
 #include <NGUltrasonicObjectRecognizer.h>
+#include <NGVoidMotionMimic.h>
 #include <NGCaveExplorer.h>
 #include <NGBotRetriever.h>
 
@@ -71,7 +72,7 @@
 #define SPEEDCURVE    150
 #define SPEEDBACK     120
 
-enum mimicScenario {msNone, msCaveExplorer, msBotRetriever};
+enum mimicScenario {msVoid, msCaveExplorer, msBotRetriever};
 
 NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINE_2, ENGINE_1, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
 NGSerialNotification serialNotification = NGSerialNotification();
@@ -93,8 +94,6 @@ NGContactObjectRecognizer corLeft = NGContactObjectRecognizer(PINCORLEFT);
 NGContactObjectRecognizer corRight = NGContactObjectRecognizer(PINCORRIGHT);
 NGUltrasonicObjectRecognizer corUS = NGUltrasonicObjectRecognizer(PINULTRASONICTRIGGER, PINULTRASONICECHO, ULTRASONICMAXDISTANCE);
 NGLaserCannon lc = NGLaserCannon(PINLASERCANNON);
-NGCaveExplorer mimicCaveExplorer = NGCaveExplorer();
-NGBotRetriever mimicBotRetriever = NGBotRetriever();
 
 void setup() {
   setGlobalUnit(&unitMotion);
@@ -139,7 +138,7 @@ void setup() {
   unitMotion.beep();
   unitMotion.testSequenceStop();
   #endif
-  mimicScenario ms = msNone;
+  mimicScenario ms = msVoid;
   unitMotion.clearInfo();
   #if (PROD == true)
   unitMotion.writeInfo("Mimic Cave-Explorer?");
@@ -158,16 +157,18 @@ void setup() {
   #endif
   DEF_MOTION_SEQUENCE_START;
   switch (ms) {
-    case msNone:
-      unitMotion.writeInfo("No Mimic choosed!");
+    case msVoid:
+      unitMotion.writeInfo("Void Mimic choosed!");
+      unitMotion.registerMotionMimic(new NGVoidMotionMimic());
       break;
     case msCaveExplorer:
       unitMotion.writeInfo("...Mimic Cave-Explorer choosed");
       unitMotion.registerObjectRecognizer(ormpLeft, &corLeft);
       unitMotion.registerObjectRecognizer(ormpRight, &corRight);
       unitMotion.registerObjectRecognizer(ormpFront, &corUS);
-      mimicCaveExplorer.setBackwardCloseness(ULTRASONICMAXDISTANCE / 2);
-      unitMotion.registerMotionMimic(&mimicCaveExplorer);
+      NGCaveExplorer *mimicCaveExplorer = new NGCaveExplorer();
+      mimicCaveExplorer->setBackwardCloseness(ULTRASONICMAXDISTANCE / 2);
+      unitMotion.registerMotionMimic(mimicCaveExplorer);
       // forward
       DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
       DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 0);
@@ -191,7 +192,7 @@ void setup() {
       break;
     case msBotRetriever:
       unitMotion.writeInfo("...Mimic Bot-Retriever choosed");
-      unitMotion.registerMotionMimic(&mimicBotRetriever);
+      unitMotion.registerMotionMimic(new NGBotRetriever());
       // forward
       DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
       DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 2500);
@@ -215,8 +216,8 @@ void setup() {
   #endif
   unitMotion.startUp();
   unitMotion.clearInfo();
-  if (ms == msNone) {
-    unitMotion.writeInfo("Error(#SOS#)!");
+  if (ms == msVoid) {
+    unitMotion.writeInfo("Void scenario(#SOS#)!");
   } else {
     unitMotion.writeInfo("Hi folks(#Hello#), moves...");
   }

@@ -30,6 +30,8 @@ public:
     virtual bool correctNextMotionSequenceKind();
     
     virtual int thinkingDelay();
+    
+    virtual char* getName();
 };
 
 #endif /* NGCustomMotionMimic_h */

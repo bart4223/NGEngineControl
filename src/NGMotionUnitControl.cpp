@@ -11,6 +11,7 @@
 #include "NGMemoryObserver.h"
 #include "NGSteeringControl.h"
 #include "NGMotionUnitControl.h"
+#include "NGSimpleMotionControl.h"
 
 NGMotionUnitControl::NGMotionUnitControl() {
     _create(NONAME, NOADDRESS, DEFAULTSERIALRATE, new NGSteeringControl(ENGINE_0, ENGINE_1, ENGINENULLOFFSET, ENGINENULLOFFSET));
@@ -59,8 +60,9 @@ NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRat
 void NGMotionUnitControl::_create(char* name, byte address, int serialRate, NGSteeringControl *steeringControl) {
     NGCustomUnitControl::_create(name, address, serialRate);
     _version = VERSION;
-    _steeringControl = steeringControl;
     _soundMachine = new NGSoundMachine();
+    _motionControl = new NGSimpleMotionControl();
+    _steeringControl = steeringControl;
     if (_address == NOADDRESS) {
         Wire.begin();
     } else {
@@ -73,6 +75,7 @@ void NGMotionUnitControl::_create(char* name, byte address, int serialRate, NGSt
 void NGMotionUnitControl::_initializeCore() {
     _initializeSoundMachine();
     _playJingleBoot();
+    _initializeMotionControl();
     _initializeSteering();
     _steeringStop();
     #ifdef NG_PLATFORM_MEGA
@@ -127,15 +130,13 @@ void NGMotionUnitControl::_initializeBackwardLight() {
     }
 }
 
-void NGMotionUnitControl::_initializeMotionMimic() {
-    if (_motionMimic != nullptr) {
-        _motionMimic->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        if (_logging) {
-            writeInfo("Mimic initialized");
-        }
-        #endif
+void NGMotionUnitControl::_initializeMotionControl() {
+    _motionControl->initialize();
+    #ifdef NG_PLATFORM_MEGA
+    if (_logging) {
+        writeInfo("Motion Control initialized");
     }
+    #endif
 }
 
 void NGMotionUnitControl::_initializeObjectRecognizer() {
@@ -329,9 +330,9 @@ void NGMotionUnitControl::_processingMotionSequence() {
                 _currentMotionSequenceItemStarts = millis();
                 _processingMotionSequenceItem(_motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem]);
             } else {
-                int duraction = _motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem].duration;
-                if (duraction != 0) {
-                    if ((_currentMotionSequenceItemStarts + duraction) < millis()) {
+                int duration = _motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem].duration;
+                if (duration != 0) {
+                    if ((_currentMotionSequenceItemStarts + duration) < millis()) {
                         _currentMotionSequenceItem++;
                         _currentMotionSequenceItemStarts = 0;
                     }
@@ -354,11 +355,9 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
         case tdNone:
             if (item.direction == edNone) {
                 _steeringControl->stop();
-                if (_motionMimic != nullptr) {
-                    int count = _motionMimic->thinkingDelay();
-                    for (int i = 0; i < count; i++) {
-                        _playJingleThinking();
-                    }
+                int count = _motionControl->thinkingDelay();
+                for (int i = 0; i < count; i++) {
+                    _playJingleThinking();
                 }
             } else {
                 _steeringControl->run(item.direction, item.speed);
@@ -386,18 +385,18 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
 void NGMotionUnitControl::_determineCurrentMotionSequence() {
     bool newMotionSequence = true;
     if (_motionSequenceCount > 0) {
-        if (_motionMimic != nullptr) {
+        if (_motionControl->hasMotionMimic()) {
             int closeness = NONECONTACT;
             if (_firedObjectRecognizer >= 0) {
                 closeness = _objectRecognizer[_firedObjectRecognizer].recognizer->getCloseness();
-                newMotionSequence = _motionMimic->nextMotionSequenceNecessary(closeness);
+                newMotionSequence = _motionControl->nextMotionSequenceNecessary(closeness);
             } else if (_objectRecognizerCount == 0) {
-                newMotionSequence = _motionMimic->nextMotionSequenceNecessary(closeness);
+                newMotionSequence = _motionControl->nextMotionSequenceNecessary(closeness);
             }
             if (newMotionSequence) {
                 _resetCurrentMotionSequence();
-                motionSequenceKind kind = _motionMimic->determineNextMotionSequenceKind(closeness);
-                if (_firedObjectRecognizer >= 0 && _motionMimic->correctNextMotionSequenceKind()) {
+                motionSequenceKind kind = _motionControl->determineNextMotionSequenceKind(closeness);
+                if (_firedObjectRecognizer >= 0 && _motionControl->correctNextMotionSequenceKind()) {
                     switch(_objectRecognizer[_firedObjectRecognizer].mounted) {
                         case ormpLeft:
                             if (kind == mskLeft) {
@@ -470,7 +469,6 @@ void NGMotionUnitControl::initialize() {
     _initializeFlashingLightRight();
     _initializeBrakeLight();
     _initializeBackwardLight();
-    _initializeMotionMimic();
     _initializeObjectRecognizer();
     _initializeLaserCannon();
     _initialized = true;
@@ -590,7 +588,7 @@ void NGMotionUnitControl::registerJingleThinking(NGCustomJingle *jingle) {
 }
 
 void NGMotionUnitControl::registerMotionMimic(NGCustomMotionMimic *mimic) {
-    _motionMimic = mimic;
+    _motionControl->registerMotionMimic(mimic);
 }
 
 void NGMotionUnitControl::registerObjectRecognizer(NGCustomObjectRecognizer *recognizer) {

@@ -41,6 +41,8 @@ public:
     
     int thinkingDelay();
     
+    char* getName();
+    
     void setBackwardCloseness(int closeness);
 };
 

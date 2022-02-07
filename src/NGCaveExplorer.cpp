@@ -74,3 +74,7 @@ void NGCaveExplorer::setBackwardCloseness(int closeness) {
 bool NGCaveExplorer::nextMotionSequenceNecessary(int closeness) {
     return !_avoid || closeness == 0;
 }
+
+char* NGCaveExplorer::getName() {
+    return "CaveExplorer";
+}

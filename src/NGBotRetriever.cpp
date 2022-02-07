@@ -52,3 +52,7 @@ int NGBotRetriever::thinkingDelay() {
 bool NGBotRetriever::nextMotionSequenceNecessary(int closeness) {
     return _sequenceProcessed < 5;
 }
+
+char* NGBotRetriever::getName() {
+    return "BotRetriever";
+}

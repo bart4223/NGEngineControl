@@ -16,16 +16,17 @@
 
 #include <NGCommon.h>
 #include <NGCustomUnitControl.h>
+#include <NGCustomMotionControl.h>
+#include <NGCustomMotionMimic.h>
+#include <NGCustomObjectRecognizer.h>
 #include <NGSteeringControl.h>
 #include <NGSoundMachine.h>
 #include <NGCustomJingle.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
-#include <NGCustomMotionMimic.h>
-#include <NGCustomObjectRecognizer.h>
 
-#define _VERSION "3.7"
+#define _VERSION "3.8"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT    3
@@ -77,8 +78,9 @@ typedef struct motionSequenceStruct motionSequence;
 class NGMotionUnitControl : public NGCustomUnitControl, NGITestableComponent {
 
 private:
-    NGSteeringControl *_steeringControl = nullptr;
     NGSoundMachine *_soundMachine;
+    NGCustomMotionControl *_motionControl;
+    NGSteeringControl *_steeringControl = nullptr;
     int _jingleStartup = -1;
     int _jingleStartupLoops = 0;
     int _jingleBackward = -1;
@@ -96,7 +98,6 @@ private:
     byte _currentMotionSequenceItem = 0;
     int _brakeLightPin = -1;
     int _backwardLightPin = -1;
-    NGCustomMotionMimic *_motionMimic = nullptr;
     objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
     int _objectRecognizerCount = 0;
     int _firedObjectRecognizer = -1;
@@ -119,7 +120,7 @@ protected:
     
     void _initializeBackwardLight();
     
-    void _initializeMotionMimic();
+    void _initializeMotionControl();
     
     void _initializeObjectRecognizer();
     

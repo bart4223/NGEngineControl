@@ -1,12 +1,12 @@
 //
-//  NGBotRetriever.h
+//  NGVoidMotionMimic.h
 //  NGEngineControl
 //
-//  Created by Nils Grimmer on 09.11.21.
+//  Created by Nils Grimmer on 06.02.22.
 //
 
-#ifndef NGBotRetriever_h
-#define NGBotRetriever_h
+#ifndef NGVoidMotionMimic_h
+#define NGVoidMotionMimic_h
 
 #if (ARDUINO >= 100)
 #include <Arduino.h>
@@ -16,17 +16,13 @@
 
 #include "NGCustomMotionMimic.h"
 
-class NGBotRetriever : public NGCustomMotionMimic {
+class NGVoidMotionMimic : public NGCustomMotionMimic {
   
-private:
-    motionSequenceKind _lastKind = mskNone;
-    int _sequenceProcessed = 0;
-    
 protected:
     void _create();
     
 public:
-    NGBotRetriever();
+    NGVoidMotionMimic();
     
     void initialize();
     
@@ -38,9 +34,7 @@ public:
     
     int thinkingDelay();
     
-    char* getName();
-    
-    void setBackwardCloseness(int closeness);
+    char* getName();    
 };
 
-#endif /* NGBotRetriever_h */
+#endif /* NGVoidMotionMimic_h */
