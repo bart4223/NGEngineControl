@@ -141,14 +141,14 @@ void setup() {
   mimicScenario ms = msVoid;
   unitMotion.clearInfo();
   #if (PROD == true)
-  unitMotion.writeInfo("Mimic Cave-Explorer?");
+  unitMotion.writeInfo("Mimic \"Cave-Explorer\"?");
   if (dlgQuestion.confirm()) {
     unitMotion.beep();
     ms = msCaveExplorer;
   } else {
     unitMotion.beep();
     unitMotion.clearInfo();
-    unitMotion.writeInfo("Mimic Bot-Retriever?");
+    unitMotion.writeInfo("Mimic \"Bot-Retriever\"?");
     if (dlgQuestion.confirm()) {
       ms = msBotRetriever;
     }
@@ -158,11 +158,11 @@ void setup() {
   DEF_MOTION_SEQUENCE_START;
   switch (ms) {
     case msVoid:
-      unitMotion.writeInfo("Void Mimic choosed!");
+      unitMotion.writeInfo("\"Void\" Mimic choosed!");
       unitMotion.registerMotionMimic(new NGVoidMotionMimic());
       break;
     case msCaveExplorer:
-      unitMotion.writeInfo("...Mimic Cave-Explorer choosed");
+      unitMotion.writeInfo("...Mimic \"Cave-Explorer\" choosed");
       unitMotion.registerObjectRecognizer(ormpLeft, &corLeft);
       unitMotion.registerObjectRecognizer(ormpRight, &corRight);
       unitMotion.registerObjectRecognizer(ormpFront, &corUS);
@@ -191,7 +191,7 @@ void setup() {
       DEF_MOTION_SEQUENCE_END_RIGHT;
       break;
     case msBotRetriever:
-      unitMotion.writeInfo("...Mimic Bot-Retriever choosed");
+      unitMotion.writeInfo("...Mimic \"Bot-Retriever\" choosed");
       unitMotion.registerMotionMimic(new NGBotRetriever());
       // forward
       DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
@@ -217,7 +217,7 @@ void setup() {
   unitMotion.startUp();
   unitMotion.clearInfo();
   if (ms == msVoid) {
-    unitMotion.writeInfo("Void scenario(#SOS#)!");
+    unitMotion.writeInfo("\"Void\" scenario(#SOS#)!");
   } else {
     unitMotion.writeInfo("Hi folks(#Hello#), moves...");
   }

@@ -61,8 +61,7 @@ void NGMotionUnitControl::_create(char* name, byte address, int serialRate, NGSt
     NGCustomUnitControl::_create(name, address, serialRate);
     _version = VERSION;
     _soundMachine = new NGSoundMachine();
-    _motionControl = new NGSimpleMotionControl();
-    _steeringControl = steeringControl;
+    _motionControl = new NGSimpleMotionControl(steeringControl);
     if (_address == NOADDRESS) {
         Wire.begin();
     } else {
@@ -76,8 +75,6 @@ void NGMotionUnitControl::_initializeCore() {
     _initializeSoundMachine();
     _playJingleBoot();
     _initializeMotionControl();
-    _initializeSteering();
-    _steeringStop();
     #ifdef NG_PLATFORM_MEGA
     if (_logging) {
         writeInfo("Core initialized");
@@ -167,10 +164,6 @@ void NGMotionUnitControl::_initializeSoundMachine() {
     _soundMachine->initialize();
 }
 
-void NGMotionUnitControl::_initializeSteering() {
-    _steeringControl->initialize();
-}
-
 void NGMotionUnitControl::_testSequenceStart() {
     if (_flashingLightLeft != nullptr) {
         _flashingLightLeft->testSequenceStart();
@@ -219,10 +212,6 @@ void NGMotionUnitControl::_testSequenceStop() {
 
 void NGMotionUnitControl::_processingReceivedData() {
     
-}
-
-void NGMotionUnitControl::_steeringStop() {
-    _steeringControl->stop();
 }
 
 void NGMotionUnitControl::_resetCurrentMotionSequence() {
@@ -354,13 +343,13 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
     switch (item.turn) {
         case tdNone:
             if (item.direction == edNone) {
-                _steeringControl->stop();
+                _motionControl->steeringStop();
                 int count = _motionControl->thinkingDelay();
                 for (int i = 0; i < count; i++) {
                     _playJingleThinking();
                 }
             } else {
-                _steeringControl->run(item.direction, item.speed);
+                _motionControl->steeringRun(item.direction, item.speed);
             }
             break;
         case tdLeft:
@@ -368,9 +357,9 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
         case tdRight:
         case tdRightSoft:
             if (item.direction == edForward) {
-                _steeringControl->turnForward(item.turn);
+                _motionControl->steeringTurnForward(item.turn);
             } else if (item.direction == edBackward) {
-                _steeringControl->turnBackward(item.turn);
+                _motionControl->steeringTurnBackward(item.turn);
             }
             break;
     }
@@ -440,7 +429,7 @@ void NGMotionUnitControl::_determineMotionInterruption() {
         if (!_motionInterrupted) {
             if (!digitalRead(_motionInterruptionPin)) {
                 _motionInterrupted = true;
-                _steeringStop();
+                _motionControl->steeringStop();
                 beep();
                 #ifdef NG_PLATFORM_MEGA
                 clearInfo();
@@ -474,7 +463,7 @@ void NGMotionUnitControl::initialize() {
     _initialized = true;
     if (_logging) {
         char log[100];
-        sprintf(log, "...Unit \"%s\" with steering initialized", _name);
+        sprintf(log, "...Unit \"%s\" with motion control initialized", _name);
         writeInfo(log);
     }
     _writeState();

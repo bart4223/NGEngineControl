@@ -26,7 +26,7 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "3.8"
+#define _VERSION "3.9"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT    3
@@ -80,7 +80,6 @@ class NGMotionUnitControl : public NGCustomUnitControl, NGITestableComponent {
 private:
     NGSoundMachine *_soundMachine;
     NGCustomMotionControl *_motionControl;
-    NGSteeringControl *_steeringControl = nullptr;
     int _jingleStartup = -1;
     int _jingleStartupLoops = 0;
     int _jingleBackward = -1;
@@ -126,8 +125,6 @@ protected:
     
     void _initializeLaserCannon();
     
-    void _initializeSteering();
-
     void _initializeSoundMachine();
     
     void _testSequenceStart();
@@ -135,8 +132,6 @@ protected:
     void _testSequenceStop();
     
     void _processingReceivedData();
-    
-    void _steeringStop();
     
     void _resetCurrentMotionSequence();
     

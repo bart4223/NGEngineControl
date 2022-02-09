@@ -19,10 +19,10 @@
 class NGSimpleMotionControl : public NGCustomMotionControl {
   
 protected:
-    void _create();
+    void _create(NGSteeringControl *steeringControl);
     
 public:
-    NGSimpleMotionControl();
+    NGSimpleMotionControl(NGSteeringControl *steeringControl);
 };
 
 #endif /* NGSimpleMotionControl_hp */

@@ -18,6 +18,11 @@ void NGCustomMotionControl::_initializeMotionMimic() {
     }
 }
 
+void NGCustomMotionControl::_initializeSteering() {
+    _steeringControl->initialize();
+    steeringStop();
+}
+
 void NGCustomMotionControl::registerMotionMimic(NGCustomMotionMimic *mimic) {
     _motionMimic = mimic;
 }
@@ -27,6 +32,7 @@ bool NGCustomMotionControl::hasMotionMimic() {
 }
 
 void NGCustomMotionControl::initialize() {
+    _initializeSteering();
     _initializeMotionMimic();
 }
 
@@ -59,4 +65,20 @@ bool NGCustomMotionControl::correctNextMotionSequenceKind() {
     if (hasMotionMimic()) {
         res = _motionMimic->correctNextMotionSequenceKind();
     }return res;
+}
+
+void NGCustomMotionControl::steeringRun(engineDirection direction, int speed) {
+    _steeringControl->run(direction, speed);
+}
+
+void NGCustomMotionControl::steeringStop() {
+    _steeringControl->stop();
+}
+
+void NGCustomMotionControl::steeringTurnForward(turnDirection turn) {
+    _steeringControl->turnForward(turn);
+}
+
+void NGCustomMotionControl::steeringTurnBackward(turnDirection turn) {
+    _steeringControl->turnBackward(turn);
 }

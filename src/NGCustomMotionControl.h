@@ -16,17 +16,20 @@
 
 #include <NGCommon.h>
 #include <NGCustomMotionMimic.h>
+#include <NGSteeringControl.h>
 
 class NGCustomMotionControl {
   
-private:
-    NGCustomMotionMimic *_motionMimic = nullptr;
-    
 protected:
-    virtual void _create();
+    NGSteeringControl *_steeringControl;
+    NGCustomMotionMimic *_motionMimic = nullptr;
+
+    virtual void _create(NGSteeringControl *steeringControl);
     
     void _initializeMotionMimic();
     
+    void _initializeSteering();
+
 public:
     void registerMotionMimic(NGCustomMotionMimic *mimic);
     
@@ -41,6 +44,14 @@ public:
     motionSequenceKind determineNextMotionSequenceKind(int closeness);
     
     bool correctNextMotionSequenceKind();
+    
+    void steeringRun(engineDirection direction, int speed);
+    
+    void steeringStop();
+
+    void steeringTurnForward(turnDirection turn);
+    
+    void steeringTurnBackward(turnDirection turn);
 };
 
 #endif /* NGCustomMotionControl_h */
