@@ -26,7 +26,7 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "3.9"
+#define _VERSION "4.0"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT    3
@@ -105,7 +105,7 @@ private:
     NGLaserCannon *_laserCannon = nullptr;
 
 protected:
-    void _create(char* name, byte address, int serialRate, NGSteeringControl *steeringControl);
+    void _create(char* name, byte address, int serialRate, NGCustomMotionControl *motionControl);
     
     void _initializeCore();
     
@@ -176,23 +176,11 @@ public:
     
     NGMotionUnitControl(char* name);
     
-    NGMotionUnitControl(char* name, int offsetEngineLeft, int offsetEngineRight);
-                  
-    NGMotionUnitControl(char* name, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
+    NGMotionUnitControl(char* name, NGCustomMotionControl *motionControl);
     
-    NGMotionUnitControl(char* name, byte address);
+    NGMotionUnitControl(char* name, byte address, NGCustomMotionControl *motionControl);
     
-    NGMotionUnitControl(char* name, byte address, int serialRate);
-    
-    NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight);
-    
-    NGMotionUnitControl(char* name, byte address, int serialRate, int engineLeft, int engineRight, int offsetEngineLeft, int offsetEngineRight);
-    
-    NGMotionUnitControl(char* name, NGSteeringControl *steeringControl);
-    
-    NGMotionUnitControl(char* name, byte address, NGSteeringControl *steeringControl);
-    
-    NGMotionUnitControl(char* name, byte address, int serialRate, NGSteeringControl *steeringControl);
+    NGMotionUnitControl(char* name, byte address, int serialRate, NGCustomMotionControl *motionControl);
 
     void initialize();
     

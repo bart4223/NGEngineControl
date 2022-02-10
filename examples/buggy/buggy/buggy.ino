@@ -1,6 +1,7 @@
 #define PROD true //false,true
 
 #include <NGMotionUnitControl.h>
+#include <NGSimpleMotionControl.h>
 #include <NGRealTimeClock.h>
 #include <NGSerialNotification.h>
 #include <NGOLEDNotification.h>
@@ -74,7 +75,8 @@
 
 enum mimicScenario {msVoid, msCaveExplorer, msBotRetriever};
 
-NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, ENGINE_2, ENGINE_1, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT);
+NGCustomMotionControl *motionControl = new NGSimpleMotionControl(new NGSteeringControl(ENGINE_2, ENGINE_1, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT));
+NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, motionControl);
 NGSerialNotification serialNotification = NGSerialNotification();
 NGOLEDNotification *oledNotification;
 NGMorseToneNotification morseToneNotification = NGMorseToneNotification();
