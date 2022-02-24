@@ -17,10 +17,13 @@
 // GY-271 - QMC5883L
 // Control-Register 0x09, 0x0A and 0x0B
 
-#define QMCADDRESS      0x1E
+#define QMCADDRESS      0x0D
+
 #define QMCREGISTER09   0x09
 #define QMCREGISTER10   0x0A
 #define QMCREGISTER11   0x0B
+
+#define QMCRESET   0x80
 
 #define QMCMODESTANDBY      0x00
 #define QMCMODECONTINUOUS   0x01
@@ -51,6 +54,19 @@
 #define HMCMEASUREMENTSINGLESHOT    0x01
 #define HMCMEASUREMENTIDLE          0x03
 
+#define HMCODR_10HZ     0x00
+#define HMCODR_50HZ     0x04
+#define HMCODR_100HZ    0x08
+#define HMCODR_200HZ    0x0C
+
+#define HMCRNG_2G   0x00
+#define HMCRNG_8G   0x10
+
+#define HMCOSR_512  0x00
+#define HMCOSR_256  0x40
+#define HMCOSR_128  0x80
+#define HMCOSR_64   0xC0
+
 enum compassTechnologyType {cttQMC, cttHMC};
 
 class NGCompass {
@@ -62,7 +78,11 @@ private:
     byte _range;
     byte _dataRate;
     byte _mode;
+    int _directionOffset = 0;
     float _declination = 0.08203;
+    bool _useCalibration = false;
+    int _calibration[3][2];
+    int _calibrated[3];
     
 protected:
     _create(compassTechnologyType type, byte address, byte sampleRate, byte range, byte dataRate, byte mode);
@@ -83,6 +103,10 @@ public:
     void initialize();
     
     void setDeclination(float declination);
+    
+    void setDirectionOffset(int directionOffset);
+    
+    void setCalibration(int minX, int maxX, int minY, int maxY, int minZ, int maxZ);
     
     float getDirection();
 };

@@ -10,10 +10,16 @@
 #define OLEDLINEFACTOR 4
 
 NGOLEDNotification *oled;
-NGCompass cmp = NGCompass(cttHMC);
+NGCompass cmp = NGCompass(cttQMC);
 
 void setup() {
   cmp.initialize();
+  //Chipset 1
+  cmp.setCalibration(-633, 547, 0, 1850, -1532, 0);
+  cmp.setDirectionOffset(110);
+  //Chipset 2
+  //cmp.setCalibration(-582, 892, 0, 1865, -1845, 0);
+  //cmp.setDirectionOffset(110);
   oled = new NGOLEDNotification(ot128x64, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   oled->initialize();
 }
@@ -21,7 +27,7 @@ void setup() {
 void loop() {
   char log[100];
   int dir = cmp.getDirection();
-  sprintf(log, "Direction %d", dir);
+  sprintf(log, "Direction %d  ", dir);
   oled->writeInfo(log);
   Serial.println(log);
   observeMemory(DELAY);
