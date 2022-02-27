@@ -116,6 +116,9 @@
 		29B376252726816300D8780B /* NGCustomObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomObjectRecognizer.h; sourceTree = "<group>"; };
 		29B376262726FE7C00D8780B /* NGContactObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGContactObjectRecognizer.cpp; sourceTree = "<group>"; };
 		29B376272726FE7C00D8780B /* NGContactObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGContactObjectRecognizer.h; sourceTree = "<group>"; };
+		29B39E2127CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGTimeOfFlightObjectRecognizer.cpp; sourceTree = "<group>"; };
+		29B39E2227CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGTimeOfFlightObjectRecognizer.h; sourceTree = "<group>"; };
+		29B39E2427CBE3C0008507A2 /* timeofflight.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = timeofflight.ino; sourceTree = "<group>"; };
 		29B7A2C826C2E0D000D25BC8 /* motomanB5Central.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5Central.png; sourceTree = "<group>"; };
 		29B7A2C926C2E0F000D25BC8 /* motomanCentalUnit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanCentalUnit.png; sourceTree = "<group>"; };
 		29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMemoryObserver.cpp; sourceTree = "<group>"; };
@@ -274,6 +277,8 @@
 				29B376262726FE7C00D8780B /* NGContactObjectRecognizer.cpp */,
 				296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */,
 				296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */,
+				29B39E2227CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.h */,
+				29B39E2127CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.cpp */,
 			);
 			name = sensors;
 			sourceTree = "<group>";
@@ -432,6 +437,7 @@
 				29232B3B2779D53F00B85C8E /* duoLED */,
 				29F56DF027410D1D00BBBB68 /* contact */,
 				29F56DEE27410CCB00BBBB68 /* ultrasonic */,
+				29B39E2327CBE381008507A2 /* timeofflight */,
 				29EA905A275BAB8600F3C556 /* OLED */,
 				2999D31D2792DC4400B88B53 /* I2CScanner */,
 				29647BC9253C5F85003CBA13 /* simple */,
@@ -547,6 +553,14 @@
 				299C0E1E26D7E7EC00F5A60D /* buggy.ino */,
 			);
 			path = buggy;
+			sourceTree = "<group>";
+		};
+		29B39E2327CBE381008507A2 /* timeofflight */ = {
+			isa = PBXGroup;
+			children = (
+				29B39E2427CBE3C0008507A2 /* timeofflight.ino */,
+			);
+			path = timeofflight;
 			sourceTree = "<group>";
 		};
 		29D7EC31266CE5EC00009403 /* toolunit */ = {

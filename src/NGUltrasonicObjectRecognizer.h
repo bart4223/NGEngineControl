@@ -34,8 +34,6 @@ protected:
     void _create(byte pinTrigger, byte pinEcho, int minDistance, int maxDistance);
     
 public:
-    NGUltrasonicObjectRecognizer();
-    
     NGUltrasonicObjectRecognizer(byte pinTrigger, byte pinEcho, int maxDistance);
     
     NGUltrasonicObjectRecognizer(byte pinTrigger, byte pinEcho, int minDistance, int maxDistance);
