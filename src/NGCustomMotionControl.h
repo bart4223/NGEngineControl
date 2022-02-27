@@ -16,22 +16,59 @@
 
 #include <NGCommon.h>
 #include <NGCustomMotionMimic.h>
+#include <NGCustomObjectRecognizer.h>
 #include <NGSteeringControl.h>
+
+#ifdef NG_PLATFORM_MEGA
+#define MAXOBECTRECOGNIZERCOUNT    10
+#else
+#define MAXOBECTRECOGNIZERCOUNT    3
+#endif
+
+enum objectRecognizerMountedPosition {ormpNone, ormpLeft, ormpRight, ormpFront, ormpBack};
+
+struct objectRecognizerStruct
+{
+    objectRecognizerMountedPosition mounted;
+    NGCustomObjectRecognizer *recognizer;
+};
+typedef struct objectRecognizerStruct objectRecognizer;
 
 class NGCustomMotionControl {
   
 protected:
     NGSteeringControl *_steeringControl;
     NGCustomMotionMimic *_motionMimic = nullptr;
+    objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
+    int _objectRecognizerCount = 0;
+    int _firedObjectRecognizer = -1;
 
     virtual void _create(NGSteeringControl *steeringControl);
     
     void _initializeMotionMimic();
     
+    void _initializeObjectRecognizer();
+    
     void _initializeSteering();
 
+    void _processingObjectRecognizer();
+    
 public:
     void registerMotionMimic(NGCustomMotionMimic *mimic);
+    
+    void registerObjectRecognizer(NGCustomObjectRecognizer *recognizer);
+    
+    void registerObjectRecognizer(objectRecognizerMountedPosition mounted, NGCustomObjectRecognizer *recognizer);
+
+    int getObjectRecognizerCount();
+    
+    bool hasObjectRecognizer();
+    
+    bool hasFiredObjectRecognizer();
+    
+    int getFiredObjectRecognizerCloseness();
+    
+    objectRecognizerMountedPosition getFiredObjectRecognizerMountedPosition();
     
     bool hasMotionMimic();
 
@@ -52,6 +89,8 @@ public:
     void steeringTurnForward(turnDirection turn);
     
     void steeringTurnBackward(turnDirection turn);
+    
+    void processingLoop();
 };
 
 #endif /* NGCustomMotionControl_h */

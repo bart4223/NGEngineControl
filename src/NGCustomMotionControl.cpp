@@ -23,8 +23,61 @@ void NGCustomMotionControl::_initializeSteering() {
     steeringStop();
 }
 
+void NGCustomMotionControl::_initializeObjectRecognizer() {
+    for (int i = 0; i < _objectRecognizerCount; i++) {
+        _objectRecognizer[i].recognizer->initialize();
+        #ifdef NG_PLATFORM_MEGA
+        char log[100];
+        sprintf(log, "Object Recognizer \"%s\" initialized", _objectRecognizer[i].recognizer->getName());
+        Serial.println(log);
+        #endif
+    }
+}
+
+void NGCustomMotionControl::_processingObjectRecognizer() {
+    _firedObjectRecognizer = -1;
+    for (int i = 0; i < _objectRecognizerCount; i++) {
+        if (_objectRecognizer[i].recognizer->detected()) {
+            _firedObjectRecognizer = i;
+            break;
+        }
+    }
+}
+
 void NGCustomMotionControl::registerMotionMimic(NGCustomMotionMimic *mimic) {
     _motionMimic = mimic;
+}
+
+void NGCustomMotionControl::registerObjectRecognizer(NGCustomObjectRecognizer *recognizer) {
+    registerObjectRecognizer(ormpNone, recognizer);
+}
+
+void NGCustomMotionControl::registerObjectRecognizer(objectRecognizerMountedPosition mounted, NGCustomObjectRecognizer *recognizer) {
+    objectRecognizer objRec;
+    objRec.mounted = mounted;
+    objRec.recognizer = recognizer;
+    _objectRecognizer[_objectRecognizerCount] = objRec;
+    _objectRecognizerCount++;
+}
+
+int NGCustomMotionControl::getObjectRecognizerCount() {
+    return _objectRecognizerCount;
+}
+
+bool NGCustomMotionControl::hasObjectRecognizer() {
+    return _objectRecognizerCount > 0;
+}
+
+bool NGCustomMotionControl::hasFiredObjectRecognizer() {
+    return _firedObjectRecognizer >= 0;
+}
+
+int NGCustomMotionControl::getFiredObjectRecognizerCloseness() {
+    return _objectRecognizer[_firedObjectRecognizer].recognizer->getCloseness();
+}
+
+objectRecognizerMountedPosition NGCustomMotionControl::getFiredObjectRecognizerMountedPosition() {
+    return _objectRecognizer[_firedObjectRecognizer].mounted;
 }
 
 bool NGCustomMotionControl::hasMotionMimic() {
@@ -34,6 +87,7 @@ bool NGCustomMotionControl::hasMotionMimic() {
 void NGCustomMotionControl::initialize() {
     _initializeSteering();
     _initializeMotionMimic();
+    _initializeObjectRecognizer();
 }
 
 int NGCustomMotionControl::thinkingDelay() {
@@ -81,4 +135,8 @@ void NGCustomMotionControl::steeringTurnForward(turnDirection turn) {
 
 void NGCustomMotionControl::steeringTurnBackward(turnDirection turn) {
     _steeringControl->turnBackward(turn);
+}
+
+void NGCustomMotionControl::processingLoop() {
+    _processingObjectRecognizer();
 }

@@ -53,7 +53,9 @@ void NGMotionUnitControl::_initializeCore() {
     _initializeMotionControl();
     #ifdef NG_PLATFORM_MEGA
     if (_logging) {
-        writeInfo("Core initialized");
+        char log[100];
+        sprintf(log, "Core from unit \"%s\" initialized", _name);
+        writeInfo(log);
     }
     #endif
 }
@@ -110,19 +112,6 @@ void NGMotionUnitControl::_initializeMotionControl() {
         writeInfo("Motion Control initialized");
     }
     #endif
-}
-
-void NGMotionUnitControl::_initializeObjectRecognizer() {
-    for (int i = 0; i < _objectRecognizerCount; i++) {
-        _objectRecognizer[i].recognizer->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        if (_logging) {
-            char log[100];
-            sprintf(log, "Object Recognizer \"%s\" initialized", _objectRecognizer[i].recognizer->getName());
-            writeInfo(log);
-        }
-        #endif
-    }
 }
 
 void NGMotionUnitControl::_initializeLaserCannon() {
@@ -275,18 +264,12 @@ void NGMotionUnitControl::_processingFlashingLights() {
     }
 }
 
-void NGMotionUnitControl::_processingObjectRecognizer() {
-    _firedObjectRecognizer = -1;
-    for (int i = 0; i < _objectRecognizerCount; i++) {
-        if (_objectRecognizer[i].recognizer->detected()) {
-            _firedObjectRecognizer = i;
-            break;
-        }
-    }
+void NGMotionUnitControl::_processingMotionControl() {
+    _motionControl->processingLoop();
 }
 
 void NGMotionUnitControl::_processingMotionSequence() {
-    if (_currentMotionSequence == -1 || _firedObjectRecognizer != -1) {
+    if (_currentMotionSequence == -1 || _motionControl->hasFiredObjectRecognizer()) {
         _determineCurrentMotionSequence();
     }
     if (_currentMotionSequence >= 0) {
@@ -352,17 +335,17 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
     if (_motionSequenceCount > 0) {
         if (_motionControl->hasMotionMimic()) {
             int closeness = NONECONTACT;
-            if (_firedObjectRecognizer >= 0) {
-                closeness = _objectRecognizer[_firedObjectRecognizer].recognizer->getCloseness();
+            if (_motionControl->hasFiredObjectRecognizer()) {
+                closeness = _motionControl->getFiredObjectRecognizerCloseness();
                 newMotionSequence = _motionControl->nextMotionSequenceNecessary(closeness);
-            } else if (_objectRecognizerCount == 0) {
+            } else if (!_motionControl->hasObjectRecognizer()) {
                 newMotionSequence = _motionControl->nextMotionSequenceNecessary(closeness);
             }
             if (newMotionSequence) {
                 _resetCurrentMotionSequence();
                 motionSequenceKind kind = _motionControl->determineNextMotionSequenceKind(closeness);
-                if (_firedObjectRecognizer >= 0 && _motionControl->correctNextMotionSequenceKind()) {
-                    switch(_objectRecognizer[_firedObjectRecognizer].mounted) {
+                if (_motionControl->hasFiredObjectRecognizer() && _motionControl->correctNextMotionSequenceKind()) {
+                    switch(_motionControl->getFiredObjectRecognizerMountedPosition()) {
                         case ormpLeft:
                             if (kind == mskLeft) {
                                 kind = mskRight;
@@ -434,7 +417,6 @@ void NGMotionUnitControl::initialize() {
     _initializeFlashingLightRight();
     _initializeBrakeLight();
     _initializeBackwardLight();
-    _initializeObjectRecognizer();
     _initializeLaserCannon();
     _initialized = true;
     if (_logging) {
@@ -561,12 +543,8 @@ void NGMotionUnitControl::registerObjectRecognizer(NGCustomObjectRecognizer *rec
 }
 
 void NGMotionUnitControl::registerObjectRecognizer(objectRecognizerMountedPosition mounted, NGCustomObjectRecognizer *recognizer) {
-    if (_objectRecognizerCount < MAXOBECTRECOGNIZERCOUNT) {
-        objectRecognizer objRec;
-        objRec.mounted = mounted;
-        objRec.recognizer = recognizer;
-        _objectRecognizer[_objectRecognizerCount] = objRec;
-        _objectRecognizerCount++;
+    if (_motionControl->getObjectRecognizerCount() < MAXOBECTRECOGNIZERCOUNT) {
+        _motionControl->registerObjectRecognizer(mounted, recognizer);
     } else {
         _raiseException(ExceptionTooMuchObjectRecognizerCount);
     }
@@ -580,7 +558,7 @@ void NGMotionUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
     _processingLightSensor();
     _processingFlashingLights();
-    _processingObjectRecognizer();
+    _processingMotionControl();
     _determineMotionInterruption();
     if (!_motionInterrupted) {
         _processingMotionSequence();

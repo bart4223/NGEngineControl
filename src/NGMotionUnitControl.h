@@ -26,7 +26,7 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "4.0"
+#define _VERSION "4.1"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT    3
@@ -35,11 +35,9 @@
 #ifdef NG_PLATFORM_MEGA
 #define MAXMOTIONSEQUENCECOUNT     20
 #define MAXMOTIONSEQUENCEITEMCOUNT 5
-#define MAXOBECTRECOGNIZERCOUNT    10
 #else
 #define MAXMOTIONSEQUENCECOUNT     6
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
-#define MAXOBECTRECOGNIZERCOUNT    3
 #endif
 
 #define ExceptionTooMuchJingleCount             300
@@ -47,15 +45,7 @@
 #define ExceptionTooMuchMotionSequenceCount     302
 #define ExceptionTooMuchMotionSequenceItemCount 303
 
-enum objectRecognizerMountedPosition {ormpNone, ormpLeft, ormpRight, ormpFront, ormpBack};
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
-
-struct objectRecognizerStruct
-{
-    objectRecognizerMountedPosition mounted;
-    NGCustomObjectRecognizer *recognizer;
-};
-typedef struct objectRecognizerStruct objectRecognizer;
 
 struct motionSequenceItemStruct
 {
@@ -80,6 +70,14 @@ class NGMotionUnitControl : public NGCustomUnitControl, NGITestableComponent {
 private:
     NGSoundMachine *_soundMachine;
     NGCustomMotionControl *_motionControl;
+    NGLightSensor *_lightSensor = nullptr;
+    NGFlashingLight *_flashingLightLeft = nullptr;
+    NGFlashingLight *_flashingLightRight = nullptr;
+    NGLaserCannon *_laserCannon = nullptr;
+    bool _motionInterrupted = false;
+    int _motionInterruptionPin = -1;
+    int _brakeLightPin = -1;
+    int _backwardLightPin = -1;
     int _jingleStartup = -1;
     int _jingleStartupLoops = 0;
     int _jingleBackward = -1;
@@ -87,22 +85,11 @@ private:
     int _jingleThinking = -1;
     int _jingleBoot = -1;
     int _jingleBeep = -1;
-    NGLightSensor *_lightSensor = nullptr;
-    NGFlashingLight *_flashingLightLeft = nullptr;
-    NGFlashingLight *_flashingLightRight = nullptr;
     motionSequence _motionSequence[MAXMOTIONSEQUENCECOUNT];
     int _motionSequenceCount = 0;
     int _currentMotionSequence = -1;
     long int _currentMotionSequenceItemStarts = 0;
     byte _currentMotionSequenceItem = 0;
-    int _brakeLightPin = -1;
-    int _backwardLightPin = -1;
-    objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
-    int _objectRecognizerCount = 0;
-    int _firedObjectRecognizer = -1;
-    bool _motionInterrupted = false;
-    int _motionInterruptionPin = -1;
-    NGLaserCannon *_laserCannon = nullptr;
 
 protected:
     void _create(char* name, byte address, int serialRate, NGCustomMotionControl *motionControl);
@@ -120,8 +107,6 @@ protected:
     void _initializeBackwardLight();
     
     void _initializeMotionControl();
-    
-    void _initializeObjectRecognizer();
     
     void _initializeLaserCannon();
     
@@ -161,7 +146,7 @@ protected:
     
     void _processingFlashingLights();
     
-    void _processingObjectRecognizer();
+    void _processingMotionControl();
     
     void _processingMotionSequence();
     
