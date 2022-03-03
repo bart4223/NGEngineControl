@@ -1,11 +1,12 @@
 -Common
-  -Gyroscope
 -Motoman
   -Common
     -TransportBox
   -centralUnit
   -toolUnit
   -motionUnit
+    -CustomMotionControl
+        -CompassMotionControl
     -I2C
 -Buggy
   -Common

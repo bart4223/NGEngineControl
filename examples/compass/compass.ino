@@ -20,6 +20,12 @@ void setup() {
   //Chipset 2
   //cmp.setCalibration(-582, 892, 0, 1865, -1845, 0);
   //cmp.setDirectionOffset(110);
+  //Chipset 3
+  //cmp.setCalibration(-687, 875, -1256, 1093, -1947, 0);
+  //cmp.setDirectionOffset(0);
+  //Chipset 4
+  //cmp.setCalibration(-1148, 646, -1102, 767, -1851, 0);
+  //cmp.setDirectionOffset(0);
   oled = new NGOLEDNotification(ot128x64, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   oled->initialize();
 }

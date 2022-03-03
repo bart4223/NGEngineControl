@@ -119,6 +119,9 @@
 		29B39E2127CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGTimeOfFlightObjectRecognizer.cpp; sourceTree = "<group>"; };
 		29B39E2227CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGTimeOfFlightObjectRecognizer.h; sourceTree = "<group>"; };
 		29B39E2427CBE3C0008507A2 /* timeofflight.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = timeofflight.ino; sourceTree = "<group>"; };
+		29B39E2527CBF1C4008507A2 /* NGGyroscope.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGyroscope.cpp; sourceTree = "<group>"; };
+		29B39E2627CBF1C4008507A2 /* NGGyroscope.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGyroscope.h; sourceTree = "<group>"; };
+		29B39E2827CBF599008507A2 /* gyroscope.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = gyroscope.ino; sourceTree = "<group>"; };
 		29B7A2C826C2E0D000D25BC8 /* motomanB5Central.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5Central.png; sourceTree = "<group>"; };
 		29B7A2C926C2E0F000D25BC8 /* motomanCentalUnit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanCentalUnit.png; sourceTree = "<group>"; };
 		29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMemoryObserver.cpp; sourceTree = "<group>"; };
@@ -271,6 +274,8 @@
 				29232B3E277A0FB300B85C8E /* NGTemperatureSensor.cpp */,
 				29FD43C2278A0A7E00EAF0D9 /* NGCompass.h */,
 				29FD43C1278A0A7E00EAF0D9 /* NGCompass.cpp */,
+				29B39E2627CBF1C4008507A2 /* NGGyroscope.h */,
+				29B39E2527CBF1C4008507A2 /* NGGyroscope.cpp */,
 				29B376252726816300D8780B /* NGCustomObjectRecognizer.h */,
 				29B376242726816300D8780B /* NGCustomObjectRecognizer.cpp */,
 				29B376272726FE7C00D8780B /* NGContactObjectRecognizer.h */,
@@ -432,6 +437,7 @@
 				29F56DEA27410C1A00BBBB68 /* lightsensor */,
 				29232B40277A13F600B85C8E /* temperaturesensor */,
 				29FD43C3278A0B5800EAF0D9 /* compass */,
+				29B39E2727CBF56E008507A2 /* gyroscope */,
 				29F56DEC27410C6900BBBB68 /* flashinglight */,
 				29F56DF227410D5900BBBB68 /* lasercannon */,
 				29232B3B2779D53F00B85C8E /* duoLED */,
@@ -561,6 +567,14 @@
 				29B39E2427CBE3C0008507A2 /* timeofflight.ino */,
 			);
 			path = timeofflight;
+			sourceTree = "<group>";
+		};
+		29B39E2727CBF56E008507A2 /* gyroscope */ = {
+			isa = PBXGroup;
+			children = (
+				29B39E2827CBF599008507A2 /* gyroscope.ino */,
+			);
+			path = gyroscope;
 			sourceTree = "<group>";
 		};
 		29D7EC31266CE5EC00009403 /* toolunit */ = {
