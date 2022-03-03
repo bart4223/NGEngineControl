@@ -21,7 +21,7 @@ void NGGyroscope::_readData() {
     Wire.beginTransmission(_address);
     Wire.write(0x3B);
     Wire.endTransmission(false);
-    Wire.requestFrom(adr, len, true);
+    Wire.requestFrom(adr, len);
     for (int i = 0; i < 3; i++) {
         _accelerator[i] = Wire.read() << 8 | Wire.read();
         int accCorr = _accelerator[i] - ACCELOFFSET;
