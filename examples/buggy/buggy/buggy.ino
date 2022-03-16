@@ -1,4 +1,4 @@
-#define PROD true //false,true
+#define PROD false //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSimpleMotionControl.h>
@@ -28,10 +28,24 @@
 #define MOTION            (char*)_MOTION
 #define MOTIONADDRESS     0x21
 
+#if (PROD == true)
+#define OLED64
+#else
+#define OLED32
+#endif
+
 #define OLEDADDRESS       0x3C
 #define OLEDCOLUMNS       16
+#ifdef OLED64
+#define OLEDTYPE          ot128x64
 #define OLEDLINES         8
 #define OLEDLINEFACTOR    4
+#endif
+#ifdef OLED32
+#define OLEDTYPE          ot128x32
+#define OLEDLINES         4
+#define OLEDLINEFACTOR    2
+#endif
 
 #define PINLIGHTSENSOR          A0
 #define PINSTARTUP              A1
@@ -101,7 +115,7 @@ void setup() {
   setGlobalUnit(&unitMotion);
   unitMotion.registerBeep(&jingleBeep);
   unitMotion.registerNotification(&serialNotification);
-  oledNotification = new NGOLEDNotification(OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
+  oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitMotion.registerNotification(oledNotification);
   unitMotion.registerNotification(&morseToneNotification);
   rtc.initialize();

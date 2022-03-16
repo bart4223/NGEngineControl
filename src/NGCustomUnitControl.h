@@ -14,6 +14,7 @@
 #include <WProgram.h>
 #endif
 
+#include <NGExceptionDefinitions.h>
 #include <NGCustomNotification.h>
 #include <NGRealTimeClock.h>
 
@@ -77,9 +78,6 @@
 #define CMDOGripperGrip       0x01
 #define CMDOGripperRelease    0x02
 #define CMDOGripperSimulate   0x03
-
-#define ExceptionUnknown                   1
-#define ExceptionTooMuchNotificationCount 10
 
 enum workMode { wmNone, wmObserveMemory, wmCommand, wmSpec };
 

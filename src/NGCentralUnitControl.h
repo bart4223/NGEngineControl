@@ -14,6 +14,7 @@
 #include <WProgram.h>
 #endif
 
+#include <NGExceptionDefinitions.h>
 #include <NGCustomUnitControl.h>
 
 #define _VERSION "1.5"
@@ -52,13 +53,6 @@
 #define IRC_APPLE_DOWN  0x0D
 #define IRC_APPLE_OK    0x5D
 #define IRC_APPLE_PLAY  0x5E
-
-#define ExceptionTooMuchUnitCount                   100
-#define ExceptionTooMuchComponentCount              101
-#define ExceptionTooMuchIRFuncCount                 102
-#define ExceptionTooMuchMotionProfileCount          103
-#define ExceptionTooMuchMotionProfileComponentCount 104
-#define ExceptionTooMuchMotionProfileItemCount      105
 
 enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
 

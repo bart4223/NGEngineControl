@@ -82,6 +82,7 @@
 		296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltrasonicObjectRecognizer.h; sourceTree = "<group>"; };
 		296CD4E8272ED298003E27DA /* buggyC1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1a.png; sourceTree = "<group>"; };
 		296CD4E9272ED298003E27DA /* buggyC1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1.png; sourceTree = "<group>"; };
+		2977D31427DE0DE400F538B3 /* NGExceptionDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGExceptionDefinitions.h; sourceTree = "<group>"; };
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
@@ -245,6 +246,7 @@
 				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
 				29232B43277A17B800B85C8E /* NGStrings.h */,
 				29232B42277A17B800B85C8E /* NGStrings.cpp */,
+				2977D31427DE0DE400F538B3 /* NGExceptionDefinitions.h */,
 				2999D3212794841C00B88B53 /* NGITestableComponent.h */,
 			);
 			name = common;

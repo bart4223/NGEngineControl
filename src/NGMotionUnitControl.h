@@ -15,6 +15,7 @@
 #endif
 
 #include <NGCommon.h>
+#include <NGExceptionDefinitions.h>
 #include <NGCustomUnitControl.h>
 #include <NGCustomMotionControl.h>
 #include <NGCustomMotionMimic.h>
@@ -26,7 +27,7 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "4.1"
+#define _VERSION "4.2"
 #define VERSION (char*)_VERSION
 
 #define DEFSTARTUPLOOPSCOUNT    3
@@ -39,11 +40,6 @@
 #define MAXMOTIONSEQUENCECOUNT     6
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 #endif
-
-#define ExceptionTooMuchJingleCount             300
-#define ExceptionTooMuchObjectRecognizerCount   301
-#define ExceptionTooMuchMotionSequenceCount     302
-#define ExceptionTooMuchMotionSequenceItemCount 303
 
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
 
