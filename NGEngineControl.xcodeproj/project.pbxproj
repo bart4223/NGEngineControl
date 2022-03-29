@@ -125,6 +125,9 @@
 		29B39E2827CBF599008507A2 /* gyroscope.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = gyroscope.ino; sourceTree = "<group>"; };
 		29B7A2C826C2E0D000D25BC8 /* motomanB5Central.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5Central.png; sourceTree = "<group>"; };
 		29B7A2C926C2E0F000D25BC8 /* motomanCentalUnit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanCentalUnit.png; sourceTree = "<group>"; };
+		29D60E8B27F32D8E00FCA53A /* NGSoilMoistureSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSoilMoistureSensor.cpp; sourceTree = "<group>"; };
+		29D60E8C27F32D8E00FCA53A /* NGSoilMoistureSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSoilMoistureSensor.h; sourceTree = "<group>"; };
+		29D60E8E27F339ED00FCA53A /* soilmoisturesensor.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = soilmoisturesensor.ino; sourceTree = "<group>"; };
 		29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMemoryObserver.cpp; sourceTree = "<group>"; };
 		29D7EC30266BF4E400009403 /* NGMemoryObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMemoryObserver.h; sourceTree = "<group>"; };
 		29D7EC32266CE63000009403 /* toolunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = toolunit.ino; sourceTree = "<group>"; };
@@ -148,6 +151,11 @@
 		29DAAB9A27B02DD1000E56F1 /* NGVoidMotionMimic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGVoidMotionMimic.h; sourceTree = "<group>"; };
 		29DAAB9B27B03057000E56F1 /* NGSimpleMotionControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSimpleMotionControl.cpp; sourceTree = "<group>"; };
 		29DAAB9C27B03057000E56F1 /* NGSimpleMotionControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSimpleMotionControl.h; sourceTree = "<group>"; };
+		29E24C7527F33D8B0009F0CF /* irrigationsystem.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = irrigationsystem.ino; sourceTree = "<group>"; };
+		29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGIrrigationUnitControl.cpp; sourceTree = "<group>"; };
+		29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIrrigationUnitControl.h; sourceTree = "<group>"; };
+		29E24C7827F3889D0009F0CF /* NGPumpControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGPumpControl.cpp; sourceTree = "<group>"; };
+		29E24C7927F3889D0009F0CF /* NGPumpControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGPumpControl.h; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
 		29EA905B275BABCA00F3C556 /* OLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = OLED.ino; sourceTree = "<group>"; };
 		29EA905C275D22E300F3C556 /* buggyC2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC2.png; sourceTree = "<group>"; };
@@ -263,6 +271,8 @@
 				29D7EC3D2673D0A000009403 /* NGCentralUnitControl.cpp */,
 				2913C94F27033B8600D0AFC6 /* NGMotionUnitControl.h */,
 				2913C94E27033B8600D0AFC6 /* NGMotionUnitControl.cpp */,
+				29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */,
+				29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -274,6 +284,8 @@
 				2913C94827018CD900D0AFC6 /* NGLightSensor.cpp */,
 				29232B3F277A0FB300B85C8E /* NGTemperatureSensor.h */,
 				29232B3E277A0FB300B85C8E /* NGTemperatureSensor.cpp */,
+				29D60E8C27F32D8E00FCA53A /* NGSoilMoistureSensor.h */,
+				29D60E8B27F32D8E00FCA53A /* NGSoilMoistureSensor.cpp */,
 				29FD43C2278A0A7E00EAF0D9 /* NGCompass.h */,
 				29FD43C1278A0A7E00EAF0D9 /* NGCompass.cpp */,
 				29B39E2627CBF1C4008507A2 /* NGGyroscope.h */,
@@ -423,6 +435,8 @@
 				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
 				29232B45277CBE6D00B85C8E /* NGRelaisControl.h */,
 				29232B44277CBE6D00B85C8E /* NGRelaisControl.cpp */,
+				29E24C7927F3889D0009F0CF /* NGPumpControl.h */,
+				29E24C7827F3889D0009F0CF /* NGPumpControl.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -438,6 +452,7 @@
 				29232B562780CB6500B85C8E /* morsetonegenerator */,
 				29F56DEA27410C1A00BBBB68 /* lightsensor */,
 				29232B40277A13F600B85C8E /* temperaturesensor */,
+				29D60E8D27F339C000FCA53A /* soilmoisturesensor */,
 				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29B39E2727CBF56E008507A2 /* gyroscope */,
 				29F56DEC27410C6900BBBB68 /* flashinglight */,
@@ -453,6 +468,7 @@
 				29165F302549692B001D9497 /* profiles */,
 				29E6BA59263C6030007BCE9F /* motoman */,
 				299C0E1B26D75CCE00F5A60D /* buggy */,
+				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
 			);
 			path = examples;
 			sourceTree = "<group>";
@@ -579,6 +595,22 @@
 			path = gyroscope;
 			sourceTree = "<group>";
 		};
+		29D60E8D27F339C000FCA53A /* soilmoisturesensor */ = {
+			isa = PBXGroup;
+			children = (
+				29D60E8E27F339ED00FCA53A /* soilmoisturesensor.ino */,
+			);
+			path = soilmoisturesensor;
+			sourceTree = "<group>";
+		};
+		29D60E8F27F33C1000FCA53A /* irrigationsystem */ = {
+			isa = PBXGroup;
+			children = (
+				29E24C7427F33D5F0009F0CF /* irrigationsystem */,
+			);
+			path = irrigationsystem;
+			sourceTree = "<group>";
+		};
 		29D7EC31266CE5EC00009403 /* toolunit */ = {
 			isa = PBXGroup;
 			children = (
@@ -601,6 +633,14 @@
 				29D7EC4226750DEE00009403 /* motionunit.ino */,
 			);
 			path = motionunit;
+			sourceTree = "<group>";
+		};
+		29E24C7427F33D5F0009F0CF /* irrigationsystem */ = {
+			isa = PBXGroup;
+			children = (
+				29E24C7527F33D8B0009F0CF /* irrigationsystem.ino */,
+			);
+			path = irrigationsystem;
 			sourceTree = "<group>";
 		};
 		29E6BA59263C6030007BCE9F /* motoman */ = {
