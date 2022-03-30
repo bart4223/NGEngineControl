@@ -46,16 +46,43 @@ void NGIrrigationUnitControl::_processingStartupLoop() {
 
 }
 
+void NGIrrigationUnitControl::_pumpOn(int pump) {
+    _pumps[pump]->on();
+}
+
+void NGIrrigationUnitControl::_pumpOff(int pump) {
+    _pumps[pump]->off();
+}
+
+bool NGIrrigationUnitControl::_isPumpOn(int pump) {
+    return _pumps[pump]->isOn();
+}
+
+int NGIrrigationUnitControl::_getsoilMoistureSensorHumidity(int soilMoistureSensor) {
+    return _soilMoisureSensors[soilMoistureSensor]->getHumidity();
+}
+
 void NGIrrigationUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     _initializePumps();
 }
 
-void NGIrrigationUnitControl::registerPump(byte pinPump) {
+int NGIrrigationUnitControl::registerPump(byte pinPump) {
+    int res = _pumpCount;
     if (_pumpCount < MAXPUMPCOUNT) {
         _pumps[_pumpCount] = new NGPumpControl(pinPump);
         _pumpCount++;
     }
+    return res;
+}
+
+int NGIrrigationUnitControl::registerSoilMoistureSensor(byte pinSoilMoistureSensor) {
+    int res = _soilMoistureSensorCount;
+    if (_soilMoistureSensorCount < MAXSOILMOISTURESENSORCOUNT) {
+        _soilMoisureSensors[_soilMoistureSensorCount] = new NGSoilMoistureSensor(pinSoilMoistureSensor);
+        _soilMoistureSensorCount++;
+    }
+    return res;
 }
 
 void NGIrrigationUnitControl::processingLoop() {

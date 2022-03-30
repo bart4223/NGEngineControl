@@ -14,6 +14,7 @@
 #define OLEDLINEFACTOR    2
 
 #define PINSOILMOISTURESENSOR   A0
+#define PINPUMP   9
 
 NGIrrigationUnitControl unitIrrigation = NGIrrigationUnitControl(IRRIGATION);
 NGSerialNotification serialNotification = NGSerialNotification();
@@ -27,6 +28,8 @@ void setup() {
   unitIrrigation.registerNotification(oledNotification);
   rtc.initialize(true); //One times!!!
   unitIrrigation.registerRealTimeClock(&rtc);
+  int sms = unitIrrigation.registerSoilMoistureSensor(PINSOILMOISTURESENSOR);
+  int pump = unitIrrigation.registerPump(PINPUMP);
   unitIrrigation.initialize();
   unitIrrigation.setWorkMode(wmObserveMemory);
   unitIrrigation.startUp();

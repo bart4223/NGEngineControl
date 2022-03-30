@@ -16,17 +16,21 @@
 
 #include <NGCustomUnitControl.h>
 #include <NGPumpControl.h>
+#include <NGSoilMoistureSensor.h>
 
 #define _VERSION "0.1"
 #define VERSION (char*)_VERSION
 
 #define MAXPUMPCOUNT 3
+#define MAXSOILMOISTURESENSORCOUNT 3
 
 class NGIrrigationUnitControl : public NGCustomUnitControl {
 
 private:
     NGPumpControl *_pumps[MAXPUMPCOUNT];
+    NGSoilMoistureSensor *_soilMoisureSensors[MAXSOILMOISTURESENSORCOUNT];
     int _pumpCount = 0;
+    int _soilMoistureSensorCount = 0;
     
 protected:
     void _create(char* name, byte address, int serialRate);
@@ -36,6 +40,14 @@ protected:
     void _processingReceivedData();
     
     void _processingStartupLoop();
+    
+    void _pumpOn(int pump);
+    
+    void _pumpOff(int pump);
+    
+    bool _isPumpOn(int pump);
+    
+    int _getsoilMoistureSensorHumidity(int soilMoistureSensor);
     
 public:
     NGIrrigationUnitControl();
@@ -48,7 +60,9 @@ public:
 
     void initialize();
     
-    void registerPump(byte pinPump);
+    int registerPump(byte pinPump);
+
+    int registerSoilMoistureSensor(byte pinSoilMoistureSensor);
 
     void processingLoop();
     

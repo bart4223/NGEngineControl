@@ -19,7 +19,7 @@
 class NGPumpControl {
 
 private:
-    NGRelaisControl *_pump;
+    NGRelaisControl *_relais;
 
 protected:
     _create(byte pinPump);

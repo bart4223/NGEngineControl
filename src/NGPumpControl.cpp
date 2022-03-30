@@ -12,22 +12,22 @@ NGPumpControl::NGPumpControl(byte pinPump) {
 }
 
 NGPumpControl::_create(byte pinPump) {
-    _pump = new NGRelaisControl(pinPump);
+    _relais = new NGRelaisControl(pinPump);
 }
 
 void NGPumpControl::initialize() {
-    _pump->initialize();
+    _relais->initialize();
     off();
 }
 
 void NGPumpControl::off() {
-    _pump->off();
+    _relais->off();
 }
 
 void NGPumpControl::on() {
-    _pump->on();
+    _relais->on();
 }
 
 bool NGPumpControl::isOn() {
-    return _pump->isOn();
+    return _relais->isOn();
 }
