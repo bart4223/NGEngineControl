@@ -157,6 +157,7 @@
 		29E24C7827F3889D0009F0CF /* NGPumpControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGPumpControl.cpp; sourceTree = "<group>"; };
 		29E24C7927F3889D0009F0CF /* NGPumpControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGPumpControl.h; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
+		29E71C9127F76DE80046A707 /* pumpcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = pumpcontrol.ino; sourceTree = "<group>"; };
 		29EA905B275BABCA00F3C556 /* OLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = OLED.ino; sourceTree = "<group>"; };
 		29EA905C275D22E300F3C556 /* buggyC2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC2.png; sourceTree = "<group>"; };
 		29EA905D275F387A00F3C556 /* NGOLEDNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGOLEDNotification.cpp; sourceTree = "<group>"; };
@@ -447,6 +448,7 @@
 				29F56DF427410DBE00BBBB68 /* first */,
 				29EA90612763333100F3C556 /* questiondialog */,
 				29232B46277CBFB400B85C8E /* relaiscontrol */,
+				29E71C9027F76DC90046A707 /* pumpcontrol */,
 				29232B4B277D8BC200B85C8E /* realtimeclock */,
 				29F56DE827410B3C00BBBB68 /* soundmachine */,
 				29232B562780CB6500B85C8E /* morsetonegenerator */,
@@ -666,6 +668,14 @@
 				29E6BA5A263C6070007BCE9F /* motomanB3.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		29E71C9027F76DC90046A707 /* pumpcontrol */ = {
+			isa = PBXGroup;
+			children = (
+				29E71C9127F76DE80046A707 /* pumpcontrol.ino */,
+			);
+			path = pumpcontrol;
 			sourceTree = "<group>";
 		};
 		29EA905A275BAB8600F3C556 /* OLED */ = {
