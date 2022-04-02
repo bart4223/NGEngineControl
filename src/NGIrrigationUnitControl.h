@@ -18,7 +18,7 @@
 #include <NGPumpControl.h>
 #include <NGSoilMoistureSensor.h>
 
-#define _VERSION "0.1"
+#define _VERSION "0.2"
 #define VERSION (char*)_VERSION
 
 #define MAXPUMPCOUNT 3
@@ -31,6 +31,7 @@ private:
     NGSoilMoistureSensor *_soilMoisureSensors[MAXSOILMOISTURESENSORCOUNT];
     int _pumpCount = 0;
     int _soilMoistureSensorCount = 0;
+    long int _durationSecond = 0;
     
 protected:
     void _create(char* name, byte address, int serialRate);
@@ -59,6 +60,8 @@ public:
     NGIrrigationUnitControl(char* name, byte address, int serialRate);
 
     void initialize();
+    
+    long int startUp();
     
     int registerPump(byte pinPump);
 

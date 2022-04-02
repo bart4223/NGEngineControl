@@ -107,6 +107,8 @@ protected:
     
     void _writeState();
     
+    void _writeTime();
+    
     void _raiseException(int id);
     
     virtual void _processingReceivedData();

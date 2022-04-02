@@ -424,7 +424,6 @@ void NGMotionUnitControl::initialize() {
         sprintf(log, "...Unit \"%s\" with motion control initialized", _name);
         writeInfo(log);
     }
-    _writeState();
 }
 
 long int NGMotionUnitControl::startUp() {

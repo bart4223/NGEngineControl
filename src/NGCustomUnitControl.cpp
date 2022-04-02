@@ -49,6 +49,46 @@ void NGCustomUnitControl::_create(char* name, byte address, int serialRate) {
     _logging = true;
 }
 
+void NGCustomUnitControl::_clearState() {
+    for (int i = 0; i < _notificationCount; i++ ) {
+        _notification[i]->clear(1);
+    }
+}
+
+void NGCustomUnitControl::_writeState() {
+    char state[100];
+    _clearState();
+    #ifdef NG_PLATFORM_MEGA
+    if (_rtc != nullptr) {
+        sprintf(state, "%s %s wM%d (C) by NG 2021-%s", _name, _version, _workMode, _rtc->getShortYearAsText());
+    } else {
+        sprintf(state, "%s %s wM%d (C) by NG MMXXII", _name, _version, _workMode);
+    }
+    #else
+    sprintf(state, "%s %s wM%d", _name, _version, _workMode);
+    #endif
+    if (_rtc != nullptr) {
+        sprintf(state, "%s %s", state, _rtc->getDateAsText());
+    }
+    for (int i = 0; i < _notificationCount; i++ ) {
+        _notification[i]->writeInfo(state, 1, 0);
+    }
+}
+
+void NGCustomUnitControl::_writeTime() {
+    if (_rtc != nullptr) {
+        writeInfo(_rtc->getTimeAsText());
+    }
+}
+
+void NGCustomUnitControl::_raiseException(int id) {
+    char info[100];
+    clearInfo();
+    _exceptionCount++;
+    sprintf(info, "Ex %d(%d)", id, _exceptionCount);
+    writeInfo(info);
+}
+
 void NGCustomUnitControl::initialize() {
     if (_pinStartup != -1) {
         pinMode(_pinStartup, INPUT_PULLUP);
@@ -56,6 +96,7 @@ void NGCustomUnitControl::initialize() {
 }
 
 long int NGCustomUnitControl::startUp() {
+    _writeState();
     observeMemory(0);
     if (_pinStartup != -1) {
         while(digitalRead(_pinStartup)) {
@@ -70,7 +111,7 @@ void NGCustomUnitControl::processingLoop() {
 }
 
 void NGCustomUnitControl::setWorkMode(workMode workmode) {
-    if (_workMode = workmode) {
+    if (_workMode != workmode) {
         _workMode = workmode;
         _writeState();
     }
@@ -116,40 +157,6 @@ void NGCustomUnitControl::receivedData(int index, byte data) {
 void NGCustomUnitControl::receiveDataFinish(int count) {
     _receivingData = false;
     _receivedDataCount = count;
-}
-
-void NGCustomUnitControl::_clearState() {
-    for (int i = 0; i < _notificationCount; i++ ) {
-        _notification[i]->clear(1);
-    }
-}
-
-void NGCustomUnitControl::_writeState() {
-    char state[100];
-    _clearState();
-    #ifdef NG_PLATFORM_MEGA
-    if (_rtc != nullptr) {
-        sprintf(state, "%s %s wM%d (C) by NG 2021-%s", _name, _version, _workMode, _rtc->getShortYearAsText());
-    } else {
-        sprintf(state, "%s %s wM%d (C) by NG MMXXII", _name, _version, _workMode);
-    }
-    #else
-    sprintf(state, "%s %s wM%d", _name, _version, _workMode);
-    #endif
-    if (_rtc != nullptr) {
-        sprintf(state, "%s %s", state, _rtc->getDateAsText());
-    }
-    for (int i = 0; i < _notificationCount; i++ ) {
-        _notification[i]->writeInfo(state, 1, 0);
-    }
-}
-
-void NGCustomUnitControl::_raiseException(int id) {
-    char info[100];
-    clearInfo();
-    _exceptionCount++;
-    sprintf(info, "Ex %d(%d)", id, _exceptionCount);
-    writeInfo(info);
 }
 
 void NGCustomUnitControl::clearInfo() {

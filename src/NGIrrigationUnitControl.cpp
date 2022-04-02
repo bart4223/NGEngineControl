@@ -67,11 +67,21 @@ void NGIrrigationUnitControl::initialize() {
     _initializePumps();
 }
 
+long int NGIrrigationUnitControl::startUp() {
+    _durationSecond = NGCustomUnitControl::startUp();
+    return _durationSecond;
+}
+
 int NGIrrigationUnitControl::registerPump(byte pinPump) {
     int res = _pumpCount;
     if (_pumpCount < MAXPUMPCOUNT) {
         _pumps[_pumpCount] = new NGPumpControl(pinPump);
         _pumpCount++;
+    }
+    if (_logging) {
+        char log[100];
+        sprintf(log, "Pump %d registered", res);
+        writeInfo(log);
     }
     return res;
 }
@@ -82,11 +92,21 @@ int NGIrrigationUnitControl::registerSoilMoistureSensor(byte pinSoilMoistureSens
         _soilMoisureSensors[_soilMoistureSensorCount] = new NGSoilMoistureSensor(pinSoilMoistureSensor);
         _soilMoistureSensorCount++;
     }
+    if (_logging) {
+        char log[100];
+        sprintf(log, "Soil Sensor %d registered", res);
+        writeInfo(log);
+    }
     return res;
 }
 
 void NGIrrigationUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
+    // 1s
+    if ((millis() - _durationSecond) >= 1000) {
+        _durationSecond = millis();
+        _writeTime();
+    }
     switch (_workMode) {
         case wmNone:
             break;

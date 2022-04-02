@@ -1,3 +1,5 @@
+#define PROD true //false,true
+
 #include <NGIrrigationUnitControl.h>
 #include <NGRealTimeClock.h>
 #include <NGSerialNotification.h>
@@ -26,12 +28,16 @@ void setup() {
   unitIrrigation.registerNotification(&serialNotification);
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitIrrigation.registerNotification(oledNotification);
-  rtc.initialize(true); //One times!!!
+  rtc.initialize();
   unitIrrigation.registerRealTimeClock(&rtc);
   int sms = unitIrrigation.registerSoilMoistureSensor(PINSOILMOISTURESENSOR);
   int pump = unitIrrigation.registerPump(PINPUMP);
   unitIrrigation.initialize();
+  #if (PROD == true)
+  unitIrrigation.setWorkMode(wmNone);
+  #else
   unitIrrigation.setWorkMode(wmObserveMemory);
+  #endif
   unitIrrigation.startUp();
   unitIrrigation.clearInfo();
 }
