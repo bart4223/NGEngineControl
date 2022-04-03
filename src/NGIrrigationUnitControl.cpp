@@ -55,16 +55,6 @@ void NGIrrigationUnitControl::_procesingSecondTick() {
 
 void NGIrrigationUnitControl::_procesingIrrigation() {
     for (int i = 0; i < _irrigationCount; i++) {
-        unsigned long interval = _irrigation[i].measuringInterval;
-        if ((_irrigation[i].rtLastMeasuring == 0) || ((millis() - _irrigation[i].rtLastMeasuring) >= interval * 1000)) {
-            if (_logging) {
-                char log[100];
-                sprintf(log, "Irrigation %d measure", i);
-                writeInfo(log);
-            }
-            _irrigationMeasure(i);
-            _irrigation[i].rtLastMeasuring = millis();
-        }
         if (_irrigation[i].rtLastPumpOn != 0) {
             unsigned long interval = _irrigation[i].wateringTime;
             if ((millis() - _irrigation[i].rtLastPumpOn) >= interval * 1000) {
@@ -80,6 +70,16 @@ void NGIrrigationUnitControl::_procesingIrrigation() {
                     writeInfo(log);
                 }
             }
+        }
+        unsigned long interval = _irrigation[i].measuringInterval;
+        if ((_irrigation[i].rtLastPumpOn == 0) && ((_irrigation[i].rtLastMeasuring == 0) || ((millis() - _irrigation[i].rtLastMeasuring) >= interval * 1000))) {
+            if (_logging) {
+                char log[100];
+                sprintf(log, "Irrigation %d measure", i);
+                writeInfo(log);
+            }
+            _irrigationMeasure(i);
+            _irrigation[i].rtLastMeasuring = millis();
         }
     }
 }
