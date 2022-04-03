@@ -47,7 +47,7 @@ private:
     int _soilMoistureSensorCount = 0;
     irrigationData _irrigation[MAXIRRIGATIONCOUNT];
     int _irrigationCount = 0;
-    unsigned long _durationSecond = 0;
+    unsigned long _secondTick = 0;
     
 protected:
     void _create(char* name, byte address, int serialRate);

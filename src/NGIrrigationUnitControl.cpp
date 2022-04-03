@@ -47,8 +47,8 @@ void NGIrrigationUnitControl::_processingStartupLoop() {
 }
 
 void NGIrrigationUnitControl::_procesingSecondTick() {
-    if ((millis() - _durationSecond) >= 1000) {
-        _durationSecond = millis();
+    if ((millis() - _secondTick) >= 1000) {
+        _secondTick = millis();
         _writeTime();
     }
 }
@@ -128,8 +128,8 @@ void NGIrrigationUnitControl::initialize() {
 }
 
 long int NGIrrigationUnitControl::startUp() {
-    _durationSecond = NGCustomUnitControl::startUp();
-    return _durationSecond;
+    _secondTick = NGCustomUnitControl::startUp();
+    return _secondTick;
 }
 
 int NGIrrigationUnitControl::registerIrrigation(byte pinPump, byte pinSoilMoistureSensor, int measuringInterval, int wateringTime, int desiccationThreshold) {
