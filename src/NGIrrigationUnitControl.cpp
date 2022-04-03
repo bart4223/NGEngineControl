@@ -49,29 +49,60 @@ void NGIrrigationUnitControl::_processingStartupLoop() {
 void NGIrrigationUnitControl::_procesingSecondTick() {
     if ((millis() - _durationSecond) >= 1000) {
         _durationSecond = millis();
-        if (_doClearInfo) {
-            clearInfo();
-            _doClearInfo = false;
-        }
         _writeTime();
     }
 }
 
 void NGIrrigationUnitControl::_procesingIrrigation() {
     for (int i = 0; i < _irrigationCount; i++) {
-        if (_irrigation[i].rtLastMeasuring == 0) {
-            _irrigation[i].rtLastMeasuring = millis();
-        }
-        if ((millis() - _irrigation[i].rtLastMeasuring) >= _irrigation[i].measuringInterval * 1000) {
-            _irrigation[i].rtLastMeasuring = millis();
-            //_irrigation[i].rtLastPumpOn = millis();
+        unsigned long interval = _irrigation[i].measuringInterval;
+        if ((_irrigation[i].rtLastMeasuring == 0) || ((millis() - _irrigation[i].rtLastMeasuring) >= interval * 1000)) {
             if (_logging) {
                 char log[100];
-                sprintf(log, "Irrigation %d fired", i);
+                sprintf(log, "Irrigation %d measure", i);
                 writeInfo(log);
             }
-            _doClearInfo = true;
+            _irrigationMeasure(i);
+            _irrigation[i].rtLastMeasuring = millis();
         }
+        if (_irrigation[i].rtLastPumpOn != 0) {
+            unsigned long interval = _irrigation[i].wateringTime;
+            if ((millis() - _irrigation[i].rtLastPumpOn) >= interval * 1000) {
+                _pumpOff(_irrigation[i].pump);
+                _irrigation[i].rtLastPumpOn = 0;
+                if (_logging) {
+                    char log[100];
+                    char *s;
+                    if (_rtc != nullptr) {
+                        s = _rtc->getTimeAsText();
+                    }
+                    sprintf(log, "%s Irr %d hum %d pumpoff", s, i, _getsoilMoistureSensorHumidity(_irrigation[i].soilMoistureSensor));
+                    writeInfo(log);
+                }
+            }
+        }
+    }
+}
+
+void NGIrrigationUnitControl::_irrigationMeasure(int irrigation) {
+    char info[100];
+    int humidity =_getsoilMoistureSensorHumidity(_irrigation[irrigation].soilMoistureSensor);
+    if (humidity > _irrigation[irrigation].desiccationThreshold) {
+        _irrigation[irrigation].rtLastPumpOn = millis();
+        _irrigation[irrigation].rtLastDesiccationHumidity = humidity;
+        _pumpOn(_irrigation[irrigation].pump);
+        sprintf(info, "pump on");
+    } else {
+        sprintf(info, "not dry");
+    }
+    if (_logging) {
+        char log[100];
+        char *s;
+        if (_rtc != nullptr) {
+            s = _rtc->getTimeAsText();
+        }
+        sprintf(log, "%s Irr %d hum %d %s", s, irrigation, humidity, info);
+        writeInfo(log);
     }
 }
 
@@ -111,6 +142,8 @@ int NGIrrigationUnitControl::registerIrrigation(byte pinPump, byte pinSoilMoistu
         id.wateringTime = wateringTime;
         id.desiccationThreshold = desiccationThreshold;
         id.rtLastMeasuring = 0;
+        id.rtLastPumpOn = 0;
+        id.rtLastDesiccationHumidity = 0;
         _irrigation[_irrigationCount] = id;
         _irrigationCount++;
     } else {
