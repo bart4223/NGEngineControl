@@ -18,20 +18,36 @@
 #include <NGPumpControl.h>
 #include <NGSoilMoistureSensor.h>
 
-#define _VERSION "0.2"
+#define _VERSION "0.3"
 #define VERSION (char*)_VERSION
 
-#define MAXPUMPCOUNT 3
-#define MAXSOILMOISTURESENSORCOUNT 3
+#define MAXIRRIGATIONCOUNT 3
+#define MAXPUMPCOUNT MAXIRRIGATIONCOUNT
+#define MAXSOILMOISTURESENSORCOUNT MAXIRRIGATIONCOUNT
+
+struct irrigationDataStruct
+{
+    int soilMoistureSensor;
+    int pump;
+    int measuringInterval; //seconds
+    int wateringTime; //seconds
+    int desiccationThreshold;
+    long int rtLastMeasuring;
+    long int rtLastPumpOn;
+};
+typedef struct irrigationDataStruct irrigationData;
 
 class NGIrrigationUnitControl : public NGCustomUnitControl {
 
 private:
     NGPumpControl *_pumps[MAXPUMPCOUNT];
-    NGSoilMoistureSensor *_soilMoisureSensors[MAXSOILMOISTURESENSORCOUNT];
     int _pumpCount = 0;
+    NGSoilMoistureSensor *_soilMoisureSensors[MAXSOILMOISTURESENSORCOUNT];
     int _soilMoistureSensorCount = 0;
+    irrigationData _irrigation[MAXIRRIGATIONCOUNT];
+    int _irrigationCount = 0;
     long int _durationSecond = 0;
+    bool _doClearInfo = false;
     
 protected:
     void _create(char* name, byte address, int serialRate);
@@ -42,6 +58,10 @@ protected:
     
     void _processingStartupLoop();
     
+    void _procesingSecondTick();
+
+    void _procesingIrrigation();
+
     void _pumpOn(int pump);
     
     void _pumpOff(int pump);
@@ -62,6 +82,8 @@ public:
     void initialize();
     
     long int startUp();
+    
+    int registerIrrigation(byte pinPump, byte pinSoilMoistureSensor, int measuringInterval, int wateringTime, int desiccationThreshold);
     
     int registerPump(byte pinPump);
 

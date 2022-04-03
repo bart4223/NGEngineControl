@@ -30,8 +30,7 @@ void setup() {
   unitIrrigation.registerNotification(oledNotification);
   rtc.initialize();
   unitIrrigation.registerRealTimeClock(&rtc);
-  int sms = unitIrrigation.registerSoilMoistureSensor(PINSOILMOISTURESENSOR);
-  int pump = unitIrrigation.registerPump(PINPUMP);
+  unitIrrigation.registerIrrigation(PINPUMP, PINSOILMOISTURESENSOR, 5, 1, 250);
   unitIrrigation.initialize();
   #if (PROD == true)
   unitIrrigation.setWorkMode(wmNone);

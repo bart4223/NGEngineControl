@@ -46,6 +46,35 @@ void NGIrrigationUnitControl::_processingStartupLoop() {
 
 }
 
+void NGIrrigationUnitControl::_procesingSecondTick() {
+    if ((millis() - _durationSecond) >= 1000) {
+        _durationSecond = millis();
+        if (_doClearInfo) {
+            clearInfo();
+            _doClearInfo = false;
+        }
+        _writeTime();
+    }
+}
+
+void NGIrrigationUnitControl::_procesingIrrigation() {
+    for (int i = 0; i < _irrigationCount; i++) {
+        if (_irrigation[i].rtLastMeasuring == 0) {
+            _irrigation[i].rtLastMeasuring = millis();
+        }
+        if ((millis() - _irrigation[i].rtLastMeasuring) >= _irrigation[i].measuringInterval * 1000) {
+            _irrigation[i].rtLastMeasuring = millis();
+            //_irrigation[i].rtLastPumpOn = millis();
+            if (_logging) {
+                char log[100];
+                sprintf(log, "Irrigation %d fired", i);
+                writeInfo(log);
+            }
+            _doClearInfo = true;
+        }
+    }
+}
+
 void NGIrrigationUnitControl::_pumpOn(int pump) {
     _pumps[pump]->on();
 }
@@ -70,6 +99,24 @@ void NGIrrigationUnitControl::initialize() {
 long int NGIrrigationUnitControl::startUp() {
     _durationSecond = NGCustomUnitControl::startUp();
     return _durationSecond;
+}
+
+int NGIrrigationUnitControl::registerIrrigation(byte pinPump, byte pinSoilMoistureSensor, int measuringInterval, int wateringTime, int desiccationThreshold) {
+    byte res = _irrigationCount;
+    if (_irrigationCount < MAXIRRIGATIONCOUNT) {
+        irrigationData id;
+        id.pump = registerPump(pinPump);
+        id.soilMoistureSensor = registerSoilMoistureSensor(pinSoilMoistureSensor);
+        id.measuringInterval = measuringInterval;
+        id.wateringTime = wateringTime;
+        id.desiccationThreshold = desiccationThreshold;
+        id.rtLastMeasuring = 0;
+        _irrigation[_irrigationCount] = id;
+        _irrigationCount++;
+    } else {
+        _raiseException(ExceptionTooMuchIrrigationCount);
+    }
+    return res;
 }
 
 int NGIrrigationUnitControl::registerPump(byte pinPump) {
@@ -102,11 +149,8 @@ int NGIrrigationUnitControl::registerSoilMoistureSensor(byte pinSoilMoistureSens
 
 void NGIrrigationUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
-    // 1s
-    if ((millis() - _durationSecond) >= 1000) {
-        _durationSecond = millis();
-        _writeTime();
-    }
+    _procesingSecondTick();
+    _procesingIrrigation();
     switch (_workMode) {
         case wmNone:
             break;

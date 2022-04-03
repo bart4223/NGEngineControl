@@ -23,4 +23,6 @@
 #define ExceptionTooMuchMotionSequenceCount         302
 #define ExceptionTooMuchMotionSequenceItemCount     303
 
+#define ExceptionTooMuchIrrigationCount             400
+
 #endif /* NGExceptionDefinitions_h */
