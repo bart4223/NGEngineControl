@@ -12,6 +12,7 @@
 		2905F121264D385A001B4A56 /* NGUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUnitControl.h; sourceTree = "<group>"; };
 		2905F125264F0143001B4A56 /* stop.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = stop.ino; sourceTree = "<group>"; };
 		290A819F27FF3091007E7BC9 /* bonsai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bonsai.png; sourceTree = "<group>"; };
+		290A81A027FF32F1007E7BC9 /* irrigationsystemD0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = irrigationsystemD0.png; sourceTree = "<group>"; };
 		2913C92D26FBBAE300D0AFC6 /* ToDo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ToDo.txt; sourceTree = "<group>"; };
 		2913C92F26FF357300D0AFC6 /* NGSoundMachine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSoundMachine.cpp; sourceTree = "<group>"; };
 		2913C93026FF357300D0AFC6 /* NGSoundMachine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSoundMachine.h; sourceTree = "<group>"; };
@@ -602,6 +603,7 @@
 			isa = PBXGroup;
 			children = (
 				290A819F27FF3091007E7BC9 /* bonsai.png */,
+				290A81A027FF32F1007E7BC9 /* irrigationsystemD0.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
