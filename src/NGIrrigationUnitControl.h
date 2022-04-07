@@ -29,7 +29,7 @@ struct irrigationDataStruct
 {
     int soilMoistureSensor;
     int pump;
-    int measuringInterval; //seconds
+    int measuringInterval; //minutes
     int wateringTime; //seconds
     int desiccationThreshold;
     unsigned long rtLastMeasuring;

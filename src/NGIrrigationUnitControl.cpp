@@ -76,7 +76,7 @@ void NGIrrigationUnitControl::_procesingIrrigation() {
     // Measuring?
     for (int i = 0; i < _irrigationCount; i++) {
         unsigned long interval = _irrigation[i].measuringInterval;
-        if ((_irrigation[i].rtLastPumpOn == 0) && ((_irrigation[i].rtLastMeasuring == 0) || ((millis() - _irrigation[i].rtLastMeasuring) >= interval * 1000))) {
+        if ((_irrigation[i].rtLastPumpOn == 0) && ((_irrigation[i].rtLastMeasuring == 0) || ((millis() - _irrigation[i].rtLastMeasuring) >= interval * 60000))) {
             if (_logging) {
                 char log[100];
                 sprintf(log, "Irrigation %d measure", i);
