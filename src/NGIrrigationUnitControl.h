@@ -18,7 +18,7 @@
 #include <NGPumpControl.h>
 #include <NGSoilMoistureSensor.h>
 
-#define _VERSION "0.7"
+#define _VERSION "0.8"
 #define VERSION (char*)_VERSION
 
 #define MAXIRRIGATIONCOUNT 3
@@ -34,7 +34,6 @@ struct irrigationDataStruct
     int desiccationThreshold;
     unsigned long rtLastMeasuring;
     unsigned long rtLastPumpOn;
-    int rtLastDesiccationHumidity;
 };
 typedef struct irrigationDataStruct irrigationData;
 
@@ -85,7 +84,9 @@ public:
     
     long int startUp();
     
-    int registerIrrigation(byte pinPump, byte pinSoilMoistureSensor, int measuringInterval, int wateringTime, int desiccationThreshold);
+    int registerIrrigation(byte pinPump, int wateringInterval, int wateringTime);
+    
+    int registerIrrigation(byte pinPump, int pinSoilMoistureSensor, int measuringInterval, int wateringTime, int desiccationThreshold);
     
     int registerPump(byte pinPump);
 
