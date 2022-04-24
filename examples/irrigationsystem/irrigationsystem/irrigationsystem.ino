@@ -4,8 +4,8 @@
 #include <NGRealTimeClock.h>
 #include <NGSerialNotification.h>
 #include <NGOLEDNotification.h>
-#include <NGJingleSuperMarioShort.h>
 #include <NGJingleBoot.h>
+#include <NGJingleSuperMarioShort.h>
 
 #define _IRRIGATION           "Irrigation"
 #define IRRIGATION            (char*)_IRRIGATION
@@ -24,8 +24,8 @@ NGIrrigationUnitControl unitIrrigation = NGIrrigationUnitControl(IRRIGATION);
 NGSerialNotification serialNotification = NGSerialNotification();
 NGOLEDNotification *oledNotification;
 NGRealTimeClock rtc = NGRealTimeClock();
-NGJingleSuperMarioShort jingleStartup = NGJingleSuperMarioShort();
 NGJingleBoot jingleBoot = NGJingleBoot();
+NGJingleSuperMarioShort jingleStartup = NGJingleSuperMarioShort();
 
 void setup() {
   setGlobalUnit(&unitIrrigation);
