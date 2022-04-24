@@ -21,7 +21,6 @@
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 #include <NGSteeringControl.h>
-#include <NGSoundMachine.h>
 #include <NGCustomJingle.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
@@ -30,7 +29,6 @@
 #define _VERSION "4.2"
 #define VERSION (char*)_VERSION
 
-#define DEFSTARTUPLOOPSCOUNT    3
 #define DEFINTERRUPTIONDELAY 1000
 
 #ifdef NG_PLATFORM_MEGA
@@ -64,7 +62,6 @@ typedef struct motionSequenceStruct motionSequence;
 class NGMotionUnitControl : public NGCustomUnitControl, NGITestableComponent {
 
 private:
-    NGSoundMachine *_soundMachine;
     NGCustomMotionControl *_motionControl;
     NGLightSensor *_lightSensor = nullptr;
     NGFlashingLight *_flashingLightLeft = nullptr;
@@ -74,13 +71,8 @@ private:
     int _motionInterruptionPin = -1;
     int _brakeLightPin = -1;
     int _backwardLightPin = -1;
-    int _jingleStartup = -1;
-    int _jingleStartupLoops = 0;
     int _jingleBackward = -1;
-    int _jingleAlarm = -1;
     int _jingleThinking = -1;
-    int _jingleBoot = -1;
-    int _jingleBeep = -1;
     motionSequence _motionSequence[MAXMOTIONSEQUENCECOUNT];
     int _motionSequenceCount = 0;
     int _currentMotionSequence = -1;
@@ -89,8 +81,6 @@ private:
 
 protected:
     void _create(char* name, byte address, int serialRate, NGCustomMotionControl *motionControl);
-    
-    void _initializeCore();
     
     void _initializeLightSensor();
     
@@ -106,8 +96,6 @@ protected:
     
     void _initializeLaserCannon();
     
-    void _initializeSoundMachine();
-    
     void _testSequenceStart();
     
     void _testSequenceStop();
@@ -115,20 +103,8 @@ protected:
     void _processingReceivedData();
     
     void _resetCurrentMotionSequence();
-    
-    int _registerJingle(NGCustomJingle *jingle);
-    
-    void _playJingle(byte jingle);
-    
-    void _playJingleBoot();
-    
-    void _playJingleBeep();
-    
-    void _playJingleStartup();
-    
+       
     void _playJingleBackward();
-    
-    void _playJingleAlarm();
     
     void _playJingleThinking();
     
@@ -164,17 +140,7 @@ public:
     NGMotionUnitControl(char* name, byte address, int serialRate, NGCustomMotionControl *motionControl);
 
     void initialize();
-    
-    long int startUp();
-    
-    void registerBoot(NGCustomJingle *jingle);
-    
-    void registerBeep(NGCustomJingle *jingle);
-    
-    void registerStartup(int pinStartup, NGCustomJingle *jingle);
-    
-    void registerStartup(int pinStartup, NGCustomJingle *jingle, int loops);
-    
+       
     void registerLightSensor(NGLightSensor *lightSensor, int threshold, thresholdLevel level, byte pin, thresholdValence valence);
     
     void registerLightSensor(NGLightSensor *lightSensor, int threshold, thresholdLevel level, byte pin, thresholdValence valence, int delay);
@@ -201,8 +167,6 @@ public:
     
     void registerJingleBackward(NGCustomJingle *jingle);
     
-    void registerJingleAlarm(NGCustomJingle *jingle);
-    
     void registerJingleThinking(NGCustomJingle *jingle);
     
     void registerMotionMimic(NGCustomMotionMimic *mimic);
@@ -224,8 +188,6 @@ public:
     void setBackwardLight(bool on);
     
     void setWarningLight(bool on);
-    
-    void beep();
     
     void testSequenceStart();
     

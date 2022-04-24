@@ -17,6 +17,7 @@
 #include <NGExceptionDefinitions.h>
 #include <NGCustomNotification.h>
 #include <NGRealTimeClock.h>
+#include <NGSoundMachine.h>
 
 #define NOADDRESS           0x00
 #define REQUESTEDDATALENGTH 6
@@ -49,7 +50,13 @@
 
 #define OBSERVEMEMORYDELAY 5000
 
-#define NOTIFICATIONCOUNT 3
+#define NOSTARTUPPIN -1
+#define NOSTARTUPLOOPS 0
+#define NOJINGLE -1
+
+#define NOTIFICATIONCOUNT   3
+
+#define DEFSTARTUPLOOPSCOUNT    3
 
 #define CMDOffset           2
 #define MaxCMDLength        15
@@ -98,9 +105,15 @@ protected:
     byte _requestedData[REQUESTEDDATALENGTH];
     workMode _workMode = wmNone;
     int _exceptionCount = 0;
-    int _pinStartup = -1;
+    int _pinStartup = NOSTARTUPPIN;
     NGRealTimeClock *_rtc = nullptr;
-
+    NGSoundMachine *_soundMachine;
+    int _jingleStartup = NOJINGLE;
+    int _jingleStartupLoops = NOSTARTUPLOOPS;
+    int _jingleBoot = NOJINGLE;
+    int _jingleBeep = NOJINGLE;
+    int _jingleAlarm = NOJINGLE;
+    
     void _create(char* name, byte address, int serialRate);
     
     void _clearState();
@@ -115,6 +128,20 @@ protected:
     
     virtual void _processingStartupLoop();
 
+    int _registerJingle(NGCustomJingle *jingle);
+
+    void _initializeSoundMachine();
+    
+    void _playJingle(byte jingle);
+    
+    void _playJingleStartup();
+    
+    void _playJingleBoot();
+    
+    void _playJingleBeep();
+   
+    void _playJingleAlarm();
+
 public:
     void initialize();
     
@@ -128,7 +155,21 @@ public:
     
     workMode getWorkMode();
     
+    void registerStartup(NGCustomJingle *jingle);
+    
+    void registerStartup(NGCustomJingle *jingle, int loops);
+
     void registerStartup(int pinStartup);
+    
+    void registerStartup(int pinStartup, NGCustomJingle *jingle);
+    
+    void registerStartup(int pinStartup, NGCustomJingle *jingle, int loops);
+
+    void registerBoot(NGCustomJingle *jingle);
+    
+    void registerBeep(NGCustomJingle *jingle);
+       
+    void registerJingleAlarm(NGCustomJingle *jingle);
     
     void processingLoop();
     
@@ -136,6 +177,8 @@ public:
 
     void writeInfo(char* info);
 
+    void beep();
+    
     void receiveDataStart();
     
     void receivedData(int index, byte data);

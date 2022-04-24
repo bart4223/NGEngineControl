@@ -36,7 +36,6 @@ NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRat
 void NGMotionUnitControl::_create(char* name, byte address, int serialRate, NGCustomMotionControl *motionControl) {
     NGCustomUnitControl::_create(name, address, serialRate);
     _version = VERSION;
-    _soundMachine = new NGSoundMachine();
     _motionControl = motionControl;
     if (_address == NOADDRESS) {
         Wire.begin();
@@ -45,19 +44,6 @@ void NGMotionUnitControl::_create(char* name, byte address, int serialRate, NGCu
         Wire.onReceive(_unitWireReceiveEvent);
         Wire.onRequest(_unitWireRequestEvent);
     }
-}
-
-void NGMotionUnitControl::_initializeCore() {
-    _initializeSoundMachine();
-    _playJingleBoot();
-    _initializeMotionControl();
-    #ifdef NG_PLATFORM_MEGA
-    if (_logging) {
-        char log[100];
-        sprintf(log, "Core from unit \"%s\" initialized", _name);
-        writeInfo(log);
-    }
-    #endif
 }
 
 void NGMotionUnitControl::_initializeLightSensor() {
@@ -125,10 +111,6 @@ void NGMotionUnitControl::_initializeLaserCannon() {
     }
 }
 
-void NGMotionUnitControl::_initializeSoundMachine() {
-    _soundMachine->initialize();
-}
-
 void NGMotionUnitControl::_testSequenceStart() {
     if (_flashingLightLeft != nullptr) {
         _flashingLightLeft->testSequenceStart();
@@ -183,47 +165,9 @@ void NGMotionUnitControl::_resetCurrentMotionSequence() {
     _currentMotionSequence = -1;
 }
 
-int NGMotionUnitControl::_registerJingle(NGCustomJingle *jingle) {
-    if (_soundMachine->getJingleCount() < _soundMachine->getMaxJingleCount()) {
-        return _soundMachine->registerJingle(jingle);
-    } else {
-        _raiseException(ExceptionTooMuchJingleCount);
-    }
-    return -1;
-}
-
-void NGMotionUnitControl::_playJingle(byte jingle) {
-    _soundMachine->play(jingle);
-}
-
-void NGMotionUnitControl::_playJingleBoot() {
-    if (_jingleBoot != -1) {
-        _playJingle(_jingleBoot);
-    }
-}
-
-void NGMotionUnitControl::_playJingleBeep() {
-    if (_jingleBeep != -1) {
-        _playJingle(_jingleBeep);
-    }
-}
-void NGMotionUnitControl::_playJingleStartup() {
-    if (_jingleStartup != -1) {
-        for (int i = 0; i < _jingleStartupLoops; i++) {
-            _playJingle(_jingleStartup);
-        }
-    }
-}
-
 void NGMotionUnitControl::_playJingleBackward() {
     if (_jingleBackward != -1) {
         _playJingle(_jingleBackward);
-    }
-}
-
-void NGMotionUnitControl::_playJingleAlarm() {
-    if (_jingleAlarm != -1) {
-        _playJingle(_jingleAlarm);
     }
 }
 
@@ -411,7 +355,7 @@ void NGMotionUnitControl::_determineMotionInterruption() {
 
 void NGMotionUnitControl::initialize() {
     NGCustomUnitControl::initialize();
-    _initializeCore();
+    _initializeMotionControl();
     _initializeLightSensor();
     _initializeFlashingLightLeft();
     _initializeFlashingLightRight();
@@ -424,30 +368,6 @@ void NGMotionUnitControl::initialize() {
         sprintf(log, "...Unit \"%s\" with motion control initialized", _name);
         writeInfo(log);
     }
-}
-
-long int NGMotionUnitControl::startUp() {
-    long int res = NGCustomUnitControl::startUp();
-    _playJingleStartup();
-    return res;
-}
-
-void NGMotionUnitControl::registerBoot(NGCustomJingle *jingle) {
-    _jingleBoot = _registerJingle(jingle);
-}
-
-void NGMotionUnitControl::registerBeep(NGCustomJingle *jingle) {
-    _jingleBeep = _registerJingle(jingle);
-}
-
-void NGMotionUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle) {
-    registerStartup(pinStartup, jingle, DEFSTARTUPLOOPSCOUNT);
-}
-
-void NGMotionUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle, int loops) {
-    NGCustomUnitControl::registerStartup(pinStartup);
-    _jingleStartup = _registerJingle(jingle);
-    _jingleStartupLoops = loops;
 }
 
 void NGMotionUnitControl::registerLightSensor(NGLightSensor *lightSensor, int threshold, thresholdLevel level, byte pin, thresholdValence valence) {
@@ -523,10 +443,6 @@ void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed,
 
 void NGMotionUnitControl::registerJingleBackward(NGCustomJingle *jingle) {
     _jingleBackward = _registerJingle(jingle);
-}
-
-void NGMotionUnitControl::registerJingleAlarm(NGCustomJingle *jingle) {
-    _jingleAlarm = _registerJingle(jingle);
 }
 
 void NGMotionUnitControl::registerJingleThinking(NGCustomJingle *jingle) {
@@ -612,10 +528,6 @@ void NGMotionUnitControl::setBackwardLight(bool on) {
 
 void NGMotionUnitControl::setWarningLight(bool on) {
     setFlashingLight(flsBoth, on);
-}
-
-void NGMotionUnitControl::beep() {
-    _playJingleBeep();
 }
 
 void NGMotionUnitControl::testSequenceStart() {

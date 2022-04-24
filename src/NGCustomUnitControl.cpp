@@ -47,6 +47,7 @@ void NGCustomUnitControl::_create(char* name, byte address, int serialRate) {
     _serialRate = serialRate;
     _initialized = false;
     _logging = true;
+    _soundMachine = new NGSoundMachine();
 }
 
 void NGCustomUnitControl::_clearState() {
@@ -89,21 +90,68 @@ void NGCustomUnitControl::_raiseException(int id) {
     writeInfo(info);
 }
 
+int NGCustomUnitControl::_registerJingle(NGCustomJingle *jingle) {
+    if (_soundMachine->getJingleCount() < _soundMachine->getMaxJingleCount()) {
+        return _soundMachine->registerJingle(jingle);
+    } else {
+        _raiseException(ExceptionTooMuchJingleCount);
+    }
+    return NOJINGLE;
+}
+
+void NGCustomUnitControl::_playJingleBoot() {
+    if (_jingleBoot != NOJINGLE) {
+        _playJingle(_jingleBoot);
+    }
+}
+
+void NGCustomUnitControl::_playJingleStartup() {
+    if (_jingleStartup != NOJINGLE) {
+        for (int i = 0; i < _jingleStartupLoops; i++) {
+            _playJingle(_jingleStartup);
+        }
+    }
+}
+
+void NGCustomUnitControl::_playJingleBeep() {
+    if (_jingleBeep != NOJINGLE) {
+        _playJingle(_jingleBeep);
+    }
+}
+
+void NGCustomUnitControl::_playJingleAlarm() {
+    if (_jingleAlarm != NOJINGLE) {
+        _playJingle(_jingleAlarm);
+    }
+}
+
+void NGCustomUnitControl::_initializeSoundMachine() {
+    _soundMachine->initialize();
+}
+
+void NGCustomUnitControl::_playJingle(byte jingle) {
+    _soundMachine->play(jingle);
+}
+
 void NGCustomUnitControl::initialize() {
-    if (_pinStartup != -1) {
+    if (_pinStartup != NOSTARTUPPIN) {
         pinMode(_pinStartup, INPUT_PULLUP);
     }
+    _initializeSoundMachine();
+    _playJingleBoot();
 }
 
 long int NGCustomUnitControl::startUp() {
     _writeState();
     observeMemory(0);
-    if (_pinStartup != -1) {
+    if (_pinStartup != NOSTARTUPPIN) {
         while(digitalRead(_pinStartup)) {
             _processingStartupLoop();
         }
     }
-    return millis();
+    long int res = millis();
+    _playJingleStartup();
+    return res;
 }
 
 void NGCustomUnitControl::processingLoop() {
@@ -121,8 +169,40 @@ workMode NGCustomUnitControl::getWorkMode() {
     return _workMode;
 }
 
+void NGCustomUnitControl::registerStartup(NGCustomJingle *jingle) {
+    registerStartup(NOSTARTUPPIN, jingle, DEFSTARTUPLOOPSCOUNT);
+}
+
+void NGCustomUnitControl::registerStartup(NGCustomJingle *jingle, int loops) {
+    registerStartup(NOSTARTUPPIN, jingle, loops);
+}
+
 void NGCustomUnitControl::registerStartup(int pinStartup) {
+    registerStartup(pinStartup, nullptr);
+}
+
+void NGCustomUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle) {
+    registerStartup(pinStartup, jingle, DEFSTARTUPLOOPSCOUNT);
+}
+
+void NGCustomUnitControl::registerStartup(int pinStartup, NGCustomJingle *jingle, int loops) {
     _pinStartup = pinStartup;
+    if (jingle != nullptr) {
+        _jingleStartup = _registerJingle(jingle);
+    }
+    _jingleStartupLoops = loops;
+}
+
+void NGCustomUnitControl::registerBoot(NGCustomJingle *jingle) {
+    _jingleBoot = _registerJingle(jingle);
+}
+
+void NGCustomUnitControl::registerBeep(NGCustomJingle *jingle) {
+    _jingleBeep = _registerJingle(jingle);
+}
+
+void NGCustomUnitControl::registerJingleAlarm(NGCustomJingle *jingle) {
+    _jingleAlarm = _registerJingle(jingle);
 }
 
 void NGCustomUnitControl::registerRealTimeClock(NGRealTimeClock *rtc) {
@@ -169,4 +249,8 @@ void NGCustomUnitControl::writeInfo(char* info) {
     for (int i = 0; i < _notificationCount; i++ ) {
         _notification[i]->writeInfo(info, 0, 0);
     }
+}
+
+void NGCustomUnitControl::beep() {
+    _playJingleBeep();
 }
