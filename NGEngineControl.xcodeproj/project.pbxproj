@@ -89,8 +89,6 @@
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
-		29958E5927174A31007048E3 /* simpleForwardTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleForwardTurns.txt; sourceTree = "<group>"; };
-		29958E5A27174B89007048E3 /* simpleBackwardTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleBackwardTurns.txt; sourceTree = "<group>"; };
 		29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceDefinitions.h; sourceTree = "<group>"; };
 		29958E5D2718BF5E007048E3 /* simpleStartStop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleStartStop.txt; sourceTree = "<group>"; };
 		2999D31B2791CE2500B88B53 /* NGI2CScanner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGI2CScanner.cpp; sourceTree = "<group>"; };
@@ -508,8 +506,6 @@
 		29958E58271749D8007048E3 /* sequences */ = {
 			isa = PBXGroup;
 			children = (
-				29958E5927174A31007048E3 /* simpleForwardTurns.txt */,
-				29958E5A27174B89007048E3 /* simpleBackwardTurns.txt */,
 				29958E5D2718BF5E007048E3 /* simpleStartStop.txt */,
 				29F56DE727401A2C00BBBB68 /* simpleFullTurns.txt */,
 			);
