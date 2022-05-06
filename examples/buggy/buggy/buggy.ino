@@ -1,4 +1,4 @@
-#define PROD false //false,true
+#define PROD true //false,true
 
 #include <NGMotionUnitControl.h>
 #include <NGSimpleMotionControl.h>
@@ -24,9 +24,9 @@
 #include <NGCaveExplorer.h>
 #include <NGBotRetriever.h>
 
-#define _MOTION           "Motion"
-#define MOTION            (char*)_MOTION
-#define MOTIONADDRESS     0x21
+#define _BUGGY           "Buggy"
+#define BUGGY            (char*)_BUGGY
+#define BUGGYADDRESS     0x21
 
 #if (PROD == true)
 #define OLED64
@@ -90,7 +90,7 @@
 enum mimicScenario {msVoid, msCaveExplorer, msBotRetriever};
 
 NGCustomMotionControl *motionControl = new NGSimpleMotionControl(new NGSteeringControl(ENGINE_2, ENGINE_1, ENGINEOFFSETLEFT, ENGINEOFFSETRIGHT));
-NGMotionUnitControl unitMotion = NGMotionUnitControl(MOTION, motionControl);
+NGMotionUnitControl unitBuggy = NGMotionUnitControl(BUGGY, motionControl);
 NGSerialNotification serialNotification = NGSerialNotification();
 NGOLEDNotification *oledNotification;
 NGMorseToneNotification morseToneNotification = NGMorseToneNotification();
@@ -112,133 +112,133 @@ NGUltrasonicObjectRecognizer corUS = NGUltrasonicObjectRecognizer(PINULTRASONICT
 NGLaserCannon lc = NGLaserCannon(PINLASERCANNON);
 
 void setup() {
-  setGlobalUnit(&unitMotion);
-  unitMotion.registerBeep(&jingleBeep);
-  unitMotion.registerNotification(&serialNotification);
+  setGlobalUnit(&unitBuggy);
+  unitBuggy.registerBeep(&jingleBeep);
+  unitBuggy.registerNotification(&serialNotification);
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
-  unitMotion.registerNotification(oledNotification);
-  unitMotion.registerNotification(&morseToneNotification);
+  unitBuggy.registerNotification(oledNotification);
+  unitBuggy.registerNotification(&morseToneNotification);
   rtc.initialize();
   #if (PROD == true)
-  unitMotion.registerRealTimeClock(&rtc);
+  unitBuggy.registerRealTimeClock(&rtc);
   #endif
-  unitMotion.registerBoot(&jingleBoot);
+  unitBuggy.registerBoot(&jingleBoot);
   #if (PROD == true)
   if (rtc.isXMas()) {
-    unitMotion.registerStartup(PINSTARTUP, &jingleJingleBells, 1);
+    unitBuggy.registerStartup(PINSTARTUP, &jingleJingleBells, 1);
   } else {
-    unitMotion.registerStartup(PINSTARTUP, &jingleHelloDude);
+    unitBuggy.registerStartup(PINSTARTUP, &jingleHelloDude);
   }
-  unitMotion.registerMotionInterruption(PINSTARTUP);
-  unitMotion.registerJingleBackward(&jingleBackward);
-  unitMotion.registerJingleAlarm(&jingleAlarm);
-  unitMotion.registerJingleThinking(&jingleThinking);
-  unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
-  unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLASERCANNON, tvHigh, LIGHTSENSORDELAY);
+  unitBuggy.registerMotionInterruption(PINSTARTUP);
+  unitBuggy.registerJingleBackward(&jingleBackward);
+  unitBuggy.registerJingleAlarm(&jingleAlarm);
+  unitBuggy.registerJingleThinking(&jingleThinking);
+  unitBuggy.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
+  unitBuggy.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLASERCANNON, tvHigh, LIGHTSENSORDELAY);
   #else
-  unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
-  unitMotion.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLASERCANNON, tvHigh);
+  unitBuggy.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh);
+  unitBuggy.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLASERCANNON, tvHigh);
   #endif
-  unitMotion.registerFlashingLights(&flLeft, &flRight);
-  unitMotion.registerBrakeLight(PINBRAKELIGHT);
-  unitMotion.registerBackwardLight(PINBACKWARDLIGHT);
-  unitMotion.registerLaserCannon(&lc);
+  unitBuggy.registerFlashingLights(&flLeft, &flRight);
+  unitBuggy.registerBrakeLight(PINBRAKELIGHT);
+  unitBuggy.registerBackwardLight(PINBACKWARDLIGHT);
+  unitBuggy.registerLaserCannon(&lc);
   #if (PROD == true)
   bool doTest = true;
-  unitMotion.testSequenceStart();
-  unitMotion.clearInfo();
-  unitMotion.writeInfo("Test Sequence Stop?");
+  unitBuggy.testSequenceStart();
+  unitBuggy.clearInfo();
+  unitBuggy.writeInfo("Test Sequence Stop?");
   while (!dlgQuestion.confirm()) {
-    unitMotion.beep();
+    unitBuggy.beep();
   }
-  unitMotion.beep();
-  unitMotion.testSequenceStop();
+  unitBuggy.beep();
+  unitBuggy.testSequenceStop();
   #endif
   mimicScenario ms = msVoid;
-  unitMotion.clearInfo();
+  unitBuggy.clearInfo();
   #if (PROD == true)
-  unitMotion.writeInfo("Mimic \"Cave-Explorer\"?");
+  unitBuggy.writeInfo("Mimic \"Cave-Explorer\"?");
   if (dlgQuestion.confirm()) {
-    unitMotion.beep();
+    unitBuggy.beep();
     ms = msCaveExplorer;
   } else {
-    unitMotion.beep();
-    unitMotion.clearInfo();
-    unitMotion.writeInfo("Mimic \"Bot-Retriever\"?");
+    unitBuggy.beep();
+    unitBuggy.clearInfo();
+    unitBuggy.writeInfo("Mimic \"Bot-Retriever\"?");
     if (dlgQuestion.confirm()) {
       ms = msBotRetriever;
     }
-    unitMotion.beep();
+    unitBuggy.beep();
   }
   #endif
   DEF_MOTION_SEQUENCE_START;
   switch (ms) {
     case msVoid:
-      unitMotion.writeInfo("\"Void\" Mimic choosed!");
-      unitMotion.registerMotionMimic(new NGVoidMotionMimic());
+      unitBuggy.writeInfo("\"Void\" Mimic choosed!");
+      unitBuggy.registerMotionMimic(new NGVoidMotionMimic());
       break;
     case msCaveExplorer:
-      unitMotion.writeInfo("...Mimic \"Cave-Explorer\" choosed");
-      unitMotion.registerObjectRecognizer(ormpLeft, &corLeft);
-      unitMotion.registerObjectRecognizer(ormpRight, &corRight);
-      unitMotion.registerObjectRecognizer(ormpFront, &corUS);
+      unitBuggy.writeInfo("...Mimic \"Cave-Explorer\" choosed");
+      unitBuggy.registerObjectRecognizer(ormpLeft, &corLeft);
+      unitBuggy.registerObjectRecognizer(ormpRight, &corRight);
+      unitBuggy.registerObjectRecognizer(ormpFront, &corUS);
       NGCaveExplorer *mimicCaveExplorer = new NGCaveExplorer();
       mimicCaveExplorer->setBackwardCloseness(ULTRASONICMAXDISTANCE / 2);
-      unitMotion.registerMotionMimic(mimicCaveExplorer);
+      unitBuggy.registerMotionMimic(mimicCaveExplorer);
       // forward
-      DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
-      DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 0);
+      DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT(unitBuggy);
+      DEF_MOTION_SEQUENCE_FORWARD(unitBuggy, SPEEDEASY, 0);
       DEF_MOTION_SEQUENCE_END_STRAIGHT;
       // backward
-      DEF_MOTION_SEQUENCE_BEGIN_BACK;
-      DEF_MOTION_SEQUENCE_BACKWARD(SPEEDBACK, 500);
-      DEF_MOTION_SEQUENCE_BACKWARD_WITH_BRAKE(SPEEDBACK, 1000);
-      DEF_MOTION_SEQUENCE_STOP(1500);
+      DEF_MOTION_SEQUENCE_BEGIN_BACK(unitBuggy);
+      DEF_MOTION_SEQUENCE_BACKWARD(unitBuggy, SPEEDBACK, 500);
+      DEF_MOTION_SEQUENCE_BACKWARD_WITH_BRAKE(unitBuggy, SPEEDBACK, 1000);
+      DEF_MOTION_SEQUENCE_STOP(unitBuggy, 1500);
       DEF_MOTION_SEQUENCE_END_BACK;
       // left
-      DEF_MOTION_SEQUENCE_BEGIN_LEFT;
-      DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTLEFT(SPEEDCURVE, 250);
-      DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(SPEEDCURVE, 1250);
+      DEF_MOTION_SEQUENCE_BEGIN_LEFT(unitBuggy);
+      DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTLEFT(unitBuggy, SPEEDCURVE, 250);
+      DEF_MOTION_SEQUENCE_FORWARD_LEFT_WITH_LIGHT(unitBuggy, SPEEDCURVE, 1250);
       DEF_MOTION_SEQUENCE_END_LEFT;
       // right
-      DEF_MOTION_SEQUENCE_BEGIN_RIGHT;
-      DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTRIGHT(SPEEDCURVE, 250);
-      DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(SPEEDCURVE, 1250);
+      DEF_MOTION_SEQUENCE_BEGIN_RIGHT(unitBuggy);
+      DEF_MOTION_SEQUENCE_FORWARD_WITH_LIGHTRIGHT(unitBuggy, SPEEDCURVE, 250);
+      DEF_MOTION_SEQUENCE_FORWARD_RIGHT_WITH_LIGHT(unitBuggy, SPEEDCURVE, 1250);
       DEF_MOTION_SEQUENCE_END_RIGHT;
       break;
     case msBotRetriever:
-      unitMotion.writeInfo("...Mimic \"Bot-Retriever\" choosed");
-      unitMotion.registerMotionMimic(new NGBotRetriever());
+      unitBuggy.writeInfo("...Mimic \"Bot-Retriever\" choosed");
+      unitBuggy.registerMotionMimic(new NGBotRetriever());
       // forward
-      DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT;
-      DEF_MOTION_SEQUENCE_FORWARD(SPEEDEASY, 2500);
+      DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT(unitBuggy);
+      DEF_MOTION_SEQUENCE_FORWARD(unitBuggy, SPEEDEASY, 2500);
       DEF_MOTION_SEQUENCE_END_STRAIGHT;
       // fullturn
-      DEF_MOTION_SEQUENCE_BEGIN_FULLTURN;
-      DEF_MOTION_SEQUENCE_FULLTURN(SPEEDCURVE, 550);
-      DEF_MOTION_SEQUENCE_STOP_NONE(100);
+      DEF_MOTION_SEQUENCE_BEGIN_FULLTURN(unitBuggy);
+      DEF_MOTION_SEQUENCE_FULLTURN(unitBuggy, SPEEDCURVE, 550);
+      DEF_MOTION_SEQUENCE_STOP_NONE(unitBuggy, 100);
       DEF_MOTION_SEQUENCE_END_FULLTURN;
       // stop
-      DEF_MOTION_SEQUENCE_BEGIN_STOP;
-      DEF_MOTION_SEQUENCE_FORWARD_WITH_BRAKE(SPEEDEASY, 500);
-      DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(1000);
-      DEF_MOTION_SEQUENCE_STOP_NONE(100);
+      DEF_MOTION_SEQUENCE_BEGIN_STOP(unitBuggy);
+      DEF_MOTION_SEQUENCE_FORWARD_WITH_BRAKE(unitBuggy, SPEEDEASY, 500);
+      DEF_MOTION_SEQUENCE_STOP_WITH_BRAKE(unitBuggy, 1000);
+      DEF_MOTION_SEQUENCE_STOP_NONE(unitBuggy, 100);
       DEF_MOTION_SEQUENCE_END_STOP;
       break;
   }
-  unitMotion.initialize();
+  unitBuggy.initialize();
   #if (PROD == false)
-  unitMotion.setWorkMode(wmObserveMemory);
+  unitBuggy.setWorkMode(wmObserveMemory);
   #endif
-  unitMotion.startUp();
-  unitMotion.clearInfo();
+  unitBuggy.startUp();
+  unitBuggy.clearInfo();
   if (ms == msVoid) {
-    unitMotion.writeInfo("\"Void\" scenario(#SOS#)!");
+    unitBuggy.writeInfo("\"Void\" scenario(#SOS#)!");
   } else {
-    unitMotion.writeInfo("Hi folks(#Hello#), moves...");
+    unitBuggy.writeInfo("Hi folks(#Hello#), moves...");
   }
 }
 
 void loop() {
-  unitMotion.processingLoop();
+  unitBuggy.processingLoop();
 }

@@ -63,7 +63,7 @@ void NGCustomUnitControl::_writeState() {
     if (_rtc != nullptr) {
         sprintf(state, "%s %s wM%d (C) by NG 2021-%s", _name, _version, _workMode, _rtc->getShortYearAsText());
     } else {
-        sprintf(state, "%s %s wM%d (C) by NG MMXXII", _name, _version, _workMode);
+        sprintf(state, "%s %s wM%d (C) by NG MMXXI-II", _name, _version, _workMode);
     }
     #else
     sprintf(state, "%s %s wM%d", _name, _version, _workMode);
