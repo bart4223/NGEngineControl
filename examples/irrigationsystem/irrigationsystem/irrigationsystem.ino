@@ -7,7 +7,7 @@
 #include <NGJingleBoot.h>
 #include <NGJingleSuperMarioShort.h>
 
-#define _IRRIGATION           "Irrigation"
+#define _IRRIGATION           "Bonsai"
 #define IRRIGATION            (char*)_IRRIGATION
 #define IRRIGATIONADDRESS     0x22
 
