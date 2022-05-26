@@ -5,9 +5,9 @@
   -centralUnit
   -toolUnit
   -motionUnit
-    -CustomMotionControl
-        -CompassMotionControl
     -I2C
 -Buggy
   -Common
   -motionUnit
+    -CustomMotionControl
+        -CompassMotionControl
