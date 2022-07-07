@@ -159,6 +159,7 @@
 		29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIrrigationUnitControl.h; sourceTree = "<group>"; };
 		29E24C7827F3889D0009F0CF /* NGPumpControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGPumpControl.cpp; sourceTree = "<group>"; };
 		29E24C7927F3889D0009F0CF /* NGPumpControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGPumpControl.h; sourceTree = "<group>"; };
+		29E57BC028771D3F000B6C49 /* complex.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = complex.ino; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
 		29E71C9127F76DE80046A707 /* pumpcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = pumpcontrol.ino; sourceTree = "<group>"; };
 		29EA905B275BABCA00F3C556 /* OLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = OLED.ino; sourceTree = "<group>"; };
@@ -660,11 +661,20 @@
 		29E57BBE28771A46000B6C49 /* enginecontrol */ = {
 			isa = PBXGroup;
 			children = (
+				29E57BBF28771CE1000B6C49 /* complex */,
 				29165F302549692B001D9497 /* profiles */,
 				29647BC9253C5F85003CBA13 /* simple */,
 				2905F124264F011D001B4A56 /* stop */,
 			);
 			path = enginecontrol;
+			sourceTree = "<group>";
+		};
+		29E57BBF28771CE1000B6C49 /* complex */ = {
+			isa = PBXGroup;
+			children = (
+				29E57BC028771D3F000B6C49 /* complex.ino */,
+			);
+			path = complex;
 			sourceTree = "<group>";
 		};
 		29E6BA59263C6030007BCE9F /* motoman */ = {
