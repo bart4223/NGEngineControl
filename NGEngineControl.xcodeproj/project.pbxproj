@@ -448,6 +448,7 @@
 		29647BC2253C430C003CBA13 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				29E57BBE28771A46000B6C49 /* enginecontrol */,
 				29F56DF427410DBE00BBBB68 /* first */,
 				29EA90612763333100F3C556 /* questiondialog */,
 				29232B46277CBFB400B85C8E /* relaiscontrol */,
@@ -468,9 +469,6 @@
 				29B39E2327CBE381008507A2 /* timeofflight */,
 				29EA905A275BAB8600F3C556 /* OLED */,
 				2999D31D2792DC4400B88B53 /* I2CScanner */,
-				29647BC9253C5F85003CBA13 /* simple */,
-				2905F124264F011D001B4A56 /* stop */,
-				29165F302549692B001D9497 /* profiles */,
 				29E6BA59263C6030007BCE9F /* motoman */,
 				299C0E1B26D75CCE00F5A60D /* buggy */,
 				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
@@ -657,6 +655,16 @@
 				29E24C7527F33D8B0009F0CF /* irrigationsystem.ino */,
 			);
 			path = irrigationsystem;
+			sourceTree = "<group>";
+		};
+		29E57BBE28771A46000B6C49 /* enginecontrol */ = {
+			isa = PBXGroup;
+			children = (
+				29165F302549692B001D9497 /* profiles */,
+				29647BC9253C5F85003CBA13 /* simple */,
+				2905F124264F011D001B4A56 /* stop */,
+			);
+			path = enginecontrol;
 			sourceTree = "<group>";
 		};
 		29E6BA59263C6030007BCE9F /* motoman */ = {
