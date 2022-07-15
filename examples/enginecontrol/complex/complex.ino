@@ -18,7 +18,7 @@ void loop() {
       case 0:
         if (beginTest) {
           beginTestLevel();
-          engine0.setSpeed(255,3000);
+          engine0.setSpeed(200,3000);
           engine0.run(edForward);
         }
         if ((millis() - duration) >= 6000) {
@@ -29,7 +29,7 @@ void loop() {
       case 1:
         if (beginTest) {
           beginTestLevel();
-          engine0.setSpeed(255,3000);
+          engine0.setSpeed(200,3000);
           engine0.run(edBackward);
         }
         if ((millis() - duration) >= 6000) {

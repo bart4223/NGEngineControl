@@ -415,6 +415,7 @@
 				29647BC4253C449A003CBA13 /* README.md */,
 				29647BC3253C43B2003CBA13 /* keywords.txt */,
 				29647BC2253C430C003CBA13 /* examples */,
+				29AA4E512881A60D0085BDAA /* projects */,
 				29647BC1253C42E8003CBA13 /* src */,
 			);
 			sourceTree = "<group>";
@@ -470,9 +471,6 @@
 				29B39E2327CBE381008507A2 /* timeofflight */,
 				29EA905A275BAB8600F3C556 /* OLED */,
 				2999D31D2792DC4400B88B53 /* I2CScanner */,
-				29E6BA59263C6030007BCE9F /* motoman */,
-				299C0E1B26D75CCE00F5A60D /* buggy */,
-				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
 			);
 			path = examples;
 			sourceTree = "<group>";
@@ -581,6 +579,16 @@
 				299C0E1E26D7E7EC00F5A60D /* buggy.ino */,
 			);
 			path = buggy;
+			sourceTree = "<group>";
+		};
+		29AA4E512881A60D0085BDAA /* projects */ = {
+			isa = PBXGroup;
+			children = (
+				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
+				299C0E1B26D75CCE00F5A60D /* buggy */,
+				29E6BA59263C6030007BCE9F /* motoman */,
+			);
+			path = projects;
 			sourceTree = "<group>";
 		};
 		29B39E2327CBE381008507A2 /* timeofflight */ = {
