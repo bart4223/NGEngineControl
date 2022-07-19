@@ -51,7 +51,7 @@ void NGCurrentMeasurementUnitControl::_procesingCurrentSensors() {
         if ((millis() - _currentSensors[i].lastTick) >= _currentSensors[i].delay) {
             _currentSensors[i].lastTick = millis();
             char log[100];
-            sprintf(log, "min %dmA, max %dmA, %dmA", _currentSensors[i].currentSensor->getMin(), _currentSensors[i].currentSensor->getMax(), _currentSensors[i].currentSensor->getCurrent());
+            sprintf(log, "S%d: min %dmA, max %dmA, %dmA", i, _currentSensors[i].currentSensor->getMin(), _currentSensors[i].currentSensor->getMax(), _currentSensors[i].currentSensor->getCurrent());
             int len = strlen(log);
             if (_lastInfoLen > len) {
                 for (int j = len; j < _lastInfoLen; j++) {

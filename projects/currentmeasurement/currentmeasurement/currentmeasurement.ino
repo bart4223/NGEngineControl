@@ -21,7 +21,7 @@ NGOLEDNotification *oledNotification;
 void setup() {
   setGlobalUnit(&unitCurrent);
   #if (PROD != true)
-  unitCurrent.registerNotification(&serialNotification);
+    unitCurrent.registerNotification(&serialNotification);
   #endif
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitCurrent.registerNotification(oledNotification);

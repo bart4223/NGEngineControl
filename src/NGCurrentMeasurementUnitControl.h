@@ -17,7 +17,7 @@
 #include <NGCustomUnitControl.h>
 #include <NGCurrentSensor.h>
 
-#define _VERSION "1.0"
+#define _VERSION "1.1"
 #define VERSION (char*)_VERSION
 
 #define MAXCURRENTSENSORCOUNT 3
