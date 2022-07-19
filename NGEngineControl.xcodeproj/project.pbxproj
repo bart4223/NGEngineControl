@@ -110,6 +110,8 @@
 		29AA4E552881A73C0085BDAA /* currentmeasurement.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = currentmeasurement.ino; sourceTree = "<group>"; };
 		29AA4E562882254D0085BDAA /* NGCurrentSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCurrentSensor.cpp; sourceTree = "<group>"; };
 		29AA4E572882254D0085BDAA /* NGCurrentSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCurrentSensor.h; sourceTree = "<group>"; };
+		29AA4E5828870AE40085BDAA /* NGCurrentMeasurementUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCurrentMeasurementUnitControl.cpp; sourceTree = "<group>"; };
+		29AA4E5928870AE40085BDAA /* NGCurrentMeasurementUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCurrentMeasurementUnitControl.h; sourceTree = "<group>"; };
 		29AF3EC1265F77370055A9FC /* EngineShield.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EngineShield.png; sourceTree = "<group>"; };
 		29B3761E271DF56300D8780B /* NGJingleBackward.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBackward.cpp; sourceTree = "<group>"; };
 		29B3761F271DF56300D8780B /* NGJingleBackward.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBackward.h; sourceTree = "<group>"; };
@@ -281,6 +283,8 @@
 				2913C94E27033B8600D0AFC6 /* NGMotionUnitControl.cpp */,
 				29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */,
 				29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */,
+				29AA4E5928870AE40085BDAA /* NGCurrentMeasurementUnitControl.h */,
+				29AA4E5828870AE40085BDAA /* NGCurrentMeasurementUnitControl.cpp */,
 			);
 			name = app;
 			sourceTree = "<group>";
