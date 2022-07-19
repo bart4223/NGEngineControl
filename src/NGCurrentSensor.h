@@ -16,6 +16,7 @@
 
 #define DEFPINLIGHTSENSOR A0
 #define DEFCURRENTSENSORTECHNOLOGY cst5Ampere
+#define DEFMINCURRENT 32767
 
 enum CurrentSensorTechnology{ cst5Ampere, cst20Ampere, cst30Ampere };
 
@@ -25,9 +26,14 @@ private:
     byte _pinSensor;
     CurrentSensorTechnology _sensorTechnology;
     int _mVpA;
+    int _currentCurrent;
+    int _minCurrent = DEFMINCURRENT;
+    int _maxCurrent = 0;
     
 protected:
-    _create(CurrentSensorTechnology sensorTechnology, byte pinSensor);
+    void _create(CurrentSensorTechnology sensorTechnology, byte pinSensor);
+    
+    void _determineCurrent();
     
 public:
     NGCurrentSensor();
@@ -42,7 +48,11 @@ public:
     
     int getCurrent();
     
-    int getCurrentAbs();
+    int getMin();
+    
+    int getMax();
+    
+    void reset();
 };
     
 #endif /* NGCurrentSensor_h */

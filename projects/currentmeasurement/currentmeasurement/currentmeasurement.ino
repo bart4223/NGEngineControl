@@ -6,11 +6,14 @@ NGCurrentSensor cs = NGCurrentSensor(cst20Ampere);
 void setup() {
   Serial.begin(9600);
   cs.initialize();
+  Serial.println("INIT");
 }
 
 void loop() {
   char log[100];
-  sprintf(log, "%d mA", cs.getCurrentAbs());
+  sprintf(log, "%dmA", cs.getCurrent());
   Serial.println(log);
-  observeMemory(1000);
+  sprintf(log, "min %dmA, max %dmA", cs.getMin(), cs.getMax());
+  Serial.println(log);
+  observeMemory(3000);
 }

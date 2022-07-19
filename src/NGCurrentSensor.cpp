@@ -23,9 +23,25 @@ NGCurrentSensor::NGCurrentSensor(CurrentSensorTechnology sensorTechnology, byte 
     _create(sensorTechnology, pinSensor);
 }
 
-NGCurrentSensor::_create(CurrentSensorTechnology sensorTechnology, byte pinSensor) {
+void NGCurrentSensor::_create(CurrentSensorTechnology sensorTechnology, byte pinSensor) {
     _pinSensor = pinSensor;
     _sensorTechnology = sensorTechnology;
+}
+
+void NGCurrentSensor::_determineCurrent() {
+    int value = analogRead(_pinSensor);
+    value = ((((value / 1024.0) * 5000) - 2500) / _mVpA) * 1000;
+    if (value < 0) {
+        _currentCurrent = value * -1;
+    } else {
+        _currentCurrent = value;
+    }
+    if (_currentCurrent > _maxCurrent) {
+        _maxCurrent = _currentCurrent;
+    }
+    if (_currentCurrent < _minCurrent) {
+        _minCurrent = _currentCurrent;
+    }
 }
 
 void NGCurrentSensor::initialize() {
@@ -43,14 +59,19 @@ void NGCurrentSensor::initialize() {
 }
 
 int NGCurrentSensor::getCurrent() {
-    int sensorvalue = analogRead(_pinSensor);
-    return ((((sensorvalue / 1024.0) * 5000) - 2500) / _mVpA) * 1000;
+    _determineCurrent();
+    return _currentCurrent;
 }
 
-int NGCurrentSensor::getCurrentAbs() {
-    int res = getCurrent();
-    if (res < 0) {
-        res = res * -1;
-    }
-    return res;
+int NGCurrentSensor::getMin() {
+    return _minCurrent;
+}
+
+int NGCurrentSensor::getMax() {
+    return _maxCurrent;
+}
+
+void NGCurrentSensor::reset() {
+    _minCurrent = DEFMINCURRENT;
+    _maxCurrent = 0;
 }
