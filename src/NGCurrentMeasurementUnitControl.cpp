@@ -50,8 +50,19 @@ void NGCurrentMeasurementUnitControl::_procesingCurrentSensors() {
     for (int i = 0; i < _sensorCount; i++) {
         if ((millis() - _currentSensors[i].lastTick) >= _currentSensors[i].delay) {
             _currentSensors[i].lastTick = millis();
+            _currentSensors[i].current = _currentSensors[i].currentSensor->getCurrent();
+            _currentSensors[i].min = _currentSensors[i].currentSensor->getMin();
+            _currentSensors[i].max = _currentSensors[i].currentSensor->getMax();
+        }
+    }
+}
+
+void NGCurrentMeasurementUnitControl::_displayCurrentSensors() {
+    if ((millis() - _secondTick) >= _displaySensorInterval) {
+        _secondTick = millis();
+        if (_displayedSensor >= 0) {
             char log[100];
-            sprintf(log, "S%d: min %dmA, max %dmA, %dmA", i, _currentSensors[i].currentSensor->getMin(), _currentSensors[i].currentSensor->getMax(), _currentSensors[i].currentSensor->getCurrent());
+            sprintf(log, "S%d: min %dmA, max %dmA, %dmA", _displayedSensor, _currentSensors[_displayedSensor].min, _currentSensors[_displayedSensor].max, _currentSensors[_displayedSensor].current);
             int len = strlen(log);
             if (_lastInfoLen > len) {
                 for (int j = len; j < _lastInfoLen; j++) {
@@ -61,6 +72,10 @@ void NGCurrentMeasurementUnitControl::_procesingCurrentSensors() {
             }
             _lastInfoLen = len;
             writeInfo(log);
+            _displayedSensor++;
+            if (_displayedSensor >= _sensorCount) {
+                _displayedSensor = 0;
+            }
         }
     }
 }
@@ -68,6 +83,10 @@ void NGCurrentMeasurementUnitControl::_procesingCurrentSensors() {
 void NGCurrentMeasurementUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     _initializeSensors();
+}
+
+void NGCurrentMeasurementUnitControl::setDisplaySensorInterval(int interval) {
+    _displaySensorInterval = interval;
 }
 
 int NGCurrentMeasurementUnitControl::registerSensor(CurrentSensorTechnology sensorTechnology, byte pinSensor, int delay) {
@@ -78,6 +97,9 @@ int NGCurrentMeasurementUnitControl::registerSensor(CurrentSensorTechnology sens
         csd.delay = delay;
         _currentSensors[_sensorCount] = csd;
         _sensorCount++;
+    }
+    if (_displayedSensor == -1) {
+        _displayedSensor++;
     }
     if (_logging) {
         char log[100];
@@ -100,6 +122,7 @@ void NGCurrentMeasurementUnitControl::processingLoop() {
             observeMemory(OBSERVEMEMORYDELAY);
             break;
     }
+    _displayCurrentSensors();
 }
 
 void NGCurrentMeasurementUnitControl::requestData(byte* data) {

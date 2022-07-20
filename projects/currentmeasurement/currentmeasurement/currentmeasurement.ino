@@ -25,6 +25,7 @@ void setup() {
   #endif
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitCurrent.registerNotification(oledNotification);
+  unitCurrent.setDisplaySensorInterval(1000);
   unitCurrent.registerSensor(cst20Ampere, A0, 500);
   unitCurrent.initialize();
   #if (PROD == true)

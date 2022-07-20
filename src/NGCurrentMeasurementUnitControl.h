@@ -21,11 +21,15 @@
 #define VERSION (char*)_VERSION
 
 #define MAXCURRENTSENSORCOUNT 3
+#define DEFDISPLAYSENSORINTERVAL 1000
 
 struct currentSensorDataStruct
 {
     NGCurrentSensor *currentSensor;
     int delay;
+    int current;
+    int min;
+    int max;
     long int lastTick;
 };
 typedef struct currentSensorDataStruct currentSensorData;
@@ -36,6 +40,9 @@ private:
     currentSensorData _currentSensors[MAXCURRENTSENSORCOUNT];
     int _sensorCount = 0;
     int _lastInfoLen = 0;
+    long int _secondTick = 0;
+    int _displayedSensor = -1;
+    int _displaySensorInterval = DEFDISPLAYSENSORINTERVAL;
 
 protected:
     void _create(char* name, byte address, int serialRate);
@@ -47,6 +54,8 @@ protected:
     void _processingStartupLoop();
     
     void _procesingCurrentSensors();
+    
+    void _displayCurrentSensors();
 
 public:
     NGCurrentMeasurementUnitControl();
@@ -59,6 +68,8 @@ public:
     
     void initialize();
     
+    void setDisplaySensorInterval(int interval);
+
     int registerSensor(CurrentSensorTechnology sensorTechnology, byte pinSensor, int delay);
     
     void processingLoop();
