@@ -133,6 +133,7 @@
 		29B7A2C926C2E0F000D25BC8 /* motomanCentalUnit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanCentalUnit.png; sourceTree = "<group>"; };
 		29D0FFE428257539008B3231 /* simpleForwardTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleForwardTurns.txt; sourceTree = "<group>"; };
 		29D0FFE528257578008B3231 /* simpleBackwardTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleBackwardTurns.txt; sourceTree = "<group>"; };
+		29D43EE6288C5D45003AB391 /* currentmeasuringE0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = currentmeasuringE0.png; sourceTree = "<group>"; };
 		29D60E8B27F32D8E00FCA53A /* NGSoilMoistureSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSoilMoistureSensor.cpp; sourceTree = "<group>"; };
 		29D60E8C27F32D8E00FCA53A /* NGSoilMoistureSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSoilMoistureSensor.h; sourceTree = "<group>"; };
 		29D60E8E27F339ED00FCA53A /* soilmoisturesensor.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = soilmoisturesensor.ino; sourceTree = "<group>"; };
@@ -613,6 +614,7 @@
 		29AA4E532881A7160085BDAA /* images */ = {
 			isa = PBXGroup;
 			children = (
+				29D43EE6288C5D45003AB391 /* currentmeasuringE0.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
