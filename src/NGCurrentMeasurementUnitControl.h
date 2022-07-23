@@ -17,11 +17,12 @@
 #include <NGCustomUnitControl.h>
 #include <NGCurrentSensor.h>
 
-#define _VERSION "1.2"
+#define _VERSION "1.3"
 #define VERSION (char*)_VERSION
 
 #define MAXCURRENTSENSORCOUNT 3
 #define DEFDISPLAYSENSORINTERVAL 1000
+#define MAXAVERAGEMEASUREMENTS 100
 
 struct currentSensorDataStruct
 {
@@ -30,6 +31,9 @@ struct currentSensorDataStruct
     int current;
     int min;
     int max;
+    int count = 0;
+    long int total = 0;
+    int average;
     long int lastTick;
 };
 typedef struct currentSensorDataStruct currentSensorData;

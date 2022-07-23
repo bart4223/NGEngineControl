@@ -53,6 +53,15 @@ void NGCurrentMeasurementUnitControl::_procesingCurrentSensors() {
             _currentSensors[i].current = _currentSensors[i].currentSensor->getCurrent();
             _currentSensors[i].min = _currentSensors[i].currentSensor->getMin();
             _currentSensors[i].max = _currentSensors[i].currentSensor->getMax();
+            if (_currentSensors[i].count < MAXAVERAGEMEASUREMENTS) {
+                _currentSensors[i].count++;
+            } else {
+                _currentSensors[i].total = _currentSensors[i].average;
+                _currentSensors[i].count = 1;
+            }
+            _currentSensors[i].total = _currentSensors[i].total + _currentSensors[i].current;
+            _currentSensors[i].average = _currentSensors[i].total / _currentSensors[i].count;
+            Serial.println(_currentSensors[i].average);
         }
     }
 }
@@ -62,7 +71,7 @@ void NGCurrentMeasurementUnitControl::_displayCurrentSensors() {
         _secondTick = millis();
         if (_displayedSensor >= 0) {
             char log[100];
-            sprintf(log, "S%d: min %dmA, max %dmA, %dmA", _displayedSensor, _currentSensors[_displayedSensor].min, _currentSensors[_displayedSensor].max, _currentSensors[_displayedSensor].current);
+            sprintf(log, "S%d: ave %dmA, max %dmA, %dmA", _displayedSensor, _currentSensors[_displayedSensor].average, _currentSensors[_displayedSensor].max, _currentSensors[_displayedSensor].current);
             int len = strlen(log);
             if (_lastInfoLen > len) {
                 for (int j = len; j < _lastInfoLen; j++) {
