@@ -61,7 +61,6 @@ void NGCurrentMeasurementUnitControl::_procesingCurrentSensors() {
             }
             _currentSensors[i].total = _currentSensors[i].total + _currentSensors[i].current;
             _currentSensors[i].average = _currentSensors[i].total / _currentSensors[i].count;
-            Serial.println(_currentSensors[i].average);
         }
     }
 }
