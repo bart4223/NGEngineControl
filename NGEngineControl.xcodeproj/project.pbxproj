@@ -82,6 +82,7 @@
 		29647BC8253C5273003CBA13 /* NGEngineControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGEngineControl.cpp; sourceTree = "<group>"; };
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
 		2965FFD328984717007D5D28 /* IRremote.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = IRremote.ino; sourceTree = "<group>"; };
+		2965FFD728984A59007D5D28 /* speedy.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = speedy.ino; sourceTree = "<group>"; };
 		296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUltrasonicObjectRecognizer.cpp; sourceTree = "<group>"; };
 		296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltrasonicObjectRecognizer.h; sourceTree = "<group>"; };
 		296CD4E8272ED298003E27DA /* buggyC1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1a.png; sourceTree = "<group>"; };
@@ -522,6 +523,30 @@
 			path = IRremote;
 			sourceTree = "<group>";
 		};
+		2965FFD428984A18007D5D28 /* speedy */ = {
+			isa = PBXGroup;
+			children = (
+				2965FFD628984A43007D5D28 /* images */,
+				2965FFD528984A37007D5D28 /* speedy */,
+			);
+			path = speedy;
+			sourceTree = "<group>";
+		};
+		2965FFD528984A37007D5D28 /* speedy */ = {
+			isa = PBXGroup;
+			children = (
+				2965FFD728984A59007D5D28 /* speedy.ino */,
+			);
+			path = speedy;
+			sourceTree = "<group>";
+		};
+		2965FFD628984A43007D5D28 /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		29958E58271749D8007048E3 /* sequences */ = {
 			isa = PBXGroup;
 			children = (
@@ -607,6 +632,7 @@
 				29AA4E522881A6BC0085BDAA /* currentmeasurement */,
 				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
 				299C0E1B26D75CCE00F5A60D /* buggy */,
+				2965FFD428984A18007D5D28 /* speedy */,
 				29E6BA59263C6030007BCE9F /* motoman */,
 			);
 			path = projects;
