@@ -1,6 +1,6 @@
 #include <IRremote.h>
 
-const int receiver = 3; // 11
+const int receiver = 2; // 11
 
 #define IRP_NEC   0x07
 #define IRP_APPLE 0x14

@@ -6,10 +6,10 @@
 #endif
 #include <NGCentralUnitControl.h>
 
-#define _CENTRAL      "Speedy"
-#define CENTRAL       (char*)_CENTRAL
+#define _CENTRAL  "Speedy"
+#define CENTRAL    (char*)_CENTRAL
 
-#define IRREMOTE    11
+#define IRREMOTE 2
 
 #if (PROD == false)
 NGSerialNotification notificationSerial = NGSerialNotification();
