@@ -81,6 +81,7 @@
 		29647BC7253C515C003CBA13 /* NGEngineControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGEngineControl.h; sourceTree = "<group>"; };
 		29647BC8253C5273003CBA13 /* NGEngineControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGEngineControl.cpp; sourceTree = "<group>"; };
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
+		2965FFD328984717007D5D28 /* IRremote.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = IRremote.ino; sourceTree = "<group>"; };
 		296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUltrasonicObjectRecognizer.cpp; sourceTree = "<group>"; };
 		296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltrasonicObjectRecognizer.h; sourceTree = "<group>"; };
 		296CD4E8272ED298003E27DA /* buggyC1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1a.png; sourceTree = "<group>"; };
@@ -481,6 +482,7 @@
 				29B39E2327CBE381008507A2 /* timeofflight */,
 				29EA905A275BAB8600F3C556 /* OLED */,
 				2999D31D2792DC4400B88B53 /* I2CScanner */,
+				2965FFD2289846DE007D5D28 /* IRremote */,
 			);
 			path = examples;
 			sourceTree = "<group>";
@@ -510,6 +512,14 @@
 				29F56DF627462D0D00BBBB68 /* NGMotionUnitControl.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		2965FFD2289846DE007D5D28 /* IRremote */ = {
+			isa = PBXGroup;
+			children = (
+				2965FFD328984717007D5D28 /* IRremote.ino */,
+			);
+			path = IRremote;
 			sourceTree = "<group>";
 		};
 		29958E58271749D8007048E3 /* sequences */ = {
