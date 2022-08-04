@@ -17,13 +17,15 @@
 #include <NGExceptionDefinitions.h>
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "1.5"
+#define _VERSION "1.6"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
 
 #define UNITCOUNT       3
 #define COMPONENTCOUNT  6
+
+#define NOUNITADDRESS  0x00
 
 #define CDEFSTEPWIDTH   10
 
@@ -69,6 +71,7 @@ struct unitStruct
 {
     char* name;
     byte address;
+    NGCustomUnitControl *unitcontrol;
 };
 typedef struct unitStruct unit;
 
@@ -151,6 +154,8 @@ protected:
     
     void _processingStartupLoop();
     
+    void _registerUnit(char* name, byte address, NGCustomUnitControl *unitControl);
+    
 public:
     NGCentralUnitControl();
     
@@ -163,6 +168,8 @@ public:
     void initialize();
     
     void processingLoop();
+    
+    void registerUnit(char* name, NGCustomUnitControl *unitControl);
     
     void registerUnit(char* name, byte address);
     

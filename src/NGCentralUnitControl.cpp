@@ -255,6 +255,22 @@ int NGCentralUnitControl::_prepareCommand(byte subject, byte operation, char* na
     return strlen(name) + CMDOffset + 1;
 }
 
+void NGCentralUnitControl::_registerUnit(char* name, byte address, NGCustomUnitControl *unitControl) {
+    if (_unitCount < UNITCOUNT) {
+        char log[100];
+        unit u;
+        u.name = name;
+        u.address = address;
+        u.unitcontrol = unitControl;
+        _unit[_unitCount] = u;
+        _unitCount++;
+        sprintf(log, "Unit %s registered", name);
+        writeInfo(log);
+    } else {
+        _raiseException(ExceptionTooMuchUnitCount);
+    }
+}
+
 void NGCentralUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     if (_logging) {
@@ -325,19 +341,12 @@ void NGCentralUnitControl::processingLoop() {
     }
 }
 
+void NGCentralUnitControl::registerUnit(char* name, NGCustomUnitControl *unitControl) {
+    _registerUnit(name, NOUNITADDRESS, unitControl);
+}
+
 void NGCentralUnitControl::registerUnit(char* name, byte address) {
-    if (_unitCount < UNITCOUNT) {
-        char log[100];
-        unit u;
-        u.name = name;
-        u.address = address;
-        _unit[_unitCount] = u;
-        _unitCount++;
-        sprintf(log, "Unit %s registered", name);
-        writeInfo(log);
-    } else {
-        _raiseException(ExceptionTooMuchUnitCount);
-    }
+    _registerUnit(name, address, nullptr);
 }
 
 void NGCentralUnitControl::registerComponent(componentType type, char* unit, char* comp) {
