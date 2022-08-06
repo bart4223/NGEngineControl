@@ -17,7 +17,7 @@
 #include <NGExceptionDefinitions.h>
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "1.7"
+#define _VERSION "1.8"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -40,41 +40,9 @@
 #define CGRIPPERGRIP         0
 #define CGRIPPERRELEASE      1
 
-#define IRFUNCCOUNT      10
-#define IRFUNCMENUDELAY 100
-
 #define MOTIONPROFILECOUNT           2
 #define MOTIONPROFILECOMPONENTCOUNT  5
 #define MOTIONPROFILEITEMCOUNT      20
-
-#define IRP_APPLE       0x14
-#define IRP_APPLE_2     0x15
-#define IRA_APPLE       0xA3
-#define IRC_APPLE_MENU  0x02
-#define IRC_APPLE_LEFT  0x08
-#define IRC_APPLE_RIGHT 0x07
-#define IRC_APPLE_UP    0x0B
-#define IRC_APPLE_DOWN  0x0D
-#define IRC_APPLE_OK    0x5D
-#define IRC_APPLE_PLAY  0x5E
-
-enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
-
-struct irremotefuncStruct
-{
-    byte protocol;
-    byte address;
-    byte command;
-    functionType type;
-};
-typedef struct irremotefuncStruct irremotefunc;
-
-struct unitStruct
-{
-    char* name;
-    byte address;
-};
-typedef struct unitStruct unit;
 
 enum componentType { ctNone, ctEngine, ctJoint, ctGripper, ctMotionProfile };
 
@@ -119,14 +87,6 @@ struct componentStruct
 };
 typedef struct componentStruct component;
 
-struct irremoteStruct
-{
-    byte protocol;
-    byte address;
-    byte command;
-};
-typedef struct irremoteStruct irremote;
-
 class NGCentralUnitControl : public NGCustomUnitControl {
   
 private:
@@ -134,10 +94,6 @@ private:
     int _unitCount = 0;
     component _component[COMPONENTCOUNT];
     int _componentCount = 0;
-    irremote _irremotedata;
-    bool _irremotedataReceived = false;
-    irremotefunc _irremotefunc[IRFUNCCOUNT];
-    int _irremotefuncCount = 0;
     int _currentComponent = NOCURRENTCOMPONENT;
     motionProfile _motionProfile[MOTIONPROFILECOUNT];
     int _motionProfileCount = 0;
@@ -185,9 +141,7 @@ public:
     void addMotionProfileItem(int profile, int component, int position);
     
     void addMotionProfileItem(int profile, int component, int position, int delay);
-    
-    void registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command);
-    
+        
     void sendUnitEngineRunForward(char* name, char* engine);
 
     void sendUnitEngineRunBackward(char* name, char* engine);
@@ -217,8 +171,6 @@ public:
     void receiveUnitData(char* name);
     
     void requestData(byte* data);
-    
-    void setIRRemoteData(byte protocol, byte address, byte command);
 };
 
 #endif /* NGCentralUnitControl_hpp */

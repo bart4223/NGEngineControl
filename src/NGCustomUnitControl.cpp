@@ -205,6 +205,20 @@ void NGCustomUnitControl::registerJingleAlarm(NGCustomJingle *jingle) {
     _jingleAlarm = _registerJingle(jingle);
 }
 
+void NGCustomUnitControl::registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command) {
+    if (_irremotefuncCount < IRFUNCCOUNT) {
+        irremotefunc func;
+        func.protocol = protocol;
+        func.address = address;
+        func.command = command;
+        func.type = type;
+        _irremotefunc[_irremotefuncCount] = func;
+        _irremotefuncCount++;
+    } else {
+        _raiseException(ExceptionTooMuchIRFuncCount);
+    }
+}
+
 void NGCustomUnitControl::registerRealTimeClock(NGRealTimeClock *rtc) {
     _rtc = rtc;
     #ifdef NG_PLATFORM_MEGA
@@ -253,4 +267,13 @@ void NGCustomUnitControl::writeInfo(char* info) {
 
 void NGCustomUnitControl::beep() {
     _playJingleBeep();
+}
+
+void NGCustomUnitControl::setIRRemoteData(byte protocol, byte address, byte command) {
+    if (!_irremotedataReceived) {
+        _irremotedata.protocol = protocol;
+        _irremotedata.address = address;
+        _irremotedata.command = command;
+        _irremotedataReceived = true;
+    }
 }

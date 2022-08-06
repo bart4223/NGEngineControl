@@ -429,20 +429,6 @@ void NGCentralUnitControl::addMotionProfileItem(int profile, int component, int 
     }
 }
 
-void NGCentralUnitControl::registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command) {
-    if (_irremotefuncCount < IRFUNCCOUNT) {
-        irremotefunc func;
-        func.protocol = protocol;
-        func.address = address;
-        func.command = command;
-        func.type = type;
-        _irremotefunc[_irremotefuncCount] = func;
-        _irremotefuncCount++;
-    } else {
-        _raiseException(ExceptionTooMuchIRFuncCount);
-    }
-}
-
 void NGCentralUnitControl::sendUnitGripperGrip(char* name, char* gripper) {
     byte cmd[MaxCMDLength];
     int size = _prepareCommand(CMDSGripper, CMDOGripperGrip, gripper, cmd);
@@ -557,13 +543,4 @@ void NGCentralUnitControl::requestData(byte* data) {
     data[3] = 0x32; //2
     data[4] = 0x34; //4
     data[5] = 0x32; //2
-}
-
-void NGCentralUnitControl::setIRRemoteData(byte protocol, byte address, byte command) {
-    if (!_irremotedataReceived) {
-        _irremotedata.protocol = protocol;
-        _irremotedata.address = address;
-        _irremotedata.command = command;
-        _irremotedataReceived = true;
-    }
 }

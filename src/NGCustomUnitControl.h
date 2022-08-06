@@ -86,6 +86,46 @@
 #define CMDOGripperRelease    0x02
 #define CMDOGripperSimulate   0x03
 
+#define IRFUNCCOUNT      10
+#define IRFUNCMENUDELAY 100
+
+#define IRP_APPLE       0x14
+#define IRP_APPLE_2     0x15
+#define IRA_APPLE       0xA3
+#define IRC_APPLE_MENU  0x02
+#define IRC_APPLE_LEFT  0x08
+#define IRC_APPLE_RIGHT 0x07
+#define IRC_APPLE_UP    0x0B
+#define IRC_APPLE_DOWN  0x0D
+#define IRC_APPLE_OK    0x5D
+#define IRC_APPLE_PLAY  0x5E
+
+enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
+
+struct irremotefuncStruct
+{
+    byte protocol;
+    byte address;
+    byte command;
+    functionType type;
+};
+typedef struct irremotefuncStruct irremotefunc;
+
+struct unitStruct
+{
+    char* name;
+    byte address;
+};
+typedef struct unitStruct unit;
+
+struct irremoteStruct
+{
+    byte protocol;
+    byte address;
+    byte command;
+};
+typedef struct irremoteStruct irremote;
+
 enum workMode { wmNone, wmObserveMemory, wmCommand, wmSpec };
 
 class NGCustomUnitControl {
@@ -113,7 +153,11 @@ protected:
     int _jingleBoot = NOJINGLE;
     int _jingleBeep = NOJINGLE;
     int _jingleAlarm = NOJINGLE;
-    
+    irremote _irremotedata;
+    bool _irremotedataReceived = false;
+    irremotefunc _irremotefunc[IRFUNCCOUNT];
+    int _irremotefuncCount = 0;
+
     void _create(char* name, byte address, int serialRate);
     
     void _clearState();
@@ -171,6 +215,8 @@ public:
        
     void registerJingleAlarm(NGCustomJingle *jingle);
     
+    void registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command);
+
     void processingLoop();
     
     void clearInfo();
@@ -185,6 +231,8 @@ public:
     
     void receiveDataFinish(int count);
     
+    void setIRRemoteData(byte protocol, byte address, byte command);
+
     virtual void requestData(byte* data);
 };
 
