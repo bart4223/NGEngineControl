@@ -17,7 +17,7 @@
 #include <NGExceptionDefinitions.h>
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "1.6"
+#define _VERSION "1.7"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
@@ -27,6 +27,7 @@
 
 #define NOUNITADDRESS  0x00
 
+#define CNOSTEPWIDTH     0
 #define CDEFSTEPWIDTH   10
 
 #define NOCURRENTCOMPONENT  -1
@@ -47,6 +48,7 @@
 #define MOTIONPROFILEITEMCOUNT      20
 
 #define IRP_APPLE       0x14
+#define IRP_APPLE_2     0x15
 #define IRA_APPLE       0xA3
 #define IRC_APPLE_MENU  0x02
 #define IRC_APPLE_LEFT  0x08
@@ -71,11 +73,10 @@ struct unitStruct
 {
     char* name;
     byte address;
-    NGCustomUnitControl *unitcontrol;
 };
 typedef struct unitStruct unit;
 
-enum componentType { ctEngine, ctJoint, ctGripper, ctMotionProfile };
+enum componentType { ctNone, ctEngine, ctJoint, ctGripper, ctMotionProfile };
 
 struct motionProfileComponentStruct
 {
@@ -154,8 +155,6 @@ protected:
     
     void _processingStartupLoop();
     
-    void _registerUnit(char* name, byte address, NGCustomUnitControl *unitControl);
-    
 public:
     NGCentralUnitControl();
     
@@ -169,13 +168,13 @@ public:
     
     void processingLoop();
     
-    void registerUnit(char* name, NGCustomUnitControl *unitControl);
+    void registerUnit(char* name);
     
     void registerUnit(char* name, byte address);
     
     void registerComponent(componentType type, char* unit, char* comp);
     
-    void registerComponent(componentType type, char* unit, char* comp, int stepwdith);
+    void registerComponent(componentType type, char* unit, char* comp, int stepwidth);
     
     int registerMotionProfile(char* profile, char* unit);
     
