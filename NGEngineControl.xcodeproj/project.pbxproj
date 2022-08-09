@@ -162,6 +162,9 @@
 		29DAAB9A27B02DD1000E56F1 /* NGVoidMotionMimic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGVoidMotionMimic.h; sourceTree = "<group>"; };
 		29DAAB9B27B03057000E56F1 /* NGSimpleMotionControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSimpleMotionControl.cpp; sourceTree = "<group>"; };
 		29DAAB9C27B03057000E56F1 /* NGSimpleMotionControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSimpleMotionControl.h; sourceTree = "<group>"; };
+		29DC5F8528A2384200CCEEB1 /* NGSimpleWirelessReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSimpleWirelessReceiver.cpp; sourceTree = "<group>"; };
+		29DC5F8628A2384200CCEEB1 /* NGSimpleWirelessReceiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSimpleWirelessReceiver.h; sourceTree = "<group>"; };
+		29DC5F8828A27FC500CCEEB1 /* wirelessreceiver.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = wirelessreceiver.ino; sourceTree = "<group>"; };
 		29E24C7527F33D8B0009F0CF /* irrigationsystem.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = irrigationsystem.ino; sourceTree = "<group>"; };
 		29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGIrrigationUnitControl.cpp; sourceTree = "<group>"; };
 		29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIrrigationUnitControl.h; sourceTree = "<group>"; };
@@ -484,6 +487,7 @@
 				29EA905A275BAB8600F3C556 /* OLED */,
 				2999D31D2792DC4400B88B53 /* I2CScanner */,
 				2965FFD2289846DE007D5D28 /* IRremote */,
+				29DC5F8728A27F8400CCEEB1 /* wirelessreceiver */,
 			);
 			path = examples;
 			sourceTree = "<group>";
@@ -583,6 +587,8 @@
 			children = (
 				2999D31C2791CE2500B88B53 /* NGI2CScanner.h */,
 				2999D31B2791CE2500B88B53 /* NGI2CScanner.cpp */,
+				29DC5F8628A2384200CCEEB1 /* NGSimpleWirelessReceiver.h */,
+				29DC5F8528A2384200CCEEB1 /* NGSimpleWirelessReceiver.cpp */,
 			);
 			name = communication;
 			sourceTree = "<group>";
@@ -728,6 +734,14 @@
 				29D7EC4226750DEE00009403 /* motionunit.ino */,
 			);
 			path = motionunit;
+			sourceTree = "<group>";
+		};
+		29DC5F8728A27F8400CCEEB1 /* wirelessreceiver */ = {
+			isa = PBXGroup;
+			children = (
+				29DC5F8828A27FC500CCEEB1 /* wirelessreceiver.ino */,
+			);
+			path = wirelessreceiver;
 			sourceTree = "<group>";
 		};
 		29E24C7427F33D5F0009F0CF /* irrigationsystem */ = {
