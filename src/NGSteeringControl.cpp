@@ -8,8 +8,8 @@
 #include "NGCommon.h"
 #include "NGSteeringControl.h"
 
-NGSteeringControl::NGSteeringControl() {
-    
+NGSteeringControl::NGSteeringControl() {    
+    _create(ENGINE_0, ENGINE_1, DEFAULTSERIALRATE, ENGINENULLOFFSET, ENGINENULLOFFSET);
 }
 
 NGSteeringControl::NGSteeringControl(int engineLeft, int engineRight) {
