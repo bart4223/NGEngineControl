@@ -1,14 +1,15 @@
 #define PROD false  //false,true
 
 #include <IRremote.h>
-#include <NGCentralUnitControl.h>
+#include <NGMotionUnitControl.h>
 #include <NGOLEDNotification.h>
 #if (PROD == false)
 #include <NGSerialNotification.h>
 #endif
+#include <NGMotionSequenceDefinitions.h>
 
-#define _CENTRAL  "Speedy"
-#define CENTRAL    (char*)_CENTRAL
+#define _MOTION  "Speedy"
+#define MOTION    (char*)_MOTION
 
 #define OLEDADDRESS       0x3C
 #define OLEDCOLUMNS       16
@@ -18,8 +19,10 @@
 
 #define IRREMOTE    2
 
+#define SPEEDEASY   100
+
 IRrecv _irrecv(IRREMOTE);
-NGCentralUnitControl unitCentral = NGCentralUnitControl(CENTRAL);
+NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION);
 NGOLEDNotification *oledNotification;
 #if (PROD == false)
 NGSerialNotification notificationSerial = NGSerialNotification();
@@ -27,26 +30,30 @@ NGSerialNotification notificationSerial = NGSerialNotification();
 
 void setup() {
   _irrecv.enableIRIn();
-  setGlobalUnit(&unitCentral);
+  setGlobalUnit(&unitSpeedy);
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
-  unitCentral.registerNotification(oledNotification);
+  unitSpeedy.registerNotification(oledNotification);
   #if (PROD == false)
-  unitCentral.registerNotification(&notificationSerial);
+  unitSpeedy.registerNotification(&notificationSerial);
   #endif
-  unitCentral.registerUnit(CENTRAL);
-  unitCentral.registerComponent(ctNone, CENTRAL, CENTRAL);
-  unitCentral.registerIRRemoteFunction(ftMenu, IRP_APPLE_2, IRA_APPLE, IRC_APPLE_MENU);
-  unitCentral.initialize();
+  unitSpeedy.registerIRRemoteFunction(ftUp, IRP_APPLE_2, IRA_APPLE, IRC_APPLE_UP);
+  DEF_MOTION_SEQUENCE_START;
+  // forward
+  DEF_MOTION_SEQUENCE_BEGIN_STRAIGHT(unitSpeedy);
+  DEF_MOTION_SEQUENCE_FORWARD(unitSpeedy, SPEEDEASY, 500);
+  DEF_MOTION_SEQUENCE_END_STRAIGHT;
+  unitSpeedy.initialize();
   #if (PROD == false)
-  unitCentral.setWorkMode(wmObserveMemory);
+  unitSpeedy.setWorkMode(wmObserveMemory);
   #endif
-  unitCentral.clearInfo();
+  unitSpeedy.startUp();
+  unitSpeedy.clearInfo();
 }
 
 void loop() {
   if (_irrecv.decode()) {
-    unitCentral.setIRRemoteData(_irrecv.decodedIRData.protocol,_irrecv.decodedIRData.address,_irrecv.decodedIRData.command);
+    unitSpeedy.setIRRemoteData(_irrecv.decodedIRData.protocol,_irrecv.decodedIRData.address,_irrecv.decodedIRData.command);
     _irrecv.resume();
   }
-  unitCentral.processingLoop();
+  unitSpeedy.processingLoop();
 }

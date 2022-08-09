@@ -26,7 +26,7 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "4.3"
+#define _VERSION "4.4"
 #define VERSION (char*)_VERSION
 
 #define DEFINTERRUPTIONDELAY 1000
@@ -38,6 +38,8 @@
 #define MAXMOTIONSEQUENCECOUNT     6
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 #endif
+
+#define NOCURRENTMOTIONSEQUENCE -1
 
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
 
@@ -75,7 +77,7 @@ private:
     int _jingleThinking = -1;
     motionSequence _motionSequence[MAXMOTIONSEQUENCECOUNT];
     int _motionSequenceCount = 0;
-    int _currentMotionSequence = -1;
+    int _currentMotionSequence = NOCURRENTMOTIONSEQUENCE;
     long int _currentMotionSequenceItemStarts = 0;
     byte _currentMotionSequenceItem = 0;
 
@@ -124,9 +126,13 @@ protected:
     
     void _processingMotionSequenceItem(motionSequenceItem item);
     
+    void _processingIRRemoteData();
+    
     void _determineCurrentMotionSequence();
     
     void _determineMotionInterruption();
+    
+    int _getMotionSequenceByKind(motionSequenceKind kind);
     
 public:
     NGMotionUnitControl();

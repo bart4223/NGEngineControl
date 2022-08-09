@@ -155,7 +155,10 @@ long int NGCustomUnitControl::startUp() {
 }
 
 void NGCustomUnitControl::processingLoop() {
-    
+    if (_irremotedataReceived) {
+        _processingIRRemoteData();
+        _irremotedataReceived = false;
+    }
 }
 
 void NGCustomUnitControl::setWorkMode(workMode workmode) {

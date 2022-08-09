@@ -274,6 +274,38 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
     }
 }
 
+void NGMotionUnitControl::_processingIRRemoteData() {
+    int index;
+    for (int i = 0; i < _irremotefuncCount; i++) {
+        if (_irremotefunc[i].protocol == _irremotedata.protocol && _irremotefunc[i].address == _irremotedata.address
+                && _irremotefunc[i].command == _irremotedata.command) {
+            switch (_irremotefunc[i].type) {
+                case ftUp:
+                    index = _getMotionSequenceByKind(mskStraight);
+                    if (index != NOCURRENTMOTIONSEQUENCE) {
+                        _currentMotionSequence = index;
+                        writeInfo("Go!");
+                    }
+                    break;
+                case ftDown:
+                    index = _getMotionSequenceByKind(mskBack);
+                    if (index != NOCURRENTMOTIONSEQUENCE) {
+                        _currentMotionSequence = index;
+                        writeInfo("Back!");
+                    }
+                    break;
+                case ftPlay:
+                    index = _getMotionSequenceByKind(mskStop);
+                    if (_currentMotionSequence != index && index != NOCURRENTMOTIONSEQUENCE) {
+                        _currentMotionSequence = index;
+                        writeInfo("Stop!");
+                    }
+                    break;
+            }
+        }
+    }
+}
+
 void NGMotionUnitControl::_determineCurrentMotionSequence() {
     bool newMotionSequence = true;
     if (_motionSequenceCount > 0) {
@@ -311,7 +343,7 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
                     }
                 }
             }
-        } else {
+        } else if (_irremotefuncCount == 0) {
             _currentMotionSequence = random(0, _motionSequenceCount);
         }
     } else {
@@ -351,6 +383,15 @@ void NGMotionUnitControl::_determineMotionInterruption() {
             delay(DEFINTERRUPTIONDELAY);
         }
     }
+}
+
+int NGMotionUnitControl::_getMotionSequenceByKind(motionSequenceKind kind) {
+    for (int i = 0; i < _motionSequenceCount; i++) {
+        if (_motionSequence[_motionSequenceCount].kind = kind) {
+            return i;
+        }
+    }
+    return -1;
 }
 
 void NGMotionUnitControl::initialize() {

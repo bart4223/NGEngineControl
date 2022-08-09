@@ -267,10 +267,6 @@ void NGCentralUnitControl::initialize() {
 
 void NGCentralUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
-    if (_irremotedataReceived) {
-        _processingIRRemoteData();
-        _irremotedataReceived = false;
-    }
     switch (_workMode) {
         case wmNone:
             break;

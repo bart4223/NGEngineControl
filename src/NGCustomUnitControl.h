@@ -86,7 +86,12 @@
 #define CMDOGripperRelease    0x02
 #define CMDOGripperSimulate   0x03
 
+#ifdef NG_PLATFORM_MEGA
 #define IRFUNCCOUNT      10
+#else
+#define IRFUNCCOUNT      3
+#endif
+
 #define IRFUNCMENUDELAY 100
 
 #define IRP_APPLE       0x14
@@ -171,6 +176,8 @@ protected:
     virtual void _processingReceivedData();
     
     virtual void _processingStartupLoop();
+    
+    virtual void _processingIRRemoteData();
 
     int _registerJingle(NGCustomJingle *jingle);
 
