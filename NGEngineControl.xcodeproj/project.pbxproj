@@ -635,11 +635,11 @@
 		29AA4E512881A60D0085BDAA /* projects */ = {
 			isa = PBXGroup;
 			children = (
+				299C0E1B26D75CCE00F5A60D /* buggy */,
 				29AA4E522881A6BC0085BDAA /* currentmeasurement */,
 				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
-				299C0E1B26D75CCE00F5A60D /* buggy */,
-				2965FFD428984A18007D5D28 /* speedy */,
 				29E6BA59263C6030007BCE9F /* motoman */,
+				2965FFD428984A18007D5D28 /* speedy */,
 			);
 			path = projects;
 			sourceTree = "<group>";
