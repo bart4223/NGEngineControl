@@ -29,8 +29,6 @@ NGSteeringControl::NGSteeringControl(int engineLeft, int engineRight, int serial
 }
 
 void NGSteeringControl::_create(int engineLeft, int engineRight, int serialRate, int offsetEngineLeft, int offsetEngineRight) {
-    _initialized = false;
-    _logging = true;
     _engineLeft = NGEngineControl(engineLeft, serialRate);
     _engineLeft.setLogging(_logging);
     _engineRight = NGEngineControl(engineRight, serialRate);
@@ -70,18 +68,6 @@ void NGSteeringControl::stop() {
     }
 }
 
-void NGSteeringControl::runFullSpeedForward() {
-    run(edForward, MAXSPEED);
-}
-
-void NGSteeringControl::runFullSpeedBackward() {
-    run(edBackward, MAXSPEED);
-}
-
-void NGSteeringControl::run(engineDirection direction) {
-    run(direction, NULLSPEED);
-}
-
 void NGSteeringControl::run(engineDirection direction, byte speed) {
     char log[100];
     if (speed > NULLSPEED) {
@@ -101,10 +87,6 @@ void NGSteeringControl::run(engineDirection direction, byte speed) {
         }
         Serial.println(log);
     }
-}
-
-void NGSteeringControl::turnForward(turnDirection turn) {
-    turnForward(turn, NULLSPEED);
 }
 
 void NGSteeringControl::turnForward(turnDirection turn, byte speed) {
@@ -149,11 +131,6 @@ void NGSteeringControl::turnForward(turnDirection turn, byte speed) {
     }
 }
 
-
-void NGSteeringControl::turnBackward(turnDirection turn) {
-    turnBackward(turn, NULLSPEED);
-}
-
 void NGSteeringControl::turnBackward(turnDirection turn, byte speed) {
     if (speed > NULLSPEED) {
         _speed = speed;
@@ -194,4 +171,24 @@ void NGSteeringControl::turnBackward(turnDirection turn, byte speed) {
             }
             break;
     }
+}
+
+void NGSteeringControl::runFullSpeedForward() {
+    run(edForward, MAXSPEED);
+}
+
+void NGSteeringControl::runFullSpeedBackward() {
+    run(edBackward, MAXSPEED);
+}
+
+void NGSteeringControl::run(engineDirection direction) {
+    run(direction, NULLSPEED);
+}
+
+void NGSteeringControl::turnForward(turnDirection turn) {
+    turnForward(turn, NULLSPEED);
+}
+
+void NGSteeringControl::turnBackward(turnDirection turn) {
+    turnBackward(turn, NULLSPEED);
 }

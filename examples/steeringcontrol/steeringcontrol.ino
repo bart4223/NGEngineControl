@@ -1,21 +1,22 @@
 #include <NGSteeringControl.h>
+#include <NGCarSteeringControl.h>
 
-#define MXLOOPS 2
+#define MAXLOOPS 1
 
-NGSteeringControl sc = NGSteeringControl();
+NGCustomSteeringControl *sc = new NGCarSteeringControl();
 int index = 0;
 
 void setup() {
-  sc.initialize();
+  sc->initialize();
 }
 
 void loop() {
-  if (index < MXLOOPS) {
-    sc.run(edForward, 50);
+  if (index < MAXLOOPS) {
+    sc->run(edForward, 50);
     delay(1000);
-    sc.run(edBackward, 50);
+    sc->run(edBackward, 50);
     delay(1000);
-    sc.stop();
+    sc->stop();
     index++;
   }
 }

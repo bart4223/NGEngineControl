@@ -14,18 +14,14 @@
 #include <WProgram.h>
 #endif
 
+#include <NGCustomSteeringControl.h>
 #include <NGEngineControl.h>
 
 #define ENGINENULLOFFSET 0
 
-enum turnDirection { tdNone, tdLeft, tdRight, tdLeftSoft, tdRightSoft };
-
-class NGSteeringControl {
+class NGSteeringControl : public NGCustomSteeringControl {
 
 private:
-    bool _initialized;
-    bool _logging;
-    byte _speed;
     NGEngineControl _engineLeft = NGEngineControl();
     NGEngineControl _engineRight = NGEngineControl();
     int _offsetEngineLeft = 0;
@@ -51,21 +47,22 @@ public:
     
     void stop();
     
-    void runFullSpeedForward();
-    
-    void runFullSpeedBackward();
-    
-    void run(engineDirection direction);
-    
     void run(engineDirection direction, byte speed);
-    
-    void turnForward(turnDirection turn);
     
     void turnForward(turnDirection turn, byte speed);
     
-    void turnBackward(turnDirection turn);
-    
     void turnBackward(turnDirection turn, byte speed);
+    
+    void runFullSpeedForward();
+
+    void runFullSpeedBackward();
+
+    void run(engineDirection direction);
+
+    void turnForward(turnDirection turn);
+
+    void turnBackward(turnDirection turn);
+      
 };
 
 #endif /* NGSteeringControl_h */
