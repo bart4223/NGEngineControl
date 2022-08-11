@@ -20,13 +20,12 @@
 #include <NGCustomMotionControl.h>
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
-#include <NGSteeringControl.h>
 #include <NGCustomJingle.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "4.4"
+#define _VERSION "4.5"
 #define VERSION (char*)_VERSION
 
 #define DEFINTERRUPTIONDELAY 1000

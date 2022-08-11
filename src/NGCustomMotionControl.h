@@ -17,7 +17,7 @@
 #include <NGCommon.h>
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
-#include <NGSteeringControl.h>
+#include <NGCustomSteeringControl.h>
 
 #ifdef NG_PLATFORM_MEGA
 #define MAXOBECTRECOGNIZERCOUNT    10
@@ -37,13 +37,13 @@ typedef struct objectRecognizerStruct objectRecognizer;
 class NGCustomMotionControl {
   
 protected:
-    NGSteeringControl *_steeringControl;
+    NGCustomSteeringControl *_steeringControl;
     NGCustomMotionMimic *_motionMimic = nullptr;
     objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
     int _objectRecognizerCount = 0;
     int _firedObjectRecognizer = -1;
 
-    virtual void _create(NGSteeringControl *steeringControl);
+    virtual void _create(NGCustomSteeringControl *steeringControl);
     
     void _initializeMotionMimic();
     

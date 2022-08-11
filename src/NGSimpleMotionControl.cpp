@@ -7,10 +7,10 @@
 
 #include "NGSimpleMotionControl.h"
 
-NGSimpleMotionControl::NGSimpleMotionControl(NGSteeringControl *steeringControl) {
+NGSimpleMotionControl::NGSimpleMotionControl(NGCustomSteeringControl *steeringControl) {
     _create(steeringControl);
 }
 
-void NGSimpleMotionControl::_create(NGSteeringControl *steeringControl) {
+void NGSimpleMotionControl::_create(NGCustomSteeringControl *steeringControl) {
     _steeringControl = steeringControl;
 }

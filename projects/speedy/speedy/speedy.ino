@@ -2,6 +2,8 @@
 
 #include <IRremote.h>
 #include <NGMotionUnitControl.h>
+#include <NGSimpleMotionControl.h>
+#include <NGCarSteeringControl.h>
 #include <NGOLEDNotification.h>
 #if (PROD == false)
 #include <NGSerialNotification.h>
@@ -22,7 +24,7 @@
 #define SPEEDEASY   100
 
 IRrecv _irrecv(IRREMOTE);
-NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION);
+NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, new NGSimpleMotionControl(new NGCarSteeringControl()));
 NGOLEDNotification *oledNotification;
 #if (PROD == false)
 NGSerialNotification notificationSerial = NGSerialNotification();
