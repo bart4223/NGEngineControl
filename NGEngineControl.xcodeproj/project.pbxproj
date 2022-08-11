@@ -170,6 +170,7 @@
 		29DC5F8C28A37B6F00CCEEB1 /* NGCustomSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomSteeringControl.h; sourceTree = "<group>"; };
 		29DC5F8D28A4076700CCEEB1 /* NGCarSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCarSteeringControl.cpp; sourceTree = "<group>"; };
 		29DC5F8E28A4076700CCEEB1 /* NGCarSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCarSteeringControl.h; sourceTree = "<group>"; };
+		29DC5F9028A5053A00CCEEB1 /* motioncontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motioncontrol.ino; sourceTree = "<group>"; };
 		29E24C7527F33D8B0009F0CF /* irrigationsystem.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = irrigationsystem.ino; sourceTree = "<group>"; };
 		29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGIrrigationUnitControl.cpp; sourceTree = "<group>"; };
 		29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIrrigationUnitControl.h; sourceTree = "<group>"; };
@@ -486,6 +487,7 @@
 				29F56DF227410D5900BBBB68 /* lasercannon */,
 				29F56DEA27410C1A00BBBB68 /* lightsensor */,
 				29232B562780CB6500B85C8E /* morsetonegenerator */,
+				29DC5F8F28A5051800CCEEB1 /* motioncontrol */,
 				29EA905A275BAB8600F3C556 /* OLED */,
 				29E71C9027F76DC90046A707 /* pumpcontrol */,
 				29EA90612763333100F3C556 /* questiondialog */,
@@ -760,6 +762,14 @@
 				29DC5F8A28A2EFC200CCEEB1 /* steeringcontrol.ino */,
 			);
 			path = steeringcontrol;
+			sourceTree = "<group>";
+		};
+		29DC5F8F28A5051800CCEEB1 /* motioncontrol */ = {
+			isa = PBXGroup;
+			children = (
+				29DC5F9028A5053A00CCEEB1 /* motioncontrol.ino */,
+			);
+			path = motioncontrol;
 			sourceTree = "<group>";
 		};
 		29E24C7427F33D5F0009F0CF /* irrigationsystem */ = {
