@@ -90,8 +90,9 @@ void NGSimpleWirelessReceiver::processingLoop() {
                         if (_receiverCallbacks[_currentCallback].delay > SWRNODELAY) {
                             _receiverCallbacks[_currentCallback].lastFire = millis();
                         }
+                        return;
                     }
-                    return;
+                    break;
                 case swrmHIGH:
                     if (digitalRead(_receiverCallbacks[i].pin) == HIGH) {
                         _currentCallback = i;
@@ -101,8 +102,9 @@ void NGSimpleWirelessReceiver::processingLoop() {
                         if (_receiverCallbacks[_currentCallback].delay > SWRNODELAY) {
                             _receiverCallbacks[_currentCallback].lastFire = millis();
                         }
+                        return;
                     }
-                    return;
+                    break;
                 }
         }
     }

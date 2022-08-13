@@ -284,7 +284,7 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                 && _irremotefunc[i].command == _irremotedata.command) {
             switch (_irremotefunc[i].type) {
                 case ftUp:
-                    if (_currentMotionSequence == NOCURRENTMOTIONSEQUENCE || _getMotionSequenceByKind(mskStop) == _currentMotionSequence) {
+                    if (_currentMotionSequence !=  _getMotionSequenceByKind(mskStraight)) {
                         sprintf(log, "Go!");
                         index = _getMotionSequenceByKind(mskStraight);
                     } else {
@@ -299,7 +299,7 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                     }
                     break;
                 case ftDown:
-                    if (_currentMotionSequence == NOCURRENTMOTIONSEQUENCE || _getMotionSequenceByKind(mskStop) == _currentMotionSequence) {
+                    if (_currentMotionSequence != _getMotionSequenceByKind(mskBack)) {
                         sprintf(log, "Back!");
                         index = _getMotionSequenceByKind(mskBack);
                     } else {
