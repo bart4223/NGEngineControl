@@ -105,6 +105,13 @@
 #define IRC_APPLE_OK    0x5D
 #define IRC_APPLE_PLAY  0x5E
 
+#define IRP_QIACHIP         0x42
+#define IRA_QIACHIP         0x84
+#define IRC_QIACHIP_LEFT    0x21
+#define IRC_QIACHIP_RIGHT   0x22
+#define IRC_QIACHIP_UP      0x23
+#define IRC_QIACHIP_DOWN    0x24
+
 enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
 
 struct irremotefuncStruct

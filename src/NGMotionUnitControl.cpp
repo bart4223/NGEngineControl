@@ -163,6 +163,8 @@ void NGMotionUnitControl::_processingReceivedData() {
 
 void NGMotionUnitControl::_resetCurrentMotionSequence() {
     _currentMotionSequence = -1;
+    _currentMotionSequenceItem = 0;
+    _currentMotionSequenceItemStarts = 0;
 }
 
 void NGMotionUnitControl::_playJingleBackward() {
@@ -275,29 +277,48 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
 }
 
 void NGMotionUnitControl::_processingIRRemoteData() {
+    char log[10];
     int index;
     for (int i = 0; i < _irremotefuncCount; i++) {
         if (_irremotefunc[i].protocol == _irremotedata.protocol && _irremotefunc[i].address == _irremotedata.address
                 && _irremotefunc[i].command == _irremotedata.command) {
             switch (_irremotefunc[i].type) {
                 case ftUp:
-                    index = _getMotionSequenceByKind(mskStraight);
+                    if (_currentMotionSequence == NOCURRENTMOTIONSEQUENCE || _getMotionSequenceByKind(mskStop) == _currentMotionSequence) {
+                        sprintf(log, "Go!");
+                        index = _getMotionSequenceByKind(mskStraight);
+                    } else {
+                        sprintf(log, "Stop!");
+                        index = _getMotionSequenceByKind(mskStop);
+                    }
                     if (index != NOCURRENTMOTIONSEQUENCE) {
+                        _resetCurrentMotionSequence();
                         _currentMotionSequence = index;
-                        writeInfo("Go!");
+                        clearInfo();
+                        writeInfo(log);
                     }
                     break;
                 case ftDown:
-                    index = _getMotionSequenceByKind(mskBack);
+                    if (_currentMotionSequence == NOCURRENTMOTIONSEQUENCE || _getMotionSequenceByKind(mskStop) == _currentMotionSequence) {
+                        sprintf(log, "Back!");
+                        index = _getMotionSequenceByKind(mskBack);
+                    } else {
+                        sprintf(log, "Stop!");
+                        index = _getMotionSequenceByKind(mskStop);
+                    }
                     if (index != NOCURRENTMOTIONSEQUENCE) {
+                        _resetCurrentMotionSequence();
                         _currentMotionSequence = index;
-                        writeInfo("Back!");
+                        clearInfo();
+                        writeInfo(log);
                     }
                     break;
                 case ftPlay:
                     index = _getMotionSequenceByKind(mskStop);
                     if (_currentMotionSequence != index && index != NOCURRENTMOTIONSEQUENCE) {
                         _currentMotionSequence = index;
+                        _resetCurrentMotionSequence();
+                        clearInfo();
                         writeInfo("Stop!");
                     }
                     break;
@@ -387,11 +408,11 @@ void NGMotionUnitControl::_determineMotionInterruption() {
 
 int NGMotionUnitControl::_getMotionSequenceByKind(motionSequenceKind kind) {
     for (int i = 0; i < _motionSequenceCount; i++) {
-        if (_motionSequence[_motionSequenceCount].kind = kind) {
+        if (_motionSequence[i].kind == kind) {
             return i;
         }
     }
-    return -1;
+    return NOCURRENTMOTIONSEQUENCE;
 }
 
 void NGMotionUnitControl::initialize() {

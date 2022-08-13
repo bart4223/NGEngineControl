@@ -16,6 +16,8 @@
 
 #define MAXSWRCALLBACKOUNT 4
 #define SWRNODELAY 0
+#define SWRNOCURRENTCALLBACK -1
+#define SWRNOPROTOCOL 0x00
 
 // Chip QIACHIP wireless RX480E-4WQB 433Mhz
 //
@@ -42,6 +44,9 @@ struct simpleWirelessReceiverCallbackStruct
     long int lastFire = 0;
     simpleWirelessReceiverMode mode;
     simpleWirelessReceiverCallbackFunc callback;
+    byte protocol = 0x00;
+    byte address = 0x00;
+    byte command = 0x00;
 };
 typedef struct simpleWirelessReceiverCallbackStruct simpleWirelessReceiverCallback;
 
@@ -50,20 +55,41 @@ class NGSimpleWirelessReceiver {
 private:
     simpleWirelessReceiverCallback _receiverCallbacks[MAXSWRCALLBACKOUNT];
     int _receiverCallbackCount = 0;
+    int _currentCallback = SWRNOCURRENTCALLBACK;
     
 protected:
     void _create();
     
+    void _resetCurrentCallback();
+    
 public:
     NGSimpleWirelessReceiver();
        
+    void registerCallback(int pin, simpleWirelessReceiverCallbackFunc callback);
+    
     void registerCallback(int pin, simpleWirelessReceiverMode mode, simpleWirelessReceiverCallbackFunc callback);
     
+    void registerCallback(int pin, simpleWirelessReceiverCallbackFunc callback, int delay);
+    
     void registerCallback(int pin, simpleWirelessReceiverMode mode, simpleWirelessReceiverCallbackFunc callback, int delay);
+    
+    void registerCommand(int pin, byte protocol, byte address, byte command);
+    
+    void registerCommand(int pin, byte protocol, byte address, byte command, int delay);
+    
+    void registerCommand(int pin, simpleWirelessReceiverMode mode, byte protocol, byte address, byte command, int delay);
     
     void initialize();
     
     void processingLoop();
+    
+    bool isCommandReceived();
+    
+    byte getReceivedCommandProtocol();
+
+    byte getReceivedCommandAddress();
+
+    byte getReceivedCommand();
 };
 
 #endif /* NGSimpleWirelessReceiver_h */
