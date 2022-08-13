@@ -171,6 +171,9 @@
 		29DC5F8D28A4076700CCEEB1 /* NGCarSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCarSteeringControl.cpp; sourceTree = "<group>"; };
 		29DC5F8E28A4076700CCEEB1 /* NGCarSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCarSteeringControl.h; sourceTree = "<group>"; };
 		29DC5F9028A5053A00CCEEB1 /* motioncontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motioncontrol.ino; sourceTree = "<group>"; };
+		29DC5F9128A820EA00CCEEB1 /* NGJoystickControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJoystickControl.cpp; sourceTree = "<group>"; };
+		29DC5F9228A820EA00CCEEB1 /* NGJoystickControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJoystickControl.h; sourceTree = "<group>"; };
+		29DC5F9428A8244400CCEEB1 /* joystick.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = joystick.ino; sourceTree = "<group>"; };
 		29E24C7527F33D8B0009F0CF /* irrigationsystem.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = irrigationsystem.ino; sourceTree = "<group>"; };
 		29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGIrrigationUnitControl.cpp; sourceTree = "<group>"; };
 		29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIrrigationUnitControl.h; sourceTree = "<group>"; };
@@ -452,22 +455,24 @@
 				2913C94727018C9800D0AFC6 /* sensors */,
 				29958E5B2718A7A4007048E3 /* specs */,
 				2913C93A26FF67DB00D0AFC6 /* app */,
-				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
-				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
-				2905F11F264AD273001B4A56 /* NGJointControl.h */,
-				2905F120264AD58E001B4A56 /* NGJointControl.cpp */,
-				292E8FF3265FFAF50042F249 /* NGGripperControl.h */,
-				292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */,
-				29DC5F8C28A37B6F00CCEEB1 /* NGCustomSteeringControl.h */,
-				29DC5F8B28A37B6F00CCEEB1 /* NGCustomSteeringControl.cpp */,
-				299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */,
-				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
 				29DC5F8E28A4076700CCEEB1 /* NGCarSteeringControl.h */,
 				29DC5F8D28A4076700CCEEB1 /* NGCarSteeringControl.cpp */,
-				29232B45277CBE6D00B85C8E /* NGRelaisControl.h */,
-				29232B44277CBE6D00B85C8E /* NGRelaisControl.cpp */,
+				29DC5F8C28A37B6F00CCEEB1 /* NGCustomSteeringControl.h */,
+				29DC5F8B28A37B6F00CCEEB1 /* NGCustomSteeringControl.cpp */,
+				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
+				29647BC8253C5273003CBA13 /* NGEngineControl.cpp */,
+				292E8FF3265FFAF50042F249 /* NGGripperControl.h */,
+				292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */,
+				2905F11F264AD273001B4A56 /* NGJointControl.h */,
+				2905F120264AD58E001B4A56 /* NGJointControl.cpp */,
+				29DC5F9228A820EA00CCEEB1 /* NGJoystickControl.h */,
+				29DC5F9128A820EA00CCEEB1 /* NGJoystickControl.cpp */,
+				299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */,
+				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
 				29E24C7927F3889D0009F0CF /* NGPumpControl.h */,
 				29E24C7827F3889D0009F0CF /* NGPumpControl.cpp */,
+				29232B45277CBE6D00B85C8E /* NGRelaisControl.h */,
+				29232B44277CBE6D00B85C8E /* NGRelaisControl.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 				29B39E2727CBF56E008507A2 /* gyroscope */,
 				2999D31D2792DC4400B88B53 /* I2CScanner */,
 				2965FFD2289846DE007D5D28 /* IRremote */,
+				29DC5F9328A8242C00CCEEB1 /* joystick */,
 				29F56DF227410D5900BBBB68 /* lasercannon */,
 				29F56DEA27410C1A00BBBB68 /* lightsensor */,
 				29232B562780CB6500B85C8E /* morsetonegenerator */,
@@ -770,6 +776,14 @@
 				29DC5F9028A5053A00CCEEB1 /* motioncontrol.ino */,
 			);
 			path = motioncontrol;
+			sourceTree = "<group>";
+		};
+		29DC5F9328A8242C00CCEEB1 /* joystick */ = {
+			isa = PBXGroup;
+			children = (
+				29DC5F9428A8244400CCEEB1 /* joystick.ino */,
+			);
+			path = joystick;
 			sourceTree = "<group>";
 		};
 		29E24C7427F33D5F0009F0CF /* irrigationsystem */ = {
