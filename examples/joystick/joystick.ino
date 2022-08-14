@@ -16,9 +16,11 @@ void setup() {
   ysc.registerAction(PIN, jamTriggerHIGH, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
   ysc.registerAction(PIN, jamTriggerHIGH, jaY, jtkLess, THRESHOLDUP, DELAY);
   ysc.registerAction(PIN, jamTriggerHIGH, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
+  ysc.registerAction(PIN, jamTriggerHIGH, DELAY);
   ysc.initialize();
 }
 
 void loop() {
   ysc.processingLoop();
+  //observeMemory(1000);
 }

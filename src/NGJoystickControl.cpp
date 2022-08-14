@@ -8,19 +8,21 @@
 #include "NGJoystickControl.h"
 
 NGJoystickControl::NGJoystickControl() {
-    _create(DEFJOYSTICKPINX, DEFJOYSTICKPINY);
+    _create(DEFJOYSTICKPINX, DEFJOYSTICKPINY, DEFJOYSTICKPINFIRE);
 }
 
-NGJoystickControl::NGJoystickControl(byte joystickPinX, byte joystickPinY) {
-    _create(joystickPinX, joystickPinY);
+NGJoystickControl::NGJoystickControl(byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
+    _create(joystickPinX, joystickPinY, joystickPinFire);
 }
 
-void NGJoystickControl::_create(byte joystickPinX, byte joystickPinY) {
+void NGJoystickControl::_create(byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
     _joystickPinX = joystickPinX;
     _joystickPinY = joystickPinY;
+    _joystickPinFire = joystickPinFire;
 }
 
 void NGJoystickControl::initialize() {
+    pinMode(_joystickPinFire, INPUT_PULLUP);
     for (int i = 0; i < _joystickActionCount; i++) {
         pinMode(_joystickActions[i].pin, OUTPUT);
         switch(_joystickActions[i].mode) {
@@ -32,6 +34,14 @@ void NGJoystickControl::initialize() {
                 break;
         }
     }
+}
+
+void NGJoystickControl::registerAction(int pin, joystickActionMode mode) {
+    registerAction(pin, mode, NOJOYSTICKDELAY);
+}
+
+void NGJoystickControl::registerAction(int pin, joystickActionMode mode, int delay) {
+    registerAction(pin, mode, jaNone, jtkNone, NOJOYSTICKTHRESHOLD, delay);
 }
 
 void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold) {
@@ -77,6 +87,9 @@ void NGJoystickControl::processingLoop() {
                         fire = _currentY > _joystickActions[i].threshold;
                         break;
                 }
+                break;
+            case jaNone:
+                fire = digitalRead(_joystickPinFire) == LOW;
                 break;
         }
         if (fire && _joystickActions[i].delay != NOJOYSTICKDELAY) {

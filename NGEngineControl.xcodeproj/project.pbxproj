@@ -174,6 +174,9 @@
 		29DC5F9128A820EA00CCEEB1 /* NGJoystickControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJoystickControl.cpp; sourceTree = "<group>"; };
 		29DC5F9228A820EA00CCEEB1 /* NGJoystickControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJoystickControl.h; sourceTree = "<group>"; };
 		29DC5F9428A8244400CCEEB1 /* joystick.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = joystick.ino; sourceTree = "<group>"; };
+		29DC5F9528A84F1E00CCEEB1 /* NGWirelessRemoteUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGWirelessRemoteUnitControl.cpp; sourceTree = "<group>"; };
+		29DC5F9628A84F1E00CCEEB1 /* NGWirelessRemoteUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGWirelessRemoteUnitControl.h; sourceTree = "<group>"; };
+		29DC5F9828A84FF900CCEEB1 /* wirelessremotecontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = wirelessremotecontrol.ino; sourceTree = "<group>"; };
 		29E24C7527F33D8B0009F0CF /* irrigationsystem.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = irrigationsystem.ino; sourceTree = "<group>"; };
 		29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGIrrigationUnitControl.cpp; sourceTree = "<group>"; };
 		29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIrrigationUnitControl.h; sourceTree = "<group>"; };
@@ -300,6 +303,8 @@
 				29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */,
 				29AA4E5928870AE40085BDAA /* NGCurrentMeasurementUnitControl.h */,
 				29AA4E5828870AE40085BDAA /* NGCurrentMeasurementUnitControl.cpp */,
+				29DC5F9628A84F1E00CCEEB1 /* NGWirelessRemoteUnitControl.h */,
+				29DC5F9528A84F1E00CCEEB1 /* NGWirelessRemoteUnitControl.cpp */,
 			);
 			name = app;
 			sourceTree = "<group>";
@@ -658,6 +663,7 @@
 				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
 				29E6BA59263C6030007BCE9F /* motoman */,
 				2965FFD428984A18007D5D28 /* speedy */,
+				29DC5F9728A84FC800CCEEB1 /* wirelessremotecontrol */,
 			);
 			path = projects;
 			sourceTree = "<group>";
@@ -784,6 +790,30 @@
 				29DC5F9428A8244400CCEEB1 /* joystick.ino */,
 			);
 			path = joystick;
+			sourceTree = "<group>";
+		};
+		29DC5F9728A84FC800CCEEB1 /* wirelessremotecontrol */ = {
+			isa = PBXGroup;
+			children = (
+				29DC5F9A28A8501A00CCEEB1 /* images */,
+				29DC5F9928A8500700CCEEB1 /* wirelessremotecontrol */,
+			);
+			path = wirelessremotecontrol;
+			sourceTree = "<group>";
+		};
+		29DC5F9928A8500700CCEEB1 /* wirelessremotecontrol */ = {
+			isa = PBXGroup;
+			children = (
+				29DC5F9828A84FF900CCEEB1 /* wirelessremotecontrol.ino */,
+			);
+			path = wirelessremotecontrol;
+			sourceTree = "<group>";
+		};
+		29DC5F9A28A8501A00CCEEB1 /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
 			sourceTree = "<group>";
 		};
 		29E24C7427F33D5F0009F0CF /* irrigationsystem */ = {
