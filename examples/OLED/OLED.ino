@@ -1,8 +1,8 @@
 #include <NGMemoryObserver.h>
 #include <NGOLEDNotification.h>
 
-#define OLED64
-//#define OLED32
+#define OLED32
+//#define OLED64
 
 #define OLEDADDRESS    0x3C
 #define OLEDCOLUMNS    16
@@ -31,13 +31,13 @@ void setup() {
 
 void loop()
 {
-  #ifdef OLED64
-  oled->writeInfo("Hello world Hello world Hello world", 0);
-  oled->writeInfo("Hello world Hello world Hello world", 1);
-  #endif
   #ifdef OLED32
   oled->writeInfo("Hello world Hello world", 0);
   oled->writeInfo("Hello world Hello world", 1);
+  #endif
+  #ifdef OLED64
+  oled->writeInfo("Hello world Hello world Hello world", 0);
+  oled->writeInfo("Hello world Hello world Hello world", 1);
   #endif
   observeMemory(5000);
 }
