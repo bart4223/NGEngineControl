@@ -15,12 +15,28 @@
 #endif
 
 #include <NGCustomUnitControl.h>
+#include <NGJoystickControl.h>
 
 #define _VERSION "0.1"
 #define VERSION (char*)_VERSION
 
+#define MAXWIRELESSREMOTECONTROLCOUNT 3
+
+enum wirelessRemoteControlKind { wrckJoystick };
+
+struct wirelessRemoteControlStruct
+{
+    wirelessRemoteControlKind kind;
+    NGJoystickControl *joystick;
+};
+typedef struct wirelessRemoteControlStruct wirelessRemoteControl;
+
 class NGWirelessRemoteUnitControl : public NGCustomUnitControl {
 
+private:
+    wirelessRemoteControl _remoteControls[MAXWIRELESSREMOTECONTROLCOUNT];
+    int _remoteControlCount = 0;
+    
 protected:
     void _create(char* name, byte address, int serialRate);
     
@@ -38,6 +54,10 @@ public:
     NGWirelessRemoteUnitControl(char* name, byte address);
     
     NGWirelessRemoteUnitControl(char* name, byte address, int serialRate);
+    
+    byte registerJoystick();
+    
+    void addJoystickAction(byte joystick, int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay);
     
     void initialize();
     

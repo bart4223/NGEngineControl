@@ -1,4 +1,4 @@
-#define PROD false //false,true
+#define PROD true //false,true
 
 #include <NGWirelessRemoteUnitControl.h>
 #include <NGSerialNotification.h>
@@ -14,6 +14,18 @@
 #define OLEDLINES         4
 #define OLEDLINEFACTOR    2
 
+#define PINUP     3
+#define PINDOWN   4
+#define PINLEFT   5
+#define PINRIGHT  6
+
+#define THRESHOLDUP       100
+#define THRESHOLDDOWN     923
+#define THRESHOLDLEFT     100
+#define THRESHOLDRIGHT    923
+
+#define DELAY 200
+
 NGWirelessRemoteUnitControl unitRemote = NGWirelessRemoteUnitControl(REMOTE);
 NGSerialNotification serialNotification = NGSerialNotification();
 NGOLEDNotification *oledNotification;
@@ -21,15 +33,20 @@ NGOLEDNotification *oledNotification;
 void setup() {
   setGlobalUnit(&unitRemote);
   #if (PROD != true)
-    unitRemote.registerNotification(&serialNotification);
+  unitRemote.registerNotification(&serialNotification);
   #endif
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitRemote.registerNotification(oledNotification);
+  byte js = unitRemote.registerJoystick();
+  unitRemote.addJoystickAction(js, PINLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
+  unitRemote.addJoystickAction(js, PINRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
+  unitRemote.addJoystickAction(js, PINUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);
+  unitRemote.addJoystickAction(js, PINDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
   unitRemote.initialize();
   #if (PROD == true)
-    unitRemote.setWorkMode(wmNone);
+  unitRemote.setWorkMode(wmNone);
   #else
-    unitRemote.setWorkMode(wmObserveMemory);
+  unitRemote.setWorkMode(wmObserveMemory);
   #endif
   unitRemote.startUp();
   unitRemote.clearInfo();

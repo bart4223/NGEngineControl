@@ -6,20 +6,20 @@
 
 #define THRESHOLDUP       100
 #define THRESHOLDDOWN     923
-#define THRESHOLLEFT      100
+#define THRESHOLDLEFT     100
 #define THRESHOLDRIGHT    923
 
 NGJoystickControl ysc = NGJoystickControl();
 
 void setup() {
   /*
-  ysc.registerAction(PIN, jamTriggerHIGH, jaX, jtkLess, THRESHOLLEFT, DELAY);
+  ysc.registerAction(PIN, jamTriggerHIGH, jaX, jtkLess, THRESHOLDLEFT, DELAY);
   ysc.registerAction(PIN, jamTriggerHIGH, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
   ysc.registerAction(PIN, jamTriggerHIGH, jaY, jtkLess, THRESHOLDUP, DELAY);
   ysc.registerAction(PIN, jamTriggerHIGH, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
   ysc.registerAction(PIN, jamTriggerHIGH, DELAY);
   */
-  ysc.registerAction(PIN, jamTriggerLOW, jaX, jtkLess, THRESHOLLEFT, DELAY);
+  ysc.registerAction(PIN, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
   ysc.registerAction(PIN, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
   ysc.registerAction(PIN, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);
   ysc.registerAction(PIN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY);

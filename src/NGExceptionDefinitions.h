@@ -25,4 +25,6 @@
 
 #define ExceptionTooMuchIrrigationCount             400
 
+#define ExceptionTooMuchWirelessRemoteControlCount  500
+
 #endif /* NGExceptionDefinitions_h */

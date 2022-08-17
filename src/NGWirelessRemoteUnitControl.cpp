@@ -44,12 +44,49 @@ void NGWirelessRemoteUnitControl::_processingIRRemoteData() {
     
 }
 
+byte NGWirelessRemoteUnitControl::registerJoystick() {
+    byte res = _remoteControlCount;
+    if (_remoteControlCount < MAXWIRELESSREMOTECONTROLCOUNT) {
+        wirelessRemoteControl wrc;
+        wrc.kind = wrckJoystick;
+        wrc.joystick = new NGJoystickControl();
+        _remoteControls[_remoteControlCount] = wrc;
+        _remoteControlCount++;
+    } else {
+        _raiseException(ExceptionTooMuchWirelessRemoteControlCount);
+    }
+    if (_logging) {
+        char log[100];
+        sprintf(log, "Joystick %d registered", res);
+        writeInfo(log);
+    }
+    return res;
+}
+
+void NGWirelessRemoteUnitControl::addJoystickAction(byte joystick, int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay) {
+    _remoteControls[joystick].joystick->registerAction(pin, mode, axis, kind, threshold, delay);
+}
+
 void NGWirelessRemoteUnitControl::initialize() {
     NGCustomUnitControl::initialize();
+    for (int i = 0; i < _remoteControlCount; i++) {
+        switch(_remoteControls[i].kind) {
+            case wrckJoystick:
+                _remoteControls[i].joystick->initialize();
+                break;
+        }
+    }
 }
 
 void NGWirelessRemoteUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
+    for (int i = 0; i < _remoteControlCount; i++) {
+        switch(_remoteControls[i].kind) {
+            case wrckJoystick:
+                _remoteControls[i].joystick->processingLoop();
+                break;
+        }
+    }
     switch (_workMode) {
         case wmNone:
             break;
