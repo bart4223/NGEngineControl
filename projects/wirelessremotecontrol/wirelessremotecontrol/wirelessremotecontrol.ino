@@ -1,12 +1,14 @@
 #define PROD true //false,true
 
 #include <NGWirelessRemoteUnitControl.h>
+#if (PROD == false)
 #include <NGSerialNotification.h>
+#endif
 #include <NGOLEDNotification.h>
 
 #define _REMOTE           "Wireless Remote"
 #define REMOTE            (char*)_REMOTE
-#define REMOTEADDRESS     0x23
+#define REMOTEADDRESS     0x24
 
 #define OLEDADDRESS       0x3C
 #define OLEDCOLUMNS       16
@@ -27,7 +29,9 @@
 #define DELAY 200
 
 NGWirelessRemoteUnitControl unitRemote = NGWirelessRemoteUnitControl(REMOTE);
+#if (PROD == false)
 NGSerialNotification serialNotification = NGSerialNotification();
+#endif
 NGOLEDNotification *oledNotification;
 
 void setup() {
