@@ -41,11 +41,11 @@ void setup() {
   #endif
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitRemote.registerNotification(oledNotification);
-  byte js = unitRemote.registerJoystick();
-  unitRemote.addJoystickAction(js, PINLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
-  unitRemote.addJoystickAction(js, PINRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
-  unitRemote.addJoystickAction(js, PINUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);
-  unitRemote.addJoystickAction(js, PINDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
+  byte jsRight = unitRemote.registerJoystick();
+  unitRemote.addJoystickAction(jsRight, PINLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
+  unitRemote.addJoystickAction(jsRight, PINRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
+  unitRemote.addJoystickAction(jsRight, PINUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);
+  unitRemote.addJoystickAction(jsRight, PINDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
   unitRemote.initialize();
   #if (PROD == true)
   unitRemote.setWorkMode(wmNone);
