@@ -185,6 +185,9 @@
 		29E57BC028771D3F000B6C49 /* complex.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = complex.ino; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
 		29E71C9127F76DE80046A707 /* pumpcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = pumpcontrol.ino; sourceTree = "<group>"; };
+		29E8CD5B28B93E5C009AAC11 /* NGServoControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGServoControl.cpp; sourceTree = "<group>"; };
+		29E8CD5C28B93E5C009AAC11 /* NGServoControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGServoControl.h; sourceTree = "<group>"; };
+		29E8CD5E28B9F664009AAC11 /* servocontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = servocontrol.ino; sourceTree = "<group>"; };
 		29EA905B275BABCA00F3C556 /* OLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = OLED.ino; sourceTree = "<group>"; };
 		29EA905C275D22E300F3C556 /* buggyC2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC2.png; sourceTree = "<group>"; };
 		29EA905D275F387A00F3C556 /* NGOLEDNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGOLEDNotification.cpp; sourceTree = "<group>"; };
@@ -478,6 +481,8 @@
 				29E24C7827F3889D0009F0CF /* NGPumpControl.cpp */,
 				29232B45277CBE6D00B85C8E /* NGRelaisControl.h */,
 				29232B44277CBE6D00B85C8E /* NGRelaisControl.cpp */,
+				29E8CD5C28B93E5C009AAC11 /* NGServoControl.h */,
+				29E8CD5B28B93E5C009AAC11 /* NGServoControl.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -504,6 +509,7 @@
 				29EA90612763333100F3C556 /* questiondialog */,
 				29232B4B277D8BC200B85C8E /* realtimeclock */,
 				29232B46277CBFB400B85C8E /* relaiscontrol */,
+				29E8CD5D28B9F636009AAC11 /* servocontrol */,
 				29D60E8D27F339C000FCA53A /* soilmoisturesensor */,
 				29F56DE827410B3C00BBBB68 /* soundmachine */,
 				29DC5F8928A2EF9000CCEEB1 /* steeringcontrol */,
@@ -874,6 +880,14 @@
 				29E71C9127F76DE80046A707 /* pumpcontrol.ino */,
 			);
 			path = pumpcontrol;
+			sourceTree = "<group>";
+		};
+		29E8CD5D28B9F636009AAC11 /* servocontrol */ = {
+			isa = PBXGroup;
+			children = (
+				29E8CD5E28B9F664009AAC11 /* servocontrol.ino */,
+			);
+			path = servocontrol;
 			sourceTree = "<group>";
 		};
 		29EA905A275BAB8600F3C556 /* OLED */ = {
