@@ -64,7 +64,7 @@ void NGServoControl::reset() {
 }
 
 void NGServoControl::stepUp() {
-    int pos = getPosition() + _stepWidth;
+    int pos = _position + _stepWidth;
     if (pos > _maxPosition) {
         pos = _maxPosition;
     }
@@ -72,7 +72,7 @@ void NGServoControl::stepUp() {
 }
 
 void NGServoControl::stepDown() {
-    int pos = getPosition() - _stepWidth;
+    int pos = _position - _stepWidth;
     if (pos < _minPosition) {
         pos = _minPosition;
     }
