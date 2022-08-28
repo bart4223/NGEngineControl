@@ -48,6 +48,10 @@ public:
 
     void initialize();
        
+    void setLogging(bool logging);
+    
+    bool getLogging();
+    
     void setPosition(byte pos);
 
     byte getPosition();

@@ -3,19 +3,22 @@
 #include <NGServoControl.h>
 
 #define PINSERVO  9
-#define DELAY     300
+#define DELAY     20
 
-#define MINPOS  40
-#define MAXPOS  160
-#define ZEROPOS 100
+#define MINPOS  65
+#define MAXPOS  125
+#define ZEROPOS 95
+#define STEP    1
 
-NGServoControl sc = NGServoControl(PINSERVO, ZEROPOS, MINPOS, MAXPOS);
-int dir = 0;
+NGServoControl sc = NGServoControl(PINSERVO, ZEROPOS, MINPOS, MAXPOS, STEP);
 bool play = true; //false
+bool logging = false; //false
+int dir = 0;
 
 void setup() {
   Serial.begin(DEFAULTSERIALRATE);
   sc.initialize();
+  sc.setLogging(logging);
 }
 
 void loop() {
@@ -35,6 +38,14 @@ void loop() {
         sc.stepUp();
       }
     }
+    if (logging) {
+      observeMemory(DELAY);
+    } else {
+      delay(DELAY);
+    }
+  } else if (logging) {
+      observeMemory(10 * DELAY);
+  } else {
+    delay(DELAY);
   }
-  observeMemory(DELAY);
 }

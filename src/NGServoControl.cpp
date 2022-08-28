@@ -45,6 +45,14 @@ void NGServoControl::initialize() {
     reset();
 }
 
+void NGServoControl::setLogging(bool logging) {
+    _logging = logging;
+}
+
+bool NGServoControl::getLogging() {
+    return _logging;
+}
+
 void NGServoControl::setPosition(byte pos) {
     char log[100];
     _position = pos;
