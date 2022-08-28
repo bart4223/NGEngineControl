@@ -5,12 +5,13 @@
 #define PINSERVO  9
 #define DELAY     300
 
-#define MINPOS  30
-#define MAXPOS  150
+#define MINPOS  40
+#define MAXPOS  160
+#define ZEROPOS 100
 
-NGServoControl sc = NGServoControl(PINSERVO, DEFSERVOZEROPOSITION, MINPOS, MAXPOS);
+NGServoControl sc = NGServoControl(PINSERVO, ZEROPOS, MINPOS, MAXPOS);
 int dir = 0;
-bool play = true;
+bool play = true; //false
 
 void setup() {
   Serial.begin(DEFAULTSERIALRATE);

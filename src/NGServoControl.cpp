@@ -48,6 +48,11 @@ void NGServoControl::initialize() {
 void NGServoControl::setPosition(byte pos) {
     char log[100];
     _position = pos;
+    if (_position < _minPosition) {
+        _position = _minPosition;
+    } else if (_position > _maxPosition) {
+        _position = _maxPosition;
+    }
     _Servo->write(_position);
     if (_logging) {
         sprintf(log, "Servo pos %d", _position);
