@@ -10,6 +10,7 @@
 
 NGServoControl sc = NGServoControl(PINSERVO, DEFSERVOZEROPOSITION, MINPOS, MAXPOS);
 int dir = 0;
+bool play = true;
 
 void setup() {
   Serial.begin(DEFAULTSERIALRATE);
@@ -17,19 +18,21 @@ void setup() {
 }
 
 void loop() {
-  if (dir == 0) {
-    if (!sc.isMaxPosition()) {
-      sc.stepUp();
+  if (play) {
+    if (dir == 0) {
+      if (!sc.isMaxPosition()) {
+        sc.stepUp();
+      } else {
+        dir = 1;
+        sc.stepDown();
+      }
     } else {
-      dir = 1;
-      sc.stepDown();
-    }
-  } else {
-    if (!sc.isMinPosition()) {
-      sc.stepDown();
-    } else {
-      dir = 0;
-      sc.stepUp();
+      if (!sc.isMinPosition()) {
+        sc.stepDown();
+      } else {
+        dir = 0;
+        sc.stepUp();
+      }
     }
   }
   observeMemory(DELAY);
