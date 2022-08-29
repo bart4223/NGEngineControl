@@ -83,7 +83,6 @@
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
 		2965FFD328984717007D5D28 /* IRremote.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = IRremote.ino; sourceTree = "<group>"; };
 		2965FFD728984A59007D5D28 /* speedy.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = speedy.ino; sourceTree = "<group>"; };
-		296BE1CA28BD1CFD00C3219E /* speddyF0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speddyF0.png; sourceTree = "<group>"; };
 		296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUltrasonicObjectRecognizer.cpp; sourceTree = "<group>"; };
 		296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltrasonicObjectRecognizer.h; sourceTree = "<group>"; };
 		296CD4E8272ED298003E27DA /* buggyC1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1a.png; sourceTree = "<group>"; };
@@ -577,7 +576,6 @@
 		2965FFD628984A43007D5D28 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				296BE1CA28BD1CFD00C3219E /* speddyF0.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
