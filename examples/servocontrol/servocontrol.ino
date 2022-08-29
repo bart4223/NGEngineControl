@@ -5,13 +5,14 @@
 #define PINSERVO  9
 #define DELAY     20
 
-#define MINPOS  65
-#define MAXPOS  125
-#define ZEROPOS 95
+#define ZEROPOS 100
+#define RANGE   30
+#define MINPOS  ZEROPOS - RANGE
+#define MAXPOS  ZEROPOS + RANGE
 #define STEP    1
 
 NGServoControl sc = NGServoControl(PINSERVO, ZEROPOS, MINPOS, MAXPOS, STEP);
-bool play = true; //false
+int loops = 2; // 0
 bool logging = false; //false
 int dir = 0;
 
@@ -22,7 +23,7 @@ void setup() {
 }
 
 void loop() {
-  if (play) {
+  if (loops > 0) {
     if (dir == 0) {
       if (!sc.isMaxPosition()) {
         sc.stepUp();
@@ -36,6 +37,10 @@ void loop() {
       } else {
         dir = 0;
         sc.stepUp();
+        loops--;
+        if (loops == 0) {
+          sc.reset();
+        }
       }
     }
     if (logging) {
