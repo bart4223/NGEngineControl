@@ -65,6 +65,7 @@
 		29232B572780CB8B00B85C8E /* morsetonegenerator.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = morsetonegenerator.ino; sourceTree = "<group>"; };
 		29232B582780CBB200B85C8E /* NGMorseToneGenerator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMorseToneGenerator.cpp; sourceTree = "<group>"; };
 		29232B592780CBB200B85C8E /* NGMorseToneGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMorseToneGenerator.h; sourceTree = "<group>"; };
+		2928BCF328BD1F0100BEB37E /* speedyF0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedyF0.png; sourceTree = "<group>"; };
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
@@ -576,6 +577,7 @@
 		2965FFD628984A43007D5D28 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				2928BCF328BD1F0100BEB37E /* speedyF0.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
