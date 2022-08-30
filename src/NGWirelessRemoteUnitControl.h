@@ -17,10 +17,11 @@
 #include <NGCustomUnitControl.h>
 #include <NGJoystickControl.h>
 
-#define _VERSION "0.2"
+#define _VERSION "0.3"
 #define VERSION (char*)_VERSION
 
 #define MAXWIRELESSREMOTECONTROLCOUNT 3
+#define DEFLASTINFODELAY 500
 
 enum wirelessRemoteControlKind { wrckJoystick };
 
@@ -37,6 +38,8 @@ class NGWirelessRemoteUnitControl : public NGCustomUnitControl {
 private:
     wirelessRemoteControl _remoteControls[MAXWIRELESSREMOTECONTROLCOUNT];
     int _remoteControlCount = 0;
+    long int _lastInfo = -1;
+    int _lastInfoDelay = DEFLASTINFODELAY;
     
 protected:
     void _create(char* name, byte address, int serialRate);
@@ -61,6 +64,8 @@ public:
     byte registerJoystick(char* name);
     
     void addJoystickAction(byte joystick, int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay);
+    
+    void setLastInfoDelay(int lastinfodelay);
     
     void initialize();
     
