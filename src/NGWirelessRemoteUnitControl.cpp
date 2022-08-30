@@ -45,11 +45,16 @@ void NGWirelessRemoteUnitControl::_processingIRRemoteData() {
 }
 
 byte NGWirelessRemoteUnitControl::registerJoystick() {
+    return registerJoystick("");
+}
+
+byte NGWirelessRemoteUnitControl::registerJoystick(char* name) {
     byte res = _remoteControlCount;
     if (_remoteControlCount < MAXWIRELESSREMOTECONTROLCOUNT) {
         wirelessRemoteControl wrc;
         wrc.kind = wrckJoystick;
-        wrc.joystick = new NGJoystickControl();
+        wrc.joystick = new NGJoystickControl(_remoteControlCount);
+        wrc.name = name;
         _remoteControls[_remoteControlCount] = wrc;
         _remoteControlCount++;
     } else {
@@ -57,7 +62,11 @@ byte NGWirelessRemoteUnitControl::registerJoystick() {
     }
     if (_logging) {
         char log[100];
-        sprintf(log, "Joystick %d registered", res);
+        if (_name != "") {
+            sprintf(log, "Joystick \"%s\" registered", name);
+        } else {
+            sprintf(log, "Joystick %d registered", res);
+        }
         writeInfo(log);
     }
     return res;
@@ -84,6 +93,26 @@ void NGWirelessRemoteUnitControl::processingLoop() {
         switch(_remoteControls[i].kind) {
             case wrckJoystick:
                 _remoteControls[i].joystick->processingLoop();
+                if (_remoteControls[i].joystick->hasLastMovement()) {
+                    char log[100];
+                    clearInfo();
+                    sprintf(log, "%s fired", _remoteControls[i].name);
+                    switch(_remoteControls[i].joystick->getLastMovement()) {
+                        case jmUp:
+                            sprintf(log, "%s up", log);
+                            break;
+                        case jmDown:
+                            sprintf(log, "%s down", log);
+                            break;
+                        case jmLeft:
+                            sprintf(log, "%s left", log);
+                            break;
+                        case jmRight:
+                            sprintf(log, "%s right", log);
+                            break;
+                    }
+                    writeInfo(log);
+                }
                 break;
         }
     }

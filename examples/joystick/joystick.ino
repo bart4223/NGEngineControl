@@ -18,29 +18,32 @@
 #define THRESHOLDLEFT     100
 #define THRESHOLDRIGHT    923
 
-NGJoystickControl ysc = NGJoystickControl(JOYSTICKID);
+NGJoystickControl jsc = NGJoystickControl(JOYSTICKID);
 
 void setup() {
   Serial.begin(9600);
-  ysc.setLogging(LOGGING);
-  ysc.registerActionCallback(&joystickActionCallback);
+  jsc.setLogging(LOGGING);
+  jsc.registerActionCallback(&joystickActionCallback);
   /*
-  ysc.registerAction(PIN, jamTriggerHIGH, jaX, jtkLess, THRESHOLLEFT, DELAY);
-  ysc.registerAction(PIN, jamTriggerHIGH, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
-  ysc.registerAction(PIN, jamTriggerHIGH, jaY, jtkLess, THRESHOLDUP, DELAY);
-  ysc.registerAction(PIN, jamTriggerHIGH, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
-  ysc.registerAction(PIN, jamTriggerHIGH, DELAY);
+  jsc.registerAction(PIN, jamTriggerHIGH, jaX, jtkLess, THRESHOLLEFT, DELAY);
+  jsc.registerAction(PIN, jamTriggerHIGH, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
+  jsc.registerAction(PIN, jamTriggerHIGH, jaY, jtkLess, THRESHOLDUP, DELAY);
+  jsc.registerAction(PIN, jamTriggerHIGH, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
+  jsc.registerAction(PIN, jamTriggerHIGH, DELAY);
   */
-  ysc.registerAction(PINLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
-  ysc.registerAction(PINRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
-  ysc.registerAction(PINUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);
-  ysc.registerAction(PINDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
-  ysc.registerAction(PINFIRE, jamTriggerLOW, DELAY);
-  ysc.initialize();
+  jsc.registerAction(PINLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
+  jsc.registerAction(PINRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
+  jsc.registerAction(PINUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);
+  jsc.registerAction(PINDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
+  jsc.registerAction(PINFIRE, jamTriggerLOW, DELAY);
+  jsc.initialize();
 }
 
 void loop() {
-  ysc.processingLoop();
+  jsc.processingLoop();
+  if (jsc.hasLastMovement()) {
+    Serial.println(jsc.getLastMovement());
+  }
   //observeMemory(1000);
 }
 

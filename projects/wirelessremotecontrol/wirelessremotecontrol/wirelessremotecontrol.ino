@@ -10,6 +10,11 @@
 #define REMOTE            (char*)_REMOTE
 #define REMOTEADDRESS     0x24
 
+#define _JOYSTICKLEFT    "Joystick left"
+#define JOYSTICKLEFT     (char*)_JOYSTICKLEFT
+#define _JOYSTICKRIGHT   "Joystick right"
+#define JOYSTICKRIGHT    (char*)_JOYSTICKRIGHT
+
 #define OLEDADDRESS       0x3C
 #define OLEDCOLUMNS       16
 #define OLEDTYPE          ot128x32
@@ -41,7 +46,8 @@ void setup() {
   #endif
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitRemote.registerNotification(oledNotification);
-  byte jsRight = unitRemote.registerJoystick();
+  byte jsleft = unitRemote.registerJoystick(JOYSTICKLEFT);
+  byte jsRight = unitRemote.registerJoystick(JOYSTICKRIGHT);
   unitRemote.addJoystickAction(jsRight, PINLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
   unitRemote.addJoystickAction(jsRight, PINRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
   unitRemote.addJoystickAction(jsRight, PINUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);

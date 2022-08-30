@@ -14,7 +14,7 @@ void setGlobalUnit(NGCustomUnitControl *unit) {
 }
 
 bool hasGlobalUnit() {
-    return _globalUnit != NULL;
+    return _globalUnit != nullptr;
 }
 
 void globalUnitReceiveDataStart() {
@@ -139,6 +139,10 @@ void NGCustomUnitControl::initialize() {
     }
     _initializeSoundMachine();
     _playJingleBoot();
+}
+
+char* NGCustomUnitControl::getName() {
+    return _name;
 }
 
 long int NGCustomUnitControl::startUp() {

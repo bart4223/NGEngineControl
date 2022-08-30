@@ -203,6 +203,8 @@ protected:
 public:
     void initialize();
     
+    char* getName();
+    
     long int startUp();
     
     void registerRealTimeClock(NGRealTimeClock *rtc);
@@ -250,7 +252,7 @@ public:
     virtual void requestData(byte* data);
 };
 
-static NGCustomUnitControl *_globalUnit = NULL;
+static NGCustomUnitControl *_globalUnit = nullptr;
 
 void setGlobalUnit(NGCustomUnitControl *unit);
 

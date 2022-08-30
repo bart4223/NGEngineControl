@@ -58,6 +58,7 @@ private:
     int _id = NOJOYSTICKID;
     bool _logging = false;
     joystickActionCallbackFunc _actionCallback = nullptr;
+    joystickMovement _lastJoystickMovement = jmNone;
 
 protected:
     void _create(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire);
@@ -90,6 +91,10 @@ public:
     int getX();
     
     int getY();
+    
+    bool hasLastMovement();
+
+    joystickMovement getLastMovement();
 };
 
 #endif /* NGJoystickControl_h */
