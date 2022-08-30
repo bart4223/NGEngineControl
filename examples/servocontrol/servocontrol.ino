@@ -12,7 +12,7 @@
 #define STEP    1
 
 NGServoControl sc = NGServoControl(PINSERVO, ZEROPOS, MINPOS, MAXPOS, STEP);
-int loops = 2; // 0
+int loops = 4; // 0
 bool logging = false; //false
 int dir = 0;
 
@@ -27,6 +27,9 @@ void loop() {
     if (dir == 0) {
       if (!sc.isMaxPosition()) {
         sc.stepUp();
+        if (sc.getPosition() == ZEROPOS) {
+          loops--;
+        }
       } else {
         dir = 1;
         sc.stepDown();
@@ -34,13 +37,12 @@ void loop() {
     } else {
       if (!sc.isMinPosition()) {
         sc.stepDown();
+        if (sc.getPosition() == ZEROPOS) {
+          loops--;
+        }
       } else {
         dir = 0;
         sc.stepUp();
-        loops--;
-        if (loops == 0) {
-          sc.reset();
-        }
       }
     }
     if (logging) {
@@ -49,7 +51,7 @@ void loop() {
       delay(DELAY);
     }
   } else if (logging) {
-      observeMemory(10 * DELAY);
+      observeMemory(300 * DELAY);
   } else {
     delay(DELAY);
   }
