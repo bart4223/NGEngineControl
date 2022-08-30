@@ -8,14 +8,19 @@
 #include "NGJoystickControl.h"
 
 NGJoystickControl::NGJoystickControl() {
-    _create(DEFJOYSTICKPINX, DEFJOYSTICKPINY, DEFJOYSTICKPINFIRE);
+    _create(NOJOYSTICKID, DEFJOYSTICKPINX, DEFJOYSTICKPINY, DEFJOYSTICKPINFIRE);
+}
+
+NGJoystickControl::NGJoystickControl(int id) {
+    _create(id, DEFJOYSTICKPINX, DEFJOYSTICKPINY, DEFJOYSTICKPINFIRE);
 }
 
 NGJoystickControl::NGJoystickControl(byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
-    _create(joystickPinX, joystickPinY, joystickPinFire);
+    _create(NOJOYSTICKID, joystickPinX, joystickPinY, joystickPinFire);
 }
 
-void NGJoystickControl::_create(byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
+void NGJoystickControl::_create(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
+    _id = id;
     _joystickPinX = joystickPinX;
     _joystickPinY = joystickPinY;
     _joystickPinFire = joystickPinFire;
@@ -34,6 +39,14 @@ void NGJoystickControl::initialize() {
                 break;
         }
     }
+}
+
+void NGJoystickControl::setLogging(bool logging) {
+    _logging = logging;
+}
+
+void NGJoystickControl::registerActionCallback(joystickActionCallbackFunc callback) {
+    _actionCallback = callback;
 }
 
 void NGJoystickControl::registerAction(int pin, joystickActionMode mode) {
@@ -63,6 +76,7 @@ void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystic
 }
 
 void NGJoystickControl::processingLoop() {
+    joystickMovement jm = jmNone;
     _currentX = analogRead(_joystickPinX);
     _currentY = analogRead(_joystickPinY);
     for (int i = 0; i < _joystickActionCount; i++) {
@@ -72,9 +86,11 @@ void NGJoystickControl::processingLoop() {
                 switch(_joystickActions[i].kind) {
                     case jtkLess:
                         fire = _currentX < _joystickActions[i].threshold;
+                        jm = jmLeft;
                         break;
                     case jtkGreater:
                         fire = _currentX > _joystickActions[i].threshold;
+                        jm = jmRight;
                         break;
                 }
                 break;
@@ -82,14 +98,17 @@ void NGJoystickControl::processingLoop() {
                 switch(_joystickActions[i].kind) {
                     case jtkLess:
                         fire = _currentY < _joystickActions[i].threshold;
+                        jm = jmUp;
                         break;
                     case jtkGreater:
                         fire = _currentY > _joystickActions[i].threshold;
+                        jm = jmDown;
                         break;
                 }
                 break;
             case jaNone:
                 fire = digitalRead(_joystickPinFire) == LOW;
+                jm = jmFire;
                 break;
         }
         if (fire && _joystickActions[i].delay != NOJOYSTICKDELAY) {
@@ -109,8 +128,37 @@ void NGJoystickControl::processingLoop() {
                     break;
             }
             _joystickActions[i].lastFire = millis();
+            if (_actionCallback != nullptr) {
+                _actionCallback(_id, jm);
+            }
+            if (_logging) {
+                char log[100];
+                sprintf(log, "Joystick %d fired", _id);
+                switch(jm) {
+                    case jmUp:
+                        sprintf(log, "%s up", log);
+                        break;
+                    case jmDown:
+                        sprintf(log, "%s down", log);
+                        break;
+                    case jmLeft:
+                        sprintf(log, "%s left", log);
+                        break;
+                    case jmRight:
+                        sprintf(log, "%s right", log);
+                        break;
+                    case jmFire:
+                        sprintf(log, "%s button", log);
+                        break;
+                }
+                Serial.println(log);
+            }
         }
     }
+}
+
+int NGJoystickControl::getID() {
+    return _id;
 }
 
 int NGJoystickControl::getX() {

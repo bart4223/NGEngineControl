@@ -23,9 +23,15 @@
 #define NOJOYSTICKDELAY     0
 #define NOJOYSTICKTHRESHOLD 0
 
+#define NOJOYSTICKID    -1
+
 enum joystickAxis { jaNone, jaX, jaY };
 enum joystickThresholdKind { jtkNone, jtkLess, jtkGreater };
 enum joystickActionMode { jamTriggerLOW, jamTriggerHIGH };
+
+enum joystickMovement { jmNone, jmUp, jmDown, jmLeft, jmRight, jmFire };
+
+typedef void (*joystickActionCallbackFunc)(int id, joystickMovement joystickmovement);
 
 struct joystickActionStruct
 {
@@ -49,16 +55,25 @@ private:
     int _currentY;
     joystickAction _joystickActions[MAXJOYSTICKACTIONS];
     int _joystickActionCount = 0;
-    
+    int _id = NOJOYSTICKID;
+    bool _logging = false;
+    joystickActionCallbackFunc _actionCallback = nullptr;
+
 protected:
-    void _create(byte joystickPinX, byte joystickPinY, byte joystickPinFire);
+    void _create(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire);
     
 public:
     NGJoystickControl();
     
+    NGJoystickControl(int id);
+    
     NGJoystickControl(byte joystickPinX, byte joystickPinY, byte joystickPinFire);
     
     void initialize();
+    
+    void setLogging(bool logging);
+    
+    void registerActionCallback(joystickActionCallbackFunc callback);
     
     void registerAction(int pin, joystickActionMode mode);
     
@@ -69,6 +84,8 @@ public:
     void registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay);
     
     void processingLoop();
+    
+    int getID();
     
     int getX();
     
