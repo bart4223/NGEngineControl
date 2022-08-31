@@ -12,12 +12,13 @@
 #define STEP    1
 
 NGServoControl sc = NGServoControl(PINSERVO, ZEROPOS, MINPOS, MAXPOS, STEP);
-int loops = 4; // 0
+int loops = 2; // 0
 bool logging = false; //false
 int dir = 0;
 
 void setup() {
   Serial.begin(DEFAULTSERIALRATE);
+  loops = loops * 2;
   sc.initialize();
   sc.setLogging(logging);
 }
