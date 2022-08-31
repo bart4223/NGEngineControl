@@ -49,11 +49,15 @@ byte NGWirelessRemoteUnitControl::registerJoystick() {
 }
 
 byte NGWirelessRemoteUnitControl::registerJoystick(char* name) {
+    return registerJoystick(name, DEFJOYSTICKPINX, DEFJOYSTICKPINY, DEFJOYSTICKPINFIRE);
+}
+
+byte NGWirelessRemoteUnitControl::registerJoystick(char* name, byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
     byte res = _remoteControlCount;
     if (_remoteControlCount < MAXWIRELESSREMOTECONTROLCOUNT) {
         wirelessRemoteControl wrc;
         wrc.kind = wrckJoystick;
-        wrc.joystick = new NGJoystickControl(_remoteControlCount);
+        wrc.joystick = new NGJoystickControl(_remoteControlCount, joystickPinX, joystickPinY, joystickPinFire);
         wrc.name = name;
         _remoteControls[_remoteControlCount] = wrc;
         _remoteControlCount++;
@@ -113,6 +117,9 @@ void NGWirelessRemoteUnitControl::processingLoop() {
                             break;
                         case jmRight:
                             sprintf(log, "%s right", log);
+                            break;
+                        case jmFire:
+                            sprintf(log, "%s button", log);
                             break;
                     }
                     writeInfo(log);

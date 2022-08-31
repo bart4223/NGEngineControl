@@ -19,6 +19,10 @@ NGJoystickControl::NGJoystickControl(byte joystickPinX, byte joystickPinY, byte 
     _create(NOJOYSTICKID, joystickPinX, joystickPinY, joystickPinFire);
 }
 
+NGJoystickControl::NGJoystickControl(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
+    _create(id, joystickPinX, joystickPinY, joystickPinFire);
+}
+
 void NGJoystickControl::_create(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
     _id = id;
     _joystickPinX = joystickPinX;

@@ -21,10 +21,21 @@
 #define OLEDLINES         4
 #define OLEDLINEFACTOR    2
 
-#define PINUP     3
-#define PINDOWN   4
-#define PINLEFT   5
-#define PINRIGHT  6
+#define PINJOYSTICKRIGHTX     A0
+#define PINJOYSTICKRIGHTY     A1
+#define PINJOYSTICKRIGHTFIRE   2
+#define PINJOYSTICKRIGHTUP     3
+#define PINJOYSTICKRIGHTDOWN   4
+#define PINJOYSTICKRIGHTLEFT   5
+#define PINJOYSTICKRIGHTRIGHT  6
+
+#define PINJOYSTICKLEFTX     A2
+#define PINJOYSTICKLEFTY     A3
+#define PINJOYSTICKLEFTFIRE   7
+#define PINJOYSTICKLEFTUP     8
+#define PINJOYSTICKLEFTDOWN   9
+#define PINJOYSTICKLEFTLEFT   10
+#define PINJOYSTICKLEFTRIGHT  11
 
 #define THRESHOLDUP       100
 #define THRESHOLDDOWN     923
@@ -46,12 +57,16 @@ void setup() {
   #endif
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitRemote.registerNotification(oledNotification);
-  byte jsleft = unitRemote.registerJoystick(JOYSTICKLEFT);
-  byte jsRight = unitRemote.registerJoystick(JOYSTICKRIGHT);
-  unitRemote.addJoystickAction(jsRight, PINLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
-  unitRemote.addJoystickAction(jsRight, PINRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
-  unitRemote.addJoystickAction(jsRight, PINUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);
-  unitRemote.addJoystickAction(jsRight, PINDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
+  byte jsleft = unitRemote.registerJoystick(JOYSTICKLEFT, PINJOYSTICKLEFTX, PINJOYSTICKLEFTY, PINJOYSTICKLEFTFIRE);
+  unitRemote.addJoystickAction(jsleft, PINJOYSTICKLEFTLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
+  unitRemote.addJoystickAction(jsleft, PINJOYSTICKLEFTRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
+  unitRemote.addJoystickAction(jsleft, PINJOYSTICKLEFTUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);
+  unitRemote.addJoystickAction(jsleft, PINJOYSTICKLEFTDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
+  byte jsRight = unitRemote.registerJoystick(JOYSTICKRIGHT, PINJOYSTICKRIGHTX, PINJOYSTICKRIGHTY, PINJOYSTICKRIGHTFIRE);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY);
   unitRemote.initialize();
   #if (PROD == true)
   unitRemote.setWorkMode(wmNone);

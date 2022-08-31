@@ -17,7 +17,7 @@
 #include <NGCustomUnitControl.h>
 #include <NGJoystickControl.h>
 
-#define _VERSION "0.3"
+#define _VERSION "0.4"
 #define VERSION (char*)_VERSION
 
 #define MAXWIRELESSREMOTECONTROLCOUNT 3
@@ -62,6 +62,8 @@ public:
     byte registerJoystick();
     
     byte registerJoystick(char* name);
+    
+    byte registerJoystick(char* name, byte joystickPinX, byte joystickPinY, byte joystickPinFire);
     
     void addJoystickAction(byte joystick, int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay);
     

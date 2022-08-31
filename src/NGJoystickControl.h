@@ -70,6 +70,8 @@ public:
     
     NGJoystickControl(byte joystickPinX, byte joystickPinY, byte joystickPinFire);
     
+    NGJoystickControl(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire);
+    
     void initialize();
     
     void setLogging(bool logging);
