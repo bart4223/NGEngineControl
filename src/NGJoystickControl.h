@@ -24,6 +24,7 @@
 #define NOJOYSTICKTHRESHOLD 0
 
 #define NOJOYSTICKID    -1
+#define NOLASTACTIONID  -1
 
 enum joystickAxis { jaNone, jaX, jaY };
 enum joystickThresholdKind { jtkNone, jtkLess, jtkGreater };
@@ -42,6 +43,7 @@ struct joystickActionStruct
     long int lastFire = 0;
     joystickActionMode mode;
     joystickAxis axis;
+    joystickMovement movement;
 };
 typedef struct joystickActionStruct joystickAction;
 
@@ -58,7 +60,7 @@ private:
     int _id = NOJOYSTICKID;
     bool _logging = false;
     joystickActionCallbackFunc _actionCallback = nullptr;
-    joystickMovement _lastJoystickMovement = jmNone;
+    int _lastAction = NOLASTACTIONID;
 
 protected:
     void _create(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire);
@@ -78,13 +80,13 @@ public:
     
     void registerActionCallback(joystickActionCallbackFunc callback);
     
-    void registerAction(int pin, joystickActionMode mode);
+    void registerAction(int pin, joystickActionMode mode, joystickMovement movement);
     
-    void registerAction(int pin, joystickActionMode mode, int delay);
+    void registerAction(int pin, joystickActionMode mode, int delay, joystickMovement movement);
     
-    void registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold);
+    void registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, joystickMovement movement);
     
-    void registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay);
+    void registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement);
     
     void processingLoop();
     

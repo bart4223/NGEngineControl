@@ -53,19 +53,19 @@ void NGJoystickControl::registerActionCallback(joystickActionCallbackFunc callba
     _actionCallback = callback;
 }
 
-void NGJoystickControl::registerAction(int pin, joystickActionMode mode) {
-    registerAction(pin, mode, NOJOYSTICKDELAY);
+void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystickMovement movement) {
+    registerAction(pin, mode, NOJOYSTICKDELAY, movement);
 }
 
-void NGJoystickControl::registerAction(int pin, joystickActionMode mode, int delay) {
-    registerAction(pin, mode, jaNone, jtkNone, NOJOYSTICKTHRESHOLD, delay);
+void NGJoystickControl::registerAction(int pin, joystickActionMode mode, int delay, joystickMovement movement) {
+    registerAction(pin, mode, jaNone, jtkNone, NOJOYSTICKTHRESHOLD, delay, movement);
 }
 
-void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold) {
-    registerAction(pin, mode, axis, kind, threshold, NOJOYSTICKDELAY);
+void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, joystickMovement movement) {
+    registerAction(pin, mode, axis, kind, threshold, NOJOYSTICKDELAY, movement);
 }
 
-void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay) {
+void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement) {
     if (_joystickActionCount < MAXJOYSTICKACTIONS) {
         joystickAction ja;
         ja.pin = pin;
@@ -74,13 +74,14 @@ void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystic
         ja.kind = kind;
         ja.threshold = threshold;
         ja.delay = delay;
+        ja.movement = movement;
         _joystickActions[_joystickActionCount] = ja;
         _joystickActionCount++;
     }
 }
 
 void NGJoystickControl::processingLoop() {
-    _lastJoystickMovement = jmNone;
+    _lastAction = NOLASTACTIONID;
     _currentX = analogRead(_joystickPinX);
     _currentY = analogRead(_joystickPinY);
     for (int i = 0; i < _joystickActionCount; i++) {
@@ -90,15 +91,9 @@ void NGJoystickControl::processingLoop() {
                 switch(_joystickActions[i].kind) {
                     case jtkLess:
                         fire = _currentX < _joystickActions[i].threshold;
-                        if (fire) {
-                            _lastJoystickMovement = jmLeft;
-                        }
                         break;
                     case jtkGreater:
                         fire = _currentX > _joystickActions[i].threshold;
-                        if (fire) {
-                            _lastJoystickMovement = jmRight;
-                        }
                         break;
                 }
                 break;
@@ -106,29 +101,21 @@ void NGJoystickControl::processingLoop() {
                 switch(_joystickActions[i].kind) {
                     case jtkLess:
                         fire = _currentY < _joystickActions[i].threshold;
-                        if (fire) {
-                            _lastJoystickMovement = jmUp;
-                        }
                         break;
                     case jtkGreater:
                         fire = _currentY > _joystickActions[i].threshold;
-                        if (fire) {
-                            _lastJoystickMovement = jmDown;
-                        }
                         break;
                 }
                 break;
             case jaNone:
                 fire = digitalRead(_joystickPinFire) == LOW;
-                if (fire) {
-                    _lastJoystickMovement = jmFire;
-                }
                 break;
         }
         if (fire && _joystickActions[i].delay != NOJOYSTICKDELAY) {
             fire = millis() - _joystickActions[i].lastFire >= _joystickActions[i].delay;
         }
         if (fire) {
+            _lastAction = i;
             switch(_joystickActions[i].mode) {
                 case jamTriggerLOW:
                     digitalWrite(_joystickActions[i].pin, LOW);
@@ -143,12 +130,12 @@ void NGJoystickControl::processingLoop() {
             }
             _joystickActions[i].lastFire = millis();
             if (_actionCallback != nullptr) {
-                _actionCallback(_id, _lastJoystickMovement);
+                _actionCallback(_id, _joystickActions[_lastAction].movement);
             }
             if (_logging) {
                 char log[100];
                 sprintf(log, "Joystick %d fired", _id);
-                switch(_lastJoystickMovement) {
+                switch(_joystickActions[_lastAction].movement) {
                     case jmUp:
                         sprintf(log, "%s up", log);
                         break;
@@ -185,9 +172,17 @@ int NGJoystickControl::getY() {
 }
 
 bool NGJoystickControl::hasLastMovement() {
-    return _lastJoystickMovement != jmNone;
+    bool res = false;
+    if (_lastAction != NOLASTACTIONID) {
+        res = _joystickActions[_lastAction].movement != jmNone;
+    }
+    return res;
 }
 
 joystickMovement NGJoystickControl::getLastMovement() {
-    return _lastJoystickMovement;
+    joystickMovement res = jmNone;
+    if (_lastAction != NOLASTACTIONID) {
+        res = _joystickActions[_lastAction].movement;
+    }
+    return res;
 }

@@ -76,8 +76,8 @@ byte NGWirelessRemoteUnitControl::registerJoystick(char* name, byte joystickPinX
     return res;
 }
 
-void NGWirelessRemoteUnitControl::addJoystickAction(byte joystick, int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay) {
-    _remoteControls[joystick].joystick->registerAction(pin, mode, axis, kind, threshold, delay);
+void NGWirelessRemoteUnitControl::addJoystickAction(byte joystick, int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement) {
+    _remoteControls[joystick].joystick->registerAction(pin, mode, axis, kind, threshold, delay, movement);
 }
 
 void NGWirelessRemoteUnitControl::setLastInfoDelay(int lastinfodelay) {
