@@ -16,7 +16,7 @@ NGRealTimeClock::NGRealTimeClock(bool use32K) {
     _create(use32K);
 }
 
-NGRealTimeClock::_create(bool use32K) {
+void NGRealTimeClock::_create(bool use32K) {
     _rtc = new RTC_DS3231();
     _use32K = use32K;
 }

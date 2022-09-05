@@ -26,7 +26,7 @@ private:
     bool _use32K = false;
     
 protected:
-    _create(bool use32K);
+    void _create(bool use32K);
     char* _getNowAsText(char* format);
 
 public:
