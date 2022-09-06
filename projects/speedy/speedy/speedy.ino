@@ -35,6 +35,7 @@ NGSerialNotification notificationSerial = NGSerialNotification();
 NGJingleBoot jingleBoot = NGJingleBoot();
 
 void setup() {
+  char log[100];
   setGlobalUnit(&unitSpeedy);
   swr.registerCommand(QIACHIPPINUP, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP, QIACHIPDELAY);
   swr.registerCommand(QIACHIPPINDOWN, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_DOWN, QIACHIPDELAY);
@@ -66,7 +67,8 @@ void setup() {
   #endif
   unitSpeedy.startUp();
   unitSpeedy.clearInfo();
-  unitSpeedy.writeInfo("Lets go...");
+  sprintf(log, "Lets go...");
+  unitSpeedy.writeInfo(log);
 }
 
 void loop() {
