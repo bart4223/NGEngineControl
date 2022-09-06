@@ -35,7 +35,7 @@ private:
     bool _logging;
     
 protected:
-    _create(byte pinServo, byte zeroPosition, byte minPosition, byte maxPosition, byte stepWidth);
+    void _create(byte pinServo, byte zeroPosition, byte minPosition, byte maxPosition, byte stepWidth);
 
 public:
     NGServoControl(byte pinServo);

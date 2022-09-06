@@ -31,7 +31,7 @@ private:
     char _humidityAsText[100];
 
 protected:
-    _create(int pinSensor, int sensorType);
+    void _create(int pinSensor, int sensorType);
 
 public:
     NGTemperatureSensor(int pinSensor);

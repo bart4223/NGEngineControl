@@ -16,7 +16,7 @@ NGTemperatureSensor::NGTemperatureSensor(int pinSensor, int sensorType) {
     _create(pinSensor, sensorType);
 }
 
-NGTemperatureSensor::_create(int pinSensor, int sensorType) {
+void NGTemperatureSensor::_create(int pinSensor, int sensorType) {
     _dht = new DHT(pinSensor, sensorType);
 }
 

@@ -16,7 +16,6 @@
 
 #include "NGSoundMachine.h"
 
-#define DEFPINPIEZO -1
 #define DEFNOJINGLE -1
 
 class NGMorseToneGenerator {

@@ -54,5 +54,5 @@ bool NGBotRetriever::nextMotionSequenceNecessary(int closeness) {
 }
 
 char* NGBotRetriever::getName() {
-    return "BotRetriever";
+    return (char*)"BotRetriever";
 }

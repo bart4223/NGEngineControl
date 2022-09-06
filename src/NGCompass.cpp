@@ -38,7 +38,7 @@ NGCompass::NGCompass(compassTechnologyType type, byte address) {
     }
 }
 
-NGCompass::_create(compassTechnologyType type, byte address, byte sampleRate, byte range, byte dataRate, byte mode) {
+void NGCompass::_create(compassTechnologyType type, byte address, byte sampleRate, byte range, byte dataRate, byte mode) {
     _type = type;
     _address = address;
     _sampleRate = sampleRate;

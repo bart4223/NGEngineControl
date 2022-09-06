@@ -596,19 +596,19 @@
 		29958E5B2718A7A4007048E3 /* specs */ = {
 			isa = PBXGroup;
 			children = (
-				29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */,
-				29B37621271E901500D8780B /* NGCustomMotionMimic.h */,
-				29B37620271E901500D8780B /* NGCustomMotionMimic.cpp */,
-				29DAAB9A27B02DD1000E56F1 /* NGVoidMotionMimic.h */,
-				29DAAB9927B02DD1000E56F1 /* NGVoidMotionMimic.cpp */,
-				29B376232721310000D8780B /* NGCaveExplorer.h */,
-				29B376222721310000D8780B /* NGCaveExplorer.cpp */,
 				29F56DE6273AF32F00BBBB68 /* NGBotRetriever.h */,
 				29F56DE5273AF32F00BBBB68 /* NGBotRetriever.cpp */,
+				29B376232721310000D8780B /* NGCaveExplorer.h */,
+				29B376222721310000D8780B /* NGCaveExplorer.cpp */,
 				29DAAB9827B022ED000E56F1 /* NGCustomMotionControl.h */,
 				29DAAB9727B022ED000E56F1 /* NGCustomMotionControl.cpp */,
+				29B37621271E901500D8780B /* NGCustomMotionMimic.h */,
+				29B37620271E901500D8780B /* NGCustomMotionMimic.cpp */,
+				29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */,
 				29DAAB9C27B03057000E56F1 /* NGSimpleMotionControl.h */,
 				29DAAB9B27B03057000E56F1 /* NGSimpleMotionControl.cpp */,
+				29DAAB9A27B02DD1000E56F1 /* NGVoidMotionMimic.h */,
+				29DAAB9927B02DD1000E56F1 /* NGVoidMotionMimic.cpp */,
 			);
 			name = specs;
 			sourceTree = "<group>";

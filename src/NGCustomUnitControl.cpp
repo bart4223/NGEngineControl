@@ -229,7 +229,9 @@ void NGCustomUnitControl::registerIRRemoteFunction(functionType type, byte proto
 void NGCustomUnitControl::registerRealTimeClock(NGRealTimeClock *rtc) {
     _rtc = rtc;
     #ifdef NG_PLATFORM_MEGA
-    writeInfo("RTC registered");
+    char log[100];
+    sprintf(log, "RTC registered");
+    writeInfo(log);
     #endif
 }
 

@@ -622,11 +622,11 @@ void NGMorseToneGenerator::play(char* value) {
 }
 
 void NGMorseToneGenerator::playSOS() {
-    play("SOS");
+    play((char*)"SOS");
 }
 
 void NGMorseToneGenerator::playQAM() {
-    play("QAM");
+    play((char*)"QAM");
 }
 
 void NGMorseToneGenerator::playCQ(char* name) {

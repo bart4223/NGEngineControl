@@ -76,5 +76,5 @@ bool NGCaveExplorer::nextMotionSequenceNecessary(int closeness) {
 }
 
 char* NGCaveExplorer::getName() {
-    return "CaveExplorer";
+    return (char*)"CaveExplorer";
 }

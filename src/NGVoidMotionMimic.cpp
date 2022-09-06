@@ -36,5 +36,5 @@ bool NGVoidMotionMimic::nextMotionSequenceNecessary(int closeness) {
 }
 
 char* NGVoidMotionMimic::getName() {
-    return "Void";
+    return (char*)"Void";
 }

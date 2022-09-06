@@ -23,7 +23,7 @@ private:
     bool _isTwoOn = false;
 
 protected:
-    _create(byte pinLEDOne, byte pinLEDTwo);
+    void _create(byte pinLEDOne, byte pinLEDTwo);
 
 public:
     NGDuoLED(byte pinLEDOne, byte pinLEDTwo);

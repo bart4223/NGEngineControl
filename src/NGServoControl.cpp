@@ -23,7 +23,7 @@ NGServoControl::NGServoControl(byte pinServo, byte zeroPosition, byte minPositio
     _create(pinServo, zeroPosition, minPosition, maxPosition, stepWidth);
 }
 
-NGServoControl::_create(byte pinServo, byte zeroPosition, byte minPosition, byte maxPosition, byte stepWidth) {
+void NGServoControl::_create(byte pinServo, byte zeroPosition, byte minPosition, byte maxPosition, byte stepWidth) {
     _initialized = false;
     _Servo = new Servo();
     _pinServo = pinServo;

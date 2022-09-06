@@ -85,7 +85,7 @@ private:
     int _calibrated[3];
     
 protected:
-    _create(compassTechnologyType type, byte address, byte sampleRate, byte range, byte dataRate, byte mode);
+    void _create(compassTechnologyType type, byte address, byte sampleRate, byte range, byte dataRate, byte mode);
     
     byte _writeRegister(byte reg, byte val);
     

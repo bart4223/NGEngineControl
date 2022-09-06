@@ -11,7 +11,7 @@ NGDuoLED::NGDuoLED(byte pinLEDOne, byte pinLEDTwo) {
     _create(pinLEDOne, pinLEDTwo);
 }
 
-NGDuoLED::_create(byte pinLEDOne, byte pinLEDTwo) {
+void NGDuoLED::_create(byte pinLEDOne, byte pinLEDTwo) {
     _pinLEDOne = pinLEDOne;
     _pinLEDTwo = pinLEDTwo;
 }

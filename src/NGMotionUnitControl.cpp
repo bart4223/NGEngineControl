@@ -50,7 +50,9 @@ void NGMotionUnitControl::_initializeLightSensor() {
         _lightSensor->initialize();
         #ifdef NG_PLATFORM_MEGA
         if (_logging) {
-            writeInfo("Light sensor initialized");
+            char log[100];
+            sprintf(log, "Light sensor initialized");
+            writeInfo(log);
         }
         #endif
     }
@@ -61,7 +63,9 @@ void NGMotionUnitControl::_initializeFlashingLightLeft() {
         _flashingLightLeft->initialize();
         #ifdef NG_PLATFORM_MEGA
         if (_logging) {
-            writeInfo("Flashing light left initialized");
+            char log[100];
+            sprintf(log, "Flashing light left initialized");
+            writeInfo(log);
         }
         #endif
     }
@@ -72,7 +76,9 @@ void NGMotionUnitControl::_initializeFlashingLightRight() {
         _flashingLightRight->initialize();
         #ifdef NG_PLATFORM_MEGA
         if (_logging) {
-            writeInfo("Flashing light right initialized");
+            char log[100];
+            sprintf(log, "Flashing light right initialized");
+            writeInfo(log);
         }
         #endif
     }
@@ -94,7 +100,9 @@ void NGMotionUnitControl::_initializeMotionControl() {
     _motionControl->initialize();
     #ifdef NG_PLATFORM_MEGA
     if (_logging) {
-        writeInfo("Motion Control initialized");
+        char log[100];
+        sprintf(log, "Motion Control initialized");
+        writeInfo(log);
     }
     #endif
 }
@@ -104,7 +112,9 @@ void NGMotionUnitControl::_initializeLaserCannon() {
         _laserCannon->initialize();
         #ifdef NG_PLATFORM_MEGA
         if (_logging) {
-            writeInfo("Laser cannon initialized");
+            char log[100];
+            sprintf(log, "Laser cannon initialized");
+            writeInfo(log);
         }
         #endif
     }
@@ -381,6 +391,7 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
 }
 
 void NGMotionUnitControl::_determineMotionInterruption() {
+    char log[100];
     if (_motionInterruptionPin != -1) {
         if (!_motionInterrupted) {
             if (!digitalRead(_motionInterruptionPin)) {
@@ -389,7 +400,8 @@ void NGMotionUnitControl::_determineMotionInterruption() {
                 beep();
                 #ifdef NG_PLATFORM_MEGA
                 clearInfo();
-                writeInfo("Interruption!");
+                sprintf(log, "Interruption!");
+                writeInfo(log);
                 #endif
                 delay(DEFINTERRUPTIONDELAY);
             }
@@ -399,7 +411,8 @@ void NGMotionUnitControl::_determineMotionInterruption() {
             _resetCurrentMotionSequence();
             #ifdef NG_PLATFORM_MEGA
             clearInfo();
-            writeInfo("Go on...");
+            sprintf(log, "Go on...");
+            writeInfo(log);
             #endif
             delay(DEFINTERRUPTIONDELAY);
         }
