@@ -21,7 +21,7 @@ private:
     bool _on = false;
 
 protected:
-    _create(byte pinRelais);
+    void _create(byte pinRelais);
 
 public:
     NGRelaisControl(byte pinRelais);

@@ -30,10 +30,6 @@
 
 #define DEFAULTJOINTMOVESTEP 10
 
-void _unitWireReceiveEvent(int byteCount);
-
-void _unitWireRequestEvent();
-
 enum commandKind { ckNone, ckJointSimulate, ckGripperSimulate };
 
 struct commandDataStruct

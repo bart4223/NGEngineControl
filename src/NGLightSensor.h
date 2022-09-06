@@ -42,7 +42,7 @@ private:
     sensorThreshold _thresholds[MAXTHRESHOLDCOUNT];
     
 protected:
-    _create(byte pinSensor);
+    void _create(byte pinSensor);
     
 public:
     NGLightSensor();

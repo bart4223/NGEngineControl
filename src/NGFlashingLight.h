@@ -14,7 +14,7 @@
 #include <WProgram.h>
 #endif
 
-#include "NGITestableComponent.h";
+#include "NGITestableComponent.h"
 
 #define DEFFLASHINGINTERVAL 1000
 

@@ -112,6 +112,10 @@
 #define IRC_QIACHIP_UP      0x23
 #define IRC_QIACHIP_DOWN    0x24
 
+void _unitWireReceiveEvent(int byteCount);
+
+void _unitWireRequestEvent();
+
 enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
 
 struct irremotefuncStruct

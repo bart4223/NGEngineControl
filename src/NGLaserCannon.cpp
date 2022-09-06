@@ -11,7 +11,7 @@ NGLaserCannon::NGLaserCannon(byte pinLaserCannon) {
     _create(pinLaserCannon);
 }
 
-NGLaserCannon::_create(byte pinLaserCannon) {
+void NGLaserCannon::_create(byte pinLaserCannon) {
     _pinLaserCannon = pinLaserCannon;
 }
 

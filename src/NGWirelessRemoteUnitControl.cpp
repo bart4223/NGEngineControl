@@ -45,7 +45,7 @@ void NGWirelessRemoteUnitControl::_processingIRRemoteData() {
 }
 
 byte NGWirelessRemoteUnitControl::registerJoystick() {
-    return registerJoystick("");
+    return registerJoystick((char*)"");
 }
 
 byte NGWirelessRemoteUnitControl::registerJoystick(char* name) {

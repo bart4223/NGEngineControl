@@ -15,7 +15,7 @@ NGLightSensor::NGLightSensor(byte pinSensor) {
     _create(pinSensor);
 }
 
-NGLightSensor::_create(byte pinSensor) {
+void NGLightSensor::_create(byte pinSensor) {
     _pinSensor = pinSensor;
 }
 

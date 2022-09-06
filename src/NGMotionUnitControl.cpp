@@ -7,7 +7,6 @@
 
 #include "Wire.h"
 #include "NGCommon.h"
-#include "NGUnitControl.h"
 #include "NGMemoryObserver.h"
 #include "NGSteeringControl.h"
 #include "NGMotionUnitControl.h"
@@ -319,7 +318,8 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                         _currentMotionSequence = index;
                         _resetCurrentMotionSequence();
                         clearInfo();
-                        writeInfo("Stop!");
+                        sprintf(log, "Stop!");
+                        writeInfo(log);
                     }
                     break;
             }

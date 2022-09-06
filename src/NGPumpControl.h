@@ -22,7 +22,7 @@ private:
     NGRelaisControl *_relais;
 
 protected:
-    _create(byte pinPump);
+    void _create(byte pinPump);
 
 public:
     NGPumpControl(byte pinPump);

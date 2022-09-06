@@ -11,7 +11,7 @@ NGSoilMoistureSensor::NGSoilMoistureSensor(int pinSensor) {
     _create(pinSensor);
 }
 
-NGSoilMoistureSensor::_create(int pinSensor) {
+void NGSoilMoistureSensor::_create(int pinSensor) {
     _pinSensor = pinSensor;
 }
 

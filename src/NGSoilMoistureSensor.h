@@ -20,7 +20,7 @@ private:
     int _pinSensor;
     
 protected:
-    _create(int pinSensor);
+    void _create(int pinSensor);
     
 public:
     NGSoilMoistureSensor(int pinSensor);

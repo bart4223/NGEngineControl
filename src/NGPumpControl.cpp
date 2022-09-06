@@ -11,7 +11,7 @@ NGPumpControl::NGPumpControl(byte pinPump) {
     _create(pinPump);
 }
 
-NGPumpControl::_create(byte pinPump) {
+void NGPumpControl::_create(byte pinPump) {
     _relais = new NGRelaisControl(pinPump);
 }
 

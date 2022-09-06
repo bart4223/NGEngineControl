@@ -11,7 +11,7 @@ NGRelaisControl::NGRelaisControl(byte pinRelais) {
     _create(pinRelais);
 }
 
-NGRelaisControl::_create(byte pinRelais) {
+void NGRelaisControl::_create(byte pinRelais) {
     _pinRelais = pinRelais;
 }
 

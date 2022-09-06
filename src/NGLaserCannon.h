@@ -23,7 +23,7 @@ private:
     bool _fire;
 
 protected:
-    _create(byte pinLaserCannon);
+    void _create(byte pinLaserCannon);
 
 public:
     NGLaserCannon(byte pinLaserCannon);
