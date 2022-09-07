@@ -9,30 +9,37 @@
 #include "NGCarSteeringControl.h"
 
 NGCarSteeringControl::NGCarSteeringControl() {
-    _create(ENGINE_0, DEFAULTSERIALRATE);
+    _create(ENGINE_0, DEFAULTSERIALRATE, DEFSERVOPIN, DEFSERVOZEROPOSITION, DEFSERVOMINPOSITION, DEFSERVOMAXPOSITION, DEFSERVOSTEPWIDTH);
 }
 
-NGCarSteeringControl::NGCarSteeringControl(int engine) {
-    _create(engine, DEFAULTSERIALRATE);
+NGCarSteeringControl::NGCarSteeringControl(byte pinSteering, byte steeringZeroPos, byte steeringMin, byte steeringMax, byte steeringStepWith) {
+    _create(ENGINE_0, DEFAULTSERIALRATE, pinSteering, steeringZeroPos, steeringMin, steeringMax, steeringStepWith);
 }
 
-void NGCarSteeringControl::_create(int engine, int serialRate) {
-    _engine = NGEngineControl(engine, serialRate);
-    _engine.setLogging(_logging);
+NGCarSteeringControl::NGCarSteeringControl(int engine, byte pinSteering, byte steeringZeroPos, byte steeringMin, byte steeringMax, byte steeringStepWith) {
+    _create(engine, DEFAULTSERIALRATE, pinSteering, steeringZeroPos, steeringMin, steeringMax, steeringStepWith);
+}
+
+void NGCarSteeringControl::_create(int engine, int serialRate, byte pinSteering, byte steeringZeroPos, byte steeringMin, byte steeringMax, byte steeringStepWith) {
+    _engine = new NGEngineControl(engine, serialRate);
+    _steering = new NGServoControl(pinSteering, steeringZeroPos, steeringMin, steeringMax, steeringStepWith);
+    _engine->setLogging(_logging);
+    _steering->setLogging(_logging);
 }
 
 void NGCarSteeringControl::initialize() {
     char log[100];
-    _engine.initialize();
+    _engine->initialize();
+    _steering->initialize();
     _initialized = true;
     if (_logging) {
-        sprintf(log, "Car steering with engine %d initialized", _engine.getID());
+        sprintf(log, "Car steering with engine %d initialized", _engine->getID());
         Serial.println(log);
     }
 }
 
 void NGCarSteeringControl::stop() {
-    _engine.stop();
+    _engine->stop();
     if (_logging) {
         Serial.println("Engine stopped");
     }
@@ -43,8 +50,8 @@ void NGCarSteeringControl::run(engineDirection direction, byte speed) {
     if (speed > NULLSPEED) {
         _speed = speed;
     }
-    _engine.setSpeed(_speed);
-    _engine.run(direction);
+    _engine->setSpeed(_speed);
+    _engine->run(direction);
     if (_logging) {
         if (direction == edForward) {
             sprintf(log, "Engine runs with speed %d forward", _speed);

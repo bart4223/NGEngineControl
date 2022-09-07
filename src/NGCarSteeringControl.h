@@ -14,20 +14,24 @@
 #include <WProgram.h>
 #endif
 
+#include <NGServoControl.h>
 #include <NGCustomSteeringControl.h>
 
 class NGCarSteeringControl : public NGCustomSteeringControl {
 
 private:
-    NGEngineControl _engine = NGEngineControl();
+    NGEngineControl *_engine;
+    NGServoControl *_steering;
 
 protected:
-    void _create(int engine, int serialRate);
+    void _create(int engine, int serialRate, byte pinSteering, byte steeringZeroPos, byte steeringMin, byte steeringMax, byte steeringStepWith);
 
 public:
     NGCarSteeringControl();
     
-    NGCarSteeringControl(int engine);
+    NGCarSteeringControl(byte pinSteering, byte steeringZeroPos, byte steeringMin, byte steeringMax, byte steeringStepWith);
+    
+    NGCarSteeringControl(int engine, byte pinSteering, byte steeringZeroPos, byte steeringMin, byte steeringMax, byte steeringStepWith);
 
     void initialize();
     

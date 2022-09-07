@@ -20,14 +20,25 @@
 #define OLEDLINES         8
 #define OLEDLINEFACTOR    4
 
-#define QIACHIPDELAY    100
-#define QIACHIPPINUP    22
-#define QIACHIPPINDOWN  24
+#define WIRELESSREMOTEDELAY    100
+
+#define WIRELESSREMOTERIGHTPINUP    22
+#define WIRELESSREMOTERIGHTPINDOWN  24
+#define WIRELESSREMOTERIGHTPINLEFT  26
+#define WIRELESSREMOTERIGHTPINRIGHT 28
+
+#define STEERINGPIN       8
+#define STEERINGZEROPOS   90
+#define STEERINGMIN       80
+#define STEERINGMAX       100
+#define STEERINGSTEPWIDTH 1
 
 #define SPEEDEASY   50
 
 NGSimpleWirelessReceiver swr = NGSimpleWirelessReceiver();
-NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, new NGSimpleMotionControl(new NGCarSteeringControl()));
+NGCarSteeringControl *csc = new NGCarSteeringControl(STEERINGPIN, STEERINGZEROPOS, STEERINGMIN, STEERINGMAX, STEERINGSTEPWIDTH);
+NGSimpleMotionControl *smc = new NGSimpleMotionControl(csc);
+NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, smc);
 NGOLEDNotification *oledNotification;
 #if (PROD == false)
 NGSerialNotification notificationSerial = NGSerialNotification();
@@ -37,8 +48,8 @@ NGJingleBoot jingleBoot = NGJingleBoot();
 void setup() {
   char log[100];
   setGlobalUnit(&unitSpeedy);
-  swr.registerCommand(QIACHIPPINUP, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP, QIACHIPDELAY);
-  swr.registerCommand(QIACHIPPINDOWN, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_DOWN, QIACHIPDELAY);
+  swr.registerCommand(WIRELESSREMOTERIGHTPINUP, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP, WIRELESSREMOTEDELAY);
+  swr.registerCommand(WIRELESSREMOTERIGHTPINDOWN, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_DOWN, WIRELESSREMOTEDELAY);
   swr.initialize();
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitSpeedy.registerNotification(oledNotification);

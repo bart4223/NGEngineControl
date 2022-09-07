@@ -16,6 +16,7 @@
 
 #include <Servo.h>
 
+#define DEFSERVOPIN             8
 #define DEFSERVOMINPOSITION     0
 #define DEFSERVOZEROPOSITION    90
 #define DEFSERVOMAXPOSITION     180
@@ -24,7 +25,7 @@
 class NGServoControl {
 
 private:
-    byte _pinServo;
+    byte _pinServo = DEFSERVOPIN;
     Servo *_Servo;
     byte _position;
     byte _zeroPosition = DEFSERVOZEROPOSITION;
