@@ -63,11 +63,41 @@ void NGCarSteeringControl::run(engineDirection direction, byte speed) {
 }
 
 void NGCarSteeringControl::turnForward(turnDirection turn, byte speed) {
-
+    switch(turn) {
+        case tdLeft:
+        case tdLeftSoft:
+            if (!_steering->isMinPosition()) {
+                _steering->stepDown();
+            }
+            break;
+        case tdRight:
+        case tdRightSoft:
+            if (!_steering->isMaxPosition()) {
+                _steering->stepUp();
+            }
+            break;
+    }
+    _engine->setSpeed(speed);
+    _engine->run(edForward);
 }
 
 void NGCarSteeringControl::turnBackward(turnDirection turn, byte speed) {
-
+    switch(turn) {
+        case tdLeft:
+        case tdLeftSoft:
+            if (!_steering->isMinPosition()) {
+                _steering->stepDown();
+            }
+            break;
+        case tdRight:
+        case tdRightSoft:
+            if (!_steering->isMaxPosition()) {
+                _steering->stepUp();
+            }
+            break;
+    }
+    _engine->setSpeed(speed);
+    _engine->run(edBackward);
 }
 
 void NGCarSteeringControl::runFullSpeedForward() {

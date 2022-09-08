@@ -35,7 +35,7 @@
 
 #define SPEEDEASY   50
 
-NGSimpleWirelessReceiver swr = NGSimpleWirelessReceiver();
+NGSimpleWirelessReceiver swrRight = NGSimpleWirelessReceiver();
 NGCarSteeringControl *csc = new NGCarSteeringControl(STEERINGPIN, STEERINGZEROPOS, STEERINGMIN, STEERINGMAX, STEERINGSTEPWIDTH);
 NGSimpleMotionControl *smc = new NGSimpleMotionControl(csc);
 NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, smc);
@@ -48,9 +48,11 @@ NGJingleBoot jingleBoot = NGJingleBoot();
 void setup() {
   char log[100];
   setGlobalUnit(&unitSpeedy);
-  swr.registerCommand(WIRELESSREMOTERIGHTPINUP, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP, WIRELESSREMOTEDELAY);
-  swr.registerCommand(WIRELESSREMOTERIGHTPINDOWN, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_DOWN, WIRELESSREMOTEDELAY);
-  swr.initialize();
+  swrRight.registerCommand(WIRELESSREMOTERIGHTPINUP, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP, WIRELESSREMOTEDELAY);
+  swrRight.registerCommand(WIRELESSREMOTERIGHTPINDOWN, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_DOWN, WIRELESSREMOTEDELAY);
+  swrRight.registerCommand(WIRELESSREMOTERIGHTPINLEFT, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_LEFT, WIRELESSREMOTEDELAY);
+  swrRight.registerCommand(WIRELESSREMOTERIGHTPINRIGHT, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_RIGHT, WIRELESSREMOTEDELAY);
+  swrRight.initialize();
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitSpeedy.registerNotification(oledNotification);
   #if (PROD == false)
@@ -59,6 +61,8 @@ void setup() {
   unitSpeedy.registerBoot(&jingleBoot);
   unitSpeedy.registerIRRemoteFunction(ftUp, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP);
   unitSpeedy.registerIRRemoteFunction(ftDown, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_DOWN);
+  unitSpeedy.registerIRRemoteFunction(ftLeft, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_LEFT);
+  unitSpeedy.registerIRRemoteFunction(ftRight, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_RIGHT);
   DEF_MOTION_SEQUENCE_START;
   // stop
   DEF_MOTION_SEQUENCE_BEGIN_STOP(unitSpeedy);
@@ -83,9 +87,9 @@ void setup() {
 }
 
 void loop() {
-  swr.processingLoop();
-  if (swr.isCommandReceived()) {
-    unitSpeedy.setIRRemoteData(swr.getReceivedCommandProtocol(), swr.getReceivedCommandAddress(), swr.getReceivedCommand());
+  swrRight.processingLoop();
+  if (swrRight.isCommandReceived()) {
+    unitSpeedy.setIRRemoteData(swrRight.getReceivedCommandProtocol(), swrRight.getReceivedCommandAddress(), swrRight.getReceivedCommand());
   }
   unitSpeedy.processingLoop();
 }
