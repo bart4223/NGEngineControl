@@ -1,4 +1,4 @@
-#define PROD false //false,true
+#define PROD true //false,true
 
 #include <NGSimpleWirelessReceiver.h>
 #include <NGMotionUnitControl.h>
@@ -33,7 +33,7 @@
 #define STEERINGMAX       100
 #define STEERINGSTEPWIDTH 1
 
-#define SPEEDEASY   50
+#define SPEEDEASY   200
 
 NGSimpleWirelessReceiver swrRight = NGSimpleWirelessReceiver();
 NGCarSteeringControl *csc = new NGCarSteeringControl(STEERINGPIN, STEERINGZEROPOS, STEERINGMIN, STEERINGMAX, STEERINGSTEPWIDTH);

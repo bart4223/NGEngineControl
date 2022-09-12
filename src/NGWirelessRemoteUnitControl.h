@@ -17,7 +17,7 @@
 #include <NGCustomUnitControl.h>
 #include <NGJoystickControl.h>
 
-#define _VERSION "0.5"
+#define _VERSION "0.6"
 #define VERSION (char*)_VERSION
 
 #define MAXWIRELESSREMOTECONTROLCOUNT 3
