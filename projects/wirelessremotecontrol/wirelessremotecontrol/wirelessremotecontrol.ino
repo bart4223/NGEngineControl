@@ -17,9 +17,9 @@
 
 #define OLEDADDRESS       0x3C
 #define OLEDCOLUMNS       16
-#define OLEDTYPE          ot128x32
-#define OLEDLINES         4
-#define OLEDLINEFACTOR    2
+#define OLEDTYPE          ot128x64
+#define OLEDLINES         8
+#define OLEDLINEFACTOR    4
 
 #define PINJOYSTICKRIGHTX     A0
 #define PINJOYSTICKRIGHTY     A1
