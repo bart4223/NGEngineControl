@@ -536,8 +536,8 @@
 			isa = PBXGroup;
 			children = (
 				29647BCC253C7794003CBA13 /* images */,
-				2913C92D26FBBAE300D0AFC6 /* ToDo.txt */,
 				2917D45128DBBC440004FDD6 /* Pages.txt */,
+				2913C92D26FBBAE300D0AFC6 /* ToDo.txt */,
 			);
 			path = docs;
 			sourceTree = "<group>";
