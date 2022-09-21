@@ -3,13 +3,16 @@
 
 #define LOGGING true // false
 
-#define JOYSTICKID 0
+#define JOYSTICKID       0
+#define JOYSTICKPINX    A0
+#define JOYSTICKPINY    A1
+#define JOYSTICKPINFIRE  2
 
 #define PINUP     3
 #define PINDOWN   4
 #define PINLEFT   5
 #define PINRIGHT  6
-#define PINFIRE   3
+#define PINFIRE   7
 
 #define DELAY 500
 
@@ -18,7 +21,7 @@
 #define THRESHOLDLEFT     100
 #define THRESHOLDRIGHT    923
 
-NGJoystickControl jsc = NGJoystickControl(JOYSTICKID);
+NGJoystickControl jsc = NGJoystickControl(JOYSTICKID, JOYSTICKPINX, JOYSTICKPINY, JOYSTICKPINFIRE);
 
 void setup() {
   Serial.begin(9600);
@@ -35,7 +38,7 @@ void setup() {
   jsc.registerAction(PINRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY, jmRight);
   jsc.registerAction(PINUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY, jmUp);
   jsc.registerAction(PINDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY, jmDown);
-  jsc.registerAction(PINFIRE, jamTriggerLOW, DELAY);
+  jsc.registerAction(PINFIRE, jamTriggerLOW, DELAY, jmFire);
   jsc.initialize();
 }
 
