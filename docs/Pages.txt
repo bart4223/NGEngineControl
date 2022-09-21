@@ -1,0 +1,78 @@
+# Motoman
+[Motoman](https://github.com/bart4223/NGEngineControl/blob/main/projects/motoman/toolunit/toolunit.ino) is inspired by [B.A.R.T](https://github.com/bart4223/B.A.R.T).
+## Schema
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/motoman/images/motomanSchema.png)
+## Revision B0
+[Video](https://www.youtube.com/watch?v=_-plH7bJFr8) <br>
+## Revision B1
+[Video](https://youtu.be/zrJ5RDOiZ0Y) <br>
+## Revision B2
+[Video](https://youtu.be/j-PWZkvy12o) <br>
+## Revision B3
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/motoman/images/motomanB3.png)
+## Revision B4
+[Video](https://www.youtube.com/watch?v=bej2m6LzWiU) <br>
+## Revision B5
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/motoman/images/motomanB5.png)
+### Central Unit
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/motoman/images/motomanCentalUnit.png)
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/motoman/images/motomanB5Central.png) <br>
+[Video](https://www.youtube.com/watch?v=YjiYEUbdvz8) <br>
+## Revision B6
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/motoman/images/motomanB6.png)
+### The Dude
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/motoman/images/motomanDude.png) <br>
+[The Dude at work](https://www.youtube.com/watch?v=VOEVCQSRNAs) <br>
+## Intermediate
+[Video](https://www.youtube.com/watch?v=KNYyUl5XBCc)
+## Revision B7
+Coming soon...
+
+# Buggy
+[Buggy](https://github.com/bart4223/NGEngineControl/blob/main/projects/buggy/buggy/buggy.ino) is a little autonom robot mobile, works with Arduino MEGA 2560.
+## Schema
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/buggy/images/buggyMotionUnitSchema.png)
+## Revision C0
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/buggy/images/buggyC0.png) <br>
+## Revision C1
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/buggy/images/buggyC1.png) <br>
+### The Dude checks the flashing lights
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/buggy/images/buggyC1a.png) <br>
+## Revision C2 with Ultrasonic
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/buggy/images/buggyC2.png) <br>
+## Revision C3 with OLED
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/buggy/images/buggyC3.png) <br>
+[Video](https://www.youtube.com/watch?v=LMSmdTr8p2I)
+## Revision C4
+Coming soon...
+
+# Irrigation System
+My little [irrigation system](https://github.com/bart4223/NGEngineControl/blob/main/projects/irrigationsystem/irrigationsystem/irrigationsystem.ino) should water my bonsai.
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/irrigationsystem/images/bonsai.png) <br>
+## Revision D0 with dummy plant pot
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/irrigationsystem/images/irrigationsystemD0.png) <br>
+## Revision D1
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/irrigationsystem/images/irrigationsystemD1.png) <br>
+## Revision D2
+Coming soon...
+
+# Current Measurement
+Simple [current measurement](https://github.com/bart4223/NGEngineControl/blob/main/projects/currentmeasurement/currentmeasurement/currentmeasurement.ino) runs with Arduino Nano.
+## Revision E0
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/currentmeasurement/images/currentmeasurementE0.png) <br>
+## Revision E1
+Coming soon...
+
+# Speedy
+Little remote controlled car [speedy](https://github.com/bart4223/NGEngineControl/blob/main/projects/speedy/speedy/speedy.ino) is powered by Arduino Mega.
+## Revision F0
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/speedy/images/speedyF0.png) <br>
+## Revision F1
+Coming soon...
+
+# Wireless Remote Control
+The wireless remote control is build for controlling Speedy. The firmware for the remote control is powered by Arduino Nano.
+## Revision G0
+![](https://github.com/bart4223/NGEngineControl/blob/main/projects/wirelessremotecontrol/images/WirelessRemoteG0.png) <br>
+## Revision G1
+Coming soon...
