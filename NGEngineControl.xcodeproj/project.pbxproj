@@ -159,6 +159,7 @@
 		29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGLCDNotification.cpp; sourceTree = "<group>"; };
 		29D7EC4026741FAB00009403 /* NGLCDNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGLCDNotification.h; sourceTree = "<group>"; };
 		29D7EC4226750DEE00009403 /* motionunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motionunit.ino; sourceTree = "<group>"; };
+		29D8FAC628DDB5E300598278 /* WirelessRemoteG1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WirelessRemoteG1.png; sourceTree = "<group>"; };
 		29DAAB9727B022ED000E56F1 /* NGCustomMotionControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomMotionControl.cpp; sourceTree = "<group>"; };
 		29DAAB9827B022ED000E56F1 /* NGCustomMotionControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomMotionControl.h; sourceTree = "<group>"; };
 		29DAAB9927B02DD1000E56F1 /* NGVoidMotionMimic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGVoidMotionMimic.cpp; sourceTree = "<group>"; };
@@ -823,6 +824,7 @@
 		29DC5F9A28A8501A00CCEEB1 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				29D8FAC628DDB5E300598278 /* WirelessRemoteG1.png */,
 				2917D44F28DBB7430004FDD6 /* WirelessRemoteG0.png */,
 			);
 			path = images;
