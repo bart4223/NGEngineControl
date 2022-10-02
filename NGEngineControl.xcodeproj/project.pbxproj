@@ -71,6 +71,8 @@
 		292E8FF3265FFAF50042F249 /* NGGripperControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGGripperControl.h; sourceTree = "<group>"; };
 		292E8FF4265FFC6A0042F249 /* NGGripperControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGGripperControl.cpp; sourceTree = "<group>"; };
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
+		292F9CBD28E9821F0051D764 /* WirelessRemoteG2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WirelessRemoteG2.png; sourceTree = "<group>"; };
+		292F9CC328E9823B0051D764 /* WirelessRemoteG3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WirelessRemoteG3.png; sourceTree = "<group>"; };
 		293B4CD7276F75F4009EC17A /* NGJingleBeep.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBeep.cpp; sourceTree = "<group>"; };
 		293B4CD8276F75F4009EC17A /* NGJingleBeep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBeep.h; sourceTree = "<group>"; };
 		293B4CD927771584009EC17A /* NGJingleJingleBells.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleJingleBells.cpp; sourceTree = "<group>"; };
@@ -824,6 +826,8 @@
 		29DC5F9A28A8501A00CCEEB1 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				292F9CC328E9823B0051D764 /* WirelessRemoteG3.png */,
+				292F9CBD28E9821F0051D764 /* WirelessRemoteG2.png */,
 				29D8FAC628DDB5E300598278 /* WirelessRemoteG1.png */,
 				2917D44F28DBB7430004FDD6 /* WirelessRemoteG0.png */,
 			);
