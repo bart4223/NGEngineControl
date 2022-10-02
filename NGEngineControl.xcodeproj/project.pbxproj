@@ -73,6 +73,7 @@
 		292E8FF526620C690042F249 /* NGUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUnitControl.cpp; sourceTree = "<group>"; };
 		292F9CBD28E9821F0051D764 /* WirelessRemoteG2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WirelessRemoteG2.png; sourceTree = "<group>"; };
 		292F9CC328E9823B0051D764 /* WirelessRemoteG3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WirelessRemoteG3.png; sourceTree = "<group>"; };
+		292F9CC428E98C540051D764 /* irrigationsystemD2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = irrigationsystemD2.png; sourceTree = "<group>"; };
 		293B4CD7276F75F4009EC17A /* NGJingleBeep.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBeep.cpp; sourceTree = "<group>"; };
 		293B4CD8276F75F4009EC17A /* NGJingleBeep.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBeep.h; sourceTree = "<group>"; };
 		293B4CD927771584009EC17A /* NGJingleJingleBells.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleJingleBells.cpp; sourceTree = "<group>"; };
@@ -729,6 +730,7 @@
 				290A819F27FF3091007E7BC9 /* bonsai.png */,
 				290A81A027FF32F1007E7BC9 /* irrigationsystemD0.png */,
 				290A81A128030A64007E7BC9 /* irrigationsystemD1.png */,
+				292F9CC428E98C540051D764 /* irrigationsystemD2.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
