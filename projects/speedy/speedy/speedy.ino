@@ -40,7 +40,7 @@
 #define STEERINGMAX       130
 #define STEERINGSTEPWIDTH 5
 
-#define SPEEDEASY     150
+#define SPEEDEASY     200
 #define SPEEDCURVE    100
 
 NGSimpleWirelessReceiver swrRight = NGSimpleWirelessReceiver(WIRELESSREMOTERIGHT);
@@ -70,7 +70,9 @@ void setup() {
   unitSpeedy.registerNotification(&notificationSerial);
   #endif
   unitSpeedy.registerBoot(&jingleBoot);
+  // Joystick left
   unitSpeedy.registerIRRemoteFunction(swrLeft.getID(), ftPlay, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP);
+  // Joystick right
   unitSpeedy.registerIRRemoteFunction(swrRight.getID(), ftUp, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP);
   unitSpeedy.registerIRRemoteFunction(swrRight.getID(), ftDown, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_DOWN);
   unitSpeedy.registerIRRemoteFunction(swrRight.getID(), ftLeft, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_LEFT);
