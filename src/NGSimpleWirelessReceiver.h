@@ -14,10 +14,11 @@
 #include <WProgram.h>
 #endif
 
-#define MAXSWRCALLBACKOUNT 4
-#define SWRNODELAY 0
-#define SWRNOCURRENTCALLBACK -1
-#define SWRNOPROTOCOL 0x00
+#define MAXSWRCALLBACKOUNT         4
+#define SWRNODELAY                 0
+#define SWRNOCURRENTCALLBACK      -1
+#define SWRNOPROTOCOL           0x00
+#define DEFREMOTEID             0x00
 
 // Chip QIACHIP wireless RX480E-4WQB 433Mhz
 //
@@ -56,15 +57,18 @@ private:
     simpleWirelessReceiverCallback _receiverCallbacks[MAXSWRCALLBACKOUNT];
     int _receiverCallbackCount = 0;
     int _currentCallback = SWRNOCURRENTCALLBACK;
+    byte _ID = DEFREMOTEID;
     
 protected:
-    void _create();
+    void _create(byte ID);
     
     void _resetCurrentCallback();
     
 public:
     NGSimpleWirelessReceiver();
        
+    NGSimpleWirelessReceiver(byte ID);
+    
     void registerCallback(int pin, simpleWirelessReceiverCallbackFunc callback);
     
     void registerCallback(int pin, simpleWirelessReceiverMode mode, simpleWirelessReceiverCallbackFunc callback);
@@ -90,6 +94,8 @@ public:
     byte getReceivedCommandAddress();
 
     byte getReceivedCommand();
+    
+    byte getID();
 };
 
 #endif /* NGSimpleWirelessReceiver_h */

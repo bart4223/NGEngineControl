@@ -297,7 +297,7 @@ void NGMotionUnitControl::_processingIRRemoteData() {
     char log[10];
     int index;
     for (int i = 0; i < _irremotefuncCount; i++) {
-        if (_irremotefunc[i].protocol == _irremotedata.protocol && _irremotefunc[i].address == _irremotedata.address
+        if (_irremotefunc[i].remote == _irremotedata.remote && _irremotefunc[i].protocol == _irremotedata.protocol && _irremotefunc[i].address == _irremotedata.address
                 && _irremotefunc[i].command == _irremotedata.command) {
             switch (_irremotefunc[i].type) {
                 case ftUp:

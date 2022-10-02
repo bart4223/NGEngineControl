@@ -213,8 +213,13 @@ void NGCustomUnitControl::registerJingleAlarm(NGCustomJingle *jingle) {
 }
 
 void NGCustomUnitControl::registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command) {
+    registerIRRemoteFunction(DEFIRREMOTE, type, protocol, address, command);
+}
+
+void NGCustomUnitControl::registerIRRemoteFunction(byte remote, functionType type, byte protocol, byte address, byte command) {
     if (_irremotefuncCount < IRFUNCCOUNT) {
         irremotefunc func;
+        func.remote = remote;
         func.protocol = protocol;
         func.address = address;
         func.command = command;
@@ -279,7 +284,12 @@ void NGCustomUnitControl::beep() {
 }
 
 void NGCustomUnitControl::setIRRemoteData(byte protocol, byte address, byte command) {
+    setIRRemoteData(DEFIRREMOTE, protocol, address, command);
+}
+
+void NGCustomUnitControl::setIRRemoteData(byte remote, byte protocol, byte address, byte command) {
     if (!_irremotedataReceived) {
+        _irremotedata.remote = remote;
         _irremotedata.protocol = protocol;
         _irremotedata.address = address;
         _irremotedata.command = command;

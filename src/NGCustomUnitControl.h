@@ -92,6 +92,8 @@
 #define IRFUNCCOUNT      3
 #endif
 
+#define DEFIRREMOTE 0x00
+
 #define IRFUNCMENUDELAY 100
 
 #define IRP_APPLE       0x14
@@ -120,6 +122,7 @@ enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
 
 struct irremotefuncStruct
 {
+    byte remote;
     byte protocol;
     byte address;
     byte command;
@@ -136,6 +139,7 @@ typedef struct unitStruct unit;
 
 struct irremoteStruct
 {
+    byte remote;
     byte protocol;
     byte address;
     byte command;
@@ -237,6 +241,8 @@ public:
     
     void registerIRRemoteFunction(functionType type, byte protocol, byte address, byte command);
 
+    void registerIRRemoteFunction(byte remote, functionType type, byte protocol, byte address, byte command);
+
     void processingLoop();
     
     void clearInfo();
@@ -253,6 +259,8 @@ public:
     
     void setIRRemoteData(byte protocol, byte address, byte command);
 
+    void setIRRemoteData(byte remote, byte protocol, byte address, byte command);
+    
     virtual void requestData(byte* data);
 };
 

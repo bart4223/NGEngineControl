@@ -8,11 +8,15 @@
 #include "NGSimpleWirelessReceiver.h"
 
 NGSimpleWirelessReceiver::NGSimpleWirelessReceiver() {
-    _create();
+    _create(DEFREMOTEID);
 }
 
-void NGSimpleWirelessReceiver::_create() {
-    
+NGSimpleWirelessReceiver::NGSimpleWirelessReceiver(byte ID) {
+    _create(ID);
+}
+
+void NGSimpleWirelessReceiver::_create(byte ID) {
+    _ID = ID;
 }
 
 void NGSimpleWirelessReceiver::_resetCurrentCallback() {
@@ -136,4 +140,8 @@ byte NGSimpleWirelessReceiver::getReceivedCommand() {
         res = _receiverCallbacks[_currentCallback].command;
     }
     return res;
+}
+
+byte NGSimpleWirelessReceiver::getID() {
+    return _ID;
 }
