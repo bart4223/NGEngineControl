@@ -27,15 +27,22 @@
 #define WIRELESSREMOTERIGHTPINLEFT  26
 #define WIRELESSREMOTERIGHTPINRIGHT 28
 
+#define WIRELESSREMOTELEFTPINUP    23
+#define WIRELESSREMOTELEFTPINDOWN  25
+#define WIRELESSREMOTELEFTPINLEFT  27
+#define WIRELESSREMOTELEFTPINRIGHT 29
+
 #define STEERINGPIN       8
 #define STEERINGZEROPOS   90
-#define STEERINGMIN       80
-#define STEERINGMAX       100
-#define STEERINGSTEPWIDTH 1
+#define STEERINGMIN       50
+#define STEERINGMAX       130
+#define STEERINGSTEPWIDTH 5
 
-#define SPEEDEASY   200
+#define SPEEDEASY     150
+#define SPEEDCURVE    100
 
 NGSimpleWirelessReceiver swrRight = NGSimpleWirelessReceiver();
+NGSimpleWirelessReceiver swrLeft = NGSimpleWirelessReceiver();
 NGCarSteeringControl *csc = new NGCarSteeringControl(STEERINGPIN, STEERINGZEROPOS, STEERINGMIN, STEERINGMAX, STEERINGSTEPWIDTH);
 NGSimpleMotionControl *smc = new NGSimpleMotionControl(csc);
 NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, smc);
@@ -53,12 +60,15 @@ void setup() {
   swrRight.registerCommand(WIRELESSREMOTERIGHTPINLEFT, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_LEFT, WIRELESSREMOTEDELAY);
   swrRight.registerCommand(WIRELESSREMOTERIGHTPINRIGHT, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_RIGHT, WIRELESSREMOTEDELAY);
   swrRight.initialize();
+  swrLeft.registerCommand(WIRELESSREMOTELEFTPINUP, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP, WIRELESSREMOTEDELAY);
+  swrLeft.initialize();
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitSpeedy.registerNotification(oledNotification);
   #if (PROD == false)
   unitSpeedy.registerNotification(&notificationSerial);
   #endif
   unitSpeedy.registerBoot(&jingleBoot);
+  unitSpeedy.registerIRRemoteFunction(ftPlay, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP);
   unitSpeedy.registerIRRemoteFunction(ftUp, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP);
   unitSpeedy.registerIRRemoteFunction(ftDown, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_DOWN);
   unitSpeedy.registerIRRemoteFunction(ftLeft, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_LEFT);
@@ -76,6 +86,14 @@ void setup() {
   DEF_MOTION_SEQUENCE_BEGIN_BACK(unitSpeedy);
   DEF_MOTION_SEQUENCE_BACKWARD(unitSpeedy, SPEEDEASY, 0);
   DEF_MOTION_SEQUENCE_END_BACK;
+  // left forward
+  DEF_MOTION_SEQUENCE_BEGIN_LEFT(unitSpeedy);
+  DEF_MOTION_SEQUENCE_FORWARD_ONLY_LEFT(unitSpeedy, SPEEDCURVE, 1);
+  DEF_MOTION_SEQUENCE_END_LEFT;
+  // right forward
+  DEF_MOTION_SEQUENCE_BEGIN_RIGHT(unitSpeedy);
+  DEF_MOTION_SEQUENCE_FORWARD_ONLY_RIGHT(unitSpeedy, SPEEDCURVE, 1);
+  DEF_MOTION_SEQUENCE_END_RIGHT;
   unitSpeedy.initialize();
   #if (PROD == false)
   unitSpeedy.setWorkMode(wmObserveMemory);
@@ -90,6 +108,10 @@ void loop() {
   swrRight.processingLoop();
   if (swrRight.isCommandReceived()) {
     unitSpeedy.setIRRemoteData(swrRight.getReceivedCommandProtocol(), swrRight.getReceivedCommandAddress(), swrRight.getReceivedCommand());
+  }
+  swrLeft.processingLoop();
+  if (swrLeft.isCommandReceived()) {
+    unitSpeedy.setIRRemoteData(swrLeft.getReceivedCommandProtocol(), swrLeft.getReceivedCommandAddress(), swrLeft.getReceivedCommand());
   }
   unitSpeedy.processingLoop();
 }

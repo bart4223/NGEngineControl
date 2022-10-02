@@ -271,9 +271,17 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
         case tdRight:
         case tdRightSoft:
             if (item.direction == edForward) {
-                _motionControl->steeringTurnForward(item.turn);
+                if (item.speed != NULLSPEED) {
+                    _motionControl->steeringTurnForward(item.turn, item.speed);
+                } else {
+                    _motionControl->steeringTurnForward(item.turn);
+                }
             } else if (item.direction == edBackward) {
-                _motionControl->steeringTurnBackward(item.turn);
+                if (item.speed != NULLSPEED) {
+                    _motionControl->steeringTurnBackward(item.turn, item.speed);
+                } else {
+                    _motionControl->steeringTurnBackward(item.turn);
+                }
             }
             break;
     }
@@ -322,11 +330,35 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                         writeInfo(log);
                     }
                     break;
+                case ftLeft:
+                    if (_currentMotionSequence != _getMotionSequenceByKind(mskLeft)) {
+                        sprintf(log, "Left!");
+                        index = _getMotionSequenceByKind(mskLeft);
+                    }
+                    if (index != NOCURRENTMOTIONSEQUENCE) {
+                        _resetCurrentMotionSequence();
+                        _currentMotionSequence = index;
+                        clearInfo();
+                        writeInfo(log);
+                    }
+                    break;
+                case ftRight:
+                    if (_currentMotionSequence != _getMotionSequenceByKind(mskRight)) {
+                        sprintf(log, "Right!");
+                        index = _getMotionSequenceByKind(mskRight);
+                    }
+                    if (index != NOCURRENTMOTIONSEQUENCE) {
+                        _resetCurrentMotionSequence();
+                        _currentMotionSequence = index;
+                        clearInfo();
+                        writeInfo(log);
+                    }
+                    break;
                 case ftPlay:
                     index = _getMotionSequenceByKind(mskStop);
                     if (_currentMotionSequence != index && index != NOCURRENTMOTIONSEQUENCE) {
-                        _currentMotionSequence = index;
                         _resetCurrentMotionSequence();
+                        _currentMotionSequence = index;
                         clearInfo();
                         sprintf(log, "Stop!");
                         writeInfo(log);

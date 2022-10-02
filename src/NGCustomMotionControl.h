@@ -90,6 +90,10 @@ public:
     
     void steeringTurnBackward(turnDirection turn);
     
+    void steeringTurnForward(turnDirection turn, byte speed);
+    
+    void steeringTurnBackward(turnDirection turn, byte speed);
+
     void processingLoop();
 };
 
