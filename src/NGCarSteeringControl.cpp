@@ -77,8 +77,10 @@ void NGCarSteeringControl::turnForward(turnDirection turn, byte speed) {
             }
             break;
     }
-    _engine->setSpeed(speed);
-    _engine->run(edForward);
+    if (speed != 0) {
+        _engine->setSpeed(speed);
+        _engine->run(edForward);
+    }
 }
 
 void NGCarSteeringControl::turnBackward(turnDirection turn, byte speed) {
@@ -96,8 +98,10 @@ void NGCarSteeringControl::turnBackward(turnDirection turn, byte speed) {
             }
             break;
     }
-    _engine->setSpeed(speed);
-    _engine->run(edBackward);
+    if (speed != 0) {
+        _engine->setSpeed(speed);
+        _engine->run(edBackward);        
+    }
 }
 
 void NGCarSteeringControl::runFullSpeedForward() {

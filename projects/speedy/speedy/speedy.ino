@@ -40,8 +40,8 @@
 #define STEERINGMAX       130
 #define STEERINGSTEPWIDTH 5
 
-#define SPEEDEASY     200
-#define SPEEDCURVE    100
+#define SPEEDEASY     150
+#define SPEEDCURVE      0
 
 NGSimpleWirelessReceiver swrRight = NGSimpleWirelessReceiver(WIRELESSREMOTERIGHT);
 NGSimpleWirelessReceiver swrLeft = NGSimpleWirelessReceiver(WIRELESSREMOTELEFT);
@@ -90,11 +90,11 @@ void setup() {
   DEF_MOTION_SEQUENCE_BEGIN_BACK(unitSpeedy);
   DEF_MOTION_SEQUENCE_BACKWARD(unitSpeedy, SPEEDEASY, 0);
   DEF_MOTION_SEQUENCE_END_BACK;
-  // left forward
+  // left
   DEF_MOTION_SEQUENCE_BEGIN_LEFT(unitSpeedy);
   DEF_MOTION_SEQUENCE_FORWARD_ONLY_LEFT(unitSpeedy, SPEEDCURVE, 1);
   DEF_MOTION_SEQUENCE_END_LEFT;
-  // right forward
+  // right
   DEF_MOTION_SEQUENCE_BEGIN_RIGHT(unitSpeedy);
   DEF_MOTION_SEQUENCE_FORWARD_ONLY_RIGHT(unitSpeedy, SPEEDCURVE, 1);
   DEF_MOTION_SEQUENCE_END_RIGHT;
