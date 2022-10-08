@@ -25,7 +25,7 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "5.0"
+#define _VERSION "5.1"
 #define VERSION (char*)_VERSION
 
 #define DEFINTERRUPTIONDELAY 1000
@@ -79,6 +79,7 @@ private:
     int _currentMotionSequence = NOCURRENTMOTIONSEQUENCE;
     long int _currentMotionSequenceItemStarts = 0;
     byte _currentMotionSequenceItem = 0;
+    int _lastInfoID = -1;
 
 protected:
     void _create(char* name, byte address, int serialRate, NGCustomMotionControl *motionControl);

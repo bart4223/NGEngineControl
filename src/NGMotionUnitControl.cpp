@@ -300,59 +300,58 @@ void NGMotionUnitControl::_processingIRRemoteData() {
     for (int i = 0; i < _irremotefuncCount; i++) {
         if (_irremotefunc[i].remote == _irremotedata.remote && _irremotefunc[i].protocol == _irremotedata.protocol && _irremotefunc[i].address == _irremotedata.address
                 && _irremotefunc[i].command == _irremotedata.command) {
+            int infoID = -1;
             switch (_irremotefunc[i].type) {
                 case ftUp:
                     if (_currentMotionSequence !=  _getMotionSequenceByKind(mskStraight)) {
                         sprintf(log, "Go!");
+                        infoID = 0;
                         index = _getMotionSequenceByKind(mskStraight);
                     } else {
                         sprintf(log, "Stop!");
+                        infoID = 1;
                         index = _getMotionSequenceByKind(mskStop);
                     }
                     if (index != NOCURRENTMOTIONSEQUENCE) {
                         _resetCurrentMotionSequence();
                         _currentMotionSequence = index;
-                        clearInfo();
-                        writeInfo(log);
                     }
                     break;
                 case ftDown:
                     if (_currentMotionSequence != _getMotionSequenceByKind(mskBack)) {
                         sprintf(log, "Back!");
+                        infoID = 2;
                         index = _getMotionSequenceByKind(mskBack);
                     } else {
                         sprintf(log, "Stop!");
+                        infoID = 1;
                         index = _getMotionSequenceByKind(mskStop);
                     }
                     if (index != NOCURRENTMOTIONSEQUENCE) {
                         _resetCurrentMotionSequence();
                         _currentMotionSequence = index;
-                        clearInfo();
-                        writeInfo(log);
                     }
                     break;
                 case ftLeft:
                     if (_currentMotionSequence != _getMotionSequenceByKind(mskLeft)) {
                         sprintf(log, "Left!");
+                        infoID = 3;
                         index = _getMotionSequenceByKind(mskLeft);
                     }
                     if (index != NOCURRENTMOTIONSEQUENCE) {
                         _resetCurrentMotionSequence();
                         _currentMotionSequence = index;
-                        //clearInfo();
-                        //writeInfo(log);
                     }
                     break;
                 case ftRight:
                     if (_currentMotionSequence != _getMotionSequenceByKind(mskRight)) {
                         sprintf(log, "Right!");
+                        infoID = 4;
                         index = _getMotionSequenceByKind(mskRight);
                     }
                     if (index != NOCURRENTMOTIONSEQUENCE) {
                         _resetCurrentMotionSequence();
                         _currentMotionSequence = index;
-                        //clearInfo();
-                        //writeInfo(log);
                     }
                     break;
                 case ftPlay:
@@ -360,11 +359,17 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                     if (_currentMotionSequence != index && index != NOCURRENTMOTIONSEQUENCE) {
                         _resetCurrentMotionSequence();
                         _currentMotionSequence = index;
-                        clearInfo();
                         sprintf(log, "Stop!");
-                        writeInfo(log);
+                        infoID = 1;
                     }
                     break;
+            }
+            if (infoID != _lastInfoID) {
+                clearInfo();
+                if (infoID != -1) {
+                    writeInfo(log);
+                }
+                _lastInfoID = infoID;
             }
         }
     }
