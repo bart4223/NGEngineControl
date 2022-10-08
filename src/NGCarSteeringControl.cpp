@@ -29,7 +29,9 @@ void NGCarSteeringControl::_create(int engine, int serialRate, byte pinSteering,
 
 void NGCarSteeringControl::initialize() {
     char log[100];
+    _engine->setLogging(_logging);
     _engine->initialize();
+    _steering->setLogging(_logging);
     _steering->initialize();
     _initialized = true;
     if (_logging) {

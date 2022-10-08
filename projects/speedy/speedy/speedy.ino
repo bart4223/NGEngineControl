@@ -68,6 +68,8 @@ void setup() {
   unitSpeedy.registerNotification(oledNotification);
   #if (PROD == false)
   unitSpeedy.registerNotification(&notificationSerial);
+  #else
+  unitSpeedy.setLogging(false);
   #endif
   unitSpeedy.registerBoot(&jingleBoot);
   // Joystick left
@@ -90,11 +92,11 @@ void setup() {
   DEF_MOTION_SEQUENCE_BEGIN_BACK(unitSpeedy);
   DEF_MOTION_SEQUENCE_BACKWARD(unitSpeedy, SPEEDEASY, 0);
   DEF_MOTION_SEQUENCE_END_BACK;
-  // left
+  // left forward
   DEF_MOTION_SEQUENCE_BEGIN_LEFT(unitSpeedy);
   DEF_MOTION_SEQUENCE_FORWARD_ONLY_LEFT(unitSpeedy, SPEEDCURVE, 1);
   DEF_MOTION_SEQUENCE_END_LEFT;
-  // right
+  // right forward
   DEF_MOTION_SEQUENCE_BEGIN_RIGHT(unitSpeedy);
   DEF_MOTION_SEQUENCE_FORWARD_ONLY_RIGHT(unitSpeedy, SPEEDCURVE, 1);
   DEF_MOTION_SEQUENCE_END_RIGHT;

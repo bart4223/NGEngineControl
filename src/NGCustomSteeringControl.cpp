@@ -6,3 +6,11 @@
 //
 
 #include "NGCustomSteeringControl.h"
+
+void NGCustomSteeringControl::setLogging(bool logging) {
+    _logging = logging;
+}
+
+bool NGCustomSteeringControl::getLogging() {
+    return _logging;
+}

@@ -19,6 +19,7 @@ void NGCustomMotionControl::_initializeMotionMimic() {
 }
 
 void NGCustomMotionControl::_initializeSteering() {
+    _steeringControl->setLogging(_logging);
     _steeringControl->initialize();
     steeringStop();
 }
@@ -42,6 +43,14 @@ void NGCustomMotionControl::_processingObjectRecognizer() {
             break;
         }
     }
+}
+
+void NGCustomMotionControl::setLogging(bool logging) {
+    _logging = logging;
+}
+
+bool NGCustomMotionControl::getLogging() {
+    return _logging;
 }
 
 void NGCustomMotionControl::registerMotionMimic(NGCustomMotionMimic *mimic) {

@@ -97,6 +97,7 @@ void NGMotionUnitControl::_initializeBackwardLight() {
 }
 
 void NGMotionUnitControl::_initializeMotionControl() {
+    _motionControl->setLogging(_logging);
     _motionControl->initialize();
     #ifdef NG_PLATFORM_MEGA
     if (_logging) {
@@ -338,8 +339,8 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                     if (index != NOCURRENTMOTIONSEQUENCE) {
                         _resetCurrentMotionSequence();
                         _currentMotionSequence = index;
-                        clearInfo();
-                        writeInfo(log);
+                        //clearInfo();
+                        //writeInfo(log);
                     }
                     break;
                 case ftRight:
@@ -350,8 +351,8 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                     if (index != NOCURRENTMOTIONSEQUENCE) {
                         _resetCurrentMotionSequence();
                         _currentMotionSequence = index;
-                        clearInfo();
-                        writeInfo(log);
+                        //clearInfo();
+                        //writeInfo(log);
                     }
                     break;
                 case ftPlay:

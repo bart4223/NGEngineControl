@@ -25,7 +25,7 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "4.9"
+#define _VERSION "5.0"
 #define VERSION (char*)_VERSION
 
 #define DEFINTERRUPTIONDELAY 1000
@@ -145,7 +145,7 @@ public:
     NGMotionUnitControl(char* name, byte address, int serialRate, NGCustomMotionControl *motionControl);
 
     void initialize();
-       
+    
     void registerLightSensor(NGLightSensor *lightSensor, int threshold, thresholdLevel level, byte pin, thresholdValence valence);
     
     void registerLightSensor(NGLightSensor *lightSensor, int threshold, thresholdLevel level, byte pin, thresholdValence valence, int delay);

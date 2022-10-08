@@ -26,6 +26,10 @@ protected:
     byte _speed = 0;
     
 public:
+    void setLogging(bool logging);
+    
+    bool getLogging();
+    
     virtual void initialize();
     
     virtual void stop();

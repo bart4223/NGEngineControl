@@ -42,6 +42,7 @@ protected:
     objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
     int _objectRecognizerCount = 0;
     int _firedObjectRecognizer = -1;
+    bool _logging = true;
 
     virtual void _create(NGCustomSteeringControl *steeringControl);
     
@@ -54,6 +55,10 @@ protected:
     void _processingObjectRecognizer();
     
 public:
+    void setLogging(bool logging);
+    
+    bool getLogging();
+    
     void registerMotionMimic(NGCustomMotionMimic *mimic);
     
     void registerObjectRecognizer(NGCustomObjectRecognizer *recognizer);
