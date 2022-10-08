@@ -14,7 +14,7 @@
 #define PINRIGHT  6
 #define PINFIRE   7
 
-#define DELAY 500
+#define DELAY 100
 
 #define THRESHOLDUP       100
 #define THRESHOLDDOWN     923

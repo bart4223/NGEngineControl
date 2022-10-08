@@ -103,9 +103,10 @@ void NGWirelessRemoteUnitControl::processingLoop() {
                 _remoteControls[i].joystick->processingLoop();
                 if (_remoteControls[i].joystick->hasLastMovement()) {
                     char log[100];
-                    clearInfo();
                     sprintf(log, "%s fired", _remoteControls[i].name);
-                    switch(_remoteControls[i].joystick->getLastMovement()) {
+                    joystickMovement lastMovement = _remoteControls[i].joystick->getLastMovement();
+                    int infoID = i * 10 + (int)lastMovement;
+                    switch(lastMovement) {
                         case jmUp:
                             sprintf(log, "%s up", log);
                             break;
@@ -122,7 +123,15 @@ void NGWirelessRemoteUnitControl::processingLoop() {
                             sprintf(log, "%s button", log);
                             break;
                     }
-                    writeInfo(log);
+                    if (infoID != _lastInfoID) {
+                        clearInfo();
+                        writeInfo(log);
+                        _lastInfoID = infoID;
+                    }
+                    if (_logging) {
+                        Serial.println(_lastInfoID);
+                        Serial.println(log);
+                    }
                     _lastInfo = millis();
                 }
                 break;
@@ -130,6 +139,7 @@ void NGWirelessRemoteUnitControl::processingLoop() {
     }
     if ((_lastInfo != -1) && (millis() - _lastInfo) > _lastInfoDelay) {
         _lastInfo = -1;
+        _lastInfoID = -1;
         clearInfo();
     }
     switch (_workMode) {

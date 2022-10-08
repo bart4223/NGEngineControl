@@ -44,6 +44,11 @@
 
 #define DELAY 200
 
+#define DELAYRIGHTUP     300
+#define DELAYRIGHTDOWN   300
+#define DELAYRIGHTLEFT   100
+#define DELAYRIGHTRIGHT  100
+
 NGWirelessRemoteUnitControl unitRemote = NGWirelessRemoteUnitControl(REMOTE);
 #if (PROD == false)
 NGSerialNotification serialNotification = NGSerialNotification();
@@ -54,6 +59,8 @@ void setup() {
   setGlobalUnit(&unitRemote);
   #if (PROD != true)
   unitRemote.registerNotification(&serialNotification);
+  #else
+  unitRemote.setLogging(false);
   #endif
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitRemote.registerNotification(oledNotification);
@@ -63,10 +70,10 @@ void setup() {
   unitRemote.addJoystickAction(jsleft, PINJOYSTICKLEFTUP, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY, jmUp);
   unitRemote.addJoystickAction(jsleft, PINJOYSTICKLEFTDOWN, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY, jmDown);
   byte jsRight = unitRemote.registerJoystick(JOYSTICKRIGHT, PINJOYSTICKRIGHTX, PINJOYSTICKRIGHTY, PINJOYSTICKRIGHTFIRE);
-  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAY, jmLeft);
-  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAY, jmRight);
-  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY, jmUp);
-  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY, jmDown);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAYRIGHTLEFT, jmLeft);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAYRIGHTRIGHT, jmRight);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAYRIGHTUP, jmUp);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAYRIGHTDOWN, jmDown);
   unitRemote.initialize();
   #if (PROD == true)
   unitRemote.setWorkMode(wmNone);

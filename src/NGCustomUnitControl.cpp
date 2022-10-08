@@ -165,6 +165,14 @@ void NGCustomUnitControl::processingLoop() {
     }
 }
 
+void NGCustomUnitControl::setLogging(bool logging) {
+    _logging = logging;
+}
+
+bool NGCustomUnitControl::getLogging() {
+    return _logging;
+}
+
 void NGCustomUnitControl::setWorkMode(workMode workmode) {
     if (_workMode != workmode) {
         _workMode = workmode;

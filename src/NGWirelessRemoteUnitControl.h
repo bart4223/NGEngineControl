@@ -17,7 +17,7 @@
 #include <NGCustomUnitControl.h>
 #include <NGJoystickControl.h>
 
-#define _VERSION "0.6"
+#define _VERSION "0.7"
 #define VERSION (char*)_VERSION
 
 #define MAXWIRELESSREMOTECONTROLCOUNT 3
@@ -38,6 +38,7 @@ class NGWirelessRemoteUnitControl : public NGCustomUnitControl {
 private:
     wirelessRemoteControl _remoteControls[MAXWIRELESSREMOTECONTROLCOUNT];
     int _remoteControlCount = 0;
+    int _lastInfoID = -1;
     long int _lastInfo = -1;
     int _lastInfoDelay = DEFLASTINFODELAY;
     

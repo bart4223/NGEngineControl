@@ -219,6 +219,10 @@ public:
     
     void registerNotification(NGCustomNotification *notification);
     
+    void setLogging(bool logging);
+    
+    bool getLogging();
+    
     void setWorkMode(workMode workmode);
     
     workMode getWorkMode();
