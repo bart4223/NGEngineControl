@@ -36,7 +36,7 @@
 
 #define STEERINGPIN       8
 #define STEERINGZEROPOS   90
-#define STEERINGMIN       50
+#define STEERINGMIN       60
 #define STEERINGMAX       130
 #define STEERINGSTEPWIDTH 5
 
