@@ -80,6 +80,10 @@ void NGWirelessRemoteUnitControl::addJoystickAction(byte joystick, int pin, joys
     _remoteControls[joystick].joystick->registerAction(pin, mode, axis, kind, threshold, delay, movement);
 }
 
+void NGWirelessRemoteUnitControl::addJoystickAction(byte joystick, int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement, int triggerdelay) {
+    _remoteControls[joystick].joystick->registerAction(pin, mode, axis, kind, threshold, delay, movement, triggerdelay);
+}
+
 void NGWirelessRemoteUnitControl::setLastInfoDelay(int lastinfodelay) {
     _lastInfoDelay = lastinfodelay;
 }
@@ -89,6 +93,7 @@ void NGWirelessRemoteUnitControl::initialize() {
     for (int i = 0; i < _remoteControlCount; i++) {
         switch(_remoteControls[i].kind) {
             case wrckJoystick:
+                _remoteControls[i].joystick->setLogging(_logging);
                 _remoteControls[i].joystick->initialize();
                 break;
         }
@@ -127,10 +132,6 @@ void NGWirelessRemoteUnitControl::processingLoop() {
                         clearInfo();
                         writeInfo(log);
                         _lastInfoID = infoID;
-                    }
-                    if (_logging) {
-                        Serial.println(_lastInfoID);
-                        Serial.println(log);
                     }
                     _lastInfo = millis();
                 }

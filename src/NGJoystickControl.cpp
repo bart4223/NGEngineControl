@@ -49,6 +49,10 @@ void NGJoystickControl::setLogging(bool logging) {
     _logging = logging;
 }
 
+bool NGJoystickControl::getLogging() {
+    return _logging;
+}
+
 void NGJoystickControl::registerActionCallback(joystickActionCallbackFunc callback) {
     _actionCallback = callback;
 }
@@ -66,6 +70,10 @@ void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystic
 }
 
 void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement) {
+    registerAction(pin, mode, axis, kind, threshold, delay, movement, DEFTRIGGERDELAY);
+}
+
+void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement, int triggerdelay) {
     if (_joystickActionCount < MAXJOYSTICKACTIONS) {
         joystickAction ja;
         ja.pin = pin;
@@ -75,6 +83,7 @@ void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystic
         ja.threshold = threshold;
         ja.delay = delay;
         ja.movement = movement;
+        ja.triggerDelay = triggerdelay;
         _joystickActions[_joystickActionCount] = ja;
         _joystickActionCount++;
     }
@@ -119,12 +128,12 @@ void NGJoystickControl::processingLoop() {
             switch(_joystickActions[i].mode) {
                 case jamTriggerLOW:
                     digitalWrite(_joystickActions[i].pin, LOW);
-                    delay(DEFTRIGGERDELAY);
+                    delay(_joystickActions[i].triggerDelay);
                     digitalWrite(_joystickActions[i].pin, HIGH);
                     break;
                 case jamTriggerHIGH:
                     digitalWrite(_joystickActions[i].pin, HIGH);
-                    delay(DEFTRIGGERDELAY);
+                    delay(_joystickActions[i].triggerDelay);
                     digitalWrite(_joystickActions[i].pin, LOW);
                     break;
             }

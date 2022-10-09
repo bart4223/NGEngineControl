@@ -24,8 +24,8 @@
 #define PINJOYSTICKRIGHTX     A0
 #define PINJOYSTICKRIGHTY     A1
 #define PINJOYSTICKRIGHTFIRE   7
-#define PINJOYSTICKRIGHTUP     11
-#define PINJOYSTICKRIGHTDOWN   10
+#define PINJOYSTICKRIGHTUP    11
+#define PINJOYSTICKRIGHTDOWN  10
 #define PINJOYSTICKRIGHTLEFT   9
 #define PINJOYSTICKRIGHTRIGHT  8
 
@@ -43,9 +43,10 @@
 #define THRESHOLDRIGHT    623
 
 #define DELAY 200
+#define TRIGGERDELAY 20
 
-#define DELAYRIGHTUP     300
-#define DELAYRIGHTDOWN   300
+#define DELAYRIGHTUP     500
+#define DELAYRIGHTDOWN   500
 #define DELAYRIGHTLEFT   100
 #define DELAYRIGHTRIGHT  100
 
@@ -70,15 +71,15 @@ void setup() {
   unitRemote.addJoystickAction(jsleft, PINJOYSTICKLEFTUP, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY, jmUp);
   unitRemote.addJoystickAction(jsleft, PINJOYSTICKLEFTDOWN, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAY, jmDown);
   byte jsRight = unitRemote.registerJoystick(JOYSTICKRIGHT, PINJOYSTICKRIGHTX, PINJOYSTICKRIGHTY, PINJOYSTICKRIGHTFIRE);
-  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAYRIGHTLEFT, jmLeft);
-  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAYRIGHTRIGHT, jmRight);
-  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAYRIGHTUP, jmUp);
-  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAYRIGHTDOWN, jmDown);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTLEFT, jamTriggerLOW, jaX, jtkLess, THRESHOLDLEFT, DELAYRIGHTLEFT, jmLeft, TRIGGERDELAY);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTRIGHT, jamTriggerLOW, jaX, jtkGreater, THRESHOLDRIGHT, DELAYRIGHTRIGHT, jmRight, TRIGGERDELAY);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTUP, jamTriggerLOW, jaY, jtkLess, THRESHOLDUP, DELAYRIGHTUP, jmUp, TRIGGERDELAY);
+  unitRemote.addJoystickAction(jsRight, PINJOYSTICKRIGHTDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAYRIGHTDOWN, jmDown, TRIGGERDELAY);
   unitRemote.initialize();
   #if (PROD == true)
   unitRemote.setWorkMode(wmNone);
   #else
-  unitRemote.setWorkMode(wmObserveMemory);
+  //unitRemote.setWorkMode(wmObserveMemory);
   #endif
   unitRemote.startUp();
   unitRemote.clearInfo();

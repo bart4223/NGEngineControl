@@ -44,6 +44,7 @@ struct joystickActionStruct
     joystickActionMode mode;
     joystickAxis axis;
     joystickMovement movement;
+    int triggerDelay = DEFTRIGGERDELAY;
 };
 typedef struct joystickActionStruct joystickAction;
 
@@ -78,6 +79,8 @@ public:
     
     void setLogging(bool logging);
     
+    bool getLogging();
+    
     void registerActionCallback(joystickActionCallbackFunc callback);
     
     void registerAction(int pin, joystickActionMode mode, joystickMovement movement);
@@ -87,6 +90,8 @@ public:
     void registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, joystickMovement movement);
     
     void registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement);
+    
+    void registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement, int triggerdelay);
     
     void processingLoop();
     

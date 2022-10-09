@@ -303,66 +303,46 @@ void NGMotionUnitControl::_processingIRRemoteData() {
             int infoID = -1;
             switch (_irremotefunc[i].type) {
                 case ftUp:
-                    if (_currentMotionSequence !=  _getMotionSequenceByKind(mskStraight)) {
+                    index = _getMotionSequenceByKind(mskStraight);
+                    if (_currentMotionSequence != index) {
                         sprintf(log, "Go!");
                         infoID = 0;
-                        index = _getMotionSequenceByKind(mskStraight);
-                    } else {
-                        sprintf(log, "Stop!");
-                        infoID = 1;
-                        index = _getMotionSequenceByKind(mskStop);
-                    }
-                    if (index != NOCURRENTMOTIONSEQUENCE) {
-                        _resetCurrentMotionSequence();
-                        _currentMotionSequence = index;
                     }
                     break;
                 case ftDown:
-                    if (_currentMotionSequence != _getMotionSequenceByKind(mskBack)) {
+                    index = _getMotionSequenceByKind(mskBack);
+                    if (_currentMotionSequence != index) {
                         sprintf(log, "Back!");
                         infoID = 2;
-                        index = _getMotionSequenceByKind(mskBack);
-                    } else {
-                        sprintf(log, "Stop!");
-                        infoID = 1;
-                        index = _getMotionSequenceByKind(mskStop);
-                    }
-                    if (index != NOCURRENTMOTIONSEQUENCE) {
-                        _resetCurrentMotionSequence();
-                        _currentMotionSequence = index;
+                        
                     }
                     break;
                 case ftLeft:
-                    if (_currentMotionSequence != _getMotionSequenceByKind(mskLeft)) {
+                    index = _getMotionSequenceByKind(mskLeft);
+                    if (_currentMotionSequence != index) {
                         sprintf(log, "Left!");
                         infoID = 3;
-                        index = _getMotionSequenceByKind(mskLeft);
-                    }
-                    if (index != NOCURRENTMOTIONSEQUENCE) {
-                        _resetCurrentMotionSequence();
-                        _currentMotionSequence = index;
+                        
                     }
                     break;
                 case ftRight:
-                    if (_currentMotionSequence != _getMotionSequenceByKind(mskRight)) {
+                    index = _getMotionSequenceByKind(mskRight);
+                    if (_currentMotionSequence != index) {
                         sprintf(log, "Right!");
                         infoID = 4;
-                        index = _getMotionSequenceByKind(mskRight);
-                    }
-                    if (index != NOCURRENTMOTIONSEQUENCE) {
-                        _resetCurrentMotionSequence();
-                        _currentMotionSequence = index;
                     }
                     break;
                 case ftPlay:
                     index = _getMotionSequenceByKind(mskStop);
-                    if (_currentMotionSequence != index && index != NOCURRENTMOTIONSEQUENCE) {
-                        _resetCurrentMotionSequence();
-                        _currentMotionSequence = index;
+                    if (_currentMotionSequence != index) {
                         sprintf(log, "Stop!");
                         infoID = 1;
                     }
                     break;
+            }
+            if (index != NOCURRENTMOTIONSEQUENCE) {
+                _resetCurrentMotionSequence();
+                _currentMotionSequence = index;
             }
             if (infoID != _lastInfoID) {
                 clearInfo();
@@ -458,12 +438,23 @@ void NGMotionUnitControl::_determineMotionInterruption() {
 }
 
 int NGMotionUnitControl::_getMotionSequenceByKind(motionSequenceKind kind) {
+    int res = NOCURRENTMOTIONSEQUENCE;
+    int first = NOCURRENTMOTIONSEQUENCE;
     for (int i = 0; i < _motionSequenceCount; i++) {
         if (_motionSequence[i].kind == kind) {
-            return i;
+            if (first == NOCURRENTMOTIONSEQUENCE) {
+                first = i;
+            }
+            if (i > _currentMotionSequence) {
+                res = i;
+                break;
+            }
         }
     }
-    return NOCURRENTMOTIONSEQUENCE;
+    if (res == NOCURRENTMOTIONSEQUENCE && first != NOCURRENTMOTIONSEQUENCE) {
+        res = first;
+    }
+    return res;
 }
 
 void NGMotionUnitControl::initialize() {
