@@ -14,6 +14,7 @@
 #include <WProgram.h>
 #endif
 
+#include <NGCommon.h>
 #include <NGExceptionDefinitions.h>
 #include <NGCustomNotification.h>
 #include <NGRealTimeClock.h>
@@ -117,8 +118,6 @@
 void _unitWireReceiveEvent(int byteCount);
 
 void _unitWireRequestEvent();
-
-enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
 
 struct irremotefuncStruct
 {

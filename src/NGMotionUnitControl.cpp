@@ -295,48 +295,66 @@ void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item)
 }
 
 void NGMotionUnitControl::_processingIRRemoteData() {
-    char log[10];
-    int index;
     for (int i = 0; i < _irremotefuncCount; i++) {
         if (_irremotefunc[i].remote == _irremotedata.remote && _irremotefunc[i].protocol == _irremotedata.protocol && _irremotefunc[i].address == _irremotedata.address
                 && _irremotefunc[i].command == _irremotedata.command) {
+            char log[10];
+            int index = NOCURRENTMOTIONSEQUENCE;
             int infoID = -1;
             switch (_irremotefunc[i].type) {
-                case ftUp:
-                    index = _getMotionSequenceByKind(mskStraight);
-                    if (_currentMotionSequence != index) {
-                        sprintf(log, "Go!");
-                        infoID = 0;
+                case ftMenu:
+                    if (!_motionControl->handleRemoteFunctionMenu()) {
                     }
                     break;
-                case ftDown:
-                    index = _getMotionSequenceByKind(mskBack);
-                    if (_currentMotionSequence != index) {
-                        sprintf(log, "Back!");
-                        infoID = 2;
-                        
-                    }
-                    break;
-                case ftLeft:
-                    index = _getMotionSequenceByKind(mskLeft);
-                    if (_currentMotionSequence != index) {
-                        sprintf(log, "Left!");
-                        infoID = 3;
-                        
-                    }
-                    break;
-                case ftRight:
-                    index = _getMotionSequenceByKind(mskRight);
-                    if (_currentMotionSequence != index) {
-                        sprintf(log, "Right!");
-                        infoID = 4;
+                case ftOK:
+                    if (!_motionControl->handleRemoteFunctionOK()) {
                     }
                     break;
                 case ftPlay:
-                    index = _getMotionSequenceByKind(mskStop);
-                    if (_currentMotionSequence != index) {
-                        sprintf(log, "Stop!");
-                        infoID = 1;
+                    if (!_motionControl->handleRemoteFunctionPlay()) {
+                        index = _getMotionSequenceByKind(mskStop);
+                        if (_currentMotionSequence != index) {
+                            sprintf(log, "Stop!");
+                            infoID = 1;
+                        }
+                    }
+                    break;
+                case ftUp:
+                    if (!_motionControl->handleRemoteFunctionUp()) {
+                        index = _getMotionSequenceByKind(mskStraight);
+                        if (_currentMotionSequence != index) {
+                            sprintf(log, "Go!");
+                            infoID = 0;
+                        }
+                    }
+                    break;
+                case ftDown:
+                    if (!_motionControl->handleRemoteFunctionDown()) {
+                        index = _getMotionSequenceByKind(mskBack);
+                        if (_currentMotionSequence != index) {
+                            sprintf(log, "Back!");
+                            infoID = 2;
+                            
+                        }
+                    }
+                    break;
+                case ftLeft:
+                    if (!_motionControl->handleRemoteFunctionLeft()) {
+                        index = _getMotionSequenceByKind(mskLeft);
+                        if (_currentMotionSequence != index) {
+                            sprintf(log, "Left!");
+                            infoID = 3;
+                            
+                        }
+                    }
+                    break;
+                case ftRight:
+                    if (!_motionControl->handleRemoteFunctionRight()) {
+                        index = _getMotionSequenceByKind(mskRight);
+                        if (_currentMotionSequence != index) {
+                            sprintf(log, "Right!");
+                            infoID = 4;
+                        }
                     }
                     break;
             }

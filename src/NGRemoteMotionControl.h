@@ -1,12 +1,12 @@
 //
-//  NGSimpleMotionControl.h
+//  NGRemoteMotionControl.h
 //  NGEngineControl
 //
-//  Created by Nils Grimmer on 06.02.22.
+//  Created by Nils Grimmer on 09.10.22.
 //
 
-#ifndef NGSimpleMotionControl_h
-#define NGSimpleMotionControl_h
+#ifndef NGRemoteMotionControl_h
+#define NGRemoteMotionControl_h
 
 #if (ARDUINO >= 100)
 #include <Arduino.h>
@@ -16,13 +16,13 @@
 
 #include <NGCustomMotionControl.h>
 
-class NGSimpleMotionControl : public NGCustomMotionControl {
-    
+class NGRemoteMotionControl : public NGCustomMotionControl {
+  
 protected:
     void _create(NGCustomSteeringControl *steeringControl);
     
 public:
-    NGSimpleMotionControl(NGCustomSteeringControl *steeringControl);
+    NGRemoteMotionControl(NGCustomSteeringControl *steeringControl);
     
     bool handleRemoteFunctionMenu();
     
@@ -39,4 +39,4 @@ public:
     bool handleRemoteFunctionRight();
 };
 
-#endif /* NGSimpleMotionControl_hp */
+#endif /* NGRemoteMotionControl_h */

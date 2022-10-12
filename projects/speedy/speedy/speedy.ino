@@ -2,7 +2,7 @@
 
 #include <NGSimpleWirelessReceiver.h>
 #include <NGMotionUnitControl.h>
-#include <NGSimpleMotionControl.h>
+#include <NGRemoteMotionControl.h>
 #include <NGCarSteeringControl.h>
 #include <NGOLEDNotification.h>
 #if (PROD == false)
@@ -54,8 +54,8 @@
 NGSimpleWirelessReceiver swrRight = NGSimpleWirelessReceiver(WIRELESSREMOTERIGHT);
 NGSimpleWirelessReceiver swrLeft = NGSimpleWirelessReceiver(WIRELESSREMOTELEFT);
 NGCarSteeringControl *csc = new NGCarSteeringControl(STEERINGPIN, STEERINGZEROPOS, STEERINGMIN, STEERINGMAX, STEERINGSTEPWIDTH);
-NGSimpleMotionControl *smc = new NGSimpleMotionControl(csc);
-NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, smc);
+NGRemoteMotionControl *rmc = new NGRemoteMotionControl(csc);
+NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, rmc);
 NGOLEDNotification *oledNotification;
 #if (PROD == false)
 NGSerialNotification notificationSerial = NGSerialNotification();

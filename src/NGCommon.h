@@ -25,6 +25,8 @@
 #define DEFAULTSERIALRATE   9600
 #define NONAME              (char*)""
 
+enum functionType { ftMenu, ftLeft, ftRight, ftUp, ftDown, ftOK, ftPlay };
+
 static bool _globalSerialStarted = false;
 
 void _ensureGlobalSerial(int serialRate);

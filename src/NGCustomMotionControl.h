@@ -35,7 +35,7 @@ struct objectRecognizerStruct
 typedef struct objectRecognizerStruct objectRecognizer;
 
 class NGCustomMotionControl {
-  
+    
 protected:
     NGCustomSteeringControl *_steeringControl;
     NGCustomMotionMimic *_motionMimic = nullptr;
@@ -43,7 +43,7 @@ protected:
     int _objectRecognizerCount = 0;
     int _firedObjectRecognizer = -1;
     bool _logging = true;
-
+    
     virtual void _create(NGCustomSteeringControl *steeringControl);
     
     void _initializeMotionMimic();
@@ -51,7 +51,7 @@ protected:
     void _initializeObjectRecognizer();
     
     void _initializeSteering();
-
+    
     void _processingObjectRecognizer();
     
 public:
@@ -64,7 +64,7 @@ public:
     void registerObjectRecognizer(NGCustomObjectRecognizer *recognizer);
     
     void registerObjectRecognizer(objectRecognizerMountedPosition mounted, NGCustomObjectRecognizer *recognizer);
-
+    
     int getObjectRecognizerCount();
     
     bool hasObjectRecognizer();
@@ -76,7 +76,7 @@ public:
     objectRecognizerMountedPosition getFiredObjectRecognizerMountedPosition();
     
     bool hasMotionMimic();
-
+    
     void initialize();
     
     int thinkingDelay();
@@ -90,7 +90,7 @@ public:
     void steeringRun(engineDirection direction, int speed);
     
     void steeringStop();
-
+    
     void steeringTurnForward(turnDirection turn);
     
     void steeringTurnBackward(turnDirection turn);
@@ -98,8 +98,22 @@ public:
     void steeringTurnForward(turnDirection turn, byte speed);
     
     void steeringTurnBackward(turnDirection turn, byte speed);
-
+    
     void processingLoop();
+    
+    virtual bool handleRemoteFunctionMenu();
+    
+    virtual bool handleRemoteFunctionOK();
+    
+    virtual bool handleRemoteFunctionPlay();
+
+    virtual bool handleRemoteFunctionUp();
+    
+    virtual bool handleRemoteFunctionDown();
+    
+    virtual bool handleRemoteFunctionLeft();
+    
+    virtual bool handleRemoteFunctionRight();
 };
 
 #endif /* NGCustomMotionControl_h */
