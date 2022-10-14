@@ -17,7 +17,6 @@
 #include <NGCommon.h>
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
-#include <NGCustomSteeringControl.h>
 
 #ifdef NG_PLATFORM_MEGA
 #define MAXOBECTRECOGNIZERCOUNT    10

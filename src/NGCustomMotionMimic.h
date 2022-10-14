@@ -14,9 +14,9 @@
 #include <WProgram.h>
 #endif
 
-#define NONECONTACT -1
+#include <NGMotionSequenceStorage.h>
 
-enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight, mskStop, mskBack, mskFullTurn};
+#define NONECONTACT -1
 
 class NGCustomMotionMimic {
     

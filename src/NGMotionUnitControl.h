@@ -16,49 +16,21 @@
 
 #include <NGCommon.h>
 #include <NGExceptionDefinitions.h>
+#include <NGMotionSequenceStorage.h>
 #include <NGCustomUnitControl.h>
 #include <NGCustomMotionControl.h>
 #include <NGCustomMotionMimic.h>
-#include <NGCustomObjectRecognizer.h>
 #include <NGCustomJingle.h>
 #include <NGLightSensor.h>
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "5.3"
+#define _VERSION "5.4"
 #define VERSION (char*)_VERSION
 
 #define DEFINTERRUPTIONDELAY 1000
 
-#ifdef NG_PLATFORM_MEGA
-#define MAXMOTIONSEQUENCECOUNT     20
-#define MAXMOTIONSEQUENCEITEMCOUNT 5
-#else
-#define MAXMOTIONSEQUENCECOUNT     6
-#define MAXMOTIONSEQUENCEITEMCOUNT 4
-#endif
-
 #define NOCURRENTMOTIONSEQUENCE -1
-
-enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};
-
-struct motionSequenceItemStruct
-{
-    turnDirection turn;
-    engineDirection direction;
-    byte speed;
-    flashingLightSide light;
-    int duration; // milliseconds, 0 = infinite
-};
-typedef struct motionSequenceItemStruct motionSequenceItem;
-
-struct motionSequenceStruct
-{
-    motionSequenceKind kind;
-    motionSequenceItemStruct items[MAXMOTIONSEQUENCEITEMCOUNT];
-    byte itemCount;
-};
-typedef struct motionSequenceStruct motionSequence;
 
 class NGMotionUnitControl : public NGCustomUnitControl, NGITestableComponent {
 

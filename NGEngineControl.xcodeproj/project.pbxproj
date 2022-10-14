@@ -83,6 +83,8 @@
 		293B4CDE27771F59009EC17A /* NGJingleChristmasSong.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleChristmasSong.h; sourceTree = "<group>"; };
 		294E9C8A28F325A900A3E17A /* NGRemoteMotionControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGRemoteMotionControl.cpp; sourceTree = "<group>"; };
 		294E9C8B28F325A900A3E17A /* NGRemoteMotionControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGRemoteMotionControl.h; sourceTree = "<group>"; };
+		294E9C8C28F7C45A00A3E17A /* NGMotionSequenceStorage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMotionSequenceStorage.cpp; sourceTree = "<group>"; };
+		294E9C8D28F7C45A00A3E17A /* NGMotionSequenceStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceStorage.h; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -616,12 +618,14 @@
 				29B37621271E901500D8780B /* NGCustomMotionMimic.h */,
 				29B37620271E901500D8780B /* NGCustomMotionMimic.cpp */,
 				29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */,
+				294E9C8D28F7C45A00A3E17A /* NGMotionSequenceStorage.h */,
+				294E9C8C28F7C45A00A3E17A /* NGMotionSequenceStorage.cpp */,
+				294E9C8B28F325A900A3E17A /* NGRemoteMotionControl.h */,
+				294E9C8A28F325A900A3E17A /* NGRemoteMotionControl.cpp */,
 				29DAAB9C27B03057000E56F1 /* NGSimpleMotionControl.h */,
 				29DAAB9B27B03057000E56F1 /* NGSimpleMotionControl.cpp */,
 				29DAAB9A27B02DD1000E56F1 /* NGVoidMotionMimic.h */,
 				29DAAB9927B02DD1000E56F1 /* NGVoidMotionMimic.cpp */,
-				294E9C8B28F325A900A3E17A /* NGRemoteMotionControl.h */,
-				294E9C8A28F325A900A3E17A /* NGRemoteMotionControl.cpp */,
 			);
 			name = specs;
 			sourceTree = "<group>";
