@@ -14,6 +14,9 @@
 #include <WProgram.h>
 #endif
 
+#include <NGCommon.h>
+#include <NGCustomSteeringControl.h>
+
 #ifdef NG_PLATFORM_MEGA
 #define MAXMOTIONSEQUENCECOUNT     20
 #define MAXMOTIONSEQUENCEITEMCOUNT 5
@@ -21,8 +24,6 @@
 #define MAXMOTIONSEQUENCECOUNT     6
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 #endif
-
-#include <NGCustomSteeringControl.h>
 
 enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight, mskStop, mskBack, mskFullTurn};
 
@@ -45,5 +46,31 @@ struct motionSequenceStruct
     byte itemCount;
 };
 typedef struct motionSequenceStruct motionSequence;
+
+class NGMotionSequenceStorage {
+
+private:
+    motionSequence _sequences[MAXMOTIONSEQUENCECOUNT];
+    byte _count = 0;
+    int _exceptionCount = 0;
+    
+protected:
+    void _create();
+    
+    void _raiseException(int id);
+    
+public:
+    NGMotionSequenceStorage();
+    
+    byte getSequenceCount();
+    
+    motionSequence getSequence(byte sequence);
+    
+    byte getSequenceItemCount(byte sequence);
+    
+    byte addSequence(motionSequenceKind kind);
+    
+    void addSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration, flashingLightSide light);
+};
 
 #endif /* NGMotionSequenceStorage_h */
