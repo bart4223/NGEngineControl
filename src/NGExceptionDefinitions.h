@@ -23,6 +23,7 @@
 #define ExceptionTooMuchMotionSequenceCount         302
 #define ExceptionTooMuchMotionSequenceItemCount     303
 #define ExceptionInvalidMotionSequenceIndex         304
+#define ExceptionInvalidMotionSequenceItemIndex     305
 
 #define ExceptionTooMuchIrrigationCount             400
 

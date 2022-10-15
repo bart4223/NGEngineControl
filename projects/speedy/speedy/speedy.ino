@@ -38,9 +38,9 @@
 #define WIRELESSREMOTELEFTPINRIGHT  29
 
 #define STEERINGPIN         8
-#define STEERINGZEROPOS    90
-#define STEERINGMIN        60
-#define STEERINGMAX       130
+#define STEERINGZEROPOS    96
+#define STEERINGMIN        66
+#define STEERINGMAX       126
 #define STEERINGSTEPWIDTH   2
 
 #define SPEEDFORWARD1    50

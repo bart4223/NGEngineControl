@@ -23,26 +23,90 @@ void NGMotionSequenceStorage::_raiseException(int id) {
     Serial.println(error);
 }
 
+void NGMotionSequenceStorage::initialize() {
+    _initialized = true;
+}
+
+void NGMotionSequenceStorage::setLogging(bool logging) {
+    _logging = logging;
+}
+
 byte NGMotionSequenceStorage::getSequenceCount() {
     return _count;
 }
 
-motionSequence NGMotionSequenceStorage::getSequence(byte sequence) {
-    motionSequence res;
-    if (sequence > _count) {
+motionSequenceKind NGMotionSequenceStorage::getSequenceKind(byte sequence) {
+    motionSequenceKind res = mskNone;
+    if (sequence >= _count) {
         _raiseException(ExceptionInvalidMotionSequenceIndex);
     } else {
-        res = _sequences[sequence];
+        res = _sequences[sequence].kind;
     }
     return res;
 }
 
 byte NGMotionSequenceStorage::getSequenceItemCount(byte sequence) {
     byte res;
-    if (sequence > _count) {
+    if (sequence >= _count) {
         _raiseException(ExceptionInvalidMotionSequenceIndex);
     } else {
         res = _sequences[sequence].itemCount;
+    }
+    return res;
+}
+
+turnDirection NGMotionSequenceStorage::getSequenceItemTurnDirection(byte sequence, byte item) {
+    turnDirection res = tdNone;
+    if (sequence >= _count) {
+        _raiseException(ExceptionInvalidMotionSequenceIndex);
+    } else {
+        if (item >= _sequences[sequence].itemCount) {
+            _raiseException(ExceptionInvalidMotionSequenceItemIndex);
+        } else {
+            res = _sequences[sequence].items[item].turn;
+        }
+    }
+    return res;
+}
+
+engineDirection NGMotionSequenceStorage::getSequenceItemEngineDirection(byte sequence, byte item) {
+    engineDirection res = edNone;
+    if (sequence >= _count) {
+        _raiseException(ExceptionInvalidMotionSequenceIndex);
+    } else {
+        if (item >= _sequences[sequence].itemCount) {
+            _raiseException(ExceptionInvalidMotionSequenceItemIndex);
+        } else {
+            res = _sequences[sequence].items[item].direction;
+        }
+    }
+    return res;
+}
+
+byte NGMotionSequenceStorage::getSequenceItemSpeed(byte sequence, byte item) {
+    byte res = edNone;
+    if (sequence >= _count) {
+        _raiseException(ExceptionInvalidMotionSequenceIndex);
+    } else {
+        if (item >= _sequences[sequence].itemCount) {
+            _raiseException(ExceptionInvalidMotionSequenceItemIndex);
+        } else {
+            res = _sequences[sequence].items[item].speed;
+        }
+    }
+    return res;
+}
+
+int NGMotionSequenceStorage::getSequenceItemDuration(byte sequence, byte item) {
+    int res = 0;
+    if (sequence >= _count) {
+        _raiseException(ExceptionInvalidMotionSequenceIndex);
+    } else {
+        if (item >= _sequences[sequence].itemCount) {
+            _raiseException(ExceptionInvalidMotionSequenceItemIndex);
+        } else {
+            res = _sequences[sequence].items[item].duration;
+        }
     }
     return res;
 }

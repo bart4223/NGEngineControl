@@ -42,7 +42,7 @@ typedef struct motionSequenceItemStruct motionSequenceItem;
 struct motionSequenceStruct
 {
     motionSequenceKind kind;
-    motionSequenceItemStruct items[MAXMOTIONSEQUENCEITEMCOUNT];
+    motionSequenceItem items[MAXMOTIONSEQUENCEITEMCOUNT];
     byte itemCount;
 };
 typedef struct motionSequenceStruct motionSequence;
@@ -53,6 +53,8 @@ private:
     motionSequence _sequences[MAXMOTIONSEQUENCECOUNT];
     byte _count = 0;
     int _exceptionCount = 0;
+    bool _logging = false;
+    bool _initialized = false;
     
 protected:
     void _create();
@@ -62,11 +64,23 @@ protected:
 public:
     NGMotionSequenceStorage();
     
+    void initialize();
+    
+    void setLogging(bool logging);
+    
     byte getSequenceCount();
     
-    motionSequence getSequence(byte sequence);
+    motionSequenceKind getSequenceKind(byte sequence);
     
     byte getSequenceItemCount(byte sequence);
+    
+    turnDirection getSequenceItemTurnDirection(byte sequence, byte item);
+    
+    engineDirection getSequenceItemEngineDirection(byte sequence, byte item);
+    
+    byte getSequenceItemSpeed(byte sequence, byte item);
+    
+    int getSequenceItemDuration(byte sequence, byte item);
     
     byte addSequence(motionSequenceKind kind);
     
