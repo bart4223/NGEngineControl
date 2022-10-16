@@ -25,7 +25,7 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "5.4"
+#define _VERSION "5.5"
 #define VERSION (char*)_VERSION
 
 #define DEFINTERRUPTIONDELAY 1000
@@ -35,6 +35,7 @@
 class NGMotionUnitControl : public NGCustomUnitControl, NGITestableComponent {
 
 private:
+    NGMotionSequenceStorage *_motionSequenceStorage;
     NGCustomMotionControl *_motionControl;
     NGLightSensor *_lightSensor = nullptr;
     NGFlashingLight *_flashingLightLeft = nullptr;
@@ -46,8 +47,6 @@ private:
     int _backwardLightPin = -1;
     int _jingleBackward = -1;
     int _jingleThinking = -1;
-    motionSequence _motionSequence[MAXMOTIONSEQUENCECOUNT];
-    int _motionSequenceCount = 0;
     int _currentMotionSequence = NOCURRENTMOTIONSEQUENCE;
     long int _currentMotionSequenceItemStarts = 0;
     byte _currentMotionSequenceItem = 0;
@@ -67,6 +66,8 @@ protected:
     void _initializeBackwardLight();
     
     void _initializeMotionControl();
+    
+    void _initializeMotionSequenceStorage();
     
     void _initializeLaserCannon();
     
@@ -96,7 +97,7 @@ protected:
     
     void _processingMotionSequence();
     
-    void _processingMotionSequenceItem(motionSequenceItem item);
+    void _processingCurrentMotionSequenceItem();
     
     void _processingIRRemoteData();
     

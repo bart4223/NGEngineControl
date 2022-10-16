@@ -15,6 +15,7 @@
 #endif
 
 #include <NGCommon.h>
+#include <NGMotionSequenceStorage.h>
 #include <NGCustomMotionMimic.h>
 #include <NGCustomObjectRecognizer.h>
 
@@ -36,6 +37,7 @@ typedef struct objectRecognizerStruct objectRecognizer;
 class NGCustomMotionControl {
     
 protected:
+    NGMotionSequenceStorage *_motionSequenceStorage;
     NGCustomSteeringControl *_steeringControl;
     NGCustomMotionMimic *_motionMimic = nullptr;
     objectRecognizer _objectRecognizer[MAXOBECTRECOGNIZERCOUNT];
@@ -54,6 +56,8 @@ protected:
     void _processingObjectRecognizer();
     
 public:
+    void setMotionSequenceStorage(NGMotionSequenceStorage *storage);
+    
     void setLogging(bool logging);
     
     bool getLogging();

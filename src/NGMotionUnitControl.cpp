@@ -35,7 +35,9 @@ NGMotionUnitControl::NGMotionUnitControl(char* name, byte address, int serialRat
 void NGMotionUnitControl::_create(char* name, byte address, int serialRate, NGCustomMotionControl *motionControl) {
     NGCustomUnitControl::_create(name, address, serialRate);
     _version = VERSION;
+    _motionSequenceStorage = new NGMotionSequenceStorage();
     _motionControl = motionControl;
+    _motionControl->setMotionSequenceStorage(_motionSequenceStorage);
     if (_address == NOADDRESS) {
         Wire.begin();
     } else {
@@ -103,6 +105,18 @@ void NGMotionUnitControl::_initializeMotionControl() {
     if (_logging) {
         char log[100];
         sprintf(log, "Motion Control initialized");
+        writeInfo(log);
+    }
+    #endif
+}
+
+void NGMotionUnitControl::_initializeMotionSequenceStorage() {
+    _motionSequenceStorage->setLogging(_logging);
+    _motionSequenceStorage->initialize();
+    #ifdef NG_PLATFORM_MEGA
+    if (_logging) {
+        char log[100];
+        sprintf(log, "Motion Sequence Storage initialized");
         writeInfo(log);
     }
     #endif
@@ -229,12 +243,12 @@ void NGMotionUnitControl::_processingMotionSequence() {
         _determineCurrentMotionSequence();
     }
     if (_currentMotionSequence >= 0) {
-        if (_currentMotionSequenceItem < _motionSequence[_currentMotionSequence].itemCount) {
+        if (_currentMotionSequenceItem < _motionSequenceStorage->getSequenceItemCount(_currentMotionSequence)) {
             if (_currentMotionSequenceItemStarts == 0) {
                 _currentMotionSequenceItemStarts = millis();
-                _processingMotionSequenceItem(_motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem]);
+                _processingCurrentMotionSequenceItem();
             } else {
-                int duration = _motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem].duration;
+                int duration = _motionSequenceStorage->getSequenceItemDuration(_currentMotionSequence,_currentMotionSequenceItem);
                 if (duration != 0) {
                     if ((_currentMotionSequenceItemStarts + duration) < millis()) {
                         _currentMotionSequenceItem++;
@@ -242,9 +256,13 @@ void NGMotionUnitControl::_processingMotionSequence() {
                     }
                 }
             }
-            if (_motionSequence[_currentMotionSequence].items[_currentMotionSequenceItem].direction == edBackward) {
-                setBackwardLight(true);
-                _playJingleBackward();
+            if (_currentMotionSequenceItem < _motionSequenceStorage->getSequenceItemCount(_currentMotionSequence)) {
+                if (_motionSequenceStorage->getSequenceItemTurnDirection(_currentMotionSequence,_currentMotionSequenceItem) == edBackward) {
+                    setBackwardLight(true);
+                    _playJingleBackward();
+                } else {
+                    setBackwardLight(false);
+                }
             } else {
                 setBackwardLight(false);
             }
@@ -254,43 +272,47 @@ void NGMotionUnitControl::_processingMotionSequence() {
     }
 }
 
-void NGMotionUnitControl::_processingMotionSequenceItem(motionSequenceItem item) {
-    switch (item.turn) {
+void NGMotionUnitControl::_processingCurrentMotionSequenceItem() {
+    turnDirection turn = _motionSequenceStorage->getSequenceItemTurnDirection(_currentMotionSequence,_currentMotionSequenceItem);
+    engineDirection direction = _motionSequenceStorage->getSequenceItemEngineDirection(_currentMotionSequence,_currentMotionSequenceItem);
+    byte speed = _motionSequenceStorage->getSequenceItemSpeed(_currentMotionSequence,_currentMotionSequenceItem);
+    flashingLightSide light = _motionSequenceStorage->getSequenceItemLight(_currentMotionSequence,_currentMotionSequenceItem);
+    switch (turn) {
         case tdNone:
-            if (item.direction == edNone) {
+            if (direction == edNone) {
                 _motionControl->steeringStop();
                 int count = _motionControl->thinkingDelay();
                 for (int i = 0; i < count; i++) {
                     _playJingleThinking();
                 }
             } else {
-                _motionControl->steeringRun(item.direction, item.speed);
+                _motionControl->steeringRun(direction, speed);
             }
             break;
         case tdLeft:
         case tdLeftSoft:
         case tdRight:
         case tdRightSoft:
-            if (item.direction == edForward) {
-                if (item.speed != NULLSPEED) {
-                    _motionControl->steeringTurnForward(item.turn, item.speed);
+            if (direction == edForward) {
+                if (speed != NULLSPEED) {
+                    _motionControl->steeringTurnForward(turn, speed);
                 } else {
-                    _motionControl->steeringTurnForward(item.turn);
+                    _motionControl->steeringTurnForward(turn);
                 }
-            } else if (item.direction == edBackward) {
-                if (item.speed != NULLSPEED) {
-                    _motionControl->steeringTurnBackward(item.turn, item.speed);
+            } else if (direction == edBackward) {
+                if (speed != NULLSPEED) {
+                    _motionControl->steeringTurnBackward(turn, speed);
                 } else {
-                    _motionControl->steeringTurnBackward(item.turn);
+                    _motionControl->steeringTurnBackward(turn);
                 }
             }
             break;
     }
-    if (item.light == flsNone) {
+    if (light == flsNone) {
         setFlashingLight(flsBoth, false);
         setFlashingLight(flsBrake, false);
     } else {
-        setFlashingLight(item.light, item.light != flsNone);
+        setFlashingLight(light, light != flsNone);
     }
 }
 
@@ -375,7 +397,7 @@ void NGMotionUnitControl::_processingIRRemoteData() {
 
 void NGMotionUnitControl::_determineCurrentMotionSequence() {
     bool newMotionSequence = true;
-    if (_motionSequenceCount > 0) {
+    if (_motionSequenceStorage->getSequenceCount() > 0) {
         if (_motionControl->hasMotionMimic()) {
             int closeness = NONECONTACT;
             if (_motionControl->hasFiredObjectRecognizer()) {
@@ -401,8 +423,8 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
                             break;
                     }
                 }
-                for (int i = 0; i < _motionSequenceCount; i++) {
-                    if (_motionSequence[i].kind == kind) {
+                for (int i = 0; i < _motionSequenceStorage->getSequenceCount(); i++) {
+                    if (_motionSequenceStorage->getSequenceKind(i) == kind) {
                         _currentMotionSequence = i;
                         if (getYesOrNo()) {
                             break;
@@ -411,7 +433,7 @@ void NGMotionUnitControl::_determineCurrentMotionSequence() {
                 }
             }
         } else if (_irremotefuncCount == 0) {
-            _currentMotionSequence = random(0, _motionSequenceCount);
+            _currentMotionSequence = random(0, _motionSequenceStorage->getSequenceCount());
         }
     } else {
         _resetCurrentMotionSequence();
@@ -458,8 +480,8 @@ void NGMotionUnitControl::_determineMotionInterruption() {
 int NGMotionUnitControl::_getMotionSequenceByKind(motionSequenceKind kind) {
     int res = NOCURRENTMOTIONSEQUENCE;
     int first = NOCURRENTMOTIONSEQUENCE;
-    for (int i = 0; i < _motionSequenceCount; i++) {
-        if (_motionSequence[i].kind == kind) {
+    for (int i = 0; i < _motionSequenceStorage->getSequenceCount(); i++) {
+        if (_motionSequenceStorage->getSequenceKind(i) == kind) {
             if (first == NOCURRENTMOTIONSEQUENCE) {
                 first = i;
             }
@@ -477,6 +499,7 @@ int NGMotionUnitControl::_getMotionSequenceByKind(motionSequenceKind kind) {
 
 void NGMotionUnitControl::initialize() {
     NGCustomUnitControl::initialize();
+    _initializeMotionSequenceStorage();
     _initializeMotionControl();
     _initializeLightSensor();
     _initializeFlashingLightLeft();
@@ -519,17 +542,7 @@ void NGMotionUnitControl::registerMotionInterruption(int interruptionPin) {
 }
 
 byte NGMotionUnitControl::registerMotionSequence(motionSequenceKind kind) {
-    byte res = _motionSequenceCount;
-    if (_motionSequenceCount < MAXMOTIONSEQUENCECOUNT) {
-        motionSequence mss;
-        mss.kind = kind;
-        mss.itemCount = 0;
-        _motionSequence[_motionSequenceCount] = mss;
-        _motionSequenceCount++;
-    } else {
-        _raiseException(ExceptionTooMuchMotionSequenceCount);
-    }
-    return res;
+    return _motionSequenceStorage->addSequence(kind);
 }
 
 void NGMotionUnitControl::addMotionSequenceItemStop(byte motionSequence, int duration) {
@@ -549,18 +562,7 @@ void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed,
 }
 
 void NGMotionUnitControl::addMotionSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration, flashingLightSide light) {
-    if (_motionSequence[motionSequence].itemCount < MAXMOTIONSEQUENCEITEMCOUNT) {
-        motionSequenceItem msi;
-        msi.speed = speed;
-        msi.direction = direction;
-        msi.turn = turn;
-        msi.duration = duration;
-        msi.light = light;
-        _motionSequence[motionSequence].items[_motionSequence[motionSequence].itemCount] = msi;
-        _motionSequence[motionSequence].itemCount++;
-    } else {
-        _raiseException(ExceptionTooMuchMotionSequenceItemCount);
-    }
+    _motionSequenceStorage->addSequenceItem(motionSequence, speed, direction, turn, duration, light);
 }
 
 void NGMotionUnitControl::registerJingleBackward(NGCustomJingle *jingle) {

@@ -45,6 +45,10 @@ void NGCustomMotionControl::_processingObjectRecognizer() {
     }
 }
 
+void NGCustomMotionControl::setMotionSequenceStorage(NGMotionSequenceStorage *storage) {
+    _motionSequenceStorage = storage;
+}
+
 void NGCustomMotionControl::setLogging(bool logging) {
     _logging = logging;
 }
