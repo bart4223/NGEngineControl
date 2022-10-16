@@ -61,6 +61,12 @@ protected:
     
     void _raiseException(int id);
     
+    void _raiseExceptionWithIndex(int id, byte index);
+    
+    motionSequence _getSequence(byte sequence);
+
+    motionSequenceItem _getSequenceItem(byte sequence, byte item);
+    
 public:
     NGMotionSequenceStorage();
     
