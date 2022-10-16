@@ -111,6 +111,20 @@ int NGMotionSequenceStorage::getSequenceItemDuration(byte sequence, byte item) {
     return res;
 }
 
+flashingLightSide NGMotionSequenceStorage::getSequenceLight(byte sequence, byte item) {
+    flashingLightSide res = flsNone;
+    if (sequence >= _count) {
+        _raiseException(ExceptionInvalidMotionSequenceIndex);
+    } else {
+        if (item >= _sequences[sequence].itemCount) {
+            _raiseException(ExceptionInvalidMotionSequenceItemIndex);
+        } else {
+            res = _sequences[sequence].items[item].light;
+        }
+    }
+    return res;
+}
+
 byte NGMotionSequenceStorage::addSequence(motionSequenceKind kind) {
     byte res = _count;
     if (_count < MAXMOTIONSEQUENCECOUNT) {

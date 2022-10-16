@@ -82,6 +82,8 @@ public:
     
     int getSequenceItemDuration(byte sequence, byte item);
     
+    flashingLightSide getSequenceLight(byte sequence, byte item);
+    
     byte addSequence(motionSequenceKind kind);
     
     void addSequenceItem(byte motionSequence, byte speed, engineDirection direction, turnDirection turn, int duration, flashingLightSide light);
