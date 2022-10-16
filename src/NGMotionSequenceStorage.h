@@ -82,7 +82,7 @@ public:
     
     int getSequenceItemDuration(byte sequence, byte item);
     
-    flashingLightSide getSequenceLight(byte sequence, byte item);
+    flashingLightSide getSequenceItemLight(byte sequence, byte item);
     
     byte addSequence(motionSequenceKind kind);
     

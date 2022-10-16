@@ -111,7 +111,7 @@ int NGMotionSequenceStorage::getSequenceItemDuration(byte sequence, byte item) {
     return res;
 }
 
-flashingLightSide NGMotionSequenceStorage::getSequenceLight(byte sequence, byte item) {
+flashingLightSide NGMotionSequenceStorage::getSequenceItemLight(byte sequence, byte item) {
     flashingLightSide res = flsNone;
     if (sequence >= _count) {
         _raiseException(ExceptionInvalidMotionSequenceIndex);
