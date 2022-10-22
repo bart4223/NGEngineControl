@@ -25,6 +25,8 @@
 #define MAXMOTIONSEQUENCEITEMCOUNT 4
 #endif
 
+#define NOCURRENTMOTIONSEQUENCE -1
+
 enum motionSequenceKind {mskNone, mskStraight, mskLeft, mskRight, mskStop, mskBack, mskFullTurn};
 
 enum flashingLightSide {flsNone, flsBoth, flsLeft, flsRight, flsBrake};

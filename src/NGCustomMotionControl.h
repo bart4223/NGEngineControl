@@ -104,19 +104,19 @@ public:
     
     void processingLoop();
     
-    virtual bool handleRemoteFunctionMenu();
+    virtual bool handleRemoteFunctionMenu(int currentmotionSequence);
     
-    virtual bool handleRemoteFunctionOK();
+    virtual bool handleRemoteFunctionOK(int currentmotionSequence);
     
-    virtual bool handleRemoteFunctionPlay();
+    virtual bool handleRemoteFunctionPlay(int currentmotionSequence);
 
-    virtual bool handleRemoteFunctionUp();
+    virtual bool handleRemoteFunctionUp(int currentmotionSequence);
     
-    virtual bool handleRemoteFunctionDown();
+    virtual bool handleRemoteFunctionDown(int currentmotionSequence);
     
-    virtual bool handleRemoteFunctionLeft();
+    virtual bool handleRemoteFunctionLeft(int currentmotionSequence);
     
-    virtual bool handleRemoteFunctionRight();
+    virtual bool handleRemoteFunctionRight(int currentmotionSequence);
 };
 
 #endif /* NGCustomMotionControl_h */

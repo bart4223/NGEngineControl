@@ -24,19 +24,19 @@ protected:
 public:
     NGSimpleMotionControl(NGCustomSteeringControl *steeringControl);
     
-    bool handleRemoteFunctionMenu();
+    bool handleRemoteFunctionMenu(int currentmotionSequence);
     
-    bool handleRemoteFunctionOK();
+    bool handleRemoteFunctionOK(int currentmotionSequence);
     
-    bool handleRemoteFunctionPlay();
+    bool handleRemoteFunctionPlay(int currentmotionSequence);
 
-    bool handleRemoteFunctionUp();
+    bool handleRemoteFunctionUp(int currentmotionSequence);
     
-    bool handleRemoteFunctionDown();
+    bool handleRemoteFunctionDown(int currentmotionSequence);
     
-    bool handleRemoteFunctionLeft();
+    bool handleRemoteFunctionLeft(int currentmotionSequence);
     
-    bool handleRemoteFunctionRight();
+    bool handleRemoteFunctionRight(int currentmotionSequence);
 };
 
 #endif /* NGSimpleMotionControl_hp */

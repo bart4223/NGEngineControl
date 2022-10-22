@@ -15,31 +15,31 @@ void NGSimpleMotionControl::_create(NGCustomSteeringControl *steeringControl) {
     _steeringControl = steeringControl;
 }
 
-bool NGSimpleMotionControl::handleRemoteFunctionMenu() {
+bool NGSimpleMotionControl::handleRemoteFunctionMenu(int currentmotionSequence) {
     return false;
 }
 
-bool NGSimpleMotionControl::handleRemoteFunctionOK() {
+bool NGSimpleMotionControl::handleRemoteFunctionOK(int currentmotionSequence) {
     return false;
 }
 
-bool NGSimpleMotionControl::handleRemoteFunctionPlay() {
+bool NGSimpleMotionControl::handleRemoteFunctionPlay(int currentmotionSequence) {
     return false;
 }
 
-bool NGSimpleMotionControl::handleRemoteFunctionUp() {
+bool NGSimpleMotionControl::handleRemoteFunctionUp(int currentmotionSequence) {
     return false;
 }
 
-bool NGSimpleMotionControl::handleRemoteFunctionDown() {
+bool NGSimpleMotionControl::handleRemoteFunctionDown(int currentmotionSequence) {
     return false;
 }
 
-bool NGSimpleMotionControl::handleRemoteFunctionLeft() {
+bool NGSimpleMotionControl::handleRemoteFunctionLeft(int currentmotionSequence) {
     return false;
 }
 
-bool NGSimpleMotionControl::handleRemoteFunctionRight() {
+bool NGSimpleMotionControl::handleRemoteFunctionRight(int currentmotionSequence) {
     return false;
 }
 

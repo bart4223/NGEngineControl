@@ -25,12 +25,10 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "5.5"
+#define _VERSION "5.6"
 #define VERSION (char*)_VERSION
 
 #define DEFINTERRUPTIONDELAY 1000
-
-#define NOCURRENTMOTIONSEQUENCE -1
 
 class NGMotionUnitControl : public NGCustomUnitControl, NGITestableComponent {
 
@@ -105,7 +103,7 @@ protected:
     
     void _determineMotionInterruption();
     
-    int _getMotionSequenceByKind(motionSequenceKind kind);
+    int _getMotionSequenceByKind(motionSequenceKind kind, int currentmotionSequence);
     
 public:
     NGMotionUnitControl();
