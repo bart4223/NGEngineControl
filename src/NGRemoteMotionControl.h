@@ -17,11 +17,16 @@
 #include <NGCustomMotionControl.h>
 
 class NGRemoteMotionControl : public NGCustomMotionControl {
-  
+ 
+private:
+    motionSequenceKind _lastMotionSequenceKind = mskNone;
+    
 protected:
     void _create(NGCustomSteeringControl *steeringControl);
     
-    int _getMotionSequenceByKind(motionSequenceKind kind, int currentmotionSequence);
+    int _getMotionSequenceByKindUp(motionSequenceKind kind, int currentmotionSequence);
+
+    int _getMotionSequenceByKindDown(motionSequenceKind kind, int currentmotionSequence);
 public:
     NGRemoteMotionControl(NGCustomSteeringControl *steeringControl);
     

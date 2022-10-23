@@ -25,7 +25,7 @@
 #include <NGFlashingLight.h>
 #include <NGLaserCannon.h>
 
-#define _VERSION "5.7"
+#define _VERSION "5.8"
 #define VERSION (char*)_VERSION
 
 #define DEFINTERRUPTIONDELAY 1000

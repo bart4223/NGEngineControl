@@ -15,11 +15,24 @@ void NGRemoteMotionControl::_create(NGCustomSteeringControl *steeringControl) {
     _steeringControl = steeringControl;
 }
 
-int NGRemoteMotionControl::_getMotionSequenceByKind(motionSequenceKind kind, int currentmotionSequence) {
+int NGRemoteMotionControl::_getMotionSequenceByKindUp(motionSequenceKind kind, int currentmotionSequence) {
     int res = currentmotionSequence;
     for (int i = 0; i < _motionSequenceStorage->getSequenceCount(); i++) {
         if (_motionSequenceStorage->getSequenceKind(i) == kind) {
             if (i > res) {
+                res = i;
+                break;
+            }
+        }
+    }
+    return res;
+}
+
+int NGRemoteMotionControl::_getMotionSequenceByKindDown(motionSequenceKind kind, int currentmotionSequence) {
+    int res = currentmotionSequence;
+    for (int i = _motionSequenceStorage->getSequenceCount() - 1; i >= 0 ; i--) {
+        if (_motionSequenceStorage->getSequenceKind(i) == kind) {
+            if (i < res) {
                 res = i;
                 break;
             }
@@ -41,12 +54,52 @@ bool NGRemoteMotionControl::handleRemoteFunctionPlay(int currentmotionSequence) 
 }
 
 bool NGRemoteMotionControl::handleRemoteFunctionUp(int currentmotionSequence) {
-    _nextMotionSequence = _getMotionSequenceByKind(mskStraight, currentmotionSequence);
+    switch(_lastMotionSequenceKind) {
+        case mskNone:
+        case mskStop:
+        case mskStraight:
+            _nextMotionSequence = _getMotionSequenceByKindUp(mskStraight, currentmotionSequence);
+            if (_nextMotionSequence != NOCURRENTMOTIONSEQUENCE) {
+                _lastMotionSequenceKind = mskStraight;
+            }
+            break;
+        case mskBack:
+            _nextMotionSequence = _getMotionSequenceByKindDown(mskBack, currentmotionSequence);
+            if (_nextMotionSequence != NOCURRENTMOTIONSEQUENCE) {
+                if (_nextMotionSequence != currentmotionSequence) {
+                    _lastMotionSequenceKind = mskBack;
+                } else {
+                    _nextMotionSequence = _getMotionSequenceByKindUp(mskStop, NOCURRENTMOTIONSEQUENCE);
+                    _lastMotionSequenceKind = mskStop;
+                }
+            }
+            break;
+    }
     return true;
 }
 
 bool NGRemoteMotionControl::handleRemoteFunctionDown(int currentmotionSequence) {
-    _nextMotionSequence = _getMotionSequenceByKind(mskBack, currentmotionSequence);
+    switch(_lastMotionSequenceKind) {
+        case mskNone:
+        case mskStop:
+        case mskBack:
+            _nextMotionSequence = _getMotionSequenceByKindUp(mskBack, currentmotionSequence);
+            if (_nextMotionSequence != NOCURRENTMOTIONSEQUENCE) {
+                _lastMotionSequenceKind = mskBack;
+            }
+            break;
+        case mskStraight:
+            _nextMotionSequence = _getMotionSequenceByKindDown(mskStraight, currentmotionSequence);
+            if (_nextMotionSequence != NOCURRENTMOTIONSEQUENCE) {
+                if (_nextMotionSequence != currentmotionSequence) {
+                    _lastMotionSequenceKind = mskStraight;
+                } else {
+                    _nextMotionSequence = _getMotionSequenceByKindUp(mskStop, NOCURRENTMOTIONSEQUENCE);
+                    _lastMotionSequenceKind = mskStop;
+                }
+            }
+            break;
+    }
     return true;
 }
 
