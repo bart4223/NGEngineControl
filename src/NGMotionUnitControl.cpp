@@ -359,7 +359,6 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                         if (_currentMotionSequence != index) {
                             sprintf(log, "Back!");
                             infoID = 2;
-                            
                         }
                     } else {
                         index = _motionControl->getNextMotionSequence();
@@ -370,8 +369,7 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                         index = _getMotionSequenceByKind(mskLeft, _currentMotionSequence);
                         if (_currentMotionSequence != index) {
                             sprintf(log, "Left!");
-                            infoID = 3;
-                            
+                            infoID = 3;                            
                         }
                     }
                     break;
