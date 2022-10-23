@@ -58,19 +58,22 @@ bool NGRemoteMotionControl::handleRemoteFunctionUp(int currentmotionSequence) {
         case mskNone:
         case mskStop:
         case mskStraight:
-            _nextMotionSequence = _getMotionSequenceByKindUp(mskStraight, currentmotionSequence);
+            _nextMotionSequence = _getMotionSequenceByKindUp(mskStraight, _lastMotionSequence);
             if (_nextMotionSequence != NOCURRENTMOTIONSEQUENCE) {
                 _lastMotionSequenceKind = mskStraight;
+                _lastMotionSequence = _nextMotionSequence;
             }
             break;
         case mskBack:
-            _nextMotionSequence = _getMotionSequenceByKindDown(mskBack, currentmotionSequence);
+            _nextMotionSequence = _getMotionSequenceByKindDown(mskBack, _lastMotionSequence);
             if (_nextMotionSequence != NOCURRENTMOTIONSEQUENCE) {
                 if (_nextMotionSequence != currentmotionSequence) {
                     _lastMotionSequenceKind = mskBack;
+                    _lastMotionSequence = _nextMotionSequence;
                 } else {
                     _nextMotionSequence = _getMotionSequenceByKindUp(mskStop, NOCURRENTMOTIONSEQUENCE);
                     _lastMotionSequenceKind = mskStop;
+                    _lastMotionSequence = NOCURRENTMOTIONSEQUENCE;
                 }
             }
             break;
@@ -83,19 +86,22 @@ bool NGRemoteMotionControl::handleRemoteFunctionDown(int currentmotionSequence) 
         case mskNone:
         case mskStop:
         case mskBack:
-            _nextMotionSequence = _getMotionSequenceByKindUp(mskBack, currentmotionSequence);
+            _nextMotionSequence = _getMotionSequenceByKindUp(mskBack, _lastMotionSequence);
             if (_nextMotionSequence != NOCURRENTMOTIONSEQUENCE) {
                 _lastMotionSequenceKind = mskBack;
+                _lastMotionSequence = _nextMotionSequence;
             }
             break;
         case mskStraight:
-            _nextMotionSequence = _getMotionSequenceByKindDown(mskStraight, currentmotionSequence);
+            _nextMotionSequence = _getMotionSequenceByKindDown(mskStraight, _lastMotionSequence);
             if (_nextMotionSequence != NOCURRENTMOTIONSEQUENCE) {
                 if (_nextMotionSequence != currentmotionSequence) {
                     _lastMotionSequenceKind = mskStraight;
+                    _lastMotionSequence = _nextMotionSequence;
                 } else {
                     _nextMotionSequence = _getMotionSequenceByKindUp(mskStop, NOCURRENTMOTIONSEQUENCE);
                     _lastMotionSequenceKind = mskStop;
+                    _lastMotionSequence = NOCURRENTMOTIONSEQUENCE;
                 }
             }
             break;

@@ -19,6 +19,7 @@
 class NGRemoteMotionControl : public NGCustomMotionControl {
  
 private:
+    int _lastMotionSequence = NOCURRENTMOTIONSEQUENCE;
     motionSequenceKind _lastMotionSequenceKind = mskNone;
     
 protected:
