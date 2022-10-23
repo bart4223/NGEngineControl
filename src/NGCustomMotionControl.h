@@ -44,6 +44,7 @@ protected:
     int _objectRecognizerCount = 0;
     int _firedObjectRecognizer = -1;
     bool _logging = true;
+    int _nextMotionSequence = NOCURRENTMOTIONSEQUENCE;
     
     virtual void _create(NGCustomSteeringControl *steeringControl);
     
@@ -103,6 +104,10 @@ public:
     void steeringTurnBackward(turnDirection turn, byte speed);
     
     void processingLoop();
+    
+    void clearNextMotionSequence();
+    
+    int getNextMotionSequence();
     
     virtual bool handleRemoteFunctionMenu(int currentmotionSequence);
     

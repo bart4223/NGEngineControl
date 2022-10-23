@@ -323,6 +323,7 @@ void NGMotionUnitControl::_processingIRRemoteData() {
             char log[10];
             int index = NOCURRENTMOTIONSEQUENCE;
             int infoID = -1;
+            _motionControl->clearNextMotionSequence();
             switch (_irremotefunc[i].type) {
                 case ftMenu:
                     if (!_motionControl->handleRemoteFunctionMenu(_currentMotionSequence)) {
@@ -348,6 +349,8 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                             sprintf(log, "Go!");
                             infoID = 0;
                         }
+                    } else {
+                        index = _motionControl->getNextMotionSequence();
                     }
                     break;
                 case ftDown:
@@ -358,6 +361,8 @@ void NGMotionUnitControl::_processingIRRemoteData() {
                             infoID = 2;
                             
                         }
+                    } else {
+                        index = _motionControl->getNextMotionSequence();
                     }
                     break;
                 case ftLeft:

@@ -16,21 +16,14 @@ void NGRemoteMotionControl::_create(NGCustomSteeringControl *steeringControl) {
 }
 
 int NGRemoteMotionControl::_getMotionSequenceByKind(motionSequenceKind kind, int currentmotionSequence) {
-    int res = NOCURRENTMOTIONSEQUENCE;
-    int first = NOCURRENTMOTIONSEQUENCE;
+    int res = currentmotionSequence;
     for (int i = 0; i < _motionSequenceStorage->getSequenceCount(); i++) {
         if (_motionSequenceStorage->getSequenceKind(i) == kind) {
-            if (first == NOCURRENTMOTIONSEQUENCE) {
-                first = i;
-            }
-            if (i > currentmotionSequence) {
+            if (i > res) {
                 res = i;
                 break;
             }
         }
-    }
-    if (res == NOCURRENTMOTIONSEQUENCE && first != NOCURRENTMOTIONSEQUENCE) {
-        res = first;
     }
     return res;
 }
@@ -48,11 +41,13 @@ bool NGRemoteMotionControl::handleRemoteFunctionPlay(int currentmotionSequence) 
 }
 
 bool NGRemoteMotionControl::handleRemoteFunctionUp(int currentmotionSequence) {
-    return false;
+    _nextMotionSequence = _getMotionSequenceByKind(mskStraight, currentmotionSequence);
+    return true;
 }
 
 bool NGRemoteMotionControl::handleRemoteFunctionDown(int currentmotionSequence) {
-    return false;
+    _nextMotionSequence = _getMotionSequenceByKind(mskBack, currentmotionSequence);
+    return true;
 }
 
 bool NGRemoteMotionControl::handleRemoteFunctionLeft(int currentmotionSequence) {

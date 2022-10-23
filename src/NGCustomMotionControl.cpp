@@ -161,3 +161,11 @@ void NGCustomMotionControl::steeringTurnBackward(turnDirection turn, byte speed)
 void NGCustomMotionControl::processingLoop() {
     _processingObjectRecognizer();
 }
+
+void NGCustomMotionControl::clearNextMotionSequence() {
+    _nextMotionSequence = NOCURRENTMOTIONSEQUENCE;
+}
+
+int NGCustomMotionControl::getNextMotionSequence() {
+    return _nextMotionSequence;
+}
