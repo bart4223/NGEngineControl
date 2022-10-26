@@ -77,3 +77,19 @@ void NGColorDotMatrix::clearRect(byte top, byte left, byte bottom, byte right) {
 void NGColorDotMatrix::clear() {
     clearRect(COORDMINTOP, COORDMINLEFT, COORDMAXBOTTOM, COORDMAXRIGHT);
 }
+
+void NGColorDotMatrix::drawImage(byte coord[][2], colorRGB color, int size) {
+    beginUpdate();
+    for (int i = 0; i < size; i++) {
+        drawPoint(coord[i][0], coord[i][1], color);
+    }
+    endUpdate();
+}
+
+void NGColorDotMatrix::drawImage(byte coord[][2], byte color[][3], int size) {
+    beginUpdate();
+    for (int i = 0; i < size; i++) {
+        drawPoint(coord[i][0], coord[i][1], { color[i][0], color[i][1], color[i][2] });
+    }
+    endUpdate();
+}

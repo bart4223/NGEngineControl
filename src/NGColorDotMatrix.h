@@ -64,6 +64,10 @@ public:
     void clearRect(byte top, byte left, byte bottom, byte right);
     
     void clear();
+    
+    void drawImage(byte coord[][2], colorRGB color, int size);
+
+    void drawImage(byte coord[][2], byte color[][3], int size);
 };
 
 #endif /* NGColorDotMatrix_h */
