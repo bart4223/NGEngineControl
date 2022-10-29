@@ -91,6 +91,9 @@
 		294E9C94290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixBinaryDigit.cpp; sourceTree = "<group>"; };
 		294E9C95290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixBinaryDigit.h; sourceTree = "<group>"; };
 		294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colordotmatrixbinarydigit.ino; sourceTree = "<group>"; };
+		294E9C9B290D5A4400A3E17A /* binaryclock.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = binaryclock.ino; sourceTree = "<group>"; };
+		294E9C9C290D5A8800A3E17A /* NGColorDotMatrixBinaryClock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixBinaryClock.cpp; sourceTree = "<group>"; };
+		294E9C9D290D5A8800A3E17A /* NGColorDotMatrixBinaryClock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixBinaryClock.h; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -278,6 +281,8 @@
 			children = (
 				294E9C9029058EA400A3E17A /* NGColorDotMatrix.h */,
 				294E9C8F29058EA400A3E17A /* NGColorDotMatrix.cpp */,
+				294E9C9D290D5A8800A3E17A /* NGColorDotMatrixBinaryClock.h */,
+				294E9C9C290D5A8800A3E17A /* NGColorDotMatrixBinaryClock.cpp */,
 				294E9C95290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.h */,
 				294E9C94290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.cpp */,
 				29232B3A2779D44C00B85C8E /* NGDuoLED.h */,
@@ -474,6 +479,30 @@
 				294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */,
 			);
 			path = colordotmatrixbinarydigit;
+			sourceTree = "<group>";
+		};
+		294E9C98290D5A0B00A3E17A /* binaryclock */ = {
+			isa = PBXGroup;
+			children = (
+				294E9C99290D5A1B00A3E17A /* images */,
+				294E9C9A290D5A2500A3E17A /* binaryclock */,
+			);
+			path = binaryclock;
+			sourceTree = "<group>";
+		};
+		294E9C99290D5A1B00A3E17A /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		294E9C9A290D5A2500A3E17A /* binaryclock */ = {
+			isa = PBXGroup;
+			children = (
+				294E9C9B290D5A4400A3E17A /* binaryclock.ino */,
+			);
+			path = binaryclock;
 			sourceTree = "<group>";
 		};
 		29647BBA253C42A5003CBA13 = {
@@ -711,6 +740,7 @@
 		29AA4E512881A60D0085BDAA /* projects */ = {
 			isa = PBXGroup;
 			children = (
+				294E9C98290D5A0B00A3E17A /* binaryclock */,
 				299C0E1B26D75CCE00F5A60D /* buggy */,
 				29AA4E522881A6BC0085BDAA /* currentmeasurement */,
 				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
