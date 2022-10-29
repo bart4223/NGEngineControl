@@ -88,6 +88,9 @@
 		294E9C8F29058EA400A3E17A /* NGColorDotMatrix.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrix.cpp; sourceTree = "<group>"; };
 		294E9C9029058EA400A3E17A /* NGColorDotMatrix.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrix.h; sourceTree = "<group>"; };
 		294E9C9229072EC800A3E17A /* colordotmatrix.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colordotmatrix.ino; sourceTree = "<group>"; };
+		294E9C94290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixBinaryDigit.cpp; sourceTree = "<group>"; };
+		294E9C95290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixBinaryDigit.h; sourceTree = "<group>"; };
+		294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colordotmatrixbinarydigit.ino; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -275,6 +278,8 @@
 			children = (
 				294E9C9029058EA400A3E17A /* NGColorDotMatrix.h */,
 				294E9C8F29058EA400A3E17A /* NGColorDotMatrix.cpp */,
+				294E9C95290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.h */,
+				294E9C94290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.cpp */,
 				29232B3A2779D44C00B85C8E /* NGDuoLED.h */,
 				29232B392779D44C00B85C8E /* NGDuoLED.cpp */,
 				2913C94D2702DE1500D0AFC6 /* NGFlashingLight.h */,
@@ -463,6 +468,14 @@
 			path = colordotmatrix;
 			sourceTree = "<group>";
 		};
+		294E9C96290D0E2A00A3E17A /* colordotmatrixbinarydigit */ = {
+			isa = PBXGroup;
+			children = (
+				294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */,
+			);
+			path = colordotmatrixbinarydigit;
+			sourceTree = "<group>";
+		};
 		29647BBA253C42A5003CBA13 = {
 			isa = PBXGroup;
 			children = (
@@ -516,6 +529,7 @@
 			isa = PBXGroup;
 			children = (
 				294E9C9129072E9900A3E17A /* colordotmatrix */,
+				294E9C96290D0E2A00A3E17A /* colordotmatrixbinarydigit */,
 				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29F56DF027410D1D00BBBB68 /* contact */,
 				29232B3B2779D53F00B85C8E /* duoLED */,

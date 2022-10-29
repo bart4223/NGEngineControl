@@ -29,10 +29,12 @@ typedef struct colorRGBStruct colorRGB;
 #define COORDMAXBOTTOM  7
 #define COORDMAXRIGHT   7
 
-#define COLOR_BLACK { .red=0, .green=0, .blue=0}
-#define COLOR_RED   { .red=255, .green=0, .blue=0}
-#define COLOR_GREEN { .red=0, .green=255, .blue=0}
-#define COLOR_BLUE  { .red=0, .green=0, .blue=255}
+#define COLOR_BLACK  { .red = 0, .green = 0, .blue = 0 }
+#define COLOR_WHITE  { .red = 255, .green = 255, .blue = 255 }
+#define COLOR_RED    { .red = 255, .green = 0, .blue = 0 }
+#define COLOR_GREEN  { .red = 0, .green = 255, .blue = 0 }
+#define COLOR_BLUE   { .red = 0, .green = 0, .blue = 255 }
+#define COLOR_YELLOW { .red = 255, .green = 255, .blue = 0 }
 
 class NGColorDotMatrix {
     
