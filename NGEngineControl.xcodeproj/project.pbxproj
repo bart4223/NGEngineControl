@@ -92,8 +92,8 @@
 		294E9C95290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixBinaryDigit.h; sourceTree = "<group>"; };
 		294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colordotmatrixbinarydigit.ino; sourceTree = "<group>"; };
 		294E9C9B290D5A4400A3E17A /* binaryclock.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = binaryclock.ino; sourceTree = "<group>"; };
-		294E9C9C290D5A8800A3E17A /* NGColorDotMatrixBinaryClock.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixBinaryClock.cpp; sourceTree = "<group>"; };
-		294E9C9D290D5A8800A3E17A /* NGColorDotMatrixBinaryClock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixBinaryClock.h; sourceTree = "<group>"; };
+		294E9C9C290D5A8800A3E17A /* NGBinaryClockUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBinaryClockUnitControl.cpp; sourceTree = "<group>"; };
+		294E9C9D290D5A8800A3E17A /* NGBinaryClockUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBinaryClockUnitControl.h; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -282,8 +282,6 @@
 			children = (
 				294E9C9029058EA400A3E17A /* NGColorDotMatrix.h */,
 				294E9C8F29058EA400A3E17A /* NGColorDotMatrix.cpp */,
-				294E9C9D290D5A8800A3E17A /* NGColorDotMatrixBinaryClock.h */,
-				294E9C9C290D5A8800A3E17A /* NGColorDotMatrixBinaryClock.cpp */,
 				294E9C95290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.h */,
 				294E9C94290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.cpp */,
 				29232B3A2779D44C00B85C8E /* NGDuoLED.h */,
@@ -322,18 +320,20 @@
 		2913C93A26FF67DB00D0AFC6 /* app */ = {
 			isa = PBXGroup;
 			children = (
-				29D7EC342670D7D800009403 /* NGCustomUnitControl.h */,
-				29D7EC332670D7D800009403 /* NGCustomUnitControl.cpp */,
-				2905F121264D385A001B4A56 /* NGUnitControl.h */,
-				292E8FF526620C690042F249 /* NGUnitControl.cpp */,
+				294E9C9D290D5A8800A3E17A /* NGBinaryClockUnitControl.h */,
+				294E9C9C290D5A8800A3E17A /* NGBinaryClockUnitControl.cpp */,
 				29D7EC3E2673D0A000009403 /* NGCentralUnitControl.h */,
 				29D7EC3D2673D0A000009403 /* NGCentralUnitControl.cpp */,
-				2913C94F27033B8600D0AFC6 /* NGMotionUnitControl.h */,
-				2913C94E27033B8600D0AFC6 /* NGMotionUnitControl.cpp */,
-				29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */,
-				29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */,
 				29AA4E5928870AE40085BDAA /* NGCurrentMeasurementUnitControl.h */,
 				29AA4E5828870AE40085BDAA /* NGCurrentMeasurementUnitControl.cpp */,
+				29D7EC342670D7D800009403 /* NGCustomUnitControl.h */,
+				29D7EC332670D7D800009403 /* NGCustomUnitControl.cpp */,
+				29E24C7727F33F4D0009F0CF /* NGIrrigationUnitControl.h */,
+				29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */,
+				2913C94F27033B8600D0AFC6 /* NGMotionUnitControl.h */,
+				2913C94E27033B8600D0AFC6 /* NGMotionUnitControl.cpp */,
+				2905F121264D385A001B4A56 /* NGUnitControl.h */,
+				292E8FF526620C690042F249 /* NGUnitControl.cpp */,
 				29DC5F9628A84F1E00CCEEB1 /* NGWirelessRemoteUnitControl.h */,
 				29DC5F9528A84F1E00CCEEB1 /* NGWirelessRemoteUnitControl.cpp */,
 			);

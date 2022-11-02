@@ -1,22 +1,34 @@
 #define PROD false //false,true
 
-#include <NGMemoryObserver.h>
-#include <NGColorDotMatrixBinaryClock.h>
+#include <NGSerialNotification.h>
+#include <NGBinaryClockUnitControl.h>
 
-#define DELAY 500
+#define _BINARYCLOCK  "Clock"
+#define BINARYCLOCK   (char*)_BINARYCLOCK
 
 NGColorDotMatrix cdm = NGColorDotMatrix();
-NGColorDotMatrixBinaryClock cdmbc = NGColorDotMatrixBinaryClock(&cdm);
+NGBinaryClockUnitControl unitBinaryClock = NGBinaryClockUnitControl(BINARYCLOCK, &cdm);
+#if (PROD == false)
+NGSerialNotification serialNotification = NGSerialNotification();
+#endif
 
 void setup() {
-  //cdmbc.setColorOff(COLOR_RED);
-  //cdmbc.setColorOn(COLOR_YELLOW);
-  cdmbc.initialize();
+  setGlobalUnit(&unitBinaryClock);
+  #if (PROD == false)
+  unitBinaryClock.registerNotification(&serialNotification);
+  #endif
+  //unitBinaryClock.setColorOff(COLOR_RED);
+  //unitBinaryClock.setColorOn(COLOR_YELLOW);
+  unitBinaryClock.initialize();
+  #if (PROD == true)
+  unitBinaryClock.setWorkMode(wmNone);
+  #else
+  unitBinaryClock.setWorkMode(wmObserveMemory);
+  #endif
+  unitBinaryClock.startUp();
+  unitBinaryClock.clearInfo();
 }
 
 void loop() {
-  cdmbc.processingLoop();
-  #if (PROD == false)
-  observeMemory(DELAY);
-  #endif
+  unitBinaryClock.processingLoop();
 }
