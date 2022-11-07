@@ -1,4 +1,4 @@
-#define PROD false //false,true
+#define PROD true //false,true
 
 #include <NGSerialNotification.h>
 #include <NGBinaryClockUnitControl.h>
@@ -17,8 +17,8 @@ void setup() {
   #if (PROD == false)
   unitBinaryClock.registerNotification(&serialNotification);
   #endif
-  //unitBinaryClock.setColorOff(COLOR_RED);
-  //unitBinaryClock.setColorOn(COLOR_YELLOW);
+  unitBinaryClock.setColorOff(COLOR_LIME);
+  unitBinaryClock.setColorOn(COLOR_BLUE);
   unitBinaryClock.initialize();
   #if (PROD == true)
   unitBinaryClock.setWorkMode(wmNone);

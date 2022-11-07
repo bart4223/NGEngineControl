@@ -26,15 +26,24 @@ void NGBinaryClockUnitControl::_create(char* name, byte address, int serialRate,
     _cdm = cdm;
     registerRealTimeClock(new NGRealTimeClock());
     byte arity;
+    byte offset = 0;
     for (int i = 0; i < DIGITCOUNT; i++) {
-        if (i == 0) {
-            arity = 2;
-        } else if (i == 2 || i == 4) {
-            arity = 3;
-        } else {
-            arity = 4;
+        switch(i) {
+            case 0:
+                arity = 2;
+                break;
+            case 2:
+            case 4:
+                arity = 3;
+                break;
+            default:
+                arity = 4;
+                break;
         }
-        _digits[i] = new NGColorDotMatrixBinaryDigit(_cdm, arity, i + posX, posY);
+        if (_withArityOffset) {
+            offset = i / 2;
+        }
+        _digits[i] = new NGColorDotMatrixBinaryDigit(_cdm, arity, i + posX + offset, posY);
     }
 }
 
@@ -77,13 +86,17 @@ void NGBinaryClockUnitControl::_processingClock() {
 }
 
 void NGBinaryClockUnitControl::initialize() {
-    _rtc->initialize();
+    _rtc->initialize(_adjustRTC);
     _cdm->initialize();
     _cdm->beginUpdate();
     for (int i = 0; i < DIGITCOUNT; i++) {
         _digits[i]->setValue(0);
     }
     _cdm->endUpdate();
+}
+
+void NGBinaryClockUnitControl::setAdjustRTC(bool adjustRTC) {
+    _adjustRTC = adjustRTC;
 }
 
 void NGBinaryClockUnitControl::setColorOff(colorRGB color) {

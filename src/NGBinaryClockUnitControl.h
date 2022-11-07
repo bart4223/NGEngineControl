@@ -17,10 +17,10 @@
 #include "NGColorDotMatrixBinaryDigit.h"
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "0.1"
+#define _VERSION "0.2"
 #define VERSION (char*)_VERSION
 
-#define DEFBINARYCLOCKPOSX 1
+#define DEFBINARYCLOCKPOSX 0
 #define DEFBINARYCLOCKPOSY 5
 
 #define DIGITCOUNT 6
@@ -30,6 +30,8 @@ class NGBinaryClockUnitControl : public NGCustomUnitControl {
 private:
     NGColorDotMatrix *_cdm;
     NGColorDotMatrixBinaryDigit *_digits[DIGITCOUNT];
+    bool _withArityOffset = true;
+    bool _adjustRTC = false;
     
 protected:
     void _create(char* name, byte address, int serialRate, NGColorDotMatrix *cdm, byte posX, byte posY);
@@ -47,6 +49,8 @@ public:
     NGBinaryClockUnitControl(char* name, NGColorDotMatrix *cdm, byte posX, byte posY);
     
     void initialize();
+    
+    void setAdjustRTC(bool adjustRTC);
     
     void setColorOff(colorRGB color);
     
