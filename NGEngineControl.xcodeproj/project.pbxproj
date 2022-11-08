@@ -108,6 +108,9 @@
 		296CD4E8272ED298003E27DA /* buggyC1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1a.png; sourceTree = "<group>"; };
 		296CD4E9272ED298003E27DA /* buggyC1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1.png; sourceTree = "<group>"; };
 		2977D31427DE0DE400F538B3 /* NGExceptionDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGExceptionDefinitions.h; sourceTree = "<group>"; };
+		297E229A291AD46A00E549DF /* NGSimpleKeypad.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSimpleKeypad.cpp; sourceTree = "<group>"; };
+		297E229B291AD46A00E549DF /* NGSimpleKeypad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSimpleKeypad.h; sourceTree = "<group>"; };
+		297E229D291ADA7500E549DF /* simplekeypad.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simplekeypad.ino; sourceTree = "<group>"; };
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
@@ -266,12 +269,12 @@
 			children = (
 				2913C93226FF3D8E00D0AFC6 /* NGCustomJingle.h */,
 				2913C93126FF3D8D00D0AFC6 /* NGCustomJingle.cpp */,
-				2913C93026FF357300D0AFC6 /* NGSoundMachine.h */,
-				2913C92F26FF357300D0AFC6 /* NGSoundMachine.cpp */,
 				29232B592780CBB200B85C8E /* NGMorseToneGenerator.h */,
 				29232B582780CBB200B85C8E /* NGMorseToneGenerator.cpp */,
 				2999D3202794482600B88B53 /* NGMorseToneNotification.h */,
 				2999D31F2794482600B88B53 /* NGMorseToneNotification.cpp */,
+				2913C93026FF357300D0AFC6 /* NGSoundMachine.h */,
+				2913C92F26FF357300D0AFC6 /* NGSoundMachine.cpp */,
 				29232B532780C7F400B85C8E /* jingles */,
 			);
 			name = sound;
@@ -307,12 +310,12 @@
 			children = (
 				29D7EC352670DC5100009403 /* NGCommon.h */,
 				29D7EC362670DD2C00009403 /* NGCommon.cpp */,
+				2977D31427DE0DE400F538B3 /* NGExceptionDefinitions.h */,
+				2999D3212794841C00B88B53 /* NGITestableComponent.h */,
 				29D7EC30266BF4E400009403 /* NGMemoryObserver.h */,
 				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
 				29232B43277A17B800B85C8E /* NGStrings.h */,
 				29232B42277A17B800B85C8E /* NGStrings.cpp */,
-				2977D31427DE0DE400F538B3 /* NGExceptionDefinitions.h */,
-				2999D3212794841C00B88B53 /* NGITestableComponent.h */,
 			);
 			name = common;
 			sourceTree = "<group>";
@@ -343,26 +346,26 @@
 		2913C94727018C9800D0AFC6 /* sensors */ = {
 			isa = PBXGroup;
 			children = (
-				2913C94927018CD900D0AFC6 /* NGLightSensor.h */,
-				2913C94827018CD900D0AFC6 /* NGLightSensor.cpp */,
-				29232B3F277A0FB300B85C8E /* NGTemperatureSensor.h */,
-				29232B3E277A0FB300B85C8E /* NGTemperatureSensor.cpp */,
-				29D60E8C27F32D8E00FCA53A /* NGSoilMoistureSensor.h */,
-				29D60E8B27F32D8E00FCA53A /* NGSoilMoistureSensor.cpp */,
 				29FD43C2278A0A7E00EAF0D9 /* NGCompass.h */,
 				29FD43C1278A0A7E00EAF0D9 /* NGCompass.cpp */,
-				29B39E2627CBF1C4008507A2 /* NGGyroscope.h */,
-				29B39E2527CBF1C4008507A2 /* NGGyroscope.cpp */,
-				29B376252726816300D8780B /* NGCustomObjectRecognizer.h */,
-				29B376242726816300D8780B /* NGCustomObjectRecognizer.cpp */,
 				29B376272726FE7C00D8780B /* NGContactObjectRecognizer.h */,
 				29B376262726FE7C00D8780B /* NGContactObjectRecognizer.cpp */,
-				296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */,
-				296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */,
-				29B39E2227CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.h */,
-				29B39E2127CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.cpp */,
 				29AA4E572882254D0085BDAA /* NGCurrentSensor.h */,
 				29AA4E562882254D0085BDAA /* NGCurrentSensor.cpp */,
+				29B376252726816300D8780B /* NGCustomObjectRecognizer.h */,
+				29B376242726816300D8780B /* NGCustomObjectRecognizer.cpp */,
+				29B39E2627CBF1C4008507A2 /* NGGyroscope.h */,
+				29B39E2527CBF1C4008507A2 /* NGGyroscope.cpp */,
+				2913C94927018CD900D0AFC6 /* NGLightSensor.h */,
+				2913C94827018CD900D0AFC6 /* NGLightSensor.cpp */,
+				29D60E8C27F32D8E00FCA53A /* NGSoilMoistureSensor.h */,
+				29D60E8B27F32D8E00FCA53A /* NGSoilMoistureSensor.cpp */,
+				29232B3F277A0FB300B85C8E /* NGTemperatureSensor.h */,
+				29232B3E277A0FB300B85C8E /* NGTemperatureSensor.cpp */,
+				29B39E2227CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.h */,
+				29B39E2127CBE012008507A2 /* NGTimeOfFlightObjectRecognizer.cpp */,
+				296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */,
+				296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */,
 			);
 			name = sensors;
 			sourceTree = "<group>";
@@ -407,6 +410,8 @@
 				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
 				29232B4A277D87A100B85C8E /* NGRealTimeClock.h */,
 				29232B49277D87A100B85C8E /* NGRealTimeClock.cpp */,
+				297E229B291AD46A00E549DF /* NGSimpleKeypad.h */,
+				297E229A291AD46A00E549DF /* NGSimpleKeypad.cpp */,
 			);
 			name = misc;
 			sourceTree = "<group>";
@@ -580,6 +585,7 @@
 				29EA90612763333100F3C556 /* questiondialog */,
 				29232B4B277D8BC200B85C8E /* realtimeclock */,
 				29232B46277CBFB400B85C8E /* relaiscontrol */,
+				297E229C291ADA4000E549DF /* simplekeypad */,
 				29E8CD5D28B9F636009AAC11 /* servocontrol */,
 				29D60E8D27F339C000FCA53A /* soilmoisturesensor */,
 				29F56DE827410B3C00BBBB68 /* soundmachine */,
@@ -652,6 +658,14 @@
 				2928BCF328BD1F0100BEB37E /* speedyF0.png */,
 			);
 			path = images;
+			sourceTree = "<group>";
+		};
+		297E229C291ADA4000E549DF /* simplekeypad */ = {
+			isa = PBXGroup;
+			children = (
+				297E229D291ADA7500E549DF /* simplekeypad.ino */,
+			);
+			path = simplekeypad;
 			sourceTree = "<group>";
 		};
 		29958E58271749D8007048E3 /* sequences */ = {
