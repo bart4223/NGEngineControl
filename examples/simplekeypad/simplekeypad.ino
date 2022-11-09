@@ -10,22 +10,22 @@
 
 #define DELAY 500
 
-NGSimpleKeypad sk = NGSimpleKeypad();
+NGSimpleKeypad skp = NGSimpleKeypad();
 
 void setup() {
-  sk.registerCallback(&skCallback);
-  sk.registerKey(KEY1PIN, KEY1ID, DELAY);
-  sk.registerKey(KEY2PIN, KEY2ID, DELAY);
-  sk.registerKey(KEY3PIN, KEY3ID, DELAY);
-  sk.initialize();
+  skp.registerCallback(&SimpleKeypadCallback);
+  skp.registerKey(KEY1PIN, KEY1ID, DELAY);
+  skp.registerKey(KEY2PIN, KEY2ID, DELAY);
+  skp.registerKey(KEY3PIN, KEY3ID, DELAY);
+  skp.initialize();
   observeMemory(DELAY);
 }
 
 void loop() {
-  sk.processingLoop();
+  skp.processingLoop();
 }
 
-void skCallback(byte id) {
+void SimpleKeypadCallback(byte id) {
   Serial.print("Call -> ");
   Serial.println(id);
 }
