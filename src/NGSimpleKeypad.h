@@ -18,19 +18,19 @@
 
 typedef void (*simpleKeypadCallbackFunc)(byte id);
 
-struct simpleKeypadStruct
+struct simpleKeypadDataStruct
 {
     byte pin;
     byte id;
     int delay;
     long last;
 };
-typedef struct simpleKeypadStruct simpleKeypad;
+typedef struct simpleKeypadDataStruct simpleKeypadData;
 
 class NGSimpleKeypad {
     
 private:
-    simpleKeypad _keys[DEFMAXKEYS];
+    simpleKeypadData _keys[DEFMAXKEYS];
     int _keyCount = 0;
     simpleKeypadCallbackFunc _callback = nullptr;
     

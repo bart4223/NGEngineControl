@@ -20,7 +20,7 @@ void NGSimpleKeypad::registerCallback(simpleKeypadCallbackFunc callback) {
 }
 
 void NGSimpleKeypad::registerKey(byte pin, byte id, int delay) {
-    simpleKeypad key;
+    simpleKeypadData key;
     key.pin = pin;
     key.id = id;
     key.delay = delay;
