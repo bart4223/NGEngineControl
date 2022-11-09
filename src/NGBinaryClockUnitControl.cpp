@@ -60,6 +60,7 @@ void NGBinaryClockUnitControl::_processingIRRemoteData() {
 }
 
 void NGBinaryClockUnitControl::_processingClock() {
+    _cdm->beginUpdate();
     DateTime now = _rtc->getNow();
     for (int i = 0; i < DIGITCOUNT; i++) {
         switch(i) {
@@ -83,6 +84,7 @@ void NGBinaryClockUnitControl::_processingClock() {
                 break;
         }
     }
+    _cdm->endUpdate();
 }
 
 void NGBinaryClockUnitControl::initialize() {
