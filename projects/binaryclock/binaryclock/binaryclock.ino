@@ -21,13 +21,16 @@ NGBinaryClockUnitControl unitBinaryClock = NGBinaryClockUnitControl(BINARYCLOCK,
 NGSerialNotification serialNotification = NGSerialNotification();
 #endif
 
+colorRGB colorOff = COLOR_LIME;
+colorRGB colorOn = COLOR_BLUE;
+
 void setup() {
   setGlobalUnit(&unitBinaryClock);
   #if (PROD == false)
   unitBinaryClock.registerNotification(&serialNotification);
   #endif
-  unitBinaryClock.setColorOff(COLOR_LIME);
-  unitBinaryClock.setColorOn(COLOR_BLUE);
+  unitBinaryClock.setColorOff(colorOff);
+  unitBinaryClock.setColorOn(colorOn);
   unitBinaryClock.initialize();
   simpleKeypad.registerCallback(&SimpleKeypadCallback);
   simpleKeypad.registerKey(KEYCOLOROFFPIN, KEYCOLOROFFID, KEYDELAY);
