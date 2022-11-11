@@ -51,6 +51,18 @@ void loop() {
 }
 
 void SimpleKeypadCallback(byte id) {
-  Serial.print("Call -> ");
-  Serial.println(id);
+  switch(id) {
+    case KEYCOLOROFFID:
+      colorOff.red = random(0, 256);
+      colorOff.green = random(0, 256);
+      colorOff.blue = random(0, 256);
+      unitBinaryClock.setColorOff(colorOff);
+      break;
+    case KEYCOLORONID:
+      colorOn.red = random(0, 256);
+      colorOn.green = random(0, 256);
+      colorOn.blue = random(0, 256);
+      unitBinaryClock.setColorOn(colorOn);
+      break;
+  }
 }
