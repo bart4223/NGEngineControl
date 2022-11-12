@@ -114,7 +114,7 @@
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		2992F0F1291F8C7600A91B2A /* SDCard.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = SDCard.ino; sourceTree = "<group>"; };
-		2992F0F2291FB80F00A91B2A /* BinaryClockH1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BinaryClockH1.png; sourceTree = "<group>"; };
+		2992F0F2291FB80F00A91B2A /* BinaryClockH0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BinaryClockH0.png; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
 		29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceDefinitions.h; sourceTree = "<group>"; };
 		29958E5D2718BF5E007048E3 /* simpleStartStop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleStartStop.txt; sourceTree = "<group>"; };
@@ -501,7 +501,7 @@
 		294E9C99290D5A1B00A3E17A /* images */ = {
 			isa = PBXGroup;
 			children = (
-				2992F0F2291FB80F00A91B2A /* BinaryClockH1.png */,
+				2992F0F2291FB80F00A91B2A /* BinaryClockH0.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
