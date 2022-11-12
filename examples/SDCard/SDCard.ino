@@ -17,7 +17,7 @@ void setup() {
   } else {
     Serial.println("Initialization completed");
     #if (WRITE == true)
-    testFile = SD.open("test.txt", FILE_WRITE);
+    testFile = SD.open("test.txt", FILE_WRITE | O_TRUNC); // overwrite
     if (testFile) {
       Serial.println("Write test file...");
       testFile.println("NG 2022");
