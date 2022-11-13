@@ -10,7 +10,8 @@
 #define BINARYCLOCK   (char*)_BINARYCLOCK
 
 #define MODE_CLOCK 0x00
-#define MODE_HEART 0x01
+#define MODE_TREE  0x01
+#define MODE_HEART 0x02
 
 #define KEYDELAY 500
 
@@ -18,8 +19,8 @@
 #define KEYCOLOROFFID   1
 #define KEYCOLORONPIN   9
 #define KEYCOLORONID    2
-#define KEY3PIN   10
-#define KEY3ID    3
+#define KEYTREEPIN     10
+#define KEYTREEID       3
 #define KEYHEARTPIN    11
 #define KEYHEARTID      4
 #define KEYSOUNDPIN    12
@@ -28,6 +29,7 @@
 #define HEARTBEATBASE  0x02
 #define HEARTBEATRANGE 0x20
 
+#define TREEDELAY 200
 #define HEARTDELAY 20
 
 NGSoundMachine sm = NGSoundMachine();
@@ -47,6 +49,27 @@ byte heart[][2] = {
   {2, 6}, {3, 6}, {4, 6}, {5, 6},
   {3, 7}, {4, 7}
 };
+
+byte treeGreen[][2] = {{2, 1}, {3, 1}, {5, 1},
+  {1, 2}, {2, 2}, {4, 2}, {5, 2}, {6, 2},
+  {1, 3}, {2, 3}, {3, 3}, {4, 3}, {6, 3},
+  {2, 4}, {4, 4}, {5, 4},
+  {1, 5}, {3, 5}, {5, 5}, {6, 5},
+  {1, 6}, {2, 6}, {5, 6}, {6, 6}
+};
+
+byte treeFlash[][2] = {{4, 1}, {3, 2}, {5, 3}, {3, 4}, {2, 5}, {4, 5}};
+byte treeRed[][2] = {{0, 3}, {7, 3}, {0, 6}, {7, 6}};
+byte treeYellow[][2] = {{3, 0}, {4, 0}, {3, 6}, {4, 6}, {3, 7}, {4, 7}};
+byte treeFlashColor[7][3] = {{255, 0, 0},
+  {255, 102, 0},
+  {255, 255, 0},
+  {0, 255, 0},
+  {0, 128, 128},
+  {0, 0, 255},
+  {128, 0, 128}
+};
+long lastTree = 0;
 
 colorRGB heartColor;
 byte heartBeat = HEARTBEATBASE;
@@ -68,7 +91,7 @@ void setup() {
   simpleKeypad.registerCallback(&SimpleKeypadCallback);
   simpleKeypad.registerKey(KEYCOLOROFFPIN, KEYCOLOROFFID, KEYDELAY);
   simpleKeypad.registerKey(KEYCOLORONPIN, KEYCOLORONID, KEYDELAY);
-  simpleKeypad.registerKey(KEY3PIN, KEY3ID, KEYDELAY);
+  simpleKeypad.registerKey(KEYTREEPIN, KEYTREEID, KEYDELAY);
   simpleKeypad.registerKey(KEYHEARTPIN, KEYHEARTID, KEYDELAY);
   simpleKeypad.registerKey(KEYSOUNDPIN, KEYSOUNDID, KEYDELAY);
   simpleKeypad.initialize();
@@ -88,6 +111,12 @@ void loop() {
   switch(mode) {
     case MODE_CLOCK:
       unitBinaryClock.processingLoop();
+      break;
+    case MODE_TREE:
+      if ((millis() - lastTree) > TREEDELAY ) {
+        renderTree();
+        lastTree = millis();
+      }
       break;
     case MODE_HEART:
       renderHeart();
@@ -120,6 +149,14 @@ void SimpleKeypadCallback(byte id) {
         unitBinaryClock.setColorOn(colorOn);
       }
       break;
+    case KEYTREEID:
+      if (mode != MODE_TREE) {
+        mode = MODE_TREE;
+      } else {
+        cdm.clear();
+        mode = MODE_CLOCK;
+      }
+      break;
     case KEYHEARTID:
       if (mode != MODE_HEART) {
         mode = MODE_HEART;
@@ -135,6 +172,23 @@ void SimpleKeypadCallback(byte id) {
       Serial.println(id);
       break;
   }
+}
+
+void renderTree() {
+  cdm.beginUpdate();
+  cdm.clear();
+  cdm.drawImage(treeGreen, COLOR_GREEN, sizeof(treeGreen) / sizeof(treeGreen[0]));
+  cdm.drawImage(treeRed, COLOR_RED, sizeof(treeRed) / sizeof(treeRed[0]));
+  cdm.drawImage(treeYellow, COLOR_YELLOW, sizeof(treeYellow) / sizeof(treeYellow[0]));
+  colorRGB c;
+  for (int i = 0; i < sizeof(treeFlash) / sizeof(treeFlash[0]); i++) {
+    byte index = random(0,sizeof(treeFlashColor) / sizeof(treeFlashColor[0]));
+    c.red = treeFlashColor[index][0];
+    c.green = treeFlashColor[index][1];
+    c.blue = treeFlashColor[index][2];
+    cdm.drawPoint(treeFlash[i][0], treeFlash[i][1], c);
+  }
+  cdm.endUpdate();
 }
 
 void renderHeart() {
