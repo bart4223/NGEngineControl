@@ -115,6 +115,11 @@
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		2992F0F1291F8C7600A91B2A /* SDCard.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = SDCard.ino; sourceTree = "<group>"; };
 		2992F0F2291FB80F00A91B2A /* BinaryClockH0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BinaryClockH0.png; sourceTree = "<group>"; };
+		2992F0F52920EC8200A91B2A /* NGCustomDataStorage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomDataStorage.cpp; sourceTree = "<group>"; };
+		2992F0F62920EC8200A91B2A /* NGCustomDataStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomDataStorage.h; sourceTree = "<group>"; };
+		2992F0F82920EE3E00A91B2A /* SDDataStorage */ = {isa = PBXFileReference; lastKnownFileType = text; path = SDDataStorage; sourceTree = "<group>"; };
+		2992F0F92920EE8000A91B2A /* NGSDDataStorage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSDDataStorage.cpp; sourceTree = "<group>"; };
+		2992F0FA2920EE8000A91B2A /* NGSDDataStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSDDataStorage.h; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
 		29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceDefinitions.h; sourceTree = "<group>"; };
 		29958E5D2718BF5E007048E3 /* simpleStartStop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleStartStop.txt; sourceTree = "<group>"; };
@@ -532,12 +537,13 @@
 			isa = PBXGroup;
 			children = (
 				2913C93926FF554A00D0AFC6 /* common */,
-				29232B48277D874100B85C8E /* misc */,
 				2999D31A2791CDE700B88B53 /* communication */,
-				2913C93726FF54FA00D0AFC6 /* visuals */,
-				2913C93526FF543500D0AFC6 /* sound */,
+				29232B48277D874100B85C8E /* misc */,
 				2913C94727018C9800D0AFC6 /* sensors */,
+				2913C93526FF543500D0AFC6 /* sound */,
 				29958E5B2718A7A4007048E3 /* specs */,
+				2992F0F42920EBEA00A91B2A /* storage */,
+				2913C93726FF54FA00D0AFC6 /* visuals */,
 				2913C93A26FF67DB00D0AFC6 /* app */,
 				29DC5F8E28A4076700CCEEB1 /* NGCarSteeringControl.h */,
 				29DC5F8D28A4076700CCEEB1 /* NGCarSteeringControl.cpp */,
@@ -589,6 +595,7 @@
 				29232B4B277D8BC200B85C8E /* realtimeclock */,
 				29232B46277CBFB400B85C8E /* relaiscontrol */,
 				2992F0F0291F8C4F00A91B2A /* SDCard */,
+				2992F0F72920EE1300A91B2A /* SDDataStorage */,
 				29E8CD5D28B9F636009AAC11 /* servocontrol */,
 				297E229C291ADA4000E549DF /* simplekeypad */,
 				29D60E8D27F339C000FCA53A /* soilmoisturesensor */,
@@ -678,6 +685,25 @@
 				2992F0F1291F8C7600A91B2A /* SDCard.ino */,
 			);
 			path = SDCard;
+			sourceTree = "<group>";
+		};
+		2992F0F42920EBEA00A91B2A /* storage */ = {
+			isa = PBXGroup;
+			children = (
+				2992F0F62920EC8200A91B2A /* NGCustomDataStorage.h */,
+				2992F0F52920EC8200A91B2A /* NGCustomDataStorage.cpp */,
+				2992F0FA2920EE8000A91B2A /* NGSDDataStorage.h */,
+				2992F0F92920EE8000A91B2A /* NGSDDataStorage.cpp */,
+			);
+			name = storage;
+			sourceTree = "<group>";
+		};
+		2992F0F72920EE1300A91B2A /* SDDataStorage */ = {
+			isa = PBXGroup;
+			children = (
+				2992F0F82920EE3E00A91B2A /* SDDataStorage */,
+			);
+			path = SDDataStorage;
 			sourceTree = "<group>";
 		};
 		29958E58271749D8007048E3 /* sequences */ = {
