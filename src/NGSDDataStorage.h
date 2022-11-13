@@ -14,8 +14,6 @@
 #include <WProgram.h>
 #endif
 
-#include <SPI.h>
-#include <SD.h>
 #include <NGCustomDataStorage.h>
 
 #define DEFSDCSPIN 5

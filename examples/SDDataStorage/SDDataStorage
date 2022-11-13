@@ -1,3 +1,5 @@
+#define SUPPORTSDCARD
+
 #include <NGMemoryObserver.h>
 #include <NGSDDataStorage.h>
 
