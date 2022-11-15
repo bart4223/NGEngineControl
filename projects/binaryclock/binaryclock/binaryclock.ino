@@ -11,7 +11,8 @@
 
 #define MODE_CLOCK 0x00
 #define MODE_TREE  0x01
-#define MODE_HEART 0x02
+#define MODE_SNOW  0x02
+#define MODE_HEART 0x03
 
 #define KEYDELAY 500
 
@@ -30,6 +31,7 @@
 #define HEARTBEATRANGE 0x20
 
 #define TREEDELAY 200
+#define SNOWDELAY 250
 #define HEARTDELAY 20
 
 NGSoundMachine sm = NGSoundMachine();
@@ -70,6 +72,11 @@ byte treeFlashColor[7][3] = {{255, 0, 0},
   {128, 0, 128}
 };
 long lastTree = 0;
+byte treeFlashIndex = 0;
+
+byte snow[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+
+long lastSnow = 0;
 
 colorRGB heartColor;
 byte heartBeat = HEARTBEATBASE;
@@ -118,6 +125,12 @@ void loop() {
         lastTree = millis();
       }
       break;
+    case MODE_SNOW:
+      if ((millis() - lastSnow) > SNOWDELAY ) {
+        renderSnow();
+        lastSnow = millis();
+      }
+      break;
     case MODE_HEART:
       renderHeart();
       break;
@@ -150,11 +163,18 @@ void SimpleKeypadCallback(byte id) {
       }
       break;
     case KEYTREEID:
-      if (mode != MODE_TREE) {
-        mode = MODE_TREE;
-      } else {
-        cdm.clear();
-        mode = MODE_CLOCK;
+      switch(mode) {
+        case MODE_CLOCK:
+        case MODE_HEART:
+         mode = MODE_TREE;
+          break;
+        case MODE_TREE:
+          mode = MODE_SNOW;
+          break;
+        case MODE_SNOW:
+          cdm.clear();
+          mode = MODE_CLOCK;
+          break;
       }
       break;
     case KEYHEARTID:
@@ -174,6 +194,32 @@ void SimpleKeypadCallback(byte id) {
   }
 }
 
+void renderSnow() {
+  cdm.beginUpdate();
+  cdm.clear();
+  for (int i = 0; i < sizeof(snow) / sizeof(snow[0]); i++) {
+    if (random(0, 10) == 5) {
+      if ((snow[i] & 0x02) == 0x00) {
+        snow[i] = snow[i] | 0x01;
+      }
+    }
+    byte x = 0x01;
+    for (int j = 0; j < 7; j++) {
+      if ((snow[i] & x) != 0x00) {
+        colorRGB c;
+        c.red = 105 + random(0, 100);
+        c.green = 130 + random(0, 100);
+        c.blue = 150 + random(0, 100);
+        cdm.drawPoint(i, j, c);
+      }
+      x = x << 1;
+    }
+    snow[i] = snow[i] << 1;
+  }
+  cdm.drawLine(0, 7, 7, 7, COLOR_WHITE);
+  cdm.endUpdate();
+}
+
 void renderTree() {
   cdm.beginUpdate();
   cdm.clear();
@@ -182,11 +228,14 @@ void renderTree() {
   cdm.drawImage(treeYellow, COLOR_YELLOW, sizeof(treeYellow) / sizeof(treeYellow[0]));
   colorRGB c;
   for (int i = 0; i < sizeof(treeFlash) / sizeof(treeFlash[0]); i++) {
-    byte index = random(0,sizeof(treeFlashColor) / sizeof(treeFlashColor[0]));
-    c.red = treeFlashColor[index][0];
-    c.green = treeFlashColor[index][1];
-    c.blue = treeFlashColor[index][2];
+    c.red = treeFlashColor[treeFlashIndex][0];
+    c.green = treeFlashColor[treeFlashIndex][1];
+    c.blue = treeFlashColor[treeFlashIndex][2];
     cdm.drawPoint(treeFlash[i][0], treeFlash[i][1], c);
+    treeFlashIndex++;
+    if (treeFlashIndex >= 7) {
+      treeFlashIndex = 0;
+    }
   }
   cdm.endUpdate();
 }
