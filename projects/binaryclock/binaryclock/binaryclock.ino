@@ -203,13 +203,13 @@ void renderSnow() {
         snow[i] = snow[i] | 0x01;
       }
     }
+    colorRGB c;
     byte x = 0x01;
     for (int j = 0; j < 7; j++) {
       if ((snow[i] & x) != 0x00) {
-        colorRGB c;
-        c.red = 105 + random(0, 100);
-        c.green = 130 + random(0, 100);
-        c.blue = 150 + random(0, 100);
+        c.red = 50 + random(0, 100);
+        c.green = 100 + random(0, 100);
+        c.blue = 100 + random(0, 150);
         cdm.drawPoint(i, j, c);
       }
       x = x << 1;
