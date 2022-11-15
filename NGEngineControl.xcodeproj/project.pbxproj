@@ -113,9 +113,7 @@
 		297E229D291ADA7500E549DF /* simplekeypad.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simplekeypad.ino; sourceTree = "<group>"; };
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
-		2992F0F1291F8C7600A91B2A /* SDCard.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = SDCard.ino; sourceTree = "<group>"; };
 		2992F0F2291FB80F00A91B2A /* BinaryClockH0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BinaryClockH0.png; sourceTree = "<group>"; };
-		2992F0F82920EE3E00A91B2A /* SDDataStorage */ = {isa = PBXFileReference; lastKnownFileType = text; path = SDDataStorage; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
 		29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceDefinitions.h; sourceTree = "<group>"; };
 		29958E5D2718BF5E007048E3 /* simpleStartStop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleStartStop.txt; sourceTree = "<group>"; };
@@ -589,8 +587,6 @@
 				29EA90612763333100F3C556 /* questiondialog */,
 				29232B4B277D8BC200B85C8E /* realtimeclock */,
 				29232B46277CBFB400B85C8E /* relaiscontrol */,
-				2992F0F0291F8C4F00A91B2A /* SDCard */,
-				2992F0F72920EE1300A91B2A /* SDDataStorage */,
 				29E8CD5D28B9F636009AAC11 /* servocontrol */,
 				297E229C291ADA4000E549DF /* simplekeypad */,
 				29D60E8D27F339C000FCA53A /* soilmoisturesensor */,
@@ -672,22 +668,6 @@
 				297E229D291ADA7500E549DF /* simplekeypad.ino */,
 			);
 			path = simplekeypad;
-			sourceTree = "<group>";
-		};
-		2992F0F0291F8C4F00A91B2A /* SDCard */ = {
-			isa = PBXGroup;
-			children = (
-				2992F0F1291F8C7600A91B2A /* SDCard.ino */,
-			);
-			path = SDCard;
-			sourceTree = "<group>";
-		};
-		2992F0F72920EE1300A91B2A /* SDDataStorage */ = {
-			isa = PBXGroup;
-			children = (
-				2992F0F82920EE3E00A91B2A /* SDDataStorage */,
-			);
-			path = SDDataStorage;
 			sourceTree = "<group>";
 		};
 		29958E58271749D8007048E3 /* sequences */ = {
