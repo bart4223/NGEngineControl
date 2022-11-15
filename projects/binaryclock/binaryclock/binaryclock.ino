@@ -170,6 +170,9 @@ void SimpleKeypadCallback(byte id) {
           break;
         case MODE_TREE:
           mode = MODE_SNOW;
+          for (int i = 0; i < sizeof(snow) / sizeof(snow[0]); i++) {
+            snow[i] = 0;
+          }
           break;
         case MODE_SNOW:
           cdm.clear();
