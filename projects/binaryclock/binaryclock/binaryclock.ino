@@ -13,6 +13,7 @@
 #define MODE_TREE  0x01
 #define MODE_SNOW  0x02
 #define MODE_HEART 0x03
+#define MODE_DISCO 0x04
 
 #define KEYDELAY 500
 
@@ -33,6 +34,7 @@
 #define TREEDELAY 200
 #define SNOWDELAY 250
 #define HEARTDELAY 20
+#define DISCODELAY 20
 
 NGSoundMachine sm = NGSoundMachine();
 NGSimpleKeypad simpleKeypad = NGSimpleKeypad();
@@ -92,6 +94,8 @@ colorRGB heartColor;
 byte heartBeat = HEARTBEATBASE;
 bool heartDirectionUp = true;
 
+long lastDisco = 0;
+
 colorRGB colorOff = COLOR_LIME;
 colorRGB colorOn = COLOR_BLUE;
 
@@ -144,6 +148,12 @@ void loop() {
     case MODE_HEART:
       renderHeart();
       break;
+    case MODE_DISCO:
+      if ((millis() - lastDisco) > DISCODELAY ) {
+        renderDisco();
+        lastDisco = millis();
+      }
+      break;
   }
 }
 
@@ -176,7 +186,8 @@ void SimpleKeypadCallback(byte id) {
       switch(mode) {
         case MODE_CLOCK:
         case MODE_HEART:
-         mode = MODE_TREE;
+        case MODE_DISCO:
+          mode = MODE_TREE;
           break;
         case MODE_TREE:
           mode = MODE_SNOW;
@@ -191,11 +202,19 @@ void SimpleKeypadCallback(byte id) {
       }
       break;
     case KEYHEARTID:
-      if (mode != MODE_HEART) {
-        mode = MODE_HEART;
-      } else {
-        cdm.clear();
-        mode = MODE_CLOCK;
+      switch(mode) {
+        case MODE_CLOCK:
+        case MODE_TREE:
+        case MODE_SNOW:
+          mode = MODE_HEART;
+          break;
+        case MODE_HEART:
+          mode = MODE_DISCO;
+          break;
+        case MODE_DISCO:
+          cdm.clear();
+          mode = MODE_CLOCK;
+          break;
       }
       break;
     case KEYSOUNDID:
@@ -278,4 +297,18 @@ void renderHeart() {
       heartBeat--;
     }
   }
+}
+
+void renderDisco() {
+  cdm.beginUpdate();
+  colorRGB c;
+  for (int x = 0; x < 8; x++) {
+    for (int y = 0; y <8; y++) {
+      c.red = random(0, 256);
+      c.green = random(0, 256);
+      c.blue = random(0, 256);
+      cdm.drawPoint(x, y, c);
+    }
+  }
+  cdm.endUpdate();
 }
