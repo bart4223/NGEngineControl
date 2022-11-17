@@ -39,10 +39,14 @@ void NGColorDotMatrix::endUpdate() {
     }
 }
 
-void NGColorDotMatrix::drawPoint(byte x, byte y, colorRGB color) {
-    byte coord[] = {x, y};
-    draw_point(coord, color.red, color.green, color.blue);
-    render();
+bool NGColorDotMatrix::drawPoint(byte x, byte y, colorRGB color) {
+    bool res = x >= 0 && x < 8 && y >= 0 && y < 8;
+    if (res) {
+        byte coord[] = {x, y};
+        draw_point(coord, color.red, color.green, color.blue);
+        render();
+    }
+    return res;
 }
 
 void NGColorDotMatrix::drawLine(byte x1, byte y1, byte x2, byte y2, colorRGB color) {
@@ -72,6 +76,36 @@ void NGColorDotMatrix::fillRect(byte top, byte left, byte bottom, byte right, co
 
 void NGColorDotMatrix::clearRect(byte top, byte left, byte bottom, byte right) {
     fillRect(top, left, bottom, right, COLOR_BLACK);
+}
+
+void NGColorDotMatrix::drawCircle(byte x0, byte y0, byte radius, colorRGB color) {
+    int f = 1 - radius;
+    int ddF_x = 0;
+    int ddF_y = -2 * radius;
+    int x = 0;
+    int y = radius;
+    drawPoint(x0, y0 + radius, color);
+    drawPoint(x0, y0 - radius, color);
+    drawPoint(x0 + radius, y0, color);
+    drawPoint(x0 - radius, y0, color);
+    while (x < y) {
+        if (f >= 0) {
+            y--;
+            ddF_y += 2;
+            f += ddF_y;
+        }
+        x++;
+        ddF_x += 2;
+        f += ddF_x + 1;
+        drawPoint(x0 + x, y0 + y, color);
+        drawPoint(x0 - x, y0 + y, color);
+        drawPoint(x0 + x, y0 - y, color);
+        drawPoint(x0 - x, y0 - y, color);
+        drawPoint(x0 + y, y0 + x, color);
+        drawPoint(x0 - y, y0 + x, color);
+        drawPoint(x0 + y, y0 - x, color);
+        drawPoint(x0 - y, y0 - x, color);
+    }
 }
 
 void NGColorDotMatrix::clear() {

@@ -56,7 +56,7 @@ public:
     
     void endUpdate();
     
-    void drawPoint(byte x, byte y, colorRGB color);
+    bool drawPoint(byte x, byte y, colorRGB color);
     
     void drawLine(byte x1, byte y1, byte x2, byte y2, colorRGB color);
     
@@ -65,6 +65,8 @@ public:
     void fillRect(byte top, byte left, byte bottom, byte right, colorRGB color);
     
     void clearRect(byte top, byte left, byte bottom, byte right);
+    
+    void drawCircle(byte x0, byte y0, byte radius, colorRGB color);
     
     void clear();
     
