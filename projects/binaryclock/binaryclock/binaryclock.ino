@@ -12,8 +12,9 @@
 #define MODE_CLOCK 0x00
 #define MODE_TREE  0x01
 #define MODE_SNOW  0x02
-#define MODE_HEART 0x03
-#define MODE_DISCO 0x04
+#define MODE_FIRE  0x03
+#define MODE_HEART 0x04
+#define MODE_DISCO 0x05
 
 #define KEYDELAY 500
 
@@ -33,6 +34,7 @@
 
 #define TREEDELAY 200
 #define SNOWDELAY 250
+#define FIREDELAY 100
 #define HEARTDELAY 20
 #define DISCODELAY 20
 
@@ -79,6 +81,11 @@ byte treeFlashIndex = 0;
 byte snow[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 
 long lastSnow = 0;
+
+byte firePosition[8] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+byte fireRadius[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+byte fireColor[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+long lastFire = 0;
 
 byte bell[][2] = {{3, 0}, {4, 0},
   {2, 1}, {3, 1}, {4, 1}, {5, 1},
@@ -145,6 +152,12 @@ void loop() {
         lastSnow = millis();
       }
       break;
+    case MODE_FIRE:
+      if ((millis() - lastFire) > FIREDELAY ) {
+        renderFire();
+        lastFire = millis();
+      }
+      break;
     case MODE_HEART:
       renderHeart();
       break;
@@ -196,6 +209,14 @@ void SimpleKeypadCallback(byte id) {
           }
           break;
         case MODE_SNOW:
+          mode = MODE_FIRE;
+          for (int i = 0; i < sizeof(firePosition) / sizeof(firePosition[0]); i++) {
+            firePosition[i] = 0xFF;
+            fireRadius[i] = 0;
+            fireColor[i] = 0;
+          }
+          break;
+        case MODE_FIRE:
           cdm.clear();
           mode = MODE_CLOCK;
           break;
@@ -206,6 +227,7 @@ void SimpleKeypadCallback(byte id) {
         case MODE_CLOCK:
         case MODE_TREE:
         case MODE_SNOW:
+        case MODE_FIRE:
           mode = MODE_HEART;
           break;
         case MODE_HEART:
@@ -227,6 +249,34 @@ void SimpleKeypadCallback(byte id) {
       Serial.println(id);
       break;
   }
+}
+
+void renderFire() {
+  cdm.beginUpdate();
+  cdm.clear();
+  colorRGB c;
+  for (int i = 0; i < sizeof(firePosition) / sizeof(firePosition[0]); i++) {
+    if (firePosition[i] == 0xFF) {
+      if (random(0, 20) == 10) {
+        firePosition[i] = random(0, 7);
+        fireRadius[i] = 0;
+        fireColor[i] = random(0, 7);
+      }
+    }
+    if (firePosition[i] != 0xFF) {
+      c.red = treeFlashColor[fireColor[i]][0];
+      c.green = treeFlashColor[fireColor[i]][1];
+      c.blue = treeFlashColor[fireColor[i]][2];
+      cdm.drawCircle(i, firePosition[i], fireRadius[i], c);
+      fireRadius[i]++;
+      if (fireRadius[i] > 8) {
+        firePosition[i] = 0xFF;
+        fireRadius[i] = 0;
+        fireColor[i] = 0;
+      }
+    }
+  }
+  cdm.endUpdate();
 }
 
 void renderSnow() {
