@@ -1,4 +1,5 @@
 #define PROD true //false,true
+//#define BELL
 
 #include <NGSerialNotification.h>
 #include <NGSimpleKeypad.h>
@@ -87,6 +88,7 @@ byte fireRadius[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 byte fireColor[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 long lastFire = 0;
 
+#ifdef BELL
 byte bell[][2] = {{3, 0}, {4, 0},
   {2, 1}, {3, 1}, {4, 1}, {5, 1},
   {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2},
@@ -96,6 +98,7 @@ byte bell[][2] = {{3, 0}, {4, 0},
   {2, 6}, {3, 6}, {4, 6}, {5, 6},
   {3, 7}, {4, 7}
 };
+#endif
 
 colorRGB heartColor;
 byte heartBeat = HEARTBEATBASE;
@@ -229,6 +232,7 @@ void SimpleKeypadCallback(byte id) {
         case MODE_SNOW:
         case MODE_FIRE:
           mode = MODE_HEART;
+          heartBeat = HEARTBEATBASE;
           break;
         case MODE_HEART:
           mode = MODE_DISCO;
@@ -241,7 +245,12 @@ void SimpleKeypadCallback(byte id) {
       break;
     case KEYSOUNDID:
       cdm.clear();
+      #ifdef BELL
       cdm.drawImage(bell, COLOR_RED, sizeof(bell) / sizeof(bell[0]));
+      #else
+      heartBeat = HEARTBEATBASE + HEARTBEATRANGE;
+      renderHeart();
+      #endif
       sm.play(0);
       cdm.clear();
       break;
@@ -333,7 +342,7 @@ void renderHeart() {
   cdm.endUpdate();
   delay(HEARTDELAY);
   if (heartDirectionUp) {
-    if (heartBeat == HEARTBEATRANGE + HEARTBEATBASE) {
+    if (heartBeat == HEARTBEATBASE + HEARTBEATRANGE) {
       heartBeat--;
       heartDirectionUp = false;
     } else {

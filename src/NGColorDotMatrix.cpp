@@ -39,6 +39,18 @@ void NGColorDotMatrix::endUpdate() {
     }
 }
 
+void NGColorDotMatrix::setBackColor(colorRGB color) {
+    set_backcolor(color.red, color.green, color.blue);
+}
+
+void NGColorDotMatrix::setGamma(int gamma) {
+    gamma32(gamma);
+}
+
+void NGColorDotMatrix::setColorHSV(int hue, int sat, int val) {
+    ColorHSV(hue, sat, val);
+}
+
 bool NGColorDotMatrix::drawPoint(byte x, byte y, colorRGB color) {
     bool res = x >= 0 && x < 8 && y >= 0 && y < 8;
     if (res) {

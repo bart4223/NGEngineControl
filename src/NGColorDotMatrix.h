@@ -56,6 +56,12 @@ public:
     
     void endUpdate();
     
+    void setBackColor(colorRGB color);
+    
+    void setGamma(int gamma);
+    
+    void setColorHSV(int hue, int sat, int val);
+    
     bool drawPoint(byte x, byte y, colorRGB color);
     
     void drawLine(byte x1, byte y1, byte x2, byte y2, colorRGB color);
