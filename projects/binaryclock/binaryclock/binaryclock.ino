@@ -118,6 +118,7 @@ void setup() {
   #endif
   unitBinaryClock.setColorOff(colorOff);
   unitBinaryClock.setColorOn(colorOn);
+  //unitBinaryClock.setAdjustRTC(true);
   unitBinaryClock.initialize();
   simpleKeypad.registerCallback(&SimpleKeypadCallback);
   simpleKeypad.registerKey(KEYCOLOROFFPIN, KEYCOLOROFFID, KEYDELAY);
