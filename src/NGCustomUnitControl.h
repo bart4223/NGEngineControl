@@ -176,7 +176,8 @@ protected:
     bool _irremotedataReceived = false;
     irremotefunc _irremotefunc[IRFUNCCOUNT];
     int _irremotefuncCount = 0;
-
+    long _lastMemoryObserved = 0;
+    
     void _create(char* name, byte address, int serialRate);
     
     void _clearState();

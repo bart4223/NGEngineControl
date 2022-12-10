@@ -1,5 +1,5 @@
 #define PROD true //false,true
-//#define BELL
+#define BELL
 
 #include <NGSerialNotification.h>
 #include <NGSimpleKeypad.h>
@@ -363,7 +363,7 @@ void renderDisco() {
   cdm.beginUpdate();
   colorRGB c;
   for (int x = 0; x < 8; x++) {
-    for (int y = 0; y <8; y++) {
+    for (int y = 0; y < 8; y++) {
       c.red = random(0, 256);
       c.green = random(0, 256);
       c.blue = random(0, 256);
