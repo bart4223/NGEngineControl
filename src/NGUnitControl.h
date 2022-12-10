@@ -18,7 +18,7 @@
 #include <NGJointControl.h>
 #include <NGGripperControl.h>
 
-#define _VERSION "1.1"
+#define _VERSION "1.2"
 #define VERSION (char*)_VERSION
 
 #define COMMANDDELAY 200

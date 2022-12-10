@@ -18,7 +18,7 @@
 #include <NGPumpControl.h>
 #include <NGSoilMoistureSensor.h>
 
-#define _VERSION "1.0"
+#define _VERSION "1.1"
 #define VERSION (char*)_VERSION
 
 #define MAXIRRIGATIONCOUNT 3

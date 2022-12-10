@@ -17,7 +17,7 @@
 #include <NGExceptionDefinitions.h>
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "1.9"
+#define _VERSION "2.0"
 #define VERSION (char*)_VERSION
 
 #define OBSERVEMEMORYDELAY 5000
