@@ -271,10 +271,11 @@ void NGCentralUnitControl::processingLoop() {
         case wmNone:
             break;
         case wmObserveMemory:
-            observeMemory(OBSERVEMEMORYDELAY);
-            break;
         case wmSpec:
-            observeMemory(OBSERVEMEMORYDELAY);
+            if (millis() - _lastMemoryObserved > OBSERVEMEMORYDELAY) {
+                observeMemory(0);
+                _lastMemoryObserved = millis();
+            }
             break;
     }
     for (int i = 0; i < _componentCount; i++) {

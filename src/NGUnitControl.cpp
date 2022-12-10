@@ -365,7 +365,11 @@ void NGUnitControl::processingLoop() {
         case wmNone:
             break;
         case wmObserveMemory:
-            observeMemory(OBSERVEMEMORYDELAY);
+        case wmSpec:
+            if (millis() - _lastMemoryObserved > OBSERVEMEMORYDELAY) {
+                observeMemory(0);
+                _lastMemoryObserved = millis();
+            }
             break;
         case wmCommand:
             if (!_processingCommand()) {
@@ -373,9 +377,6 @@ void NGUnitControl::processingLoop() {
             } else {
                 observeMemory(NODELAY);
             }
-            break;
-        case wmSpec:
-            observeMemory(OBSERVEMEMORYDELAY);
             break;
     }
     if (_receivedDataCount > 0) {

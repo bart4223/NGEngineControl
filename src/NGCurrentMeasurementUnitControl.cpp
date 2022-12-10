@@ -124,10 +124,11 @@ void NGCurrentMeasurementUnitControl::processingLoop() {
         case wmNone:
             break;
         case wmObserveMemory:
-            observeMemory(OBSERVEMEMORYDELAY);
-            break;
         case wmSpec:
-            observeMemory(OBSERVEMEMORYDELAY);
+            if (millis() - _lastMemoryObserved > OBSERVEMEMORYDELAY) {
+                observeMemory(0);
+                _lastMemoryObserved = millis();
+            }
             break;
     }
     _displayCurrentSensors();

@@ -1,5 +1,4 @@
 #define PROD true //false,true
-#define BELL
 
 #include <NGSerialNotification.h>
 #include <NGSimpleKeypad.h>
@@ -9,6 +8,10 @@
 
 #define _BINARYCLOCK  "Clock"
 #define BINARYCLOCK   (char*)_BINARYCLOCK
+
+#ifdef NG_PLATFORM_MEGA
+#define BELL
+#endif
 
 #define MODE_CLOCK 0x00
 #define MODE_TREE  0x01
