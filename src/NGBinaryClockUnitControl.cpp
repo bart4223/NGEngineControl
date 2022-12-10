@@ -120,11 +120,6 @@ void NGBinaryClockUnitControl::processingLoop() {
         case wmNone:
             break;
         case wmObserveMemory:
-            if (millis() - _lastMemoryObserved > OBSERVEMEMORYDELAY) {
-                observeMemory(0);
-                _lastMemoryObserved = millis();
-            }
-            break;
         case wmSpec:
             if (millis() - _lastMemoryObserved > OBSERVEMEMORYDELAY) {
                 observeMemory(0);
