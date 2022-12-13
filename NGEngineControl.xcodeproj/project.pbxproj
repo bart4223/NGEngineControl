@@ -133,6 +133,7 @@
 		299DEBEA272A6DE7004B3B59 /* NGJingleThinking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleThinking.h; sourceTree = "<group>"; };
 		299DEBEB272C6D02004B3B59 /* NGLaserCannon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGLaserCannon.cpp; sourceTree = "<group>"; };
 		299DEBEC272C6D02004B3B59 /* NGLaserCannon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGLaserCannon.h; sourceTree = "<group>"; };
+		29A6A6DC2948C28F0018F4F3 /* BinaryClockH1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BinaryClockH1.png; sourceTree = "<group>"; };
 		29AA4E552881A73C0085BDAA /* currentmeasurement.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = currentmeasurement.ino; sourceTree = "<group>"; };
 		29AA4E562882254D0085BDAA /* NGCurrentSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCurrentSensor.cpp; sourceTree = "<group>"; };
 		29AA4E572882254D0085BDAA /* NGCurrentSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCurrentSensor.h; sourceTree = "<group>"; };
@@ -501,6 +502,7 @@
 			isa = PBXGroup;
 			children = (
 				2992F0F2291FB80F00A91B2A /* BinaryClockH0.png */,
+				29A6A6DC2948C28F0018F4F3 /* BinaryClockH1.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
