@@ -31,4 +31,5 @@ void loop() {
 void SimpleKeypadCallback(byte id) {
   Serial.print("Call -> ");
   Serial.println(id);
+  observeMemory(0);
 }
