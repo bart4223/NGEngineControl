@@ -4,9 +4,9 @@
 #define LOGGING true // false
 
 #define JOYSTICKID       0
-#define JOYSTICKPINX    A0
-#define JOYSTICKPINY    A1
-#define JOYSTICKPINFIRE  2
+#define JOYSTICKPINX    A8
+#define JOYSTICKPINY    A9
+#define JOYSTICKPINFIRE 14
 
 #define PINUP     3
 #define PINDOWN   4
@@ -40,14 +40,15 @@ void setup() {
   jsc.registerAction(PINDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY, jmDown);
   jsc.registerAction(PINFIRE, jamTriggerLOW, DELAY, jmFire);
   jsc.initialize();
+  observeMemory(0);
 }
 
 void loop() {
   jsc.processingLoop();
   if (jsc.hasLastMovement()) {
     Serial.println(jsc.getLastMovement());
+    observeMemory(0);
   }
-  //observeMemory(1000);
 }
 
 void joystickActionCallback(int id, joystickMovement joystickmovement) {
