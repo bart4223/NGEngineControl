@@ -26,9 +26,11 @@
 #define NOJOYSTICKID    -1
 #define NOLASTACTIONID  -1
 
+#define NOJOYSTICKACTIONPIN -1
+
 enum joystickAxis { jaNone, jaX, jaY };
 enum joystickThresholdKind { jtkNone, jtkLess, jtkGreater };
-enum joystickActionMode { jamTriggerLOW, jamTriggerHIGH };
+enum joystickActionMode { jamNone, jamTriggerLOW, jamTriggerHIGH };
 
 enum joystickMovement { jmNone, jmUp, jmDown, jmLeft, jmRight, jmFire };
 
@@ -83,7 +85,11 @@ public:
     
     void registerActionCallback(joystickActionCallbackFunc callback);
     
+    void registerAction(joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement);
+    
     void registerAction(int pin, joystickActionMode mode, joystickMovement movement);
+    
+    void registerAction(int delay, joystickMovement movement);
     
     void registerAction(int pin, joystickActionMode mode, int delay, joystickMovement movement);
     

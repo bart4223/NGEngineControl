@@ -33,7 +33,9 @@ void NGJoystickControl::_create(int id, byte joystickPinX, byte joystickPinY, by
 void NGJoystickControl::initialize() {
     pinMode(_joystickPinFire, INPUT_PULLUP);
     for (int i = 0; i < _joystickActionCount; i++) {
-        pinMode(_joystickActions[i].pin, OUTPUT);
+        if (_joystickActions[i].pin != NOJOYSTICKACTIONPIN) {
+            pinMode(_joystickActions[i].pin, OUTPUT);
+        }
         switch(_joystickActions[i].mode) {
             case jamTriggerLOW:
                 digitalWrite(_joystickActions[i].pin, HIGH);
@@ -57,8 +59,16 @@ void NGJoystickControl::registerActionCallback(joystickActionCallbackFunc callba
     _actionCallback = callback;
 }
 
+void NGJoystickControl::registerAction(joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement) {
+    registerAction(NOJOYSTICKACTIONPIN, jamNone, axis, kind, threshold, delay, movement);
+}
+
 void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystickMovement movement) {
     registerAction(pin, mode, NOJOYSTICKDELAY, movement);
+}
+
+void NGJoystickControl::registerAction(int delay, joystickMovement movement) {
+    registerAction(NOJOYSTICKACTIONPIN, jamNone, delay, movement);
 }
 
 void NGJoystickControl::registerAction(int pin, joystickActionMode mode, int delay, joystickMovement movement) {
