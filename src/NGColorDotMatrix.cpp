@@ -51,6 +51,10 @@ void NGColorDotMatrix::setColorHSV(int hue, int sat, int val) {
     ColorHSV(hue, sat, val);
 }
 
+bool NGColorDotMatrix::clearPoint(byte x, byte y) {
+    return drawPoint(x, y, COLOR_BLACK);
+}
+
 bool NGColorDotMatrix::drawPoint(byte x, byte y, colorRGB color) {
     bool res = x >= 0 && x < 8 && y >= 0 && y < 8;
     if (res) {
@@ -59,6 +63,10 @@ bool NGColorDotMatrix::drawPoint(byte x, byte y, colorRGB color) {
         render();
     }
     return res;
+}
+
+void NGColorDotMatrix::clearLine(byte x1, byte y1, byte x2, byte y2) {
+    drawLine(x1, y1, x2, y2, COLOR_BLACK);
 }
 
 void NGColorDotMatrix::drawLine(byte x1, byte y1, byte x2, byte y2, colorRGB color) {

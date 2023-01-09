@@ -62,7 +62,11 @@ public:
     
     void setColorHSV(int hue, int sat, int val);
     
+    bool clearPoint(byte x, byte y);
+    
     bool drawPoint(byte x, byte y, colorRGB color);
+    
+    void clearLine(byte x1, byte y1, byte x2, byte y2);
     
     void drawLine(byte x1, byte y1, byte x2, byte y2, colorRGB color);
     
