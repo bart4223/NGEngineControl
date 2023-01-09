@@ -72,9 +72,11 @@ public:
     
     void drawRect(byte top, byte left, byte bottom, byte right, colorRGB color);
     
+    void clearRect(byte top, byte left, byte bottom, byte right);
+    
     void fillRect(byte top, byte left, byte bottom, byte right, colorRGB color);
     
-    void clearRect(byte top, byte left, byte bottom, byte right);
+    void clearCircle(byte x0, byte y0, byte radius);
     
     void drawCircle(byte x0, byte y0, byte radius, colorRGB color);
     

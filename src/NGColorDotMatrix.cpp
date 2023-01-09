@@ -98,6 +98,10 @@ void NGColorDotMatrix::clearRect(byte top, byte left, byte bottom, byte right) {
     fillRect(top, left, bottom, right, COLOR_BLACK);
 }
 
+void NGColorDotMatrix::clearCircle(byte x0, byte y0, byte radius) {
+    drawCircle(x0, y0, radius, COLOR_BLACK);
+}
+
 void NGColorDotMatrix::drawCircle(byte x0, byte y0, byte radius, colorRGB color) {
     int f = 1 - radius;
     int ddF_x = 0;
