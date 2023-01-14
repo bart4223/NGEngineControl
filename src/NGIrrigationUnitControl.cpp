@@ -46,6 +46,10 @@ void NGIrrigationUnitControl::_processingStartupLoop() {
 
 }
 
+void NGIrrigationUnitControl::_processingIRRemoteData() {
+    
+}
+
 void NGIrrigationUnitControl::_procesingSecondTick() {
     if ((millis() - _secondTick) >= 1000) {
         _secondTick = millis();

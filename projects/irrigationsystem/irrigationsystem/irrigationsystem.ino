@@ -21,7 +21,9 @@
 #define PINPUMP   9
 
 NGIrrigationUnitControl unitIrrigation = NGIrrigationUnitControl(IRRIGATION);
+#if (PROD == false)
 NGSerialNotification serialNotification = NGSerialNotification();
+#endif
 NGOLEDNotification *oledNotification;
 NGRealTimeClock rtc = NGRealTimeClock();
 NGJingleBoot jingleBoot = NGJingleBoot();
@@ -29,10 +31,12 @@ NGJingleSuperMarioShort jingleStartup = NGJingleSuperMarioShort();
 
 void setup() {
   setGlobalUnit(&unitIrrigation);
+  #if (PROD == false)
   unitIrrigation.registerNotification(&serialNotification);
+  #endif
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitIrrigation.registerNotification(oledNotification);
-  rtc.initialize();
+  rtc.initialize(false);
   unitIrrigation.registerBoot(&jingleBoot);
   #if (PROD == true)
   unitIrrigation.registerStartup(&jingleStartup, 1);

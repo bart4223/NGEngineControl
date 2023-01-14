@@ -18,7 +18,7 @@
 #include <NGPumpControl.h>
 #include <NGSoilMoistureSensor.h>
 
-#define _VERSION "1.1"
+#define _VERSION "1.2"
 #define VERSION (char*)_VERSION
 
 #define MAXIRRIGATIONCOUNT 3
@@ -56,6 +56,8 @@ protected:
     void _processingReceivedData();
     
     void _processingStartupLoop();
+    
+    void _processingIRRemoteData();
     
     void _procesingSecondTick();
 
