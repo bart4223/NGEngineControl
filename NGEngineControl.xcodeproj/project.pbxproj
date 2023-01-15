@@ -212,6 +212,9 @@
 		29E57BC028771D3F000B6C49 /* complex.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = complex.ino; sourceTree = "<group>"; };
 		29E6BA5A263C6070007BCE9F /* motomanB3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB3.png; sourceTree = "<group>"; };
 		29E71C9127F76DE80046A707 /* pumpcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = pumpcontrol.ino; sourceTree = "<group>"; };
+		29E8730229745EF400F7BF90 /* NGColorDotMatrixFuse.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixFuse.cpp; sourceTree = "<group>"; };
+		29E8730329745EF400F7BF90 /* NGColorDotMatrixFuse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixFuse.h; sourceTree = "<group>"; };
+		29E87305297461ED00F7BF90 /* colordotmatrixfuse.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colordotmatrixfuse.ino; sourceTree = "<group>"; };
 		29E8CD5B28B93E5C009AAC11 /* NGServoControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGServoControl.cpp; sourceTree = "<group>"; };
 		29E8CD5C28B93E5C009AAC11 /* NGServoControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGServoControl.h; sourceTree = "<group>"; };
 		29E8CD5E28B9F664009AAC11 /* servocontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = servocontrol.ino; sourceTree = "<group>"; };
@@ -289,6 +292,8 @@
 				294E9C8F29058EA400A3E17A /* NGColorDotMatrix.cpp */,
 				294E9C95290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.h */,
 				294E9C94290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.cpp */,
+				29E8730329745EF400F7BF90 /* NGColorDotMatrixFuse.h */,
+				29E8730229745EF400F7BF90 /* NGColorDotMatrixFuse.cpp */,
 				29232B3A2779D44C00B85C8E /* NGDuoLED.h */,
 				29232B392779D44C00B85C8E /* NGDuoLED.cpp */,
 				2913C94D2702DE1500D0AFC6 /* NGFlashingLight.h */,
@@ -569,6 +574,7 @@
 			children = (
 				294E9C9129072E9900A3E17A /* colordotmatrix */,
 				294E9C96290D0E2A00A3E17A /* colordotmatrixbinarydigit */,
+				29E87304297461C000F7BF90 /* colordotmatrixfuse */,
 				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29F56DF027410D1D00BBBB68 /* contact */,
 				29232B3B2779D53F00B85C8E /* duoLED */,
@@ -990,6 +996,14 @@
 				29E71C9127F76DE80046A707 /* pumpcontrol.ino */,
 			);
 			path = pumpcontrol;
+			sourceTree = "<group>";
+		};
+		29E87304297461C000F7BF90 /* colordotmatrixfuse */ = {
+			isa = PBXGroup;
+			children = (
+				29E87305297461ED00F7BF90 /* colordotmatrixfuse.ino */,
+			);
+			path = colordotmatrixfuse;
 			sourceTree = "<group>";
 		};
 		29E8CD5D28B9F636009AAC11 /* servocontrol */ = {
