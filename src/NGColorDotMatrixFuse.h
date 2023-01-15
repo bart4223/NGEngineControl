@@ -44,6 +44,8 @@ protected:
 public:
     NGColorDotMatrixFuse(NGColorDotMatrix *cdm);
 
+    NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity);
+    
     NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity, byte posX, byte posY);
     
     NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity, FuseDirection direction, byte posX, byte posY);

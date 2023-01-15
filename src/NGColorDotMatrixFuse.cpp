@@ -11,6 +11,10 @@ NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGColorDotMatrix *cdm) {
     _create(cdm, DEFARITY, DEFFUSEDIRECTION, 0, 0);
 }
 
+NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity) {
+    _create(cdm, arity, DEFFUSEDIRECTION, 0, 0);
+}
+
 NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity, byte posX, byte posY) {
     _create(cdm, arity, DEFFUSEDIRECTION, posX, posY);
 }
