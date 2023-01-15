@@ -21,6 +21,7 @@ NGColorDotMatrixBinaryDigit cdmbdLives = NGColorDotMatrixBinaryDigit(&cdm, 2, DE
 byte valueSecTens = 0x00;
 byte valueSecOne = 0x00;
 byte valueScore = 0x00;
+byte valueLives = 0x03;
 
 void setup() {
   cdm.initialize();
@@ -29,7 +30,7 @@ void setup() {
   cdmbdScore.setValue(valueScore);
   cdmbdLives.setColorOff(COLOR_BLACK);
   cdmbdLives.setColorOn(COLOR_RED);
-  cdmbdLives.setValue(3);
+  cdmbdLives.setValue(valueLives);
   //cdmbdSecTens.setColorOff(COLOR_RED);
   //cdmbdSecTens.setColorOn(COLOR_YELLOW);
   //cdmbdSecTens.setValue(valueSecTens);
@@ -41,7 +42,9 @@ void setup() {
 void loop() {
   observeMemory(DELAY);
   valueScore++;
+  valueLives--;
   cdmbdScore.setValue(valueScore);
+  cdmbdLives.setValue(valueLives);
   /*
   valueSecOne++;
   if (valueSecOne > 0x09) {
