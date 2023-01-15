@@ -24,13 +24,23 @@ struct colorRGBStruct
 };
 typedef struct colorRGBStruct colorRGB;
 
-#define COLOR_BLACK  { .red = 0, .green = 0, .blue = 0 }
-#define COLOR_WHITE  { .red = 255, .green = 255, .blue = 255 }
-#define COLOR_RED    { .red = 255, .green = 0, .blue = 0 }
-#define COLOR_GREEN  { .red = 0, .green = 255, .blue = 0 }
-#define COLOR_LIME   { .red = 191, .green = 255, .blue = 0 }
-#define COLOR_BLUE   { .red = 0, .green = 0, .blue = 255 }
-#define COLOR_YELLOW { .red = 255, .green = 255, .blue = 0 }
+#define COLOR_BLACK         { .red = 0, .green = 0, .blue = 0 }
+#define COLOR_WHITE         { .red = 255, .green = 255, .blue = 255 }
+#define COLOR_WHITE_LOW     { .red = 55, .green = 55, .blue = 55 }
+#define COLOR_RED           { .red = 255, .green = 0, .blue = 0 }
+#define COLOR_RED_LOW       { .red = 55, .green = 0, .blue = 0 }
+#define COLOR_GREEN         { .red = 0, .green = 255, .blue = 0 }
+#define COLOR_GREEN_LOW     { .red = 0, .green = 55, .blue = 0 }
+#define COLOR_LIME          { .red = 191, .green = 255, .blue = 0 }
+#define COLOR_BLUE          { .red = 0, .green = 0, .blue = 255 }
+#define COLOR_BLUE_LOW      { .red = 0, .green = 0, .blue = 55 }
+#define COLOR_YELLOW        { .red = 255, .green = 255, .blue = 0 }
+#define COLOR_YELLOW_LOW    { .red = 55, .green = 55, .blue = 0 }
+#define COLOR_TEAL          { .red = 0, .green = 255, .blue = 255 }
+#define COLOR_TEAL_LOW      { .red = 0, .green = 55, .blue = 55 }
+#define COLOR_PURPLE        { .red = 255, .green = 0, .blue = 255 }
+#define COLOR_PURPLE_LOW    { .red = 55, .green = 0, .blue = 55 }
+#define COLOR_ORANGE        { .red = 255, .green = 33, .blue = 0 }
 
 #define COORDMINTOP     0
 #define COORDMINLEFT    0
