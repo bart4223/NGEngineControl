@@ -4,10 +4,11 @@
 #define DEFPOSX 6
 #define DEFPOSY 5
 
-#define DELAY 100
+#define DELAY 1000
 
 NGColorDotMatrix cdm = NGColorDotMatrix();
-NGColorDotMatrixBinaryDigit cdmbdScore = NGColorDotMatrixBinaryDigit(&cdm, 8, DEFPOSX + 1, DEFPOSY + 2);
+NGColorDotMatrixBinaryDigit cdmbdScore = NGColorDotMatrixBinaryDigit(&cdm, 5, DEFPOSX - 6, DEFPOSY);
+NGColorDotMatrixBinaryDigit cdmbdLives = NGColorDotMatrixBinaryDigit(&cdm, 2, DEFPOSX - 6, DEFPOSY + 2);
 //NGColorDotMatrixBinaryDigit cdmbdSecTens = NGColorDotMatrixBinaryDigit(&cdm, 3, DEFPOSX - 1, DEFPOSY);
 //NGColorDotMatrixBinaryDigit cdmbdSecOne = NGColorDotMatrixBinaryDigit(&cdm, DEFPOSX, DEFPOSY);
 //NGColorDotMatrixBinaryDigit cdmbdSecTens = NGColorDotMatrixBinaryDigit(&cdm, 3, bddDown, DEFPOSX - 1, DEFPOSY);
@@ -26,6 +27,9 @@ void setup() {
   cdmbdScore.setColorOff(COLOR_BLACK);
   cdmbdScore.setColorOn(COLOR_GREEN);
   cdmbdScore.setValue(valueScore);
+  cdmbdLives.setColorOff(COLOR_BLACK);
+  cdmbdLives.setColorOn(COLOR_RED);
+  cdmbdLives.setValue(3);
   //cdmbdSecTens.setColorOff(COLOR_RED);
   //cdmbdSecTens.setColorOn(COLOR_YELLOW);
   //cdmbdSecTens.setValue(valueSecTens);
