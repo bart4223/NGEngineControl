@@ -5,7 +5,6 @@
 #include <NGSerialNotification.h>
 #include <NGOLEDNotification.h>
 #include <NGJingleBoot.h>
-#include <NGJingleSuperMarioShort.h>
 
 #define _IRRIGATION           "Bonsai"
 #define IRRIGATION            (char*)_IRRIGATION
@@ -27,7 +26,6 @@ NGSerialNotification serialNotification = NGSerialNotification();
 NGOLEDNotification *oledNotification;
 NGRealTimeClock rtc = NGRealTimeClock();
 NGJingleBoot jingleBoot = NGJingleBoot();
-NGJingleSuperMarioShort jingleStartup = NGJingleSuperMarioShort();
 
 void setup() {
   setGlobalUnit(&unitIrrigation);
@@ -38,9 +36,6 @@ void setup() {
   unitIrrigation.registerNotification(oledNotification);
   rtc.initialize(false);
   unitIrrigation.registerBoot(&jingleBoot);
-  #if (PROD == true)
-  unitIrrigation.registerStartup(&jingleStartup, 1);
-  #endif
   unitIrrigation.registerRealTimeClock(&rtc);
   unitIrrigation.registerIrrigation(PINPUMP, 720, 2);
   unitIrrigation.initialize();
