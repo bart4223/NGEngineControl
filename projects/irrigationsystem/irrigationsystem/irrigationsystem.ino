@@ -37,7 +37,7 @@ void setup() {
   rtc.initialize(false);
   unitIrrigation.registerBoot(&jingleBoot);
   unitIrrigation.registerRealTimeClock(&rtc);
-  unitIrrigation.registerIrrigation(PINPUMP, 720, 2);
+  unitIrrigation.registerIrrigation(PINPUMP, 720, 1);
   unitIrrigation.initialize();
   #if (PROD == true)
   unitIrrigation.setWorkMode(wmNone);
