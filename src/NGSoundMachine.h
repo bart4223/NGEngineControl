@@ -25,7 +25,7 @@
 class NGSoundMachine {
     
 private:
-    int _pinPiezo;
+    int _pinPiezo = DEFPINPIEZO; // needs PWM
     NGCustomJingle *_jingles[MAXJINGLES];
     int _jingleCount = 0;
     bool _concurrently = false;
