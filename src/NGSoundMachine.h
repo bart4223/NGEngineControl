@@ -19,12 +19,22 @@
 #define DEFPINPIEZO 13
 #define MAXJINGLES  10
 
+#define NOCURRENTJINGLE -1
+#define NOCURRENTTUNE -1
+
 class NGSoundMachine {
     
 private:
     int _pinPiezo;
     NGCustomJingle *_jingles[MAXJINGLES];
     int _jingleCount = 0;
+    bool _concurrently = false;
+    int _currentJingle = NOCURRENTJINGLE;
+    int _currentTempo;
+    int _currentTune = NOCURRENTTUNE;
+    int _currentBeat;
+    int _currentDelay;
+    long _lastTune = 0;
     
 protected:
     void _create(int pinPiezo);
@@ -51,6 +61,14 @@ public:
     int getMaxJingleCount();
     
     int getDefaultTempo(byte jingle);
+    
+    void setConcurrently(bool concurrently);
+    
+    bool getConcurrently();
+    
+    bool hasCurrentJingle();
+    
+    void processingLoop();
 };
 
 #endif /* NGSoundMachine_h */
