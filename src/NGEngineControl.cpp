@@ -251,3 +251,7 @@ void NGEngineControl::_slowDown(int startSpeed, int targetSpeed, int interval) {
         Serial.println(log);
     }
 }
+
+bool NGEngineControl::isRunning() {
+    return _running;
+}

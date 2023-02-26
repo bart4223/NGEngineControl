@@ -83,6 +83,8 @@ public:
     
     int getSpeed();
     
+    bool isRunning();
+    
 };
 
 #endif /* NGEngineControl_h */

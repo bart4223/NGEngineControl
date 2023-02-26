@@ -94,6 +94,9 @@
 		294E9C9B290D5A4400A3E17A /* binaryclock.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = binaryclock.ino; sourceTree = "<group>"; };
 		294E9C9C290D5A8800A3E17A /* NGBinaryClockUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBinaryClockUnitControl.cpp; sourceTree = "<group>"; };
 		294E9C9D290D5A8800A3E17A /* NGBinaryClockUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBinaryClockUnitControl.h; sourceTree = "<group>"; };
+		29620D6A29ABDE410020B874 /* NGCaterpillarSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCaterpillarSteeringControl.cpp; sourceTree = "<group>"; };
+		29620D6B29ABDE410020B874 /* NGCaterpillarSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCaterpillarSteeringControl.h; sourceTree = "<group>"; };
+		29620D6C29ABE1140020B874 /* caterpillarsteeringcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = caterpillarsteeringcontrol.ino; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -192,7 +195,7 @@
 		29DC5F8528A2384200CCEEB1 /* NGSimpleWirelessReceiver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSimpleWirelessReceiver.cpp; sourceTree = "<group>"; };
 		29DC5F8628A2384200CCEEB1 /* NGSimpleWirelessReceiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSimpleWirelessReceiver.h; sourceTree = "<group>"; };
 		29DC5F8828A27FC500CCEEB1 /* wirelessreceiver.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = wirelessreceiver.ino; sourceTree = "<group>"; };
-		29DC5F8A28A2EFC200CCEEB1 /* steeringcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = steeringcontrol.ino; sourceTree = "<group>"; };
+		29DC5F8A28A2EFC200CCEEB1 /* carsteeringcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = carsteeringcontrol.ino; sourceTree = "<group>"; };
 		29DC5F8B28A37B6F00CCEEB1 /* NGCustomSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomSteeringControl.cpp; sourceTree = "<group>"; };
 		29DC5F8C28A37B6F00CCEEB1 /* NGCustomSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomSteeringControl.h; sourceTree = "<group>"; };
 		29DC5F8D28A4076700CCEEB1 /* NGCarSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCarSteeringControl.cpp; sourceTree = "<group>"; };
@@ -547,6 +550,8 @@
 				2913C93A26FF67DB00D0AFC6 /* app */,
 				29DC5F8E28A4076700CCEEB1 /* NGCarSteeringControl.h */,
 				29DC5F8D28A4076700CCEEB1 /* NGCarSteeringControl.cpp */,
+				29620D6B29ABDE410020B874 /* NGCaterpillarSteeringControl.h */,
+				29620D6A29ABDE410020B874 /* NGCaterpillarSteeringControl.cpp */,
 				29DC5F8C28A37B6F00CCEEB1 /* NGCustomSteeringControl.h */,
 				29DC5F8B28A37B6F00CCEEB1 /* NGCustomSteeringControl.cpp */,
 				29647BC7253C515C003CBA13 /* NGEngineControl.h */,
@@ -889,7 +894,8 @@
 		29DC5F8928A2EF9000CCEEB1 /* steeringcontrol */ = {
 			isa = PBXGroup;
 			children = (
-				29DC5F8A28A2EFC200CCEEB1 /* steeringcontrol.ino */,
+				29DC5F8A28A2EFC200CCEEB1 /* carsteeringcontrol.ino */,
+				29620D6C29ABE1140020B874 /* caterpillarsteeringcontrol.ino */,
 			);
 			path = steeringcontrol;
 			sourceTree = "<group>";
