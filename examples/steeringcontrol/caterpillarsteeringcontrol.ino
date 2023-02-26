@@ -40,8 +40,18 @@ void SimpleKeypadCallback(byte id) {
       }
       break;
     case RIGHTID:
+      if (sc->isRunning()) {
+        sc->stop();
+      } else {
+        sc->turnForward(tdRight);
+      }
       break;
     case LEFTID:
+      if (sc->isRunning()) {
+        sc->stop();
+      } else {
+        sc->turnForward(tdLeft);
+      }
       break;
   }
   observeMemory(0);

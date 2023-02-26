@@ -54,7 +54,7 @@ void NGCaterpillarSteeringControl::run(engineDirection direction, byte speed) {
     if (speed > NULLSPEED) {
         _speed = speed;
     }
-    _engineMain->setSpeed(_speed);
+    _engineMain->setSpeed(_speed * 0.5);
     _engineMain->run(direction);
     _engineRight->setSpeed(_speed);
     _engineRight->run(direction);
@@ -71,11 +71,49 @@ void NGCaterpillarSteeringControl::run(engineDirection direction, byte speed) {
 }
 
 void NGCaterpillarSteeringControl::turnForward(turnDirection turn, byte speed) {
-    
+    switch(turn) {
+        case tdLeft:
+        case tdLeftSoft:
+            _engineRight->setSpeed(_speed);
+            _engineRight->run(edForward);
+            _engineLeft->setSpeed(_speed);
+            _engineLeft->run(edBackward);
+            break;
+        case tdRight:
+        case tdRightSoft:
+            _engineRight->setSpeed(_speed);
+            _engineRight->run(edBackward);
+            _engineLeft->setSpeed(_speed);
+            _engineLeft->run(edForward);
+            break;
+    }
+    if (speed == 0) {
+        _engineMain->setSpeed(_speed);
+        _engineMain->run(edForward);
+    }
 }
 
 void NGCaterpillarSteeringControl::turnBackward(turnDirection turn, byte speed) {
-    
+    switch(turn) {
+        case tdLeft:
+        case tdLeftSoft:
+            _engineRight->setSpeed(_speed);
+            _engineRight->run(edBackward);
+            _engineLeft->setSpeed(_speed);
+            _engineLeft->run(edForward);
+            break;
+        case tdRight:
+        case tdRightSoft:
+            _engineRight->setSpeed(_speed);
+            _engineRight->run(edForward);
+            _engineLeft->setSpeed(_speed);
+            _engineLeft->run(edBackward);
+            break;
+    }
+    if (speed == 0) {
+        _engineMain->setSpeed(_speed);
+        _engineMain->run(edBackward);
+    }
 }
 
 void NGCaterpillarSteeringControl::runFullSpeedForward() {
@@ -91,11 +129,11 @@ void NGCaterpillarSteeringControl::run(engineDirection direction) {
 }
 
 void NGCaterpillarSteeringControl::turnForward(turnDirection turn) {
-    
+    turnForward(turn, NULLSPEED);
 }
 
 void NGCaterpillarSteeringControl::turnBackward(turnDirection turn) {
-    
+    turnBackward(turn, NULLSPEED);
 }
 
 bool NGCaterpillarSteeringControl::isRunning() {
