@@ -97,6 +97,10 @@
 		29620D6A29ABDE410020B874 /* NGCaterpillarSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCaterpillarSteeringControl.cpp; sourceTree = "<group>"; };
 		29620D6B29ABDE410020B874 /* NGCaterpillarSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCaterpillarSteeringControl.h; sourceTree = "<group>"; };
 		29620D6C29ABE1140020B874 /* caterpillarsteeringcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = caterpillarsteeringcontrol.ino; sourceTree = "<group>"; };
+		29620D6D29B07D430020B874 /* NGColorDotMatrixDecimalDigit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixDecimalDigit.cpp; sourceTree = "<group>"; };
+		29620D6E29B07D430020B874 /* NGColorDotMatrixDecimalDigit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixDecimalDigit.h; sourceTree = "<group>"; };
+		29620D7029B07DB70020B874 /* colotdotmatrixdecimaldigit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colotdotmatrixdecimaldigit.ino; sourceTree = "<group>"; };
+		29620D7129B1FE370020B874 /* NGIPaintableComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIPaintableComponent.h; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -295,6 +299,8 @@
 				294E9C8F29058EA400A3E17A /* NGColorDotMatrix.cpp */,
 				294E9C95290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.h */,
 				294E9C94290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.cpp */,
+				29620D6E29B07D430020B874 /* NGColorDotMatrixDecimalDigit.h */,
+				29620D6D29B07D430020B874 /* NGColorDotMatrixDecimalDigit.cpp */,
 				29E8730329745EF400F7BF90 /* NGColorDotMatrixFuse.h */,
 				29E8730229745EF400F7BF90 /* NGColorDotMatrixFuse.cpp */,
 				29232B3A2779D44C00B85C8E /* NGDuoLED.h */,
@@ -307,6 +313,7 @@
 				29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */,
 				29EA905E275F387A00F3C556 /* NGOLEDNotification.h */,
 				29EA905D275F387A00F3C556 /* NGOLEDNotification.cpp */,
+				29620D7129B1FE370020B874 /* NGIPaintableComponent.h */,
 				29EA90602761ECF700F3C556 /* NGQuestionDialog.h */,
 				29EA905F2761ECF700F3C556 /* NGQuestionDialog.cpp */,
 				29D7EC3A2673BFB800009403 /* NGSerialNotification.h */,
@@ -523,6 +530,14 @@
 			path = binaryclock;
 			sourceTree = "<group>";
 		};
+		29620D6F29B07D890020B874 /* colotdotmatrixdecimaldigit */ = {
+			isa = PBXGroup;
+			children = (
+				29620D7029B07DB70020B874 /* colotdotmatrixdecimaldigit.ino */,
+			);
+			path = colotdotmatrixdecimaldigit;
+			sourceTree = "<group>";
+		};
 		29647BBA253C42A5003CBA13 = {
 			isa = PBXGroup;
 			children = (
@@ -579,6 +594,7 @@
 			children = (
 				294E9C9129072E9900A3E17A /* colordotmatrix */,
 				294E9C96290D0E2A00A3E17A /* colordotmatrixbinarydigit */,
+				29620D6F29B07D890020B874 /* colotdotmatrixdecimaldigit */,
 				29E87304297461C000F7BF90 /* colordotmatrixfuse */,
 				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29F56DF027410D1D00BBBB68 /* contact */,

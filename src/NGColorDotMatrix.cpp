@@ -26,6 +26,14 @@ void NGColorDotMatrix::render() {
     }
 }
 
+int NGColorDotMatrix::getWidth() {
+    return COORDMAXRIGHT + 1;
+}
+
+int NGColorDotMatrix::getHeight() {
+    return COORDMAXBOTTOM + 1;
+}
+
 void NGColorDotMatrix::beginUpdate() {
     _updateCount++;
 }
