@@ -21,7 +21,9 @@ class NGColorDotMatrixDecimalDigit {
 private:
     NGIPaintableComponent *_ipc;
     byte _value;
+    bool _randomColorBackground = false;
     colorRGB _colorBackground = COLOR_BLACK;
+    bool _randomColor = false;
     colorRGB _color = COLOR_GREEN;
     int _posX = 0;
     int _posY = 0;
@@ -54,7 +56,11 @@ protected:
 public:
     NGColorDotMatrixDecimalDigit(NGIPaintableComponent *ipc);
     
+    void setRandomColorBackground(bool randomcolor);
+    
     void setColorBackground(colorRGB color);
+    
+    void setRandomColor(bool randomcolor);
     
     void setColor(colorRGB color);
     

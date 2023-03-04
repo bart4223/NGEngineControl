@@ -306,9 +306,25 @@ void NGColorDotMatrixDecimalDigit::_render() {
         byte col = 0x01;
         for (int x = 7; x >= 0; x--) {
             if ((num & col) != 0) {
-                _ipc->drawPoint(_posX + x, _posY + y, _color);
+                if (_randomColor) {
+                    colorRGB c;
+                    c.red = random(0, 256);
+                    c.green = random(0, 256);
+                    c.blue = random(0, 256);
+                    _ipc->drawPoint(_posX + x, _posY + y, c);
+                } else {
+                    _ipc->drawPoint(_posX + x, _posY + y, _color);
+                }
             } else {
-                _ipc->drawPoint(_posX + x, _posY + y, _colorBackground);
+                if (_randomColorBackground) {
+                    colorRGB c;
+                    c.red = random(0, 256);
+                    c.green = random(0, 256);
+                    c.blue = random(0, 256);
+                    _ipc->drawPoint(_posX + x, _posY + y, c);
+                } else {
+                    _ipc->drawPoint(_posX + x, _posY + y, _colorBackground);
+                }
             }
             col = col << 1;
         }
@@ -316,8 +332,16 @@ void NGColorDotMatrixDecimalDigit::_render() {
     _ipc->endUpdate();
 }
 
+void NGColorDotMatrixDecimalDigit::setRandomColorBackground(bool randomcolor) {
+    _randomColorBackground = randomcolor;
+}
+
 void NGColorDotMatrixDecimalDigit::setColorBackground(colorRGB color) {
     _colorBackground = color;
+}
+
+void NGColorDotMatrixDecimalDigit::setRandomColor(bool randomcolor) {
+    _randomColor = randomcolor;
 }
 
 void NGColorDotMatrixDecimalDigit::setColor(colorRGB color) {
