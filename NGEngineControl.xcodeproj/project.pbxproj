@@ -492,16 +492,11 @@
 			isa = PBXGroup;
 			children = (
 				294E9C9229072EC800A3E17A /* colordotmatrix.ino */,
+				294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */,
+				29620D7029B07DB70020B874 /* colotdotmatrixdecimaldigit.ino */,
+				29E87305297461ED00F7BF90 /* colordotmatrixfuse.ino */,
 			);
 			path = colordotmatrix;
-			sourceTree = "<group>";
-		};
-		294E9C96290D0E2A00A3E17A /* colordotmatrixbinarydigit */ = {
-			isa = PBXGroup;
-			children = (
-				294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */,
-			);
-			path = colordotmatrixbinarydigit;
 			sourceTree = "<group>";
 		};
 		294E9C98290D5A0B00A3E17A /* binaryclock */ = {
@@ -528,14 +523,6 @@
 				294E9C9B290D5A4400A3E17A /* binaryclock.ino */,
 			);
 			path = binaryclock;
-			sourceTree = "<group>";
-		};
-		29620D6F29B07D890020B874 /* colotdotmatrixdecimaldigit */ = {
-			isa = PBXGroup;
-			children = (
-				29620D7029B07DB70020B874 /* colotdotmatrixdecimaldigit.ino */,
-			);
-			path = colotdotmatrixdecimaldigit;
 			sourceTree = "<group>";
 		};
 		29647BBA253C42A5003CBA13 = {
@@ -593,9 +580,6 @@
 			isa = PBXGroup;
 			children = (
 				294E9C9129072E9900A3E17A /* colordotmatrix */,
-				294E9C96290D0E2A00A3E17A /* colordotmatrixbinarydigit */,
-				29620D6F29B07D890020B874 /* colotdotmatrixdecimaldigit */,
-				29E87304297461C000F7BF90 /* colordotmatrixfuse */,
 				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29F56DF027410D1D00BBBB68 /* contact */,
 				29232B3B2779D53F00B85C8E /* duoLED */,
@@ -1018,14 +1002,6 @@
 				29E71C9127F76DE80046A707 /* pumpcontrol.ino */,
 			);
 			path = pumpcontrol;
-			sourceTree = "<group>";
-		};
-		29E87304297461C000F7BF90 /* colordotmatrixfuse */ = {
-			isa = PBXGroup;
-			children = (
-				29E87305297461ED00F7BF90 /* colordotmatrixfuse.ino */,
-			);
-			path = colordotmatrixfuse;
 			sourceTree = "<group>";
 		};
 		29E8CD5D28B9F636009AAC11 /* servocontrol */ = {
