@@ -101,6 +101,8 @@
 		29620D6E29B07D430020B874 /* NGColorDotMatrixDecimalDigit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixDecimalDigit.h; sourceTree = "<group>"; };
 		29620D7029B07DB70020B874 /* colotdotmatrixdecimaldigit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colotdotmatrixdecimaldigit.ino; sourceTree = "<group>"; };
 		29620D7129B1FE370020B874 /* NGIPaintableComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIPaintableComponent.h; sourceTree = "<group>"; };
+		29620D7A29B4BD5C0020B874 /* NGCommonGraphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCommonGraphics.cpp; sourceTree = "<group>"; };
+		29620D7B29B4BD5C0020B874 /* NGCommonGraphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCommonGraphics.h; sourceTree = "<group>"; };
 		29647BC3253C43B2003CBA13 /* keywords.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = keywords.txt; sourceTree = "<group>"; };
 		29647BC4253C449A003CBA13 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		29647BC5253C4A53003CBA13 /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
@@ -303,6 +305,8 @@
 				29620D6D29B07D430020B874 /* NGColorDotMatrixDecimalDigit.cpp */,
 				29E8730329745EF400F7BF90 /* NGColorDotMatrixFuse.h */,
 				29E8730229745EF400F7BF90 /* NGColorDotMatrixFuse.cpp */,
+				29620D7B29B4BD5C0020B874 /* NGCommonGraphics.h */,
+				29620D7A29B4BD5C0020B874 /* NGCommonGraphics.cpp */,
 				29232B3A2779D44C00B85C8E /* NGDuoLED.h */,
 				29232B392779D44C00B85C8E /* NGDuoLED.cpp */,
 				2913C94D2702DE1500D0AFC6 /* NGFlashingLight.h */,
