@@ -23,7 +23,9 @@ public:
     
     virtual void clear();
     
-    virtual bool drawPoint(byte x, byte y, colorRGB color);
+    virtual bool drawPoint(int x, int y, colorRGB color);
+    
+    virtual void setScale(int scale);
     
 };
 

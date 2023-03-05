@@ -59,11 +59,15 @@ void NGColorDotMatrix::setColorHSV(int hue, int sat, int val) {
     ColorHSV(hue, sat, val);
 }
 
+void NGColorDotMatrix::setScale(int scale) {
+    
+}
+
 bool NGColorDotMatrix::clearPoint(byte x, byte y) {
     return drawPoint(x, y, COLOR_BLACK);
 }
 
-bool NGColorDotMatrix::drawPoint(byte x, byte y, colorRGB color) {
+bool NGColorDotMatrix::drawPoint(int x, int y, colorRGB color) {
     bool res = x >= 0 && x < 8 && y >= 0 && y < 8;
     if (res) {
         byte coord[] = {x, y};
