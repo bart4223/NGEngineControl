@@ -332,6 +332,19 @@ void NGColorDotMatrixDecimalDigit::_render() {
     _ipc->endUpdate();
 }
 
+void NGColorDotMatrixDecimalDigit::beginUpdate() {
+    _updateCount++;
+}
+
+void NGColorDotMatrixDecimalDigit::endUpdate() {
+    if (_updateCount > 0) {
+        _updateCount--;
+    }
+    if (_updateCount == 0) {
+        _render();
+    }
+}
+
 void NGColorDotMatrixDecimalDigit::setRandomColorBackground(bool randomcolor) {
     _randomColorBackground = randomcolor;
 }
@@ -350,12 +363,16 @@ void NGColorDotMatrixDecimalDigit::setColor(colorRGB color) {
 
 void NGColorDotMatrixDecimalDigit::setValue(byte value) {
     _value = value;
-    _render();
+    if (_updateCount == 0) {
+        _render();
+    }
 }
 
 void NGColorDotMatrixDecimalDigit::setPosX(int x) {
     _posX = x;
-    _render();
+    if (_updateCount == 0) {
+        _render();
+    }
 }
 
 int NGColorDotMatrixDecimalDigit::getPosX() {
@@ -364,9 +381,11 @@ int NGColorDotMatrixDecimalDigit::getPosX() {
 
 void NGColorDotMatrixDecimalDigit::setPosY(int y) {
     _posY = y;
+    if (_updateCount == 0) {
+        _render();
+    }
 }
 
 int NGColorDotMatrixDecimalDigit::getPosY() {
     return _posY;
-    _render();
 }
