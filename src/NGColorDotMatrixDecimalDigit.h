@@ -55,6 +55,8 @@ protected:
     byte _getNumeralNine(byte line);
     
 public:
+    static const int PIXELCOUNT = 8;
+    
     NGColorDotMatrixDecimalDigit(NGIPaintableComponent *ipc);
     
     void beginUpdate();
