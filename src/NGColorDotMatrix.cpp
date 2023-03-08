@@ -63,6 +63,10 @@ void NGColorDotMatrix::setScale(int scale) {
     
 }
 
+int NGColorDotMatrix::getScale() {
+    return 1;
+}
+
 bool NGColorDotMatrix::clearPoint(byte x, byte y) {
     return drawPoint(x, y, COLOR_BLACK);
 }

@@ -53,6 +53,8 @@ public:
     
     void setScale(int scale);
     
+    int getScale();
+    
     bool clearPoint(byte x, byte y);
     
     bool drawPoint(int x, int y, colorRGB color);

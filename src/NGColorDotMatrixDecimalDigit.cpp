@@ -389,3 +389,7 @@ void NGColorDotMatrixDecimalDigit::setPosY(int y) {
 int NGColorDotMatrixDecimalDigit::getPosY() {
     return _posY;
 }
+
+int NGColorDotMatrixDecimalDigit::getScale() {
+    return _ipc->getScale();
+}

@@ -27,6 +27,7 @@ public:
     
     virtual void setScale(int scale);
     
+    virtual int getScale();
 };
 
 #endif /* NGIPaintableComponent_h */

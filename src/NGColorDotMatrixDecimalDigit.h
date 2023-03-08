@@ -80,6 +80,8 @@ public:
     void setPosY(int y);
     
     int getPosY();
+    
+    int getScale();
 };
 
 #endif /* NGColorDotMatrixDecimalDigit_h */
