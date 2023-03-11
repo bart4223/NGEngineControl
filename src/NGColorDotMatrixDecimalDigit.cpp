@@ -361,6 +361,10 @@ void NGColorDotMatrixDecimalDigit::setColor(colorRGB color) {
     _color = color;
 }
 
+colorRGB NGColorDotMatrixDecimalDigit::getColor() {
+    return _color;
+}
+
 void NGColorDotMatrixDecimalDigit::setValue(byte value) {
     _value = value;
     if (_updateCount == 0) {

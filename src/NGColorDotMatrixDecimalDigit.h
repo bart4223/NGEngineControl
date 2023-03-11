@@ -71,6 +71,8 @@ public:
     
     void setColor(colorRGB color);
     
+    colorRGB getColor();
+    
     void setValue(byte value);
     
     void setPosX(int x);
