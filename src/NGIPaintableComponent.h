@@ -25,6 +25,8 @@ public:
     
     virtual bool drawPoint(int x, int y, colorRGB color);
     
+    virtual bool fillRect(int top, int left, int bottom, int right, colorRGB color);
+    
     virtual void setScale(int scale);
     
     virtual int getScale();

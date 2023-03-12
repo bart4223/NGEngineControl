@@ -104,7 +104,7 @@ void NGColorDotMatrix::drawRect(byte top, byte left, byte bottom, byte right, co
     endUpdate();
 }
 
-void NGColorDotMatrix::fillRect(byte top, byte left, byte bottom, byte right, colorRGB color) {
+bool NGColorDotMatrix::fillRect(int top, int left, int bottom, int right, colorRGB color) {
     byte coord[] = {top, left, bottom, right};
     draw_rectangle(coord, color.red, color.green, color.blue);
     render();

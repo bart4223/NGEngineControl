@@ -67,7 +67,7 @@ public:
     
     void clearRect(byte top, byte left, byte bottom, byte right);
     
-    void fillRect(byte top, byte left, byte bottom, byte right, colorRGB color);
+    bool fillRect(int top, int left, int bottom, int right, colorRGB color);
     
     void clearCircle(byte x0, byte y0, byte radius);
     
