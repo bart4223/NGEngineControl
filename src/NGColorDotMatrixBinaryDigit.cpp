@@ -7,31 +7,31 @@
 
 #include "NGColorDotMatrixBinaryDigit.h"
 
-NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm) {
-    _create(cdm, DEFARITY, DEFBINARYDIGITDIRECTION, 0, 0);
+NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc) {
+    _create(ipc, DEFARITY, DEFBINARYDIGITDIRECTION, 0, 0);
 }
 
-NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte posX, byte posY) {
-    _create(cdm, DEFARITY, DEFBINARYDIGITDIRECTION, posX, posY);
+NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte posX, byte posY) {
+    _create(ipc, DEFARITY, DEFBINARYDIGITDIRECTION, posX, posY);
 }
 
-NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte arity, byte posX, byte posY) {
-    _create(cdm, arity, DEFBINARYDIGITDIRECTION, posX, posY);
+NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte arity, byte posX, byte posY) {
+    _create(ipc, arity, DEFBINARYDIGITDIRECTION, posX, posY);
 }
-NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte arity) {
-    _create(cdm, arity, DEFBINARYDIGITDIRECTION, 0, 0);
-}
-
-NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte arity, BinaryDigitDirection direction) {
-    _create(cdm, arity, direction, 0, 0);
+NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte arity) {
+    _create(ipc, arity, DEFBINARYDIGITDIRECTION, 0, 0);
 }
 
-NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte arity, BinaryDigitDirection direction, byte posX, byte posY) {
-    _create(cdm, arity, direction, posX, posY);
+NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte arity, BinaryDigitDirection direction) {
+    _create(ipc, arity, direction, 0, 0);
 }
 
-void NGColorDotMatrixBinaryDigit::_create(NGColorDotMatrix *cdm, byte arity, BinaryDigitDirection direction, byte posX, byte posY) {
-    _cdm = cdm;
+NGColorDotMatrixBinaryDigit::NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte arity, BinaryDigitDirection direction, byte posX, byte posY) {
+    _create(ipc, arity, direction, posX, posY);
+}
+
+void NGColorDotMatrixBinaryDigit::_create(NGIPaintableComponent *ipc, byte arity, BinaryDigitDirection direction, byte posX, byte posY) {
+    _ipc = ipc;
     _arity = arity;
     _direction = direction;
     _posX = posX;
@@ -40,14 +40,14 @@ void NGColorDotMatrixBinaryDigit::_create(NGColorDotMatrix *cdm, byte arity, Bin
 
 void NGColorDotMatrixBinaryDigit::_render() {
     byte x = 0x01;
-    _cdm->beginUpdate();
+    _ipc->beginUpdate();
     switch(_direction) {
         case bddUp:
             for (byte i = 0; i < _arity; i++) {
                 if ((_value & x) != 0x00) {
-                    _cdm->drawPoint(_posX, _posY - i, _colorOn);
+                    _ipc->drawPoint(_posX, _posY - i, _colorOn);
                 } else {
-                    _cdm->drawPoint(_posX, _posY - i, _colorOff);
+                    _ipc->drawPoint(_posX, _posY - i, _colorOff);
                 }
                 x = x << 1;
             }
@@ -55,9 +55,9 @@ void NGColorDotMatrixBinaryDigit::_render() {
         case bddDown:
             for (byte i = 0; i < _arity; i++) {
                 if ((_value & x) != 0x00) {
-                    _cdm->drawPoint(_posX, _posY + i, _colorOn);
+                    _ipc->drawPoint(_posX, _posY + i, _colorOn);
                 } else {
-                    _cdm->drawPoint(_posX, _posY + i, _colorOff);
+                    _ipc->drawPoint(_posX, _posY + i, _colorOff);
                 }
                 x = x << 1;
             }
@@ -65,9 +65,9 @@ void NGColorDotMatrixBinaryDigit::_render() {
         case bddLeft:
             for (byte i = 0; i < _arity; i++) {
                 if ((_value & x) != 0x00) {
-                    _cdm->drawPoint(_posX + i, _posY, _colorOn);
+                    _ipc->drawPoint(_posX + i, _posY, _colorOn);
                 } else {
-                    _cdm->drawPoint(_posX + i, _posY, _colorOff);
+                    _ipc->drawPoint(_posX + i, _posY, _colorOff);
                 }
                 x = x << 1;
             }
@@ -75,15 +75,15 @@ void NGColorDotMatrixBinaryDigit::_render() {
         case bddRight:
             for (byte i = 0; i < _arity; i++) {
                 if ((_value & x) != 0x00) {
-                    _cdm->drawPoint(_posX - i, _posY, _colorOn);
+                    _ipc->drawPoint(_posX - i, _posY, _colorOn);
                 } else {
-                    _cdm->drawPoint(_posX - i, _posY, _colorOff);
+                    _ipc->drawPoint(_posX - i, _posY, _colorOff);
                 }
                 x = x << 1;
             }
             break;
     }
-    _cdm->endUpdate();
+    _ipc->endUpdate();
 }
 
 void NGColorDotMatrixBinaryDigit::setColorOff(colorRGB color) {

@@ -1,12 +1,25 @@
+#define DOTMATRIX //OLED, DOTMATRIX
+
 #include <NGMemoryObserver.h>
 #include <NGColorDotMatrixBinaryDigit.h>
+#ifdef DOTMATRIX
+#include <NGColorDotMatrix.h>
+#endif
+#ifdef OLED
+#include <NGColorOLED.h>
+#endif
 
 #define DEFPOSX 6
 #define DEFPOSY 5
 
 #define DELAY 1000
 
+#ifdef DOTMATRIX
 NGColorDotMatrix cdm = NGColorDotMatrix();
+#endif
+#ifdef OLED
+NGColorOLED cdm = NGColorOLED();
+#endif
 NGColorDotMatrixBinaryDigit cdmbdScore = NGColorDotMatrixBinaryDigit(&cdm, 5, DEFPOSX - 6, DEFPOSY);
 NGColorDotMatrixBinaryDigit cdmbdLives = NGColorDotMatrixBinaryDigit(&cdm, 2, DEFPOSX - 6, DEFPOSY + 2);
 //NGColorDotMatrixBinaryDigit cdmbdSecTens = NGColorDotMatrixBinaryDigit(&cdm, 3, DEFPOSX - 1, DEFPOSY);
@@ -25,6 +38,10 @@ byte valueLives = 0x03;
 
 void setup() {
   cdm.initialize();
+  #ifdef OLED
+  cdm.setScale(5);
+  #endif
+  cdm.clear();
   cdmbdScore.setColorOff(COLOR_BLACK);
   cdmbdScore.setColorOn(COLOR_GREEN);
   cdmbdScore.setValue(valueScore);

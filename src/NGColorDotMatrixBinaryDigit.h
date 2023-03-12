@@ -27,7 +27,7 @@ enum BinaryDigitDirection { bddUp, bddDown, bddLeft, bddRight };
 class NGColorDotMatrixBinaryDigit {
     
 private:
-    NGColorDotMatrix *_cdm;
+    NGIPaintableComponent *_ipc;
     byte _value;
     byte _arity = DEFARITY;
     BinaryDigitDirection _direction = DEFBINARYDIGITDIRECTION;
@@ -37,22 +37,22 @@ private:
     byte _posY = 0;
 
 protected:
-    void _create(NGColorDotMatrix *cdm, byte arity, BinaryDigitDirection direction, byte posX, byte posY);
+    void _create(NGIPaintableComponent *ipc, byte arity, BinaryDigitDirection direction, byte posX, byte posY);
     
     void _render();
     
 public:
-    NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm);
+    NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc);
     
-    NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte posX, byte posY);
+    NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte posX, byte posY);
     
-    NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte arity, byte posX, byte posY);
+    NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte arity, byte posX, byte posY);
     
-    NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte arity);
+    NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte arity);
     
-    NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte arity, BinaryDigitDirection direction);
+    NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte arity, BinaryDigitDirection direction);
     
-    NGColorDotMatrixBinaryDigit(NGColorDotMatrix *cdm, byte arity, BinaryDigitDirection direction, byte posX, byte posY);
+    NGColorDotMatrixBinaryDigit(NGIPaintableComponent *ipc, byte arity, BinaryDigitDirection direction, byte posX, byte posY);
     
     void setColorOff(colorRGB color);
 
