@@ -27,7 +27,7 @@ enum FuseDirection { fdUp, fdDown, fdLeft, fdRight };
 class NGColorDotMatrixFuse {
 
 private:
-    NGColorDotMatrix *_cdm;
+    NGIPaintableComponent *_ipc;
     byte _value;
     byte _arity = DEFARITY;
     FuseDirection _direction = DEFFUSEDIRECTION;
@@ -37,18 +37,18 @@ private:
     byte _posY = 0;
     
 protected:
-    void _create(NGColorDotMatrix *cdm, byte arity, FuseDirection direction, byte posX, byte posY);
+    void _create(NGIPaintableComponent *ipc, byte arity, FuseDirection direction, byte posX, byte posY);
     
     void _render();
     
 public:
-    NGColorDotMatrixFuse(NGColorDotMatrix *cdm);
+    NGColorDotMatrixFuse(NGIPaintableComponent *ipc);
 
-    NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity);
+    NGColorDotMatrixFuse(NGIPaintableComponent *ipc, byte arity);
     
-    NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity, byte posX, byte posY);
+    NGColorDotMatrixFuse(NGIPaintableComponent *ipc, byte arity, byte posX, byte posY);
     
-    NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity, FuseDirection direction, byte posX, byte posY);
+    NGColorDotMatrixFuse(NGIPaintableComponent *ipc, byte arity, FuseDirection direction, byte posX, byte posY);
     
     void setColorOff(colorRGB color);
 

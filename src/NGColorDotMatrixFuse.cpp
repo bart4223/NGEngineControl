@@ -7,24 +7,24 @@
 
 #include "NGColorDotMatrixFuse.h"
 
-NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGColorDotMatrix *cdm) {
-    _create(cdm, DEFARITY, DEFFUSEDIRECTION, 0, 0);
+NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGIPaintableComponent *ipc) {
+    _create(ipc, DEFARITY, DEFFUSEDIRECTION, 0, 0);
 }
 
-NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity) {
-    _create(cdm, arity, DEFFUSEDIRECTION, 0, 0);
+NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGIPaintableComponent *ipc, byte arity) {
+    _create(ipc, arity, DEFFUSEDIRECTION, 0, 0);
 }
 
-NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity, byte posX, byte posY) {
-    _create(cdm, arity, DEFFUSEDIRECTION, posX, posY);
+NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGIPaintableComponent *ipc, byte arity, byte posX, byte posY) {
+    _create(ipc, arity, DEFFUSEDIRECTION, posX, posY);
 }
 
-NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGColorDotMatrix *cdm, byte arity, FuseDirection direction, byte posX, byte posY) {
-    _create(cdm, arity, direction, posX, posY);
+NGColorDotMatrixFuse::NGColorDotMatrixFuse(NGIPaintableComponent *ipc, byte arity, FuseDirection direction, byte posX, byte posY) {
+    _create(ipc, arity, direction, posX, posY);
 }
 
-void NGColorDotMatrixFuse::_create(NGColorDotMatrix *cdm, byte arity, FuseDirection direction, byte posX, byte posY) {
-    _cdm = cdm;
+void NGColorDotMatrixFuse::_create(NGIPaintableComponent *ipc, byte arity, FuseDirection direction, byte posX, byte posY) {
+    _ipc = ipc;
     _arity = arity;
     _direction = direction;
     _posX = posX;
@@ -32,50 +32,50 @@ void NGColorDotMatrixFuse::_create(NGColorDotMatrix *cdm, byte arity, FuseDirect
 }
 
 void NGColorDotMatrixFuse::_render() {
-    _cdm->beginUpdate();
+    _ipc->beginUpdate();
     switch(_direction) {
         case fdUp:
             for (int i = 0; i < _arity; i++) {
                 if (i < _value) {
-                    _cdm->drawPoint(_posX, _posY + i, _colorOn);
+                    _ipc->drawPoint(_posX, _posY + i, _colorOn);
 
                 } else {
-                    _cdm->drawPoint(_posX, _posY + i, _colorOff);
+                    _ipc->drawPoint(_posX, _posY + i, _colorOff);
                 }
             }
             break;
         case fdDown:
             for (int i = 0; i < _arity; i++) {
                 if (i < _value) {
-                    _cdm->drawPoint(_posX, _posY - i, _colorOn);
+                    _ipc->drawPoint(_posX, _posY - i, _colorOn);
 
                 } else {
-                    _cdm->drawPoint(_posX, _posY - i, _colorOff);
+                    _ipc->drawPoint(_posX, _posY - i, _colorOff);
                 }
             }
             break;
         case fdLeft:
             for (int i = 0; i < _arity; i++) {
                 if (i < _value) {
-                    _cdm->drawPoint(_posX + i, _posY, _colorOn);
+                    _ipc->drawPoint(_posX + i, _posY, _colorOn);
 
                 } else {
-                    _cdm->drawPoint(_posX + i, _posY, _colorOff);
+                    _ipc->drawPoint(_posX + i, _posY, _colorOff);
                 }
             }
             break;
         case fdRight:
             for (int i = 0; i < _arity; i++) {
                 if (i < _value) {
-                    _cdm->drawPoint(_posX - i, _posY, _colorOn);
+                    _ipc->drawPoint(_posX - i, _posY, _colorOn);
 
                 } else {
-                    _cdm->drawPoint(_posX - i, _posY, _colorOff);
+                    _ipc->drawPoint(_posX - i, _posY, _colorOff);
                 }
             }
             break;
     }
-    _cdm->endUpdate();
+    _ipc->endUpdate();
 }
 
 void NGColorDotMatrixFuse::setColorOff(colorRGB color) {
