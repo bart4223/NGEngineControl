@@ -67,6 +67,8 @@ public:
     
     void setColorBackground(colorRGB color);
     
+    colorRGB getColorBackground();
+    
     void setRandomColor(bool randomcolor);
     
     void setColor(colorRGB color);

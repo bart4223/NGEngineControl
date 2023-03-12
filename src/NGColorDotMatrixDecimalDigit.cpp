@@ -353,6 +353,10 @@ void NGColorDotMatrixDecimalDigit::setColorBackground(colorRGB color) {
     _colorBackground = color;
 }
 
+colorRGB NGColorDotMatrixDecimalDigit::getColorBackground() {
+    return _colorBackground;
+}
+
 void NGColorDotMatrixDecimalDigit::setRandomColor(bool randomcolor) {
     _randomColor = randomcolor;
 }
