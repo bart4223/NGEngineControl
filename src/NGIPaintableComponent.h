@@ -23,9 +23,15 @@ public:
     
     virtual void clear();
     
+    virtual bool clearPoint(int x, int y);
+    
     virtual bool drawPoint(int x, int y, colorRGB color);
     
     virtual bool fillRect(int top, int left, int bottom, int right, colorRGB color);
+    
+    virtual void clearCircle(int x0, int y0, int radius);
+    
+    virtual void drawCircle(int x0, int y0, int radius, colorRGB color);
     
     virtual void setScale(int scale);
     

@@ -55,7 +55,7 @@ public:
     
     int getScale();
     
-    bool clearPoint(byte x, byte y);
+    bool clearPoint(int x, int y);
     
     bool drawPoint(int x, int y, colorRGB color);
     
@@ -69,9 +69,9 @@ public:
     
     bool fillRect(int top, int left, int bottom, int right, colorRGB color);
     
-    void clearCircle(byte x0, byte y0, byte radius);
+    void clearCircle(int x0, int y0, int radius);
     
-    void drawCircle(byte x0, byte y0, byte radius, colorRGB color);
+    void drawCircle(int x0, int y0, int radius, colorRGB color);
     
     void clear();
     

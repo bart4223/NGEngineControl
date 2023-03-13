@@ -67,7 +67,7 @@ int NGColorDotMatrix::getScale() {
     return 1;
 }
 
-bool NGColorDotMatrix::clearPoint(byte x, byte y) {
+bool NGColorDotMatrix::clearPoint(int x, int y) {
     return drawPoint(x, y, COLOR_BLACK);
 }
 
@@ -114,11 +114,11 @@ void NGColorDotMatrix::clearRect(byte top, byte left, byte bottom, byte right) {
     fillRect(top, left, bottom, right, COLOR_BLACK);
 }
 
-void NGColorDotMatrix::clearCircle(byte x0, byte y0, byte radius) {
+void NGColorDotMatrix::clearCircle(int x0, int y0, int radius) {
     drawCircle(x0, y0, radius, COLOR_BLACK);
 }
 
-void NGColorDotMatrix::drawCircle(byte x0, byte y0, byte radius, colorRGB color) {
+void NGColorDotMatrix::drawCircle(int x0, int y0, int radius, colorRGB color) {
     int f = 1 - radius;
     int ddF_x = 0;
     int ddF_y = -2 * radius;
