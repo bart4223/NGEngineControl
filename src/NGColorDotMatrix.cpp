@@ -71,6 +71,10 @@ void NGColorDotMatrix::setBackground(colorRGB color) {
     _background = color;
 }
 
+colorRGB NGColorDotMatrix::getBackground() {
+    return _background;
+}
+
 bool NGColorDotMatrix::clearPoint(int x, int y) {
     return drawPoint(x, y, _background);
 }

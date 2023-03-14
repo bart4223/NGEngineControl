@@ -62,6 +62,8 @@ public:
     
     void setBackground(colorRGB color);
     
+    colorRGB getBackground();
+    
     bool clearPoint(int x, int y);
     
     bool drawPoint(int x, int y, colorRGB color);

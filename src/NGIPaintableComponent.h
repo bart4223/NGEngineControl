@@ -44,16 +44,18 @@ public:
     virtual void drawImage(int coord[][2], colorRGB color, int size);
     
     virtual void drawImage(int offsetX, int offsetY, int coord[][2], colorRGB color, int size);
-
+    
     virtual void drawImage(int coord[][2], byte color[][3], int size);
-
+    
     virtual void drawImage(int offsetX, int offsetY, int coord[][2], byte color[][3], int size);
-
+    
     virtual void setScale(int scale);
     
     virtual int getScale();
     
     virtual void setBackground(colorRGB color);
+    
+    virtual colorRGB getBackground();
 };
 
 #endif /* NGIPaintableComponent_h */
