@@ -68,7 +68,7 @@ int NGColorDotMatrix::getScale() {
 }
 
 void NGColorDotMatrix::setBackground(colorRGB color) {
-    
+    _background = color;
 }
 
 bool NGColorDotMatrix::clearPoint(int x, int y) {
