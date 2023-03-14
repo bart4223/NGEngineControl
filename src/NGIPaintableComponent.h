@@ -27,7 +27,15 @@ public:
     
     virtual bool drawPoint(int x, int y, colorRGB color);
     
-    virtual bool fillRect(int top, int left, int bottom, int right, colorRGB color);
+    virtual void clearLine(int x1, int y1, int x2, int y2);
+    
+    virtual void drawLine(int x1, int y1, int x2, int y2, colorRGB color);
+    
+    virtual void drawRect(int top, int left, int bottom, int right, colorRGB color);
+    
+    virtual void clearRect(int top, int left, int bottom, int right);
+    
+    virtual void fillRect(int top, int left, int bottom, int right, colorRGB color);
     
     virtual void clearCircle(int x0, int y0, int radius);
     

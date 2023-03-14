@@ -17,6 +17,8 @@
 #include <rgbMatrix.h>
 #include <NGIPaintableComponent.h>
 
+#define DEFCOLORDOTMATRIXSCALE 1
+
 #define COORDMINTOP     0
 #define COORDMINLEFT    0
 #define COORDMAXBOTTOM  7
@@ -26,6 +28,7 @@ class NGColorDotMatrix  : public NGIPaintableComponent {
     
 private:
     int _updateCount = 0;
+    int _scale = DEFCOLORDOTMATRIXSCALE;
     
 protected:
     void _create();
@@ -59,15 +62,15 @@ public:
     
     bool drawPoint(int x, int y, colorRGB color);
     
-    void clearLine(byte x1, byte y1, byte x2, byte y2);
+    void clearLine(int x1, int y1, int x2, int y2);
     
-    void drawLine(byte x1, byte y1, byte x2, byte y2, colorRGB color);
+    void drawLine(int x1, int y1, int x2, int y2, colorRGB color);
     
-    void drawRect(byte top, byte left, byte bottom, byte right, colorRGB color);
+    void drawRect(int top, int left, int bottom, int right, colorRGB color);
     
-    void clearRect(byte top, byte left, byte bottom, byte right);
+    void clearRect(int top, int left, int bottom, int right);
     
-    bool fillRect(int top, int left, int bottom, int right, colorRGB color);
+    void fillRect(int top, int left, int bottom, int right, colorRGB color);
     
     void clearCircle(int x0, int y0, int radius);
     

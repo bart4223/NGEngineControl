@@ -60,11 +60,11 @@ void NGColorDotMatrix::setColorHSV(int hue, int sat, int val) {
 }
 
 void NGColorDotMatrix::setScale(int scale) {
-    
+    _scale = 1;
 }
 
 int NGColorDotMatrix::getScale() {
-    return 1;
+    return _scale;
 }
 
 bool NGColorDotMatrix::clearPoint(int x, int y) {
@@ -81,17 +81,17 @@ bool NGColorDotMatrix::drawPoint(int x, int y, colorRGB color) {
     return res;
 }
 
-void NGColorDotMatrix::clearLine(byte x1, byte y1, byte x2, byte y2) {
+void NGColorDotMatrix::clearLine(int x1, int y1, int x2, int y2) {
     drawLine(x1, y1, x2, y2, COLOR_BLACK);
 }
 
-void NGColorDotMatrix::drawLine(byte x1, byte y1, byte x2, byte y2, colorRGB color) {
+void NGColorDotMatrix::drawLine(int x1, int y1, int x2, int y2, colorRGB color) {
     byte coord[] = {x1, y1, x2, y2};
     draw_line(coord, color.red, color.green, color.blue);
     render();
 }
 
-void NGColorDotMatrix::drawRect(byte top, byte left, byte bottom, byte right, colorRGB color) {
+void NGColorDotMatrix::drawRect(int top, int left, int bottom, int right, colorRGB color) {
     beginUpdate();
     byte coord[] = {left, top, right, top};
     draw_line(coord, color.red, color.green, color.blue);
@@ -104,13 +104,13 @@ void NGColorDotMatrix::drawRect(byte top, byte left, byte bottom, byte right, co
     endUpdate();
 }
 
-bool NGColorDotMatrix::fillRect(int top, int left, int bottom, int right, colorRGB color) {
+void NGColorDotMatrix::fillRect(int top, int left, int bottom, int right, colorRGB color) {
     byte coord[] = {top, left, bottom, right};
     draw_rectangle(coord, color.red, color.green, color.blue);
     render();
 }
 
-void NGColorDotMatrix::clearRect(byte top, byte left, byte bottom, byte right) {
+void NGColorDotMatrix::clearRect(int top, int left, int bottom, int right) {
     fillRect(top, left, bottom, right, COLOR_BLACK);
 }
 
