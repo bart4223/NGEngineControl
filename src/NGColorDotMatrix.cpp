@@ -160,26 +160,26 @@ void NGColorDotMatrix::clear() {
     clearRect(COORDMINTOP, COORDMINLEFT, COORDMAXBOTTOM, COORDMAXRIGHT);
 }
 
-void NGColorDotMatrix::drawImage(int coord[][2], colorRGB color, int size) {
+void NGColorDotMatrix::drawImage(coord2D coord[], colorRGB color, int size) {
     drawImage(0, 0, coord, color, size);
 }
 
-void NGColorDotMatrix::drawImage(int offsetX, int offsetY, int coord[][2], colorRGB color, int size) {
+void NGColorDotMatrix::drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color, int size) {
     beginUpdate();
     for (int i = 0; i < size; i++) {
-        drawPoint(offsetX + coord[i][0], offsetY + coord[i][1], color);
+        drawPoint(offsetX + coord[i].x, offsetY + coord[i].y, color);
     }
     endUpdate();
 }
 
-void NGColorDotMatrix::drawImage(int coord[][2], byte color[][3], int size) {
+void NGColorDotMatrix::drawImage(coord2D coord[], colorRGB color[], int size) {
     drawImage(0, 0, coord, color, size);
 }
 
-void NGColorDotMatrix::drawImage(int offsetX, int offsetY, int coord[][2], byte color[][3], int size) {
+void NGColorDotMatrix::drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color[], int size) {
     beginUpdate();
     for (int i = 0; i < size; i++) {
-        drawPoint(offsetX + coord[i][0], offsetY + coord[i][1], { color[i][0], color[i][1], color[i][2] });
+        drawPoint(offsetX + coord[i].x, offsetY + coord[i].y, color[i]);
     }
     endUpdate();
 }

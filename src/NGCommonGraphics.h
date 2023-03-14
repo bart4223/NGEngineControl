@@ -14,6 +14,13 @@
 #include <WProgram.h>
 #endif
 
+struct coord2DStruct
+{
+    int x;
+    int y;
+};
+typedef struct coord2DStruct coord2D;
+
 struct colorRGBStruct
 {
     byte red;

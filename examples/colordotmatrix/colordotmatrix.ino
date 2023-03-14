@@ -1,6 +1,7 @@
 #define OLED //OLED, DOTMATRIX
 
 #include <NGMemoryObserver.h>
+#include <NGCommonGraphics.h>
 #ifdef DOTMATRIX
 #include <NGColorDotMatrix.h>
 #endif
@@ -11,8 +12,8 @@
 #define DELAY 50
 #define SCALE  8
 
-int img[][2] = {{0, 0}, {1, 1}, {2, 2}};
-byte clr[][3] = {{255, 0, 0}, {0, 255, 0}, {0, 0, 255}};
+coord2D img[] = {{0, 0}, {1, 1}, {2, 2}};
+colorRGB clr[] = {COLOR_RED, COLOR_GREEN, COLOR_BLUE};
 
 #ifdef DOTMATRIX
 NGColorDotMatrix cdm = NGColorDotMatrix();

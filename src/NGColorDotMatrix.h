@@ -84,13 +84,13 @@ public:
     
     void clear();
     
-    void drawImage(int coord[][2], colorRGB color, int size);
+    void drawImage(coord2D coord[], colorRGB color, int size);
     
-    void drawImage(int offsetX, int offsetY, int coord[][2], colorRGB color, int size);
+    void drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color, int size);
 
-    void drawImage(int coord[][2], byte color[][3], int size);
+    void drawImage(coord2D coord[], colorRGB color[], int size);
     
-    void drawImage(int offsetX, int offsetY, int coord[][2], byte color[][3], int size);
+    void drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color[], int size);
 };
 
 #endif /* NGColorDotMatrix_h */
