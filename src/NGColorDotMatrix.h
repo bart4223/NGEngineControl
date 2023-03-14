@@ -78,9 +78,13 @@ public:
     
     void clear();
     
-    void drawImage(byte coord[][2], colorRGB color, int size);
+    void drawImage(int coord[][2], colorRGB color, int size);
+    
+    void drawImage(int offsetX, int offsetY, int coord[][2], colorRGB color, int size);
 
-    void drawImage(byte coord[][2], byte color[][3], int size);
+    void drawImage(int coord[][2], byte color[][3], int size);
+    
+    void drawImage(int offsetX, int offsetY, int coord[][2], byte color[][3], int size);
 };
 
 #endif /* NGColorDotMatrix_h */

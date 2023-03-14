@@ -41,6 +41,14 @@ public:
     
     virtual void drawCircle(int x0, int y0, int radius, colorRGB color);
     
+    virtual void drawImage(int coord[][2], colorRGB color, int size);
+    
+    virtual void drawImage(int offsetX, int offsetY, int coord[][2], colorRGB color, int size);
+
+    virtual void drawImage(int coord[][2], byte color[][3], int size);
+
+    virtual void drawImage(int offsetX, int offsetY, int coord[][2], byte color[][3], int size);
+
     virtual void setScale(int scale);
     
     virtual int getScale();

@@ -1,29 +1,54 @@
+#define OLED //OLED, DOTMATRIX
+
 #include <NGMemoryObserver.h>
+#ifdef DOTMATRIX
 #include <NGColorDotMatrix.h>
+#endif
+#ifdef OLED
+#include <NGColorOLED.h>
+#endif
 
-#define DELAY 500
+#define DELAY 50
 
-byte img[][2] = {{1, 1}, {2, 2}, {3, 3}};
+int img[][2] = {{1, 1}, {2, 2}, {3, 3}};
 byte clr[][3] = {{255, 0, 0}, {0, 255, 0}, {0, 0, 255}};
 
+#ifdef DOTMATRIX
 NGColorDotMatrix cdm = NGColorDotMatrix();
+#endif
+#ifdef OLED
+NGColorOLED cdm = NGColorOLED();
+#endif
+
 colorRGB c;
+int posX = 0;
+int posY = 0;
   
 void setup() {
+  observeMemory(0);
   cdm.initialize();
+  observeMemory(0);
 }
 
 void loop() {
   cdm.beginUpdate();
+  #ifdef OLED
+  cdm.setScale(5);
+  #endif
   cdm.clear();
-  c.red = random(0, 256);
-  c.green = random(0, 256);
-  c.blue = random(0, 256);
-  cdm.drawPoint(0, 0, c);
+  //c.red = random(0, 256);
+  //c.green = random(0, 256);
+  //c.blue = random(0, 256);
+  //cdm.drawPoint(0, 0, c);
   //cdm.drawRect(random(0, 4), random(0, 4), random(4, 8), random(4, 8), c);
   //cdm.drawCircle(random(2, 5), random(2, 5), random(0, 6), c);
-  //cdm.drawImage(img, clr, sizeof(img) / sizeof(img[0]));
+  cdm.drawImage(posX, posY, img, clr, sizeof(img) / sizeof(img[0]));
+  posX++;
+  if (posX > 14) {
+    posX = 0;
+  }
   //cdm.drawImage(img, c, sizeof(img) / sizeof(img[0]));
   cdm.endUpdate();
-  observeMemory(DELAY);
+  delay(DELAY);
+  //observeMemory(DELAY);
 }
