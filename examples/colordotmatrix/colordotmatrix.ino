@@ -9,9 +9,9 @@
 #endif
 
 #define DELAY 50
-#define SCALE 10
+#define SCALE  8
 
-int img[][2] = {{1, 1}, {2, 2}, {3, 3}};
+int img[][2] = {{0, 0}, {1, 1}, {2, 2}};
 byte clr[][3] = {{255, 0, 0}, {0, 255, 0}, {0, 0, 255}};
 
 #ifdef DOTMATRIX
@@ -47,7 +47,7 @@ void loop() {
   //cdm.drawCircle(random(2, 5), random(2, 5), random(0, 6), c);
   cdm.drawImage(posX, posY, img, clr, sizeof(img) / sizeof(img[0]));
   posX++;
-  posY = random(0, 3);
+  posY = random(0, 4);
   if (posX > 96 / SCALE - 3) {
     posX = 0;
   }
