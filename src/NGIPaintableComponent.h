@@ -52,6 +52,8 @@ public:
     virtual void setScale(int scale);
     
     virtual int getScale();
+    
+    virtual void setBackground(colorRGB color);
 };
 
 #endif /* NGIPaintableComponent_h */

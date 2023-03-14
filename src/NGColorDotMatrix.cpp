@@ -67,8 +67,12 @@ int NGColorDotMatrix::getScale() {
     return _scale;
 }
 
+void NGColorDotMatrix::setBackground(colorRGB color) {
+    
+}
+
 bool NGColorDotMatrix::clearPoint(int x, int y) {
-    return drawPoint(x, y, COLOR_BLACK);
+    return drawPoint(x, y, _background);
 }
 
 bool NGColorDotMatrix::drawPoint(int x, int y, colorRGB color) {
@@ -82,7 +86,7 @@ bool NGColorDotMatrix::drawPoint(int x, int y, colorRGB color) {
 }
 
 void NGColorDotMatrix::clearLine(int x1, int y1, int x2, int y2) {
-    drawLine(x1, y1, x2, y2, COLOR_BLACK);
+    drawLine(x1, y1, x2, y2, _background);
 }
 
 void NGColorDotMatrix::drawLine(int x1, int y1, int x2, int y2, colorRGB color) {
@@ -111,11 +115,11 @@ void NGColorDotMatrix::fillRect(int top, int left, int bottom, int right, colorR
 }
 
 void NGColorDotMatrix::clearRect(int top, int left, int bottom, int right) {
-    fillRect(top, left, bottom, right, COLOR_BLACK);
+    fillRect(top, left, bottom, right, _background);
 }
 
 void NGColorDotMatrix::clearCircle(int x0, int y0, int radius) {
-    drawCircle(x0, y0, radius, COLOR_BLACK);
+    drawCircle(x0, y0, radius, _background);
 }
 
 void NGColorDotMatrix::drawCircle(int x0, int y0, int radius, colorRGB color) {

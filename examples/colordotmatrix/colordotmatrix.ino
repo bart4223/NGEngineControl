@@ -9,6 +9,7 @@
 #endif
 
 #define DELAY 50
+#define SCALE 10
 
 int img[][2] = {{1, 1}, {2, 2}, {3, 3}};
 byte clr[][3] = {{255, 0, 0}, {0, 255, 0}, {0, 0, 255}};
@@ -26,14 +27,16 @@ int posY = 0;
   
 void setup() {
   observeMemory(0);
+  randomSeed(analogRead(A0));
   cdm.initialize();
   observeMemory(0);
 }
 
 void loop() {
   cdm.beginUpdate();
+  cdm.setBackground(COLOR_YELLOW);
   #ifdef OLED
-  cdm.setScale(5);
+  cdm.setScale(SCALE);
   #endif
   cdm.clear();
   //c.red = random(0, 256);
@@ -44,7 +47,8 @@ void loop() {
   //cdm.drawCircle(random(2, 5), random(2, 5), random(0, 6), c);
   cdm.drawImage(posX, posY, img, clr, sizeof(img) / sizeof(img[0]));
   posX++;
-  if (posX > 14) {
+  posY = random(0, 3);
+  if (posX > 96 / SCALE - 3) {
     posX = 0;
   }
   //cdm.drawImage(img, c, sizeof(img) / sizeof(img[0]));

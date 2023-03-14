@@ -18,6 +18,7 @@
 #include <NGIPaintableComponent.h>
 
 #define DEFCOLORDOTMATRIXSCALE 1
+#define DEFCOLORDOTMATRIXBACKGROUND COLOR_BLACK
 
 #define COORDMINTOP     0
 #define COORDMINLEFT    0
@@ -29,6 +30,7 @@ class NGColorDotMatrix  : public NGIPaintableComponent {
 private:
     int _updateCount = 0;
     int _scale = DEFCOLORDOTMATRIXSCALE;
+    colorRGB _background = DEFCOLORDOTMATRIXBACKGROUND;
     
 protected:
     void _create();
@@ -57,6 +59,8 @@ public:
     void setScale(int scale);
     
     int getScale();
+    
+    void setBackground(colorRGB color);
     
     bool clearPoint(int x, int y);
     
