@@ -14,6 +14,7 @@
 #include <WProgram.h>
 #endif
 
+#include "NGIPaintableObject.h"
 #include "NGColorDotMatrix.h"
 
 #define DEFARITY 8
@@ -25,7 +26,7 @@
 enum FuseDirection { fdUp, fdDown, fdLeft, fdRight };
 
 class NGColorDotMatrixFuse {
-
+    
 private:
     NGIPaintableComponent *_ipc;
     byte _value;
@@ -35,6 +36,8 @@ private:
     colorRGB _colorOn = FUSE_COLOR_ON;
     byte _posX = 0;
     byte _posY = 0;
+    NGIPaintableObject *_paintableObjectOff = nullptr;
+    NGIPaintableObject *_paintableObjectOn = nullptr;
     
 protected:
     void _create(NGIPaintableComponent *ipc, byte arity, FuseDirection direction, byte posX, byte posY);
@@ -43,7 +46,7 @@ protected:
     
 public:
     NGColorDotMatrixFuse(NGIPaintableComponent *ipc);
-
+    
     NGColorDotMatrixFuse(NGIPaintableComponent *ipc, byte arity);
     
     NGColorDotMatrixFuse(NGIPaintableComponent *ipc, byte arity, byte posX, byte posY);
@@ -51,10 +54,14 @@ public:
     NGColorDotMatrixFuse(NGIPaintableComponent *ipc, byte arity, FuseDirection direction, byte posX, byte posY);
     
     void setColorOff(colorRGB color);
-
+    
     void setColorOn(colorRGB color);
-
+    
     void setValue(byte value);
+    
+    void registerPaintableObjectOff(NGIPaintableObject *object);
+
+    void registerPaintableObjectOn(NGIPaintableObject *object);
 };
 
 #endif /* NGColorDotMatrixFuse_h */

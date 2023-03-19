@@ -37,40 +37,68 @@ void NGColorDotMatrixFuse::_render() {
         case fdUp:
             for (int i = 0; i < _arity; i++) {
                 if (i < _value) {
-                    _ipc->drawPoint(_posX, _posY + i, _colorOn);
-
+                    if (_paintableObjectOn != nullptr) {
+                        _paintableObjectOn->render(_posX, _posY + i);
+                    } else {
+                        _ipc->drawPoint(_posX, _posY + i, _colorOn);
+                    }
                 } else {
-                    _ipc->drawPoint(_posX, _posY + i, _colorOff);
+                    if (_paintableObjectOff != nullptr) {
+                        _paintableObjectOff->render(_posX, _posY + i);
+                    } else {
+                        _ipc->drawPoint(_posX, _posY + i, _colorOff);
+                    }
                 }
             }
             break;
         case fdDown:
             for (int i = 0; i < _arity; i++) {
                 if (i < _value) {
-                    _ipc->drawPoint(_posX, _posY - i, _colorOn);
-
+                    if (_paintableObjectOn != nullptr) {
+                        _paintableObjectOn->render(_posX, _posY - i);
+                    } else {
+                        _ipc->drawPoint(_posX, _posY - i, _colorOn);
+                    }
                 } else {
-                    _ipc->drawPoint(_posX, _posY - i, _colorOff);
+                    if (_paintableObjectOff != nullptr) {
+                        _paintableObjectOff->render(_posX, _posY - i);
+                    } else {
+                        _ipc->drawPoint(_posX, _posY - i, _colorOff);
+                    }
                 }
             }
             break;
         case fdLeft:
             for (int i = 0; i < _arity; i++) {
                 if (i < _value) {
-                    _ipc->drawPoint(_posX + i, _posY, _colorOn);
-
+                    if (_paintableObjectOn != nullptr) {
+                        _paintableObjectOn->render(_posX + i, _posY);
+                    } else {
+                        _ipc->drawPoint(_posX + i, _posY, _colorOn);
+                    }
                 } else {
-                    _ipc->drawPoint(_posX + i, _posY, _colorOff);
+                    if (_paintableObjectOff != nullptr) {
+                        _paintableObjectOff->render(_posX + i, _posY);
+                    } else {
+                        _ipc->drawPoint(_posX + i, _posY, _colorOff);
+                    }
                 }
             }
             break;
         case fdRight:
             for (int i = 0; i < _arity; i++) {
                 if (i < _value) {
-                    _ipc->drawPoint(_posX - i, _posY, _colorOn);
-
+                    if (_paintableObjectOn != nullptr) {
+                        _paintableObjectOn->render(_posX - i, _posY);
+                    } else {
+                        _ipc->drawPoint(_posX - i, _posY, _colorOn);
+                    }
                 } else {
-                    _ipc->drawPoint(_posX - i, _posY, _colorOff);
+                    if (_paintableObjectOff != nullptr) {
+                        _paintableObjectOff->render(_posX - i, _posY);
+                    } else {
+                        _ipc->drawPoint(_posX - i, _posY, _colorOff);
+                    }
                 }
             }
             break;
@@ -90,3 +118,12 @@ void NGColorDotMatrixFuse::setValue(byte value) {
     _value = value;
     _render();
 }
+
+void NGColorDotMatrixFuse::registerPaintableObjectOff(NGIPaintableObject *object) {
+    _paintableObjectOff = object;
+}
+
+void NGColorDotMatrixFuse::registerPaintableObjectOn(NGIPaintableObject *object) {
+    _paintableObjectOn = object;
+}
+
