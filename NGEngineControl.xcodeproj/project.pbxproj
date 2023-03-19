@@ -126,6 +126,7 @@
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
 		29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceDefinitions.h; sourceTree = "<group>"; };
 		29958E5D2718BF5E007048E3 /* simpleStartStop.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleStartStop.txt; sourceTree = "<group>"; };
+		29970A7A29C76255004B7F2D /* NGIPaintableObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIPaintableObject.h; sourceTree = "<group>"; };
 		2999D31B2791CE2500B88B53 /* NGI2CScanner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGI2CScanner.cpp; sourceTree = "<group>"; };
 		2999D31C2791CE2500B88B53 /* NGI2CScanner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGI2CScanner.h; sourceTree = "<group>"; };
 		2999D31E2792DC6E00B88B53 /* I2CScanner.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = I2CScanner.ino; sourceTree = "<group>"; };
@@ -318,6 +319,7 @@
 				29EA905E275F387A00F3C556 /* NGOLEDNotification.h */,
 				29EA905D275F387A00F3C556 /* NGOLEDNotification.cpp */,
 				29620D7129B1FE370020B874 /* NGIPaintableComponent.h */,
+				29970A7A29C76255004B7F2D /* NGIPaintableObject.h */,
 				29EA90602761ECF700F3C556 /* NGQuestionDialog.h */,
 				29EA905F2761ECF700F3C556 /* NGQuestionDialog.cpp */,
 				29D7EC3A2673BFB800009403 /* NGSerialNotification.h */,

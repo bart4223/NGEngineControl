@@ -14,6 +14,7 @@
 #include <WProgram.h>
 #endif
 
+#include "NGIPaintableObject.h"
 #include "NGColorDotMatrix.h"
 
 enum BinaryDigitDirection { bddUp, bddDown, bddLeft, bddRight };
@@ -35,6 +36,8 @@ private:
     colorRGB _colorOn = BD_COLOR_ON;
     byte _posX = 0;
     byte _posY = 0;
+    NGIPaintableObject *_paintableObjectOff = nullptr;
+    NGIPaintableObject *_paintableObjectOn = nullptr;
 
 protected:
     void _create(NGIPaintableComponent *ipc, byte arity, BinaryDigitDirection direction, byte posX, byte posY);
@@ -59,6 +62,10 @@ public:
     void setColorOn(colorRGB color);
 
     void setValue(byte value);
+    
+    void registerPaintableObjectOff(NGIPaintableObject *object);
+
+    void registerPaintableObjectOn(NGIPaintableObject *object);
 };
 
 #endif /* NGColorDotMatrixBinaryDigit_h */
