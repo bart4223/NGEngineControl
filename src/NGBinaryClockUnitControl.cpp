@@ -9,15 +9,15 @@
 #include "NGMemoryObserver.h"
 #include "NGBinaryClockUnitControl.h"
 
-NGBinaryClockUnitControl::NGBinaryClockUnitControl(char* name, NGColorDotMatrix *cdm) {
+NGBinaryClockUnitControl::NGBinaryClockUnitControl(char* name, NGIPaintableComponent *cdm) {
     _create(name, NOADDRESS, DEFAULTSERIALRATE, cdm, DEFBINARYCLOCKPOSX, DEFBINARYCLOCKPOSY);
 }
 
-NGBinaryClockUnitControl::NGBinaryClockUnitControl(char* name, NGColorDotMatrix *cdm,  byte posX, byte posY) {
+NGBinaryClockUnitControl::NGBinaryClockUnitControl(char* name, NGIPaintableComponent *cdm,  byte posX, byte posY) {
     _create(name, NOADDRESS, DEFAULTSERIALRATE, cdm, posX, posY);
 }
 
-void NGBinaryClockUnitControl::_create(char* name, byte address, int serialRate, NGColorDotMatrix *cdm, byte posX, byte posY) {
+void NGBinaryClockUnitControl::_create(char* name, byte address, int serialRate, NGIPaintableComponent *cdm, byte posX, byte posY) {
     NGCustomUnitControl::_create(name, address, serialRate);
     _version = VERSION;
     if (_address != NOADDRESS) {
@@ -89,7 +89,6 @@ void NGBinaryClockUnitControl::_processingClock() {
 
 void NGBinaryClockUnitControl::initialize() {
     _rtc->initialize(_adjustRTC);
-    _cdm->initialize();
     _cdm->beginUpdate();
     for (int i = 0; i < DIGITCOUNT; i++) {
         _digits[i]->setValue(0);

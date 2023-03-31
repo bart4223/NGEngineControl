@@ -28,13 +28,13 @@
 class NGBinaryClockUnitControl : public NGCustomUnitControl {
     
 private:
-    NGColorDotMatrix *_cdm;
+    NGIPaintableComponent *_cdm;
     NGColorDotMatrixBinaryDigit *_digits[DIGITCOUNT];
     bool _withArityOffset = true;
     bool _adjustRTC = false;
     
 protected:
-    void _create(char* name, byte address, int serialRate, NGColorDotMatrix *cdm, byte posX, byte posY);
+    void _create(char* name, byte address, int serialRate, NGIPaintableComponent *cdm, byte posX, byte posY);
     
     void _processingReceivedData();
     
@@ -44,9 +44,9 @@ protected:
     
     void _processingClock();
 public:
-    NGBinaryClockUnitControl(char* name, NGColorDotMatrix *cdm);
+    NGBinaryClockUnitControl(char* name, NGIPaintableComponent *cdm);
     
-    NGBinaryClockUnitControl(char* name, NGColorDotMatrix *cdm, byte posX, byte posY);
+    NGBinaryClockUnitControl(char* name, NGIPaintableComponent *cdm, byte posX, byte posY);
     
     void initialize();
     

@@ -1,10 +1,17 @@
 #define PROD true //false,true
+#define DOTMATRIX //OLED, DOTMATRIX
 
 #include <NGSerialNotification.h>
 #include <NGSimpleKeypad.h>
 #include <NGSoundMachine.h>
 #include <NGJingleJingleBells.h>
 #include <NGBinaryClockUnitControl.h>
+#ifdef OLED
+#include <NGColorOLED.h>
+#endif
+#ifdef DOTMATRIX
+#include <NGColorDotMatrix.h>
+#endif
 
 #define _BINARYCLOCK  "Clock"
 #define BINARYCLOCK   (char*)_BINARYCLOCK
@@ -44,13 +51,18 @@
 
 NGSoundMachine sm = NGSoundMachine();
 NGSimpleKeypad simpleKeypad = NGSimpleKeypad();
+#ifdef DOTMATRIX
 NGColorDotMatrix cdm = NGColorDotMatrix();
+#endif
+#ifdef OLED
+NGColorOLED cdm = NGColorOLED();
+#endif
 NGBinaryClockUnitControl unitBinaryClock = NGBinaryClockUnitControl(BINARYCLOCK, &cdm);
 #if (PROD == false)
 NGSerialNotification serialNotification = NGSerialNotification();
 #endif
 
-byte heart[][2] = {
+coord2D heart[] = {
   {1, 1}, {2, 1}, {5, 1}, {6, 1},
   {0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2}, {7, 2},
   {0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}, {6, 3}, {7, 3},
@@ -60,7 +72,7 @@ byte heart[][2] = {
   {3, 7}, {4, 7}
 };
 
-byte treeGreen[][2] = {{2, 1}, {3, 1}, {5, 1},
+coord2D treeGreen[] = {{2, 1}, {3, 1}, {5, 1},
   {1, 2}, {2, 2}, {4, 2}, {5, 2}, {6, 2},
   {1, 3}, {2, 3}, {3, 3}, {4, 3}, {6, 3},
   {2, 4}, {4, 4}, {5, 4},
@@ -68,9 +80,9 @@ byte treeGreen[][2] = {{2, 1}, {3, 1}, {5, 1},
   {1, 6}, {2, 6}, {5, 6}, {6, 6}
 };
 
-byte treeFlash[][2] = {{4, 1}, {3, 2}, {5, 3}, {3, 4}, {2, 5}, {4, 5}};
-byte treeRed[][2] = {{0, 3}, {7, 3}, {0, 6}, {7, 6}};
-byte treeYellow[][2] = {{3, 0}, {4, 0}, {3, 6}, {4, 6}, {3, 7}, {4, 7}};
+coord2D treeFlash[] = {{4, 1}, {3, 2}, {5, 3}, {3, 4}, {2, 5}, {4, 5}};
+coord2D treeRed[] = {{0, 3}, {7, 3}, {0, 6}, {7, 6}};
+coord2D treeYellow[] = {{3, 0}, {4, 0}, {3, 6}, {4, 6}, {3, 7}, {4, 7}};
 byte treeFlashColor[7][3] = {{255, 0, 0},
   {255, 102, 0},
   {255, 255, 0},
@@ -92,7 +104,7 @@ byte fireColor[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 long lastFire = 0;
 
 #ifdef BELL
-byte bell[][2] = {{3, 0}, {4, 0},
+coord2D bell[] = {{3, 0}, {4, 0},
   {2, 1}, {3, 1}, {4, 1}, {5, 1},
   {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}, {6, 2},
   {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}, {6, 3},
@@ -119,6 +131,12 @@ void setup() {
   #if (PROD == false)
   unitBinaryClock.registerNotification(&serialNotification);
   #endif
+  // ColorDotMatrix
+  cdm.initialize();
+  #ifdef OLED
+  cdm.setScale(8);
+  #endif
+  cdm.clear();
   unitBinaryClock.setColorOff(colorOff);
   unitBinaryClock.setColorOn(colorOn);
   //unitBinaryClock.setAdjustRTC(true);
@@ -250,6 +268,9 @@ void SimpleKeypadCallback(byte id) {
     case KEYSOUNDID:
       cdm.clear();
       #ifdef BELL
+      coord2D coord;
+      coord.x = 0;
+      coord.y = 0;
       cdm.drawImage(bell, COLOR_RED, sizeof(bell) / sizeof(bell[0]));
       #else
       heartBeat = HEARTBEATBASE + HEARTBEATRANGE;
@@ -329,7 +350,7 @@ void renderTree() {
     c.red = treeFlashColor[treeFlashIndex][0];
     c.green = treeFlashColor[treeFlashIndex][1];
     c.blue = treeFlashColor[treeFlashIndex][2];
-    cdm.drawPoint(treeFlash[i][0], treeFlash[i][1], c);
+    cdm.drawPoint(treeFlash[i].x, treeFlash[i].y, c);
     treeFlashIndex++;
     if (treeFlashIndex >= 7) {
       treeFlashIndex = 0;
