@@ -140,6 +140,9 @@ void setup() {
   unitBinaryClock.setColorOff(colorOff);
   unitBinaryClock.setColorOn(colorOn);
   //unitBinaryClock.setAdjustRTC(true);
+  #ifdef OLED
+  unitBinaryClock.setOffset(2, -1);
+  #endif
   unitBinaryClock.initialize();
   simpleKeypad.registerCallback(&SimpleKeypadCallback);
   simpleKeypad.registerKey(KEYCOLOROFFPIN, KEYCOLOROFFID, KEYDELAY);

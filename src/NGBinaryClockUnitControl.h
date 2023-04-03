@@ -56,9 +56,11 @@ public:
     
     void setColorOn(colorRGB color);
     
+    void setOffset(int offsetX, int offsetY);
+
     void processingLoop();
     
-    void requestData(byte* data);
+    void requestData(byte* data);    
 };
 
 #endif /* NGBinaryClockUnitControl_h */

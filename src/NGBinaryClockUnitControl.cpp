@@ -112,6 +112,12 @@ void NGBinaryClockUnitControl::setColorOn(colorRGB color) {
     }
 }
 
+void NGBinaryClockUnitControl::setOffset(int offsetX, int offsetY) {
+    for (int i = 0; i < DIGITCOUNT; i++) {
+        _digits[i]->setOffset(offsetX * i, offsetY);
+    }
+}
+
 void NGBinaryClockUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
     _processingClock();

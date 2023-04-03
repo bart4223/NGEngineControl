@@ -38,6 +38,8 @@ private:
     byte _posY = 0;
     NGIPaintableObject *_paintableObjectOff = nullptr;
     NGIPaintableObject *_paintableObjectOn = nullptr;
+    int _offsetX = 0;
+    int _offsetY = 0;
 
 protected:
     void _create(NGIPaintableComponent *ipc, byte arity, BinaryDigitDirection direction, byte posX, byte posY);
@@ -63,9 +65,12 @@ public:
 
     void setValue(byte value);
     
+    void setOffset(int offsetX, int offsetY);
+
     void registerPaintableObjectOff(NGIPaintableObject *object);
 
     void registerPaintableObjectOn(NGIPaintableObject *object);
+    
 };
 
 #endif /* NGColorDotMatrixBinaryDigit_h */

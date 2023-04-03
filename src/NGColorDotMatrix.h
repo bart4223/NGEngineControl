@@ -31,6 +31,8 @@ private:
     int _updateCount = 0;
     int _scale = DEFCOLORDOTMATRIXSCALE;
     colorRGB _background = DEFCOLORDOTMATRIXBACKGROUND;
+    int _offsetX = 0;
+    int _offsetY = 0;
     
 protected:
     void _create();
@@ -86,11 +88,9 @@ public:
     
     void drawImage(coord2D coord[], colorRGB color, int size);
     
-    void drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color, int size);
-
     void drawImage(coord2D coord[], colorRGB color[], int size);
     
-    void drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color[], int size);
+    void setOffset(int offsetX, int offsetY);
 };
 
 #endif /* NGColorDotMatrix_h */

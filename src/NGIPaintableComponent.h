@@ -43,11 +43,7 @@ public:
     
     virtual void drawImage(coord2D coord[], colorRGB color, int size);
     
-    virtual void drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color, int size);
-    
     virtual void drawImage(coord2D coord[], colorRGB color[], int size);
-    
-    virtual void drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color[], int size);
     
     virtual void setScale(int scale);
     
@@ -56,6 +52,8 @@ public:
     virtual void setBackground(colorRGB color);
     
     virtual colorRGB getBackground();
+    
+    virtual void setOffset(int offsetX, int offsetY);
 };
 
 #endif /* NGIPaintableComponent_h */

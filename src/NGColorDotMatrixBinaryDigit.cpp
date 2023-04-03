@@ -45,12 +45,14 @@ void NGColorDotMatrixBinaryDigit::_render() {
         case bddUp:
             for (byte i = 0; i < _arity; i++) {
                 if ((_value & x) != 0x00) {
+                    _ipc->setOffset(_offsetX, i * _offsetY);
                     if (_paintableObjectOn != nullptr) {
                         _paintableObjectOn->render(_posX, _posY - i);
                     } else {
                         _ipc->drawPoint(_posX, _posY - i, _colorOn);
                     }
                 } else {
+                    _ipc->setOffset(_offsetX, i * _offsetY);
                     if (_paintableObjectOff != nullptr) {
                         _paintableObjectOff->render(_posX, _posY - i);
                     } else {
@@ -63,12 +65,14 @@ void NGColorDotMatrixBinaryDigit::_render() {
         case bddDown:
             for (byte i = 0; i < _arity; i++) {
                 if ((_value & x) != 0x00) {
+                    _ipc->setOffset(_offsetX, i * _offsetY);
                     if (_paintableObjectOn != nullptr) {
                         _paintableObjectOn->render(_posX, _posY + i);
                     } else {
                         _ipc->drawPoint(_posX, _posY + i, _colorOn);
                     }
                 } else {
+                    _ipc->setOffset(_offsetX, i * _offsetY);
                     if (_paintableObjectOff != nullptr) {
                         _paintableObjectOff->render(_posX, _posY + i);
                     } else {
@@ -81,12 +85,14 @@ void NGColorDotMatrixBinaryDigit::_render() {
         case bddLeft:
             for (byte i = 0; i < _arity; i++) {
                 if ((_value & x) != 0x00) {
+                    _ipc->setOffset(i * _offsetX, _offsetY);
                     if (_paintableObjectOn != nullptr) {
                         _paintableObjectOn->render(_posX + i, _posY);
                     } else {
                         _ipc->drawPoint(_posX + i, _posY, _colorOn);
                     }
                 } else {
+                    _ipc->setOffset(i * _offsetX, _offsetY);
                     if (_paintableObjectOff != nullptr) {
                         _paintableObjectOff->render(_posX + i, _posY);
                     } else {
@@ -99,12 +105,14 @@ void NGColorDotMatrixBinaryDigit::_render() {
         case bddRight:
             for (byte i = 0; i < _arity; i++) {
                 if ((_value & x) != 0x00) {
+                    _ipc->setOffset(i * _offsetX, _offsetY);
                     if (_paintableObjectOn != nullptr) {
                         _paintableObjectOn->render(_posX - i, _posY);
                     } else {
                         _ipc->drawPoint(_posX - i, _posY, _colorOn);
                     }
                 } else {
+                    _ipc->setOffset(i * _offsetX, _offsetY);
                     if (_paintableObjectOff != nullptr) {
                         _paintableObjectOff->render(_posX - i, _posY);
                     } else {
@@ -129,6 +137,11 @@ void NGColorDotMatrixBinaryDigit::setColorOn(colorRGB color) {
 void NGColorDotMatrixBinaryDigit::setValue(byte value) {
     _value = value;
     _render();
+}
+
+void NGColorDotMatrixBinaryDigit::setOffset(int offsetX, int offsetY) {
+    _offsetX = offsetX;
+    _offsetY = offsetY;
 }
 
 void NGColorDotMatrixBinaryDigit::registerPaintableObjectOff(NGIPaintableObject *object) {

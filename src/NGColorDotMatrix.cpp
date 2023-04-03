@@ -161,25 +161,22 @@ void NGColorDotMatrix::clear() {
 }
 
 void NGColorDotMatrix::drawImage(coord2D coord[], colorRGB color, int size) {
-    drawImage(0, 0, coord, color, size);
-}
-
-void NGColorDotMatrix::drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color, int size) {
     beginUpdate();
     for (int i = 0; i < size; i++) {
-        drawPoint(offsetX + coord[i].x, offsetY + coord[i].y, color);
+        drawPoint(_offsetX + coord[i].x, _offsetY + coord[i].y, color);
     }
     endUpdate();
 }
 
 void NGColorDotMatrix::drawImage(coord2D coord[], colorRGB color[], int size) {
-    drawImage(0, 0, coord, color, size);
-}
-
-void NGColorDotMatrix::drawImage(int offsetX, int offsetY, coord2D coord[], colorRGB color[], int size) {
     beginUpdate();
     for (int i = 0; i < size; i++) {
-        drawPoint(offsetX + coord[i].x, offsetY + coord[i].y, color[i]);
+        drawPoint(_offsetX + coord[i].x, _offsetY + coord[i].y, color[i]);
     }
     endUpdate();
+}
+
+void NGColorDotMatrix::setOffset(int offsetX, int offsetY) {
+    _offsetX = offsetX;
+    _offsetY = offsetY;
 }
