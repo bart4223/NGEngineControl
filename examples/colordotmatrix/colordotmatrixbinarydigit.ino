@@ -39,7 +39,7 @@ byte valueLives = 0x03;
 void setup() {
   cdm.initialize();
   #ifdef OLED
-  cdm.setScale(5);
+  cdm.setScale(8);
   #endif
   cdm.clear();
   cdmbdScore.setColorOff(COLOR_BLACK);
