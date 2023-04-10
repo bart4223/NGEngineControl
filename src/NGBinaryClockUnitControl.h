@@ -17,7 +17,7 @@
 #include "NGColorDotMatrixBinaryDigit.h"
 #include <NGCustomUnitControl.h>
 
-#define _VERSION "0.3"
+#define _VERSION "0.4"
 #define VERSION (char*)_VERSION
 
 #define DEFBINARYCLOCKPOSX 0
