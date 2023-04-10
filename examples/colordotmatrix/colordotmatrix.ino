@@ -1,8 +1,12 @@
 #define OLED //OLED, DOTMATRIX
+//#define RTC
 
 #include <NGMemoryObserver.h>
 #include <NGCommonGraphics.h>
 #include <NGSimpleKeypad.h>
+#ifdef RTC
+#include <NGRealTimeClock.h>
+#endif
 #ifdef DOTMATRIX
 #include <NGColorDotMatrix.h>
 #endif
@@ -23,6 +27,9 @@
 coord2D img[] = {{0, 0}, {1, 1}, {2, 2}};
 colorRGB clr[] = {COLOR_RED, COLOR_GREEN, COLOR_BLUE};
 
+#ifdef RTC
+NGRealTimeClock rtc = NGRealTimeClock();
+#endif
 NGSimpleKeypad keypad = NGSimpleKeypad();
 #ifdef DOTMATRIX
 NGColorDotMatrix cdm = NGColorDotMatrix();
@@ -36,10 +43,15 @@ int posX = 0;
 int posY = 0;
 
 long _lastUpdate = 0;
+bool _invalidate = false;
   
 void setup() {
   observeMemory(0);
   randomSeed(analogRead(A0));
+  // RTC
+  #ifdef RTC
+  rtc.initialize();
+  #endif
   // Keypad
   keypad.registerCallback(&SimpleKeypadCallback);
   keypad.registerKey(SCALEDOWNPIN, SCALEDOWNID, KEYDELAY);
@@ -50,12 +62,17 @@ void setup() {
   cdm.setScale(SCALE);
   #endif
   cdm.initialize();
+  cdm.clear();
   observeMemory(0);
 }
 
 void loop() {
   keypad.processingLoop();
-  if (millis() - _lastUpdate > DELAY) {
+  if ((millis() - _lastUpdate > DELAY) || _invalidate) {
+    _invalidate = false;
+    #ifdef RTC
+    Serial.println(rtc.getNowAsText());
+    #endif
     cdm.beginUpdate();
     //cdm.setBackground(COLOR_YELLOW);
     cdm.clear();
@@ -87,13 +104,13 @@ void SimpleKeypadCallback(byte id) {
       scale = cdm.getScale();
       if (scale > 1) {
         cdm.setScale(scale - 1);
-        _lastUpdate = 0;
+      _invalidate = true;
       }
       break;
     case SCALEUPID:
       scale = cdm.getScale();
       cdm.setScale(scale + 1);
-      _lastUpdate = 0;
+      _invalidate = true;
       break;
   }
 }
