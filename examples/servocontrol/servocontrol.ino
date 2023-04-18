@@ -2,10 +2,10 @@
 #include <NGMemoryObserver.h>
 #include <NGServoControl.h>
 
-#define PINSERVO  9
+#define PINSERVO   8
 #define DELAY     20
 
-#define ZEROPOS 100
+#define ZEROPOS 97
 #define RANGE   30
 #define MINPOS  ZEROPOS - RANGE
 #define MAXPOS  ZEROPOS + RANGE
@@ -17,10 +17,11 @@ bool logging = false; //false
 int dir = 0;
 
 void setup() {
-  Serial.begin(DEFAULTSERIALRATE);
+  observeMemory(0);
   loops = loops * 2;
   sc.initialize();
   sc.setLogging(logging);
+  observeMemory(0);
 }
 
 void loop() {

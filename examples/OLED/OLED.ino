@@ -1,8 +1,10 @@
 #include <NGMemoryObserver.h>
 #include <NGOLEDNotification.h>
 
-#define OLED32
-//#define OLED64
+//#define OLED32
+#define OLED64
+
+#define DELAY 5000
 
 #define OLEDADDRESS    0x3C
 #define OLEDCOLUMNS    16
@@ -18,7 +20,7 @@
 NGOLEDNotification *oled;
 
 void setup() {
-  Serial.begin(9600);
+  observeMemory(0);
   Wire.begin();
   #ifdef OLED64
   oled = new NGOLEDNotification(ot128x64, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
@@ -27,6 +29,7 @@ void setup() {
   oled = new NGOLEDNotification(ot128x32, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   #endif
   oled->initialize();
+  observeMemory(0);
 }
 
 void loop()
@@ -39,5 +42,5 @@ void loop()
   oled->writeInfo("Hello world Hello world Hello world", 0);
   oled->writeInfo("Hello world Hello world Hello world", 1);
   #endif
-  observeMemory(5000);
+  observeMemory(DELAY);
 }
