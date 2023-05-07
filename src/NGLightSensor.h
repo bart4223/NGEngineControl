@@ -19,6 +19,7 @@
 #define DEFPINLIGHTSENSOR A0
 #define MAXTHRESHOLDCOUNT 5
 #define DEFTHRESHOLDDELAY 2000
+#define CDEFLOGDELAY 500
 
 enum thresholdLevel { tlUnder, tlOver };
 enum thresholdValence { tvLow, tvHigh };
@@ -41,6 +42,7 @@ private:
     byte _thresholdCount;
     sensorThreshold _thresholds[MAXTHRESHOLDCOUNT];
     bool _logging = false;
+    long _lastLog = 0;
     
 protected:
     void _create(byte pinSensor);

@@ -53,7 +53,10 @@ bool NGLightSensor::getLogging() {
 void NGLightSensor::determine() {
     int value = analogRead(_pinSensor);
     if (_logging) {
-        Serial.println(value);
+        if (millis() - _lastLog > CDEFLOGDELAY) {
+            Serial.println(value);
+            _lastLog = millis();
+        }
     }
     for (int i = 0; i < _thresholdCount; i++) {
         bool ok = false;

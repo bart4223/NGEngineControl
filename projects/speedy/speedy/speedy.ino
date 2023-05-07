@@ -7,6 +7,7 @@
 #include <NGOLEDNotification.h>
 #if (PROD == false)
 #include <NGSerialNotification.h>
+
 #endif
 #include <NGMotionSequenceDefinitions.h>
 #include <NGJingleBoot.h>
@@ -19,6 +20,9 @@
 #define OLEDTYPE          ot128x64
 #define OLEDLINES         8
 #define OLEDLINEFACTOR    4
+
+#define PINLIGHTSENSOR    A0
+#define PINLIGHT           4
 
 #define WIRELESSREMOTEDELAYUP      300
 #define WIRELESSREMOTEDELAYDOWN    300
@@ -51,8 +55,12 @@
 #define SPEEDBACKWARD2  100
 #define SPEEDCURVE        0
 
+#define LIGHTSENSORDELAY      1000
+#define LIGHTSENSORTHRESHOLD   650
+
 NGSimpleWirelessReceiver swrRight = NGSimpleWirelessReceiver(WIRELESSREMOTERIGHT);
 NGSimpleWirelessReceiver swrLeft = NGSimpleWirelessReceiver(WIRELESSREMOTELEFT);
+NGLightSensor *lightSensor = new NGLightSensor(PINLIGHTSENSOR);
 NGCarSteeringControl *csc = new NGCarSteeringControl(STEERINGPIN, STEERINGZEROPOS, STEERINGMIN, STEERINGMAX, STEERINGSTEPWIDTH);
 NGRemoteMotionControl *rmc = new NGRemoteMotionControl(csc);
 NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, rmc);
@@ -80,6 +88,7 @@ void setup() {
   unitSpeedy.setLogging(false);
   #endif
   unitSpeedy.registerBoot(&jingleBoot);
+  unitSpeedy.registerLightSensor(lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
   // Joystick left
   unitSpeedy.registerIRRemoteFunction(swrLeft.getID(), ftPlay, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP);
   // Joystick right
