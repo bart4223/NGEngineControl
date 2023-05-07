@@ -42,8 +42,19 @@ void NGLightSensor::registerThreshold(int threshold, thresholdLevel level, byte 
     _thresholdCount++;
 }
 
+void NGLightSensor::setLogging(bool logging) {
+    _logging = logging;
+}
+
+bool NGLightSensor::getLogging() {
+    return _logging;
+}
+
 void NGLightSensor::determine() {
     int value = analogRead(_pinSensor);
+    if (_logging) {
+        Serial.println(value);
+    }
     for (int i = 0; i < _thresholdCount; i++) {
         bool ok = false;
         switch (_thresholds[i].level) {
@@ -92,4 +103,8 @@ void NGLightSensor::testSequenceStop() {
     for (int i = 0; i < _thresholdCount; i++) {
         digitalWrite(_thresholds[i].pin, LOW);
     }
+}
+
+void NGLightSensor::processingLoop() {
+    determine();
 }

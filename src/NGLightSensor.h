@@ -40,6 +40,7 @@ private:
     byte _pinSensor;
     byte _thresholdCount;
     sensorThreshold _thresholds[MAXTHRESHOLDCOUNT];
+    bool _logging = false;
     
 protected:
     void _create(byte pinSensor);
@@ -55,11 +56,17 @@ public:
     
     void registerThreshold(int threshold, thresholdLevel level, byte pin, thresholdValence valence, int delay);
     
+    void setLogging(bool logging);
+    
+    bool getLogging();
+    
     void determine();
     
     void testSequenceStart();
     
     void testSequenceStop();
+    
+    void processingLoop();
 };
 
 #endif /* NGLightSensor_h */

@@ -7,8 +7,9 @@
 NGTimeOfFlightObjectRecognizer tofor = NGTimeOfFlightObjectRecognizer(MAXDISTANCE);
 
 void setup() {
-  Serial.begin(9600);
+  observeMemory(0);
   tofor.initialize();
+  observeMemory(0);
 }
 
 void loop() {
