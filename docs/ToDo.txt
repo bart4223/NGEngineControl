@@ -11,3 +11,4 @@
   -motionUnit
     -CustomMotionControl
         -CompassMotionControl
+-WeatherStation
