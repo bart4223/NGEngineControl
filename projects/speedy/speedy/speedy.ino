@@ -60,7 +60,7 @@
 
 NGSimpleWirelessReceiver swrRight = NGSimpleWirelessReceiver(WIRELESSREMOTERIGHT);
 NGSimpleWirelessReceiver swrLeft = NGSimpleWirelessReceiver(WIRELESSREMOTELEFT);
-NGLightSensor *lightSensor = new NGLightSensor(PINLIGHTSENSOR);
+NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
 NGCarSteeringControl *csc = new NGCarSteeringControl(STEERINGPIN, STEERINGZEROPOS, STEERINGMIN, STEERINGMAX, STEERINGSTEPWIDTH);
 NGRemoteMotionControl *rmc = new NGRemoteMotionControl(csc);
 NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, rmc);
@@ -88,7 +88,7 @@ void setup() {
   unitSpeedy.setLogging(false);
   #endif
   unitSpeedy.registerBoot(&jingleBoot);
-  unitSpeedy.registerLightSensor(lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
+  unitSpeedy.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
   // Joystick left
   unitSpeedy.registerIRRemoteFunction(swrLeft.getID(), ftPlay, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP);
   // Joystick right
