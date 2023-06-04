@@ -4,6 +4,7 @@
 #include <NGMotionUnitControl.h>
 #include <NGRemoteMotionControl.h>
 #include <NGCarSteeringControl.h>
+#include <NGTimeOfFlightObjectRecognizer.h>
 #include <NGOLEDNotification.h>
 #if (PROD == false)
 #include <NGSerialNotification.h>
@@ -58,9 +59,12 @@
 #define LIGHTSENSORDELAY      1000
 #define LIGHTSENSORTHRESHOLD   650
 
+#define ORMAXDISTANCE         25
+
 NGSimpleWirelessReceiver swrRight = NGSimpleWirelessReceiver(WIRELESSREMOTERIGHT);
 NGSimpleWirelessReceiver swrLeft = NGSimpleWirelessReceiver(WIRELESSREMOTELEFT);
 NGLightSensor lightSensor = NGLightSensor(PINLIGHTSENSOR);
+NGTimeOfFlightObjectRecognizer tofor = NGTimeOfFlightObjectRecognizer(ORMAXDISTANCE);
 NGCarSteeringControl *csc = new NGCarSteeringControl(STEERINGPIN, STEERINGZEROPOS, STEERINGMIN, STEERINGMAX, STEERINGSTEPWIDTH);
 NGRemoteMotionControl *rmc = new NGRemoteMotionControl(csc);
 NGMotionUnitControl unitSpeedy = NGMotionUnitControl(MOTION, rmc);
@@ -89,6 +93,7 @@ void setup() {
   #endif
   unitSpeedy.registerBoot(&jingleBoot);
   unitSpeedy.registerLightSensor(&lightSensor, LIGHTSENSORTHRESHOLD, tlUnder, PINLIGHT, tvHigh, LIGHTSENSORDELAY);
+  //unitSpeedy.registerObjectRecognizer(ormpFront, &tofor);
   // Joystick left
   unitSpeedy.registerIRRemoteFunction(swrLeft.getID(), ftPlay, IRP_QIACHIP, IRA_QIACHIP, IRC_QIACHIP_UP);
   // Joystick right
