@@ -253,6 +253,8 @@
 		29FD43C1278A0A7E00EAF0D9 /* NGCompass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCompass.cpp; sourceTree = "<group>"; };
 		29FD43C2278A0A7E00EAF0D9 /* NGCompass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCompass.h; sourceTree = "<group>"; };
 		29FD43C4278A0B7900EAF0D9 /* compass.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = compass.ino; sourceTree = "<group>"; };
+		29FEFB172A2B284D0035F817 /* NGSimpleMotionMimic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSimpleMotionMimic.cpp; sourceTree = "<group>"; };
+		29FEFB182A2B284D0035F817 /* NGSimpleMotionMimic.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSimpleMotionMimic.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -720,6 +722,8 @@
 				294E9C8A28F325A900A3E17A /* NGRemoteMotionControl.cpp */,
 				29DAAB9C27B03057000E56F1 /* NGSimpleMotionControl.h */,
 				29DAAB9B27B03057000E56F1 /* NGSimpleMotionControl.cpp */,
+				29FEFB182A2B284D0035F817 /* NGSimpleMotionMimic.h */,
+				29FEFB172A2B284D0035F817 /* NGSimpleMotionMimic.cpp */,
 				29DAAB9A27B02DD1000E56F1 /* NGVoidMotionMimic.h */,
 				29DAAB9927B02DD1000E56F1 /* NGVoidMotionMimic.cpp */,
 			);

@@ -10,11 +10,13 @@
 void NGCustomMotionControl::_initializeMotionMimic() {
     if (hasMotionMimic()) {
         _motionMimic->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        char log[100];
-        sprintf(log, "Mimic \"%s\" initialized", _motionMimic->getName());
-        Serial.println(log);
-        #endif
+        if (_logging) {
+            #ifdef NG_PLATFORM_MEGA
+            char log[100];
+            sprintf(log, "Mimic \"%s\" initialized", _motionMimic->getName());
+            Serial.println(log);
+            #endif
+        }
     }
 }
 
@@ -27,11 +29,13 @@ void NGCustomMotionControl::_initializeSteering() {
 void NGCustomMotionControl::_initializeObjectRecognizer() {
     for (int i = 0; i < _objectRecognizerCount; i++) {
         _objectRecognizer[i].recognizer->initialize();
-        #ifdef NG_PLATFORM_MEGA
-        char log[100];
-        sprintf(log, "Object Recognizer \"%s\" initialized", _objectRecognizer[i].recognizer->getName());
-        Serial.println(log);
-        #endif
+        if (_logging) {
+            #ifdef NG_PLATFORM_MEGA
+            char log[100];
+            sprintf(log, "Object Recognizer \"%s\" initialized", _objectRecognizer[i].recognizer->getName());
+            Serial.println(log);
+            #endif
+        }
     }
 }
 
@@ -40,6 +44,13 @@ void NGCustomMotionControl::_processingObjectRecognizer() {
     for (int i = 0; i < _objectRecognizerCount; i++) {
         if (_objectRecognizer[i].recognizer->detected()) {
             _firedObjectRecognizer = i;
+            if (_logging) {
+                #ifdef NG_PLATFORM_MEGA
+                char log[100];
+                sprintf(log, "Object Recognizer \"%s\" fired", _objectRecognizer[_firedObjectRecognizer].recognizer->getName());
+                Serial.println(log);
+                #endif
+            }
             break;
         }
     }
