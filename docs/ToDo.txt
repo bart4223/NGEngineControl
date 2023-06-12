@@ -1,4 +1,5 @@
 -Common
+  -Bluetooth
 -Motoman
   -Common
     -TransportBox
