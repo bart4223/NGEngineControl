@@ -195,6 +195,13 @@
 		29D7EC4026741FAB00009403 /* NGLCDNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGLCDNotification.h; sourceTree = "<group>"; };
 		29D7EC4226750DEE00009403 /* motionunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = motionunit.ino; sourceTree = "<group>"; };
 		29D8FAC628DDB5E300598278 /* WirelessRemoteG1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WirelessRemoteG1.png; sourceTree = "<group>"; };
+		29D947E32A36F5300018377D /* bluetoothmaster.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = bluetoothmaster.ino; sourceTree = "<group>"; };
+		29D947E42A36F5550018377D /* bluetoothslave.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = bluetoothslave.ino; sourceTree = "<group>"; };
+		29D947E52A374B400018377D /* NGBluetooth.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBluetooth.h; sourceTree = "<group>"; };
+		29D947E62A376B650018377D /* NGBluetoothMaster.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBluetoothMaster.cpp; sourceTree = "<group>"; };
+		29D947E72A376B650018377D /* NGBluetoothMaster.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBluetoothMaster.h; sourceTree = "<group>"; };
+		29D947E82A3A06330018377D /* NGBluetoothSlave.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBluetoothSlave.cpp; sourceTree = "<group>"; };
+		29D947E92A3A06330018377D /* NGBluetoothSlave.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBluetoothSlave.h; sourceTree = "<group>"; };
 		29DAAB9727B022ED000E56F1 /* NGCustomMotionControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomMotionControl.cpp; sourceTree = "<group>"; };
 		29DAAB9827B022ED000E56F1 /* NGCustomMotionControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomMotionControl.h; sourceTree = "<group>"; };
 		29DAAB9927B02DD1000E56F1 /* NGVoidMotionMimic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGVoidMotionMimic.cpp; sourceTree = "<group>"; };
@@ -589,6 +596,7 @@
 		29647BC2253C430C003CBA13 /* examples */ = {
 			isa = PBXGroup;
 			children = (
+				29D947E02A36F48A0018377D /* bluetooth */,
 				294E9C9129072E9900A3E17A /* colordotmatrix */,
 				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29F56DF027410D1D00BBBB68 /* contact */,
@@ -735,6 +743,11 @@
 		2999D31A2791CDE700B88B53 /* communication */ = {
 			isa = PBXGroup;
 			children = (
+				29D947E52A374B400018377D /* NGBluetooth.h */,
+				29D947E72A376B650018377D /* NGBluetoothMaster.h */,
+				29D947E62A376B650018377D /* NGBluetoothMaster.cpp */,
+				29D947E92A3A06330018377D /* NGBluetoothSlave.h */,
+				29D947E82A3A06330018377D /* NGBluetoothSlave.cpp */,
 				2999D31C2791CE2500B88B53 /* NGI2CScanner.h */,
 				2999D31B2791CE2500B88B53 /* NGI2CScanner.cpp */,
 				29DC5F8628A2384200CCEEB1 /* NGSimpleWirelessReceiver.h */,
@@ -895,6 +908,31 @@
 				29D7EC4226750DEE00009403 /* motionunit.ino */,
 			);
 			path = motionunit;
+			sourceTree = "<group>";
+		};
+		29D947E02A36F48A0018377D /* bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				29D947E12A36F4D30018377D /* bluetoothmaster */,
+				29D947E22A36F4DB0018377D /* bluetoothslave */,
+			);
+			path = bluetooth;
+			sourceTree = "<group>";
+		};
+		29D947E12A36F4D30018377D /* bluetoothmaster */ = {
+			isa = PBXGroup;
+			children = (
+				29D947E32A36F5300018377D /* bluetoothmaster.ino */,
+			);
+			path = bluetoothmaster;
+			sourceTree = "<group>";
+		};
+		29D947E22A36F4DB0018377D /* bluetoothslave */ = {
+			isa = PBXGroup;
+			children = (
+				29D947E42A36F5550018377D /* bluetoothslave.ino */,
+			);
+			path = bluetoothslave;
 			sourceTree = "<group>";
 		};
 		29DC5F8728A27F8400CCEEB1 /* wirelessreceiver */ = {
