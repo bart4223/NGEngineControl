@@ -35,6 +35,7 @@
 #define BT_CMD_KIND_SWITCH      0x01
 #define BT_CMD_KIND_SWITCH_OFF  0x00
 #define BT_CMD_KIND_SWITCH_ON   0x01
+#define BT_CMD_KIND_COUNTER     0x02
 
 #define BT_NO_KIND    -1
 #define BT_NO_CONTEXT -1

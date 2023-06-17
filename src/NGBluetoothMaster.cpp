@@ -34,6 +34,10 @@ void NGBluetoothMaster::_sendKindSwitch() {
     Serial.write(BT_CMD_KIND_SWITCH);
 }
 
+void NGBluetoothMaster::_sendKindCounter() {
+    Serial.write(BT_CMD_KIND_COUNTER);
+}
+
 void NGBluetoothMaster::initialize() {
     if (!_initialized) {
         _ensureGlobalSerial(_serialRate);
@@ -55,4 +59,11 @@ void NGBluetoothMaster::sendSwitchCommand(byte context, bool on) {
     } else {
         Serial.write(BT_CMD_KIND_SWITCH_OFF);
     }
+}
+
+void NGBluetoothMaster::sendCounterCommand(byte context, int counter) {
+    _sendHeader();
+    _sendKindCounter();
+    Serial.write(context);
+    Serial.write(counter);
 }

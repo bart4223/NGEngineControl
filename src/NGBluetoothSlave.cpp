@@ -45,6 +45,10 @@ void NGBluetoothSlave::registerSwitchCallback(bluetoothSlaveSwitchCallbackFunc c
     _callbackSwitch = callback;
 }
 
+void NGBluetoothSlave::registerCounterCallback(bluetoothSlaveCounterCallbackFunc callback) {
+    _callbackCounter = callback;
+}
+
 void NGBluetoothSlave::processingLoop() {
     while (Serial.available() > 0) {
         byte b = Serial.read();
@@ -77,6 +81,13 @@ void NGBluetoothSlave::processingLoop() {
                         _currentKind = b;
                         _currentIndex++;
                         break;
+                    case BT_CMD_KIND_COUNTER:
+                        if (_logging) {
+                            Serial.println("BT Counter received");
+                        }
+                        _currentKind = b;
+                        _currentIndex++;
+                        break;
                     default:
                         _clearCurrent();
                 }
@@ -93,7 +104,12 @@ void NGBluetoothSlave::processingLoop() {
                         }
                         _clearCurrent();
                         break;
-                }
+                    case BT_CMD_KIND_COUNTER:
+                        if (_callbackCounter != nullptr) {
+                            _callbackCounter(_currentContext, b);
+                        }
+                        _clearCurrent();
+                        break;}
             default:
                 _clearCurrent();
         }

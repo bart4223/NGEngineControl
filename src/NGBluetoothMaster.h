@@ -29,6 +29,8 @@ protected:
 
     void _sendKindSwitch();
     
+    void _sendKindCounter();
+    
 public:
     NGBluetoothMaster();
     
@@ -39,6 +41,8 @@ public:
     void sendSoundcheck();
     
     void sendSwitchCommand(byte context, bool on);
+    
+    void sendCounterCommand(byte context, int counter);
 };
 
 #endif /* NGBluetoothMaster_h */

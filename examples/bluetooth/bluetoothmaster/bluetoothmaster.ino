@@ -17,12 +17,14 @@ void setup() {
 void loop() {
   int btnFire = digitalRead(BTN_FIRE);
   if (btnLastFire == HIGH && btnFire == LOW) {
+    int counter = 0;
     if (!button) {
       button = true;
+      counter = 42;
     } else {
       button = false;
     }
-    btm.sendSwitchCommand(0x00, button);
+    btm.sendCounterCommand(0x00, counter);
   }
   btnLastFire = btnFire;
 }

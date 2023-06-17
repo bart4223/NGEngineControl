@@ -17,6 +17,7 @@
 #include "NGBluetooth.h"
 
 typedef void (*bluetoothSlaveSwitchCallbackFunc)(byte context, bool on);
+typedef void (*bluetoothSlaveCounterCallbackFunc)(byte context, int counter);
 
 class NGBluetoothSlave {
     
@@ -28,6 +29,7 @@ private:
     int _currentContext = BT_NO_CONTEXT;
     int _currentKind = BT_NO_KIND;
     bluetoothSlaveSwitchCallbackFunc _callbackSwitch = nullptr;
+    bluetoothSlaveCounterCallbackFunc _callbackCounter = nullptr;
     
 protected:
     void _create(int SerialRate);
@@ -46,6 +48,8 @@ public:
     bool getLogging();
     
     void registerSwitchCallback(bluetoothSlaveSwitchCallbackFunc callback);
+    
+    void registerCounterCallback(bluetoothSlaveCounterCallbackFunc callback);
     
     void processingLoop();
 };

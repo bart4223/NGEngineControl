@@ -12,6 +12,7 @@ void setup() {
   delay(1000);
   digitalWrite(LED, LOW);
   bts.registerSwitchCallback(&SwitchCallback);
+  bts.registerCounterCallback(&CounterCallback);
   bts.setLogging(true);
   bts.initialize();
   observeMemory(0);
@@ -25,6 +26,18 @@ void SwitchCallback(byte context, bool on) {
   switch (context) {
     case 0x00:
       if (on) {
+        digitalWrite(LED, HIGH);
+      } else {
+        digitalWrite(LED, LOW);
+      }
+      break;
+  }
+}
+
+void CounterCallback(byte context, int counter) {
+  switch (context) {
+    case 0x00:
+      if (counter == 42) {
         digitalWrite(LED, HIGH);
       } else {
         digitalWrite(LED, LOW);
