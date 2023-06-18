@@ -20,6 +20,7 @@
 
 #define MAXJOYSTICKACTIONS  5
 #define DEFTRIGGERDELAY     100
+#define DEFMAPPING          255
 #define NOJOYSTICKDELAY     0
 #define NOJOYSTICKTHRESHOLD 0
 
@@ -30,11 +31,13 @@
 
 enum joystickAxis { jaNone, jaX, jaY };
 enum joystickThresholdKind { jtkNone, jtkLess, jtkGreater };
-enum joystickActionMode { jamNone, jamTriggerLOW, jamTriggerHIGH };
+enum joystickActionMode { jamNone, jamTriggerLOW, jamTriggerHIGH, jamMapping, jamMappingInvers };
 
 enum joystickMovement { jmNone, jmUp, jmDown, jmLeft, jmRight, jmFire };
 
 typedef void (*joystickActionCallbackFunc)(int id, joystickMovement joystickmovement);
+
+typedef void (*joystickActionValueCallbackFunc)(int id, joystickMovement joystickmovement, int value);
 
 struct joystickActionStruct
 {
@@ -47,6 +50,8 @@ struct joystickActionStruct
     joystickAxis axis;
     joystickMovement movement;
     int triggerDelay = DEFTRIGGERDELAY;
+    int mapping = DEFMAPPING;
+    int lastValue = 0;
 };
 typedef struct joystickActionStruct joystickAction;
 
@@ -62,7 +67,10 @@ private:
     int _joystickActionCount = 0;
     int _id = NOJOYSTICKID;
     bool _logging = false;
+    bool _logXAxis = false;
+    bool _logYAxis = false;
     joystickActionCallbackFunc _actionCallback = nullptr;
+    joystickActionValueCallbackFunc _actionValueCallback = nullptr;
     int _lastAction = NOLASTACTIONID;
 
 protected:
@@ -83,7 +91,13 @@ public:
     
     bool getLogging();
     
+    void setLogXAxis(bool logging);
+    
+    void setLogYAxis(bool logging);
+    
     void registerActionCallback(joystickActionCallbackFunc callback);
+    
+    void registerActionValueCallback(joystickActionValueCallbackFunc callback);
     
     void registerAction(joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement);
     
@@ -92,6 +106,8 @@ public:
     void registerAction(int delay, joystickMovement movement);
     
     void registerAction(int pin, joystickActionMode mode, int delay, joystickMovement movement);
+    
+    void registerAction(joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement);
     
     void registerAction(int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, joystickMovement movement);
     
