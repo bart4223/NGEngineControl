@@ -126,6 +126,8 @@ public:
     bool hasLastMovement();
 
     joystickMovement getLastMovement();
+    
+    int getLastValue();
 };
 
 #endif /* NGJoystickControl_h */

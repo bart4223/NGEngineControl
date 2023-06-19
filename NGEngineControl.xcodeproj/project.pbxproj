@@ -202,6 +202,7 @@
 		29D947E72A376B650018377D /* NGBluetoothMaster.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBluetoothMaster.h; sourceTree = "<group>"; };
 		29D947E82A3A06330018377D /* NGBluetoothSlave.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBluetoothSlave.cpp; sourceTree = "<group>"; };
 		29D947E92A3A06330018377D /* NGBluetoothSlave.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBluetoothSlave.h; sourceTree = "<group>"; };
+		29D947ED2A3F1A760018377D /* bluetoothremotecontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = bluetoothremotecontrol.ino; sourceTree = "<group>"; };
 		29DAAB9727B022ED000E56F1 /* NGCustomMotionControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomMotionControl.cpp; sourceTree = "<group>"; };
 		29DAAB9827B022ED000E56F1 /* NGCustomMotionControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomMotionControl.h; sourceTree = "<group>"; };
 		29DAAB9927B02DD1000E56F1 /* NGVoidMotionMimic.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGVoidMotionMimic.cpp; sourceTree = "<group>"; };
@@ -798,6 +799,7 @@
 		29AA4E512881A60D0085BDAA /* projects */ = {
 			isa = PBXGroup;
 			children = (
+				29D947EA2A3F1A1C0018377D /* bluetoothremotecontrol */,
 				294E9C98290D5A0B00A3E17A /* binaryclock */,
 				299C0E1B26D75CCE00F5A60D /* buggy */,
 				29AA4E522881A6BC0085BDAA /* currentmeasurement */,
@@ -933,6 +935,30 @@
 				29D947E42A36F5550018377D /* bluetoothslave.ino */,
 			);
 			path = bluetoothslave;
+			sourceTree = "<group>";
+		};
+		29D947EA2A3F1A1C0018377D /* bluetoothremotecontrol */ = {
+			isa = PBXGroup;
+			children = (
+				29D947EB2A3F1A330018377D /* images */,
+				29D947EC2A3F1A440018377D /* bluetoothremotecontrol */,
+			);
+			path = bluetoothremotecontrol;
+			sourceTree = "<group>";
+		};
+		29D947EB2A3F1A330018377D /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		29D947EC2A3F1A440018377D /* bluetoothremotecontrol */ = {
+			isa = PBXGroup;
+			children = (
+				29D947ED2A3F1A760018377D /* bluetoothremotecontrol.ino */,
+			);
+			path = bluetoothremotecontrol;
 			sourceTree = "<group>";
 		};
 		29DC5F8728A27F8400CCEEB1 /* wirelessreceiver */ = {

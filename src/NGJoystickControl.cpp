@@ -274,3 +274,11 @@ joystickMovement NGJoystickControl::getLastMovement() {
     }
     return res;
 }
+
+int NGJoystickControl::getLastValue() {
+    int res = 0;
+    if (_lastAction != NOLASTACTIONID) {
+        res = _joystickActions[_lastAction].lastValue;
+    }
+    return res;
+}
