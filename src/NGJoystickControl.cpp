@@ -170,6 +170,7 @@ void NGJoystickControl::processingLoop() {
         }
         if (fire) {
             _lastAction = i;
+            int val = 0;
             switch(_joystickActions[i].mode) {
                 case jamNone:
                     if (_actionValueCallback != nullptr) {
@@ -193,29 +194,27 @@ void NGJoystickControl::processingLoop() {
                     }
                     break;
                 case jamMapping:
-                    if (_actionValueCallback != nullptr) {
-                        int val = map(value, 0, _joystickActions[_lastAction].threshold, 0, _joystickActions[_lastAction].mapping);
-                        val = val - _joystickActions[_lastAction].mapping;
-                        if (val <= 1) {
-                            val = 0;
-                        }
-                        if (_joystickActions[_lastAction].lastValue != val) {
+                    val = map(value, 0, _joystickActions[_lastAction].threshold, 0, _joystickActions[_lastAction].mapping) - _joystickActions[_lastAction].mapping;
+                    if (val <= 1) {
+                        val = 0;
+                    }
+                    if (_joystickActions[_lastAction].lastValue != val) {
+                        if (_actionValueCallback != nullptr) {
                             _actionValueCallback(_id, _joystickActions[_lastAction].movement, val);
-                            _joystickActions[_lastAction].lastValue = val;
                         }
+                        _joystickActions[_lastAction].lastValue = val;
                     }
                     break;
                 case jamMappingInvers:
-                    if (_actionValueCallback != nullptr) {
-                        int val = map(value, 0, _joystickActions[_lastAction].threshold, 0, _joystickActions[_lastAction].mapping);
-                        val = _joystickActions[_lastAction].mapping - val;
-                        if (val <= 1) {
-                            val = 0;
-                        }
-                        if (_joystickActions[_lastAction].lastValue != val) {
+                    val = _joystickActions[_lastAction].mapping - map(value, 0, _joystickActions[_lastAction].threshold, 0, _joystickActions[_lastAction].mapping);
+                    if (val <= 1) {
+                        val = 0;
+                    }
+                    if (_joystickActions[_lastAction].lastValue != val) {
+                        if (_actionValueCallback != nullptr) {
                             _actionValueCallback(_id, _joystickActions[_lastAction].movement, val);
-                            _joystickActions[_lastAction].lastValue = val;
                         }
+                        _joystickActions[_lastAction].lastValue = val;
                     }
                     break;
             }
