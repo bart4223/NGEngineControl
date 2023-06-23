@@ -168,9 +168,9 @@ void NGJoystickControl::processingLoop() {
         if (fire && _joystickActions[i].delay != NOJOYSTICKDELAY) {
             fire = millis() - _joystickActions[i].lastFire >= _joystickActions[i].delay;
         }
+        int val = 0;
         if (fire) {
             _lastAction = i;
-            int val = 0;
             switch(_joystickActions[i].mode) {
                 case jamNone:
                     if (_actionValueCallback != nullptr) {

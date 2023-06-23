@@ -84,6 +84,10 @@ void NGWirelessRemoteUnitControl::addJoystickAction(byte joystick, int pin, joys
     _remoteControls[joystick].joystick->registerAction(pin, mode, axis, kind, threshold, delay, movement, triggerdelay);
 }
 
+void NGWirelessRemoteUnitControl::addJoystickAction(byte joystick, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement) {
+    _remoteControls[joystick].joystick->registerAction(mode, axis, kind, threshold, delay, movement);
+}
+
 void NGWirelessRemoteUnitControl::setLastInfoDelay(int lastinfodelay) {
     _lastInfoDelay = lastinfodelay;
 }

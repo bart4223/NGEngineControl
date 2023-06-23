@@ -35,14 +35,13 @@ typedef struct wirelessRemoteControlStruct wirelessRemoteControl;
 
 class NGWirelessRemoteUnitControl : public NGCustomUnitControl {
 
-private:
+protected:
     wirelessRemoteControl _remoteControls[MAXWIRELESSREMOTECONTROLCOUNT];
     int _remoteControlCount = 0;
     int _lastInfoID = -1;
     long int _lastInfo = -1;
     int _lastInfoDelay = DEFLASTINFODELAY;
-    
-protected:
+
     void _create(char* name, byte address, int serialRate);
     
     void _processingReceivedData();
@@ -69,6 +68,8 @@ public:
     void addJoystickAction(byte joystick, int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement);
     
     void addJoystickAction(byte joystick, int pin, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement, int triggerdelay);
+    
+    void addJoystickAction(byte joystick, joystickActionMode mode, joystickAxis axis, joystickThresholdKind kind, int threshold, int delay, joystickMovement movement);
     
     void setLastInfoDelay(int lastinfodelay);
     
