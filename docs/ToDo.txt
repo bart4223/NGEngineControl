@@ -11,4 +11,6 @@
   -motionUnit
     -CustomMotionControl
         -CompassMotionControl
+-Spidy
+-CandleArch
 -WeatherStation
