@@ -124,6 +124,9 @@
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298392B72A2CEEBB00BB5ACA /* SpeedyTwo.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = SpeedyTwo.ino; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
+		298E641F2AC1528100CE1B85 /* NGAnchormanUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGAnchormanUnitControl.cpp; sourceTree = "<group>"; };
+		298E64202AC1528100CE1B85 /* NGAnchormanUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGAnchormanUnitControl.h; sourceTree = "<group>"; };
+		298E64242AC153CC00CE1B85 /* anchorman.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = anchorman.ino; sourceTree = "<group>"; };
 		2992F0F2291FB80F00A91B2A /* BinaryClockH0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BinaryClockH0.png; sourceTree = "<group>"; };
 		29958E572711CA5B007048E3 /* buggyC0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC0.png; sourceTree = "<group>"; };
 		29958E5C2718A800007048E3 /* NGMotionSequenceDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMotionSequenceDefinitions.h; sourceTree = "<group>"; };
@@ -360,6 +363,8 @@
 		2913C93A26FF67DB00D0AFC6 /* app */ = {
 			isa = PBXGroup;
 			children = (
+				298E64202AC1528100CE1B85 /* NGAnchormanUnitControl.h */,
+				298E641F2AC1528100CE1B85 /* NGAnchormanUnitControl.cpp */,
 				294E9C9D290D5A8800A3E17A /* NGBinaryClockUnitControl.h */,
 				294E9C9C290D5A8800A3E17A /* NGBinaryClockUnitControl.cpp */,
 				29D947EF2A404A490018377D /* NGBluetoothRemoteUnitControl.h */,
@@ -708,6 +713,30 @@
 			path = simplekeypad;
 			sourceTree = "<group>";
 		};
+		298E64212AC1537B00CE1B85 /* anchorman */ = {
+			isa = PBXGroup;
+			children = (
+				298E64232AC1539900CE1B85 /* images */,
+				298E64222AC1538900CE1B85 /* anchorman */,
+			);
+			path = anchorman;
+			sourceTree = "<group>";
+		};
+		298E64222AC1538900CE1B85 /* anchorman */ = {
+			isa = PBXGroup;
+			children = (
+				298E64242AC153CC00CE1B85 /* anchorman.ino */,
+			);
+			path = anchorman;
+			sourceTree = "<group>";
+		};
+		298E64232AC1539900CE1B85 /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		29958E58271749D8007048E3 /* sequences */ = {
 			isa = PBXGroup;
 			children = (
@@ -803,6 +832,7 @@
 		29AA4E512881A60D0085BDAA /* projects */ = {
 			isa = PBXGroup;
 			children = (
+				298E64212AC1537B00CE1B85 /* anchorman */,
 				29D947EA2A3F1A1C0018377D /* bluetoothremotecontrol */,
 				294E9C98290D5A0B00A3E17A /* binaryclock */,
 				299C0E1B26D75CCE00F5A60D /* buggy */,
