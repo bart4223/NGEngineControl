@@ -29,4 +29,7 @@
 
 #define ExceptionTooMuchWirelessRemoteControlCount  500
 
+#define ExceptionTooMuchTurnTableCount              600
+#define ExceptionTooMuchTurnTableMotionProfileCount 601
+
 #endif /* NGExceptionDefinitions_h */
