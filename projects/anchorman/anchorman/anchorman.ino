@@ -25,12 +25,16 @@
 #define MOTIONPROFILESTOP        60000
 
 #define KEYMODEPIN    2
-#define KEYUPPIN      3
-#define KEYDOWNPIN    4
+#define KEYDOWNPIN    3
+#define KEYUPPIN      4
 #define KEYMODEID    10
-#define KEYMODEUP    11
-#define KEYMODEDOWN  12
+#define KEYMODEDOWN  11
+#define KEYMODEUP    12
 #define KEYPADDELAY 500
+#define KEYPADUSAGEDELAY 5000
+
+#define STEPSGO        10
+#define STEPSWAIT   10000
 
 NGAnchormanUnitControl unitAnchorman = NGAnchormanUnitControl(ANCHORMNAN);
 NGSimpleKeypad keypad = NGSimpleKeypad();
@@ -38,6 +42,9 @@ NGSimpleKeypad keypad = NGSimpleKeypad();
 NGSerialNotification serialNotification = NGSerialNotification();
 #endif
 NGOLEDNotification *oledNotification;
+byte mode = 0;
+int profile = -1;
+long lastKeyPadUsage;
 
 void setup() {
   setGlobalUnit(&unitAnchorman);
@@ -50,8 +57,8 @@ void setup() {
   unitAnchorman.registerNotification(oledNotification);
   unitAnchorman.registerBoot(new NGJingleBoot);
   unitAnchorman.registerBeep(new NGJingleBeep);
-  int ttmp = unitAnchorman.registerSimpleTurnTableMotionProfile(MOTIONPROFILERUNFORWARD, MOTIONPROFILESTOP, MOTIONPROFILERUNBACKWARD, MOTIONPROFILESTOP);
-  unitAnchorman.registerTurnTable(new NGEngineControl(ENGINE_2), TURNTABLESPEED, TURNTABLEDELAY, ttmp);
+  profile = unitAnchorman.registerSimpleTurnTableMotionProfile(MOTIONPROFILERUNFORWARD, MOTIONPROFILESTOP, MOTIONPROFILERUNBACKWARD, MOTIONPROFILESTOP);
+  unitAnchorman.registerTurnTable(new NGEngineControl(ENGINE_2), TURNTABLESPEED, TURNTABLEDELAY, profile);
   unitAnchorman.initialize();
   keypad.registerCallback(&KeypadCallback);
   keypad.registerKey(KEYMODEPIN, KEYMODEID, KEYPADDELAY);
@@ -68,13 +75,99 @@ void setup() {
 }
 
 void loop() {
+  checkKeyPadUsage();
   keypad.processingLoop();
   unitAnchorman.processingLoop();
 }
 
+void checkKeyPadUsage() {
+  if (lastKeyPadUsage != 0) {
+    if (millis() - lastKeyPadUsage > KEYPADUSAGEDELAY) {
+      mode = 0;
+      lastKeyPadUsage = 0;
+      unitAnchorman.clearInfo();
+    }
+  }
+}
+
 void KeypadCallback(byte id) {
+  #if (PROD == true)
+  unitAnchorman.beep();
+  #endif
+  lastKeyPadUsage = millis();
   char log[100];
-  sprintf(log, "Call -> %d", id);
+  byte step;
+  switch(id) {
+    case KEYMODEID:
+      mode++;
+      if (mode == 5) {
+        mode = 1;
+      }
+      switch(mode) {
+        case 1:
+          step = 0;
+          break;
+        case 2:
+          step = 1;
+          break;
+        case 3:
+          step = 2;
+          break;
+        case 4:
+          step = 3;
+          break;
+      }
+      break;
+    case KEYMODEDOWN:
+      switch(mode) {
+        case 1:
+          step = 0;
+          if (unitAnchorman.getMotionProfileStep(profile, step) > STEPSGO) {
+            unitAnchorman.decrementMotionProfileStep(profile, step, STEPSGO);
+          }
+          break;
+        case 2:
+          step = 1;
+          if (unitAnchorman.getMotionProfileStep(profile, step) > STEPSWAIT) {
+            unitAnchorman.decrementMotionProfileStep(profile, step, STEPSWAIT);
+          }
+          break;
+        case 3:
+          step = 2;
+          if (unitAnchorman.getMotionProfileStep(profile, step) > STEPSGO) {
+            unitAnchorman.decrementMotionProfileStep(profile, step, STEPSGO);
+          }
+          break;
+        case 4:
+          step = 3;
+          if (unitAnchorman.getMotionProfileStep(profile, step) > STEPSWAIT) {
+            unitAnchorman.decrementMotionProfileStep(profile, step, STEPSWAIT);
+          }
+          break;
+      }
+      break;
+    case KEYMODEUP:
+      switch(mode) {
+        case 1:
+          step = 0;
+          unitAnchorman.incrementMotionProfileStep(profile, step, STEPSGO);
+          break;
+        case 2:
+          step = 1;
+          unitAnchorman.incrementMotionProfileStep(profile, step, STEPSWAIT);
+          break;
+        case 3:
+          step = 2;
+          unitAnchorman.incrementMotionProfileStep(profile, step, STEPSGO);
+          break;
+        case 4:
+          step = 3;
+          unitAnchorman.incrementMotionProfileStep(profile, step, STEPSWAIT);
+          break;
+      }
+      break;
+  }
   unitAnchorman.clearInfo();
+  sprintf(log, "P%d S%d: %ld", profile, step, unitAnchorman.getMotionProfileStep(profile, step));
   unitAnchorman.writeInfo(log);
 }

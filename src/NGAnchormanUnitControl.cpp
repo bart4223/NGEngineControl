@@ -161,6 +161,16 @@ void NGAnchormanUnitControl::decrementMotionProfileStep(byte profile, byte step,
     }
 }
 
+long NGAnchormanUnitControl::getMotionProfileStep(byte profile, byte step) {
+    long res = 0;
+    if (profile >= 0 && profile < _turnTableMotionProfileCount) {
+        if (step >= 0 && step < _turnTableMotionProfiles[profile].count) {
+            res = _turnTableMotionProfiles[profile].steps[step];
+        }
+    }
+    return res;
+}
+
 void NGAnchormanUnitControl::requestData(byte* data) {
     memcpy(data, _requestedData, REQUESTEDDATALENGTH);
 }

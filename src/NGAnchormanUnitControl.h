@@ -17,7 +17,7 @@
 #include <NGCustomUnitControl.h>
 #include <NGEngineControl.h>
 
-#define _VERSION "0.8"
+#define _VERSION "1.1"
 #define VERSION (char*)_VERSION
 
 #define MAXTURNTABLECOUNT 3
@@ -84,6 +84,8 @@ public:
     void incrementMotionProfileStep(byte profile, byte step, int count);
     
     void decrementMotionProfileStep(byte profile, byte step, int count);
+    
+    long getMotionProfileStep(byte profile, byte step);
     
     void requestData(byte* data);
 };
