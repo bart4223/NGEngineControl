@@ -17,7 +17,7 @@
 #include <NGCustomUnitControl.h>
 #include <NGEngineControl.h>
 
-#define _VERSION "0.6"
+#define _VERSION "0.8"
 #define VERSION (char*)_VERSION
 
 #define MAXTURNTABLECOUNT 3
@@ -74,12 +74,16 @@ public:
     NGAnchormanUnitControl(char* name, byte address, int serialRate);
     
     byte registerSimpleTurnTableMotionProfile(long stepForwardRun, long stepForwardStop, long stepBackwardRun, long stepBackwardStop);
-                           
+    
     byte registerTurnTable(NGEngineControl* engine, byte speed, int delay, int profile);
     
     void initialize();
     
     void processingLoop();
+    
+    void incrementMotionProfileStep(byte profile, byte step, int count);
+    
+    void decrementMotionProfileStep(byte profile, byte step, int count);
     
     void requestData(byte* data);
 };

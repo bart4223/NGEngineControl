@@ -1,6 +1,7 @@
 #define PROD false //false,true
 
 #include <NGAnchormanUnitControl.h>
+#include <NGSimpleKeypad.h>
 #if (PROD == false)
 #include <NGSerialNotification.h>
 #endif
@@ -23,7 +24,16 @@
 #define MOTIONPROFILERUNBACKWARD   250
 #define MOTIONPROFILESTOP        60000
 
+#define KEYMODEPIN    2
+#define KEYUPPIN      3
+#define KEYDOWNPIN    4
+#define KEYMODEID    10
+#define KEYMODEUP    11
+#define KEYMODEDOWN  12
+#define KEYPADDELAY 500
+
 NGAnchormanUnitControl unitAnchorman = NGAnchormanUnitControl(ANCHORMNAN);
+NGSimpleKeypad keypad = NGSimpleKeypad();
 #if (PROD == false)
 NGSerialNotification serialNotification = NGSerialNotification();
 #endif
@@ -41,8 +51,13 @@ void setup() {
   unitAnchorman.registerBoot(new NGJingleBoot);
   unitAnchorman.registerBeep(new NGJingleBeep);
   int ttmp = unitAnchorman.registerSimpleTurnTableMotionProfile(MOTIONPROFILERUNFORWARD, MOTIONPROFILESTOP, MOTIONPROFILERUNBACKWARD, MOTIONPROFILESTOP);
-  unitAnchorman.registerTurnTable(new NGEngineControl(ENGINE_0), TURNTABLESPEED, TURNTABLEDELAY, ttmp);
+  unitAnchorman.registerTurnTable(new NGEngineControl(ENGINE_2), TURNTABLESPEED, TURNTABLEDELAY, ttmp);
   unitAnchorman.initialize();
+  keypad.registerCallback(&KeypadCallback);
+  keypad.registerKey(KEYMODEPIN, KEYMODEID, KEYPADDELAY);
+  keypad.registerKey(KEYUPPIN, KEYMODEUP, KEYPADDELAY);
+  keypad.registerKey(KEYDOWNPIN, KEYMODEDOWN, KEYPADDELAY);
+  keypad.initialize();
   #if (PROD == true)
   unitAnchorman.setWorkMode(wmNone);
   #else
@@ -53,5 +68,13 @@ void setup() {
 }
 
 void loop() {
+  keypad.processingLoop();
   unitAnchorman.processingLoop();
+}
+
+void KeypadCallback(byte id) {
+  char log[100];
+  sprintf(log, "Call -> %d", id);
+  unitAnchorman.clearInfo();
+  unitAnchorman.writeInfo(log);
 }

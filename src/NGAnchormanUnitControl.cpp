@@ -116,6 +116,7 @@ void NGAnchormanUnitControl::processingLoop() {
                 }
                 char log[100];
                 sprintf(log, "Step %d", _turnTables[i].currentstep);
+                clearInfo();
                 writeInfo(log);
                 _turnTables[i].laststep = millis();
                 switch(ttmp.kind) {
@@ -136,6 +137,25 @@ void NGAnchormanUnitControl::processingLoop() {
                         }
                         break;
                 }
+            }
+        }
+    }
+}
+
+void NGAnchormanUnitControl::incrementMotionProfileStep(byte profile, byte step, int count) {
+    if (profile >= 0 && profile < _turnTableMotionProfileCount) {
+        if (step >= 0 && step < _turnTableMotionProfiles[profile].count) {
+            _turnTableMotionProfiles[profile].steps[step] = _turnTableMotionProfiles[profile].steps[step] + count;
+        }
+    }
+}
+
+void NGAnchormanUnitControl::decrementMotionProfileStep(byte profile, byte step, int count) {
+    if (profile >= 0 && profile < _turnTableMotionProfileCount) {
+        if (step >= 0 && step < _turnTableMotionProfiles[profile].count) {
+            _turnTableMotionProfiles[profile].steps[step] = _turnTableMotionProfiles[profile].steps[step] - count;
+            if (_turnTableMotionProfiles[profile].steps[step] < 0) {
+                _turnTableMotionProfiles[profile].steps[step] = 0;
             }
         }
     }
