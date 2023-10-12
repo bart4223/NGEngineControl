@@ -1,4 +1,4 @@
-#define PROD false //false,true
+#define PROD true //false,true
 
 #include <NGAnchormanUnitControl.h>
 #include <NGSimpleKeypad.h>
@@ -55,7 +55,9 @@ void setup() {
   #endif
   oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
   unitAnchorman.registerNotification(oledNotification);
+  #if (PROD == false)
   unitAnchorman.registerBoot(new NGJingleBoot);
+  #endif
   unitAnchorman.registerBeep(new NGJingleBeep);
   profile = unitAnchorman.registerSimpleTurnTableMotionProfile(MOTIONPROFILERUNFORWARD, MOTIONPROFILESTOP, MOTIONPROFILERUNBACKWARD, MOTIONPROFILESTOP);
   unitAnchorman.registerTurnTable(new NGEngineControl(ENGINE_2), TURNTABLESPEED, TURNTABLEDELAY, profile);

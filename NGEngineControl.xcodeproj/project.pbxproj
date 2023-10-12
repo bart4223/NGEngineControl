@@ -43,6 +43,7 @@
 		2917D44F28DBB7430004FDD6 /* WirelessRemoteG0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = WirelessRemoteG0.png; sourceTree = "<group>"; };
 		2917D45128DBBC440004FDD6 /* Pages.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pages.txt; sourceTree = "<group>"; };
 		2918870C2AD6B7DA0088E95A /* AnchormanJ0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnchormanJ0.png; sourceTree = "<group>"; };
+		2918870E2AD7C5300088E95A /* AnchormanJ1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnchormanJ1.png; sourceTree = "<group>"; };
 		29232B392779D44C00B85C8E /* NGDuoLED.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGDuoLED.cpp; sourceTree = "<group>"; };
 		29232B3A2779D44C00B85C8E /* NGDuoLED.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGDuoLED.h; sourceTree = "<group>"; };
 		29232B3C2779D56800B85C8E /* duoLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = duoLED.ino; sourceTree = "<group>"; };
@@ -735,6 +736,7 @@
 			isa = PBXGroup;
 			children = (
 				2918870C2AD6B7DA0088E95A /* AnchormanJ0.png */,
+				2918870E2AD7C5300088E95A /* AnchormanJ1.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
