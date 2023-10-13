@@ -102,6 +102,14 @@ void NGAnchormanUnitControl::initialize() {
 
 void NGAnchormanUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
+    if (_lastInfo == 0) {
+        _lastInfo = millis();
+    }
+    bool doInfo = (millis() - _lastInfo) > INFODELAY;
+    if (doInfo) {
+        _lastInfo = millis();
+    }
+    char log[100];
     for (int i = 0; i < _turnTableCount; i++) {
         if (_turnTables[i].profile > NOTURNTABLEMOTIONPROFILE) {
             turnTableMotionProfile ttmp = _turnTableMotionProfiles[_turnTables[i].profile];
@@ -114,8 +122,11 @@ void NGAnchormanUnitControl::processingLoop() {
                 if (_turnTables[i].currentstep == ttmp.count) {
                     _turnTables[i].currentstep = 0;
                 }
-                char log[100];
-                sprintf(log, "Step %d", _turnTables[i].currentstep);
+                if (ttmp.steps[_turnTables[i].currentstep] > INFODELAY) {
+                    sprintf(log, "Step %d/%d remaining %ds", i, _turnTables[i].currentstep, ttmp.steps[_turnTables[i].currentstep] / 1000);
+                } else {
+                    sprintf(log, "Step %d/%d", i, _turnTables[i].currentstep);
+                }
                 clearInfo();
                 writeInfo(log);
                 _turnTables[i].laststep = millis();
@@ -137,6 +148,10 @@ void NGAnchormanUnitControl::processingLoop() {
                         }
                         break;
                 }
+            } else if (doInfo && ttmp.steps[_turnTables[i].currentstep] > INFODELAY) {
+                sprintf(log, "Step %d/%d remaining %ds", i, _turnTables[i].currentstep, (ttmp.steps[_turnTables[i].currentstep] - (millis() - _turnTables[i].laststep)) / 1000) ;
+                clearInfo();
+                writeInfo(log);
             }
         }
     }

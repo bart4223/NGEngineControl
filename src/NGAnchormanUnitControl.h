@@ -17,7 +17,7 @@
 #include <NGCustomUnitControl.h>
 #include <NGEngineControl.h>
 
-#define _VERSION "1.1"
+#define _VERSION "1.2"
 #define VERSION (char*)_VERSION
 
 #define MAXTURNTABLECOUNT 3
@@ -25,6 +25,8 @@
 #define NOTURNTABLEMOTIONPROFILE -1
 #define MAXTURNTABLEMOTIONPROFILESTEPCOUNT 10
 #define NOTURNTABLECURRENTSTEP -1
+
+#define INFODELAY 10000
 
 enum turnTableMotionProfileKind { ttmpkSimple };
 
@@ -54,6 +56,7 @@ private:
     turnTableMotionProfile _turnTableMotionProfiles[MAXTURNTABLEMOTIONPROFILECOUNT];
     int _turnTableCount = 0;
     int _turnTableMotionProfileCount = 0;
+    long _lastInfo = 0;
     
 protected:
     void _create(char* name, byte address, int serialRate);
