@@ -593,14 +593,14 @@
 				2905F120264AD58E001B4A56 /* NGJointControl.cpp */,
 				29DC5F9228A820EA00CCEEB1 /* NGJoystickControl.h */,
 				29DC5F9128A820EA00CCEEB1 /* NGJoystickControl.cpp */,
-				299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */,
-				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
 				29E24C7927F3889D0009F0CF /* NGPumpControl.h */,
 				29E24C7827F3889D0009F0CF /* NGPumpControl.cpp */,
 				29232B45277CBE6D00B85C8E /* NGRelaisControl.h */,
 				29232B44277CBE6D00B85C8E /* NGRelaisControl.cpp */,
 				29E8CD5C28B93E5C009AAC11 /* NGServoControl.h */,
 				29E8CD5B28B93E5C009AAC11 /* NGServoControl.cpp */,
+				299C0E2026D7E89D00F5A60D /* NGSteeringControl.h */,
+				299C0E1F26D7E89D00F5A60D /* NGSteeringControl.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
