@@ -18,14 +18,17 @@
 #include <NGITestableComponent.h>
 #include <NG8BitShiftRegister.h>
 
-#define _VERSION "0.1"
+#define _VERSION "0.3"
 #define VERSION (char*)_VERSION
 
 #define MAXLIGHTINGAREACOUNT 3
+#define MAXLIGHTSCOUNT 8
 
 struct candleArchLightingAreaStruct
 {
     NG8BitShiftRegister *switcher;
+    byte lights[MAXLIGHTSCOUNT];
+    byte lightscount = 0;
 };
 typedef struct candleArchLightingAreaStruct candleArchLightingArea;
 
@@ -55,6 +58,8 @@ public:
 
     byte registerLightingArea(byte switcherLatchPin, byte switcherClockPin, byte switcherDataPin);
     
+    byte registerLight(byte area);
+    
     void initialize();
     
     void processingLoop();
@@ -64,6 +69,12 @@ public:
     void testSequenceStart();
     
     void testSequenceStop();
+    
+    void switchLight(byte area, byte light, bool on);
+    
+    bool isLightOn(byte area, byte light);
+
+    void toogleLight(byte area, byte light);    
 };
 
 #endif /* NGCandleArchUnitControl_h */

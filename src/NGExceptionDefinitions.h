@@ -33,5 +33,8 @@
 #define ExceptionTooMuchTurnTableMotionProfileCount 601
 
 #define ExceptionTooMuchLightingAreaCount           700
+#define ExceptionInvalidLightingArea                701
+#define ExceptionTooMuchLightingAreaLightCount      702
+#define ExceptionInvalidLightingLight               703
 
 #endif /* NGExceptionDefinitions_h */

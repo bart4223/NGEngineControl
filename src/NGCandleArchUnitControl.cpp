@@ -50,6 +50,7 @@ byte NGCandleArchUnitControl::registerLightingArea(byte switcherLatchPin, byte s
     if (_lightingAreaCount < MAXLIGHTINGAREACOUNT) {
         candleArchLightingArea cala;
         cala.switcher = new NG8BitShiftRegister(switcherLatchPin, switcherClockPin, switcherDataPin);
+        cala.lightscount = 0;
         _lightingAreas[_lightingAreaCount] = cala;
         _lightingAreaCount++;
     } else {
@@ -58,6 +59,28 @@ byte NGCandleArchUnitControl::registerLightingArea(byte switcherLatchPin, byte s
     if (_logging) {
         char log[100];
         sprintf(log, "Lighting area %d registered", res);
+        writeInfo(log);
+    }
+    return res;
+}
+
+byte NGCandleArchUnitControl::registerLight(byte area) {
+    byte res;
+    if (area >= 0 && area < _lightingAreaCount) {
+        if (_lightingAreas[area].lightscount < MAXLIGHTSCOUNT) {
+            res = _lightingAreas[area].lightscount;
+            byte value = 1;
+            _lightingAreas[area].lights[_lightingAreas[area].lightscount] = value << _lightingAreas[area].lightscount;
+            _lightingAreas[area].lightscount++;
+        } else {
+            _raiseException(ExceptionTooMuchLightingAreaLightCount);
+        }
+    } else {
+        _raiseException(ExceptionInvalidLightingArea);
+    }
+    if (_logging) {
+        char log[100];
+        sprintf(log, "Light %d/%d registered", area, res);
         writeInfo(log);
     }
     return res;
@@ -81,14 +104,60 @@ void NGCandleArchUnitControl::requestData(byte* data) {
 
 void NGCandleArchUnitControl::testSequenceStart() {
     for (int i = 0; i < _lightingAreaCount; i++) {
-        _lightingAreas[i].switcher->initialize();
         _lightingAreas[i].switcher->setValue(255);
     }
 }
 
 void NGCandleArchUnitControl::testSequenceStop() {
     for (int i = 0; i < _lightingAreaCount; i++) {
-        _lightingAreas[i].switcher->initialize();
         _lightingAreas[i].switcher->setValue(0);
     }
+}
+
+void NGCandleArchUnitControl::switchLight(byte area, byte light, bool on) {
+    if (area >= 0 && area < _lightingAreaCount) {
+        if (light >= 0 && light < _lightingAreas[area].lightscount) {
+            if (on) {
+                if ((_lightingAreas[area].switcher->getValue() & _lightingAreas[area].lights[light]) == 0) {
+                    _lightingAreas[area].switcher->setValue(_lightingAreas[area].switcher->getValue() + _lightingAreas[area].lights[light]);
+                    if (_logging) {
+                        char log[100];
+                        sprintf(log, "Light %d/%d on", area, light);
+                        writeInfo(log);
+                    }
+                }
+            } else {
+                if ((_lightingAreas[area].switcher->getValue() & _lightingAreas[area].lights[light]) != 0) {
+                    _lightingAreas[area].switcher->setValue(_lightingAreas[area].switcher->getValue() - _lightingAreas[area].lights[light]);
+                    if (_logging) {
+                        char log[100];
+                        sprintf(log, "Light %d/%d off", area, light);
+                        writeInfo(log);
+                    }
+                }
+            }
+        } else {
+            _raiseException(ExceptionInvalidLightingLight);
+        }
+    } else {
+        _raiseException(ExceptionInvalidLightingArea);
+    }
+}
+
+bool NGCandleArchUnitControl::isLightOn(byte area, byte light) {
+    bool res;
+    if (area >= 0 && area < _lightingAreaCount) {
+        if (light >= 0 && light < _lightingAreas[area].lightscount) {
+            res = (_lightingAreas[area].switcher->getValue() & _lightingAreas[area].lights[light]) != 0;
+        } else {
+            _raiseException(ExceptionInvalidLightingLight);
+        }
+    } else {
+        _raiseException(ExceptionInvalidLightingArea);
+    }
+    return res;
+}
+
+void NGCandleArchUnitControl::toogleLight(byte area, byte light) {
+    switchLight(area, light, !isLightOn(area, light));
 }
