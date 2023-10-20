@@ -1,9 +1,9 @@
 #include <NGMemoryObserver.h>
 #include <NG7SegmentDisplay.h>
 
-#define LATCHPIN  4 // 1, 4
-#define CLOCKPIN  5 // 2, 5
-#define DATAPIN   6 // 3, 6
+#define LATCHPIN  4 // 7, 4
+#define CLOCKPIN  5 // 8, 5
+#define DATAPIN   3 // 6, 3
 
 #define DELAY 1000
 
