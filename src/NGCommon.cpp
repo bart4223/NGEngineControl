@@ -17,3 +17,8 @@ void _ensureGlobalSerial(int serialRate) {
 bool getYesOrNo() {
     return (random(0, 2) == 0);
 }
+
+bool IsButtonPressed(int pin) {
+    pinMode(pin, INPUT_PULLUP);
+    return digitalRead(pin) == LOW;
+}

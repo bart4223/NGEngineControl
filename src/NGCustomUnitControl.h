@@ -253,6 +253,8 @@ public:
 
     void writeInfo(char* info);
 
+    void writeInfo(char* info, int threshold);
+
     void beep();
     
     void receiveDataStart();

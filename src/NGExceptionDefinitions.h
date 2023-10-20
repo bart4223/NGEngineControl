@@ -32,4 +32,6 @@
 #define ExceptionTooMuchTurnTableCount              600
 #define ExceptionTooMuchTurnTableMotionProfileCount 601
 
+#define ExceptionTooMuchLightingAreaCount           700
+
 #endif /* NGExceptionDefinitions_h */

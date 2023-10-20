@@ -10,6 +10,9 @@
 		2901587F2AE24EDA00D00B0C /* NG7SegmentDisplay.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NG7SegmentDisplay.cpp; sourceTree = "<group>"; };
 		290158802AE24EDA00D00B0C /* NG7SegmentDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NG7SegmentDisplay.h; sourceTree = "<group>"; };
 		290158822AE2504D00D00B0C /* 7segmentdisplay.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = 7segmentdisplay.ino; sourceTree = "<group>"; };
+		290158832AE2774000D00B0C /* NGCandleArchUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCandleArchUnitControl.cpp; sourceTree = "<group>"; };
+		290158842AE2774000D00B0C /* NGCandleArchUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCandleArchUnitControl.h; sourceTree = "<group>"; };
+		290158882AE277E900D00B0C /* candlearch.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = candlearch.ino; sourceTree = "<group>"; };
 		2905F11F264AD273001B4A56 /* NGJointControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJointControl.h; sourceTree = "<group>"; };
 		2905F120264AD58E001B4A56 /* NGJointControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJointControl.cpp; sourceTree = "<group>"; };
 		2905F121264D385A001B4A56 /* NGUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUnitControl.h; sourceTree = "<group>"; };
@@ -288,6 +291,30 @@
 			path = 7segmentdisplay;
 			sourceTree = "<group>";
 		};
+		290158852AE277A500D00B0C /* candlearch */ = {
+			isa = PBXGroup;
+			children = (
+				290158862AE277BA00D00B0C /* images */,
+				290158872AE277CA00D00B0C /* candlearch */,
+			);
+			path = candlearch;
+			sourceTree = "<group>";
+		};
+		290158862AE277BA00D00B0C /* images */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		290158872AE277CA00D00B0C /* candlearch */ = {
+			isa = PBXGroup;
+			children = (
+				290158882AE277E900D00B0C /* candlearch.ino */,
+			);
+			path = candlearch;
+			sourceTree = "<group>";
+		};
 		2905F122264D4F97001B4A56 /* profile1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -387,6 +414,8 @@
 				294E9C9C290D5A8800A3E17A /* NGBinaryClockUnitControl.cpp */,
 				29D947EF2A404A490018377D /* NGBluetoothRemoteUnitControl.h */,
 				29D947EE2A404A490018377D /* NGBluetoothRemoteUnitControl.cpp */,
+				290158842AE2774000D00B0C /* NGCandleArchUnitControl.h */,
+				290158832AE2774000D00B0C /* NGCandleArchUnitControl.cpp */,
 				29D7EC3E2673D0A000009403 /* NGCentralUnitControl.h */,
 				29D7EC3D2673D0A000009403 /* NGCentralUnitControl.cpp */,
 				29AA4E5928870AE40085BDAA /* NGCurrentMeasurementUnitControl.h */,
@@ -868,6 +897,7 @@
 				29D947EA2A3F1A1C0018377D /* bluetoothremotecontrol */,
 				294E9C98290D5A0B00A3E17A /* binaryclock */,
 				299C0E1B26D75CCE00F5A60D /* buggy */,
+				290158852AE277A500D00B0C /* candlearch */,
 				29AA4E522881A6BC0085BDAA /* currentmeasurement */,
 				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
 				29E6BA59263C6030007BCE9F /* motoman */,

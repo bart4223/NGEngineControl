@@ -282,8 +282,15 @@ void NGCustomUnitControl::clearInfo() {
 }
 
 void NGCustomUnitControl::writeInfo(char* info) {
+    writeInfo(info, 0);
+}
+
+void NGCustomUnitControl::writeInfo(char* info, int threshold) {
     for (int i = 0; i < _notificationCount; i++ ) {
         _notification[i]->writeInfo(info, 0, 0);
+    }
+    if (delay > 0) {
+        delay(threshold);
     }
 }
 

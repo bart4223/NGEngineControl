@@ -33,4 +33,6 @@ void _ensureGlobalSerial(int serialRate);
 
 bool getYesOrNo();
 
+bool IsButtonPressed(int pin);
+
 #endif /* NGCommon_h */
