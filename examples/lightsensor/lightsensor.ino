@@ -3,7 +3,7 @@
 
 #define DELAY 500
 #define LIGHTSENSORBRIGHT 0x01
-#define LIGHTSENSORDARKER 0x02
+#define LIGHTSENSORDARK   0x02
 
 NGLightSensor ls = NGLightSensor();
 
@@ -15,7 +15,7 @@ void setup() {
   //ls.setLogging(true, DELAY);
   //ls.registerThreshold(650, tlUnder, 4, tvHigh, DELAY);
   ls.registerThreshold(800, tlOver, LIGHTSENSORBRIGHT, &lightSensorCallback, DELAY);
-  ls.registerThreshold(600, tlUnder, LIGHTSENSORDARKER, &lightSensorCallback, DELAY);
+  ls.registerThreshold(600, tlUnder, LIGHTSENSORDARK, &lightSensorCallback, DELAY);
   ls.initialize();
   observeMemory(0);
 }
