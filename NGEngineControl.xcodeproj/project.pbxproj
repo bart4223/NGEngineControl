@@ -13,6 +13,7 @@
 		290158832AE2774000D00B0C /* NGCandleArchUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCandleArchUnitControl.cpp; sourceTree = "<group>"; };
 		290158842AE2774000D00B0C /* NGCandleArchUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCandleArchUnitControl.h; sourceTree = "<group>"; };
 		290158882AE277E900D00B0C /* candlearch.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = candlearch.ino; sourceTree = "<group>"; };
+		290158892AEBE51700D00B0C /* CandleArchMainBoardSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CandleArchMainBoardSchema.png; sourceTree = "<group>"; };
 		2905F11F264AD273001B4A56 /* NGJointControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJointControl.h; sourceTree = "<group>"; };
 		2905F120264AD58E001B4A56 /* NGJointControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJointControl.cpp; sourceTree = "<group>"; };
 		2905F121264D385A001B4A56 /* NGUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUnitControl.h; sourceTree = "<group>"; };
@@ -303,6 +304,7 @@
 		290158862AE277BA00D00B0C /* images */ = {
 			isa = PBXGroup;
 			children = (
+				290158892AEBE51700D00B0C /* CandleArchMainBoardSchema.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
