@@ -8,33 +8,37 @@
 #ifndef NGExceptionDefinitions_h
 #define NGExceptionDefinitions_h
 
-#define ExceptionUnknown                              1
-#define ExceptionTooMuchNotificationCount            10
+#define ExceptionUnknown                              10
 
-#define ExceptionTooMuchUnitCount                   100
-#define ExceptionTooMuchComponentCount              101
-#define ExceptionTooMuchIRFuncCount                 102
-#define ExceptionTooMuchMotionProfileCount          103
-#define ExceptionTooMuchMotionProfileComponentCount 104
-#define ExceptionTooMuchMotionProfileItemCount      105
+#define ExceptionTooMuchLightSensorThresholdCount    100
 
-#define ExceptionTooMuchJingleCount                 300
-#define ExceptionTooMuchObjectRecognizerCount       301
-#define ExceptionTooMuchMotionSequenceCount         302
-#define ExceptionTooMuchMotionSequenceItemCount     303
-#define ExceptionInvalidMotionSequenceIndex         304
-#define ExceptionInvalidMotionSequenceItemIndex     305
+#define ExceptionTooMuchNotificationCount            500
 
-#define ExceptionTooMuchIrrigationCount             400
+#define ExceptionTooMuchUnitCount                   1000
+#define ExceptionTooMuchComponentCount              1010
+#define ExceptionTooMuchIRFuncCount                 1020
+#define ExceptionTooMuchMotionProfileCount          1030
+#define ExceptionTooMuchMotionProfileComponentCount 1040
+#define ExceptionTooMuchMotionProfileItemCount      1050
 
-#define ExceptionTooMuchWirelessRemoteControlCount  500
+#define ExceptionTooMuchJingleCount                 3000
+#define ExceptionTooMuchObjectRecognizerCount       3010
+#define ExceptionTooMuchMotionSequenceCount         3020
+#define ExceptionTooMuchMotionSequenceItemCount     3030
+#define ExceptionInvalidMotionSequenceIndex         3040
+#define ExceptionInvalidMotionSequenceItemIndex     3050
 
-#define ExceptionTooMuchTurnTableCount              600
-#define ExceptionTooMuchTurnTableMotionProfileCount 601
+#define ExceptionTooMuchIrrigationCount             4000
 
-#define ExceptionTooMuchLightingAreaCount           700
-#define ExceptionInvalidLightingArea                701
-#define ExceptionTooMuchLightingAreaLightCount      702
-#define ExceptionInvalidLightingLight               703
+#define ExceptionTooMuchWirelessRemoteControlCount  5000
+
+#define ExceptionTooMuchTurnTableCount              6000
+#define ExceptionTooMuchTurnTableMotionProfileCount 6010
+
+#define ExceptionTooMuchLightingAreaCount           7000
+#define ExceptionInvalidLightingArea                7010
+#define ExceptionTooMuchLightingAreaLightCount      7020
+#define ExceptionInvalidLightingLight               7030
+
 
 #endif /* NGExceptionDefinitions_h */

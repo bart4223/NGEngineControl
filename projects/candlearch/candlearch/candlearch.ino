@@ -53,7 +53,11 @@ void setup() {
   if (IsButtonPressed(TESTSEQUENCEPIN)) {
     unitCandleArch.testSequenceStart();
     unitCandleArch.writeInfo("Test sequence started", TESTSEQUENCEDELAY);
+    while (IsButtonPressed(TESTSEQUENCEPIN)) {
+      delay(TESTSEQUENCEDELAY);
+    }
     unitCandleArch.testSequenceStop();
+    unitCandleArch.writeInfo("Test sequence stopped");
   }
   unitCandleArch.startUp();
   unitCandleArch.clearInfo();

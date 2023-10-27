@@ -6,6 +6,7 @@
 //
 
 #include "NGLightSensor.h"
+#include "NGExceptionDefinitions.h"
 
 NGLightSensor::NGLightSensor() {
     _create(DEFPINLIGHTSENSOR);
@@ -17,6 +18,13 @@ NGLightSensor::NGLightSensor(byte pinSensor) {
 
 void NGLightSensor::_create(byte pinSensor) {
     _pinSensor = pinSensor;
+}
+
+void NGLightSensor::_raiseException(int id) {
+    char log[100];
+    sprintf(log, "Exception %d", id);
+    Serial.println(log);
+
 }
 
 void NGLightSensor::initialize() {
@@ -31,19 +39,48 @@ void NGLightSensor::registerThreshold(int threshold, thresholdLevel level, byte 
 }
 
 void NGLightSensor::registerThreshold(int threshold, thresholdLevel level, byte pin, thresholdValence valence, int delay) {
-    sensorThreshold st;
-    st.threshold = threshold;
-    st.level = level;
-    st.pin = pin;
-    st.valence = valence;
-    st.delay = delay;
-    st.counter = 0;
-    _thresholds[_thresholdCount] = st;
-    _thresholdCount++;
+    if (_thresholdCount < MAXTHRESHOLDCOUNT) {
+        sensorThreshold st;
+        st.actionKind = takPin;
+        st.threshold = threshold;
+        st.level = level;
+        st.delay = delay;
+        st.pin = pin;
+        st.valence = valence;
+        _thresholds[_thresholdCount] = st;
+        _thresholdCount++;
+    } else {
+        _raiseException(ExceptionTooMuchLightSensorThresholdCount);
+    }
+}
+
+void NGLightSensor::registerThreshold(int threshold, thresholdLevel level, byte id, lightSensorCallbackFunc callback) {
+    registerThreshold(threshold, level, id, callback, DEFTHRESHOLDDELAY);
+}
+
+void NGLightSensor::registerThreshold(int threshold, thresholdLevel level, byte id, lightSensorCallbackFunc callback, int delay) {
+    if (_thresholdCount < MAXTHRESHOLDCOUNT) {
+        sensorThreshold st;
+        st.actionKind = takCallback;
+        st.threshold = threshold;
+        st.level = level;
+        st.delay = delay;
+        st.id = id;
+        st.callback = callback;
+        _thresholds[_thresholdCount] = st;
+        _thresholdCount++;
+    } else {
+        _raiseException(ExceptionTooMuchLightSensorThresholdCount);
+    }
 }
 
 void NGLightSensor::setLogging(bool logging) {
+    setLogging(logging, CDEFLOGDELAY);
+}
+
+void NGLightSensor::setLogging(bool logging, int logdelay) {
     _logging = logging;
+    _logDelay = logdelay;
 }
 
 bool NGLightSensor::getLogging() {
@@ -53,7 +90,7 @@ bool NGLightSensor::getLogging() {
 void NGLightSensor::determine() {
     int value = analogRead(_pinSensor);
     if (_logging) {
-        if (millis() - _lastLog > CDEFLOGDELAY) {
+        if (millis() - _lastLog > _logDelay) {
             Serial.println(value);
             _lastLog = millis();
         }
@@ -68,26 +105,32 @@ void NGLightSensor::determine() {
                 ok = value > _thresholds[i].threshold;
                 break;
         }
-        if (_thresholds[i].counter == 0) {
-            _thresholds[i].counter = _thresholds[i].delay;
-        }
-        if (_thresholds[i].counter > 0) {
-            _thresholds[i].counter--;
-        }
-        if (_thresholds[i].counter == 0) {
-            switch (_thresholds[i].valence) {
-                case tvLow:
-                    if (ok) {
-                        digitalWrite(_thresholds[i].pin, LOW);
-                    } else {
-                        digitalWrite(_thresholds[i].pin, HIGH);
+        if (millis() - _thresholds[i].lastAction > _thresholds[i].delay) {
+            _thresholds[i].lastAction = millis();
+            switch (_thresholds[i].actionKind) {
+                case takPin:
+                    switch (_thresholds[i].valence) {
+                        case tvLow:
+                            if (ok) {
+                                digitalWrite(_thresholds[i].pin, LOW);
+                            } else {
+                                digitalWrite(_thresholds[i].pin, HIGH);
+                            }
+                            break;
+                        case tvHigh:
+                            if (ok) {
+                                digitalWrite(_thresholds[i].pin, HIGH);
+                            } else {
+                                digitalWrite(_thresholds[i].pin, LOW);
+                            }
+                            break;
                     }
                     break;
-                case tvHigh:
+                case takCallback:
                     if (ok) {
-                        digitalWrite(_thresholds[i].pin, HIGH);
-                    } else {
-                        digitalWrite(_thresholds[i].pin, LOW);
+                        if (_thresholds[i].callback != nullptr) {
+                            _thresholds[i].callback(_thresholds[i].id);
+                        }
                     }
                     break;
             }
