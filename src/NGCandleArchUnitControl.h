@@ -18,7 +18,7 @@
 #include <NGITestableComponent.h>
 #include <NG8BitShiftRegister.h>
 
-#define _VERSION "0.3"
+#define _VERSION "0.4"
 #define VERSION (char*)_VERSION
 
 #define MAXLIGHTINGAREACOUNT 3
@@ -37,6 +37,8 @@ class NGCandleArchUnitControl : public NGCustomUnitControl, NGITestableComponent
 private:
     candleArchLightingArea _lightingAreas[MAXLIGHTINGAREACOUNT];
     byte _lightingAreaCount = 0;
+    byte _lastLightSensorId = 0x00;
+    bool _processLightSensorId = false;
     
 protected:
     void _create(char* name, byte address, int serialRate);
@@ -63,7 +65,7 @@ public:
     void initialize();
     
     void processingLoop();
-    
+        
     void requestData(byte* data);
     
     void testSequenceStart();
@@ -74,7 +76,9 @@ public:
     
     bool isLightOn(byte area, byte light);
 
-    void toogleLight(byte area, byte light);    
+    void toogleLight(byte area, byte light);
+    
+    void setLightSensorData(byte id);
 };
 
 #endif /* NGCandleArchUnitControl_h */

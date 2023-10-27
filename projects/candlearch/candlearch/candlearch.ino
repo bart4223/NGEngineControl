@@ -1,12 +1,19 @@
-#define PROD false //false,true
+#define PROD true //false,true
 
 #include <NGCandleArchUnitControl.h>
+#include <NGLightSensor.h>
 #if (PROD == false)
 #include <NGSerialNotification.h>
 #endif
 
 #define _CANDLEARCH "Candle Arch"
 #define CANDLEARCH  (char*)_CANDLEARCH
+
+#define LIGHTSENSORBRIGHT    800
+#define LIGHTSENSORBRIGHTID 0x01
+#define LIGHTSENSORDARK      600
+#define LIGHTSENSORDARKID   0x02
+#define LIGHTSENSORDELAY    1000
 
 #define HOUSELIGHTINGLATCHPIN   4
 #define HOUSELIGHTINGCLOCKPIN   5
@@ -20,6 +27,7 @@
 #define TESTDELAY         1000
 
 NGCandleArchUnitControl unitCandleArch = NGCandleArchUnitControl(CANDLEARCH);
+NGLightSensor lightSensor = NGLightSensor();
 #if (PROD == false)
 NGSerialNotification serialNotification = NGSerialNotification();
 #endif
@@ -38,6 +46,9 @@ void setup() {
   #else
   unitCandleArch.setLogging(false);
   #endif
+  lightSensor.registerThreshold(LIGHTSENSORBRIGHT, tlOver, LIGHTSENSORBRIGHTID, &lightSensorCallback, LIGHTSENSORDELAY);
+  lightSensor.registerThreshold(LIGHTSENSORDARK, tlUnder, LIGHTSENSORDARKID, &lightSensorCallback, LIGHTSENSORDELAY);
+  lightSensor.initialize();
   houseLightingArea = unitCandleArch.registerLightingArea(HOUSELIGHTINGLATCHPIN, HOUSELIGHTINGCLOCKPIN, HOUSELIGHTINGDATAPIN);
   houseLivingRoomLight = unitCandleArch.registerLight(houseLightingArea);
   houseFloorLight = unitCandleArch.registerLight(houseLightingArea);
@@ -64,10 +75,15 @@ void setup() {
 }
 
 void loop() {
+  lightSensor.processingLoop();
   unitCandleArch.processingLoop();
   #if (PROD == false)
   testProcedure();
   #endif
+}
+
+void lightSensorCallback(byte id) {
+  unitCandleArch.setLightSensorData(id);
 }
 
 void testProcedure() {

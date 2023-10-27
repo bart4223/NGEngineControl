@@ -96,6 +96,10 @@ void NGCandleArchUnitControl::initialize() {
 
 void NGCandleArchUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
+    if (_processLightSensorId) {
+        _processLightSensorId = false;
+        Serial.println(_lastLightSensorId);
+    }
 }
 
 void NGCandleArchUnitControl::requestData(byte* data) {
@@ -160,4 +164,11 @@ bool NGCandleArchUnitControl::isLightOn(byte area, byte light) {
 
 void NGCandleArchUnitControl::toogleLight(byte area, byte light) {
     switchLight(area, light, !isLightOn(area, light));
+}
+
+void NGCandleArchUnitControl::setLightSensorData(byte id) {
+    if (_lastLightSensorId != id) {
+        _lastLightSensorId = id;
+        _processLightSensorId = true;
+    }
 }
