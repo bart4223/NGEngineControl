@@ -23,6 +23,7 @@ private:
     byte _clockPin;
     byte _dataPin;
     byte _value = 0;
+    int _updateCount = 0;
     
 protected:
     void _create(byte latchPin, byte clockPin, byte dataPin);
@@ -40,6 +41,10 @@ public:
     void shiftValue();
     
     void shiftValue(shiftRegisterDirection direction);
+    
+    void beginUpdate();
+    
+    void endUpdate();
 };
 
 #endif /* NG8BitShiftRegister_h */

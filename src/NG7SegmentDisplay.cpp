@@ -117,3 +117,11 @@ void NG7SegmentDisplay::setDot() {
 void NG7SegmentDisplay::resetDot() {
     _shiftRegister->setValue(_shiftRegister->getValue() - 128);
 }
+
+void NG7SegmentDisplay::beginUpdate() {
+    _shiftRegister->beginUpdate();
+}
+
+void NG7SegmentDisplay::endUpdate() {
+    _shiftRegister->endUpdate();
+}

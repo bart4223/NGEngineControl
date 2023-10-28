@@ -34,7 +34,9 @@ void NG8BitShiftRegister::initialize() {
 
 void NG8BitShiftRegister::setValue(byte value) {
     _value = value;
-    _processingValue();
+    if (_updateCount == 0) {
+        _processingValue();
+    }
 }
 
 byte NG8BitShiftRegister::getValue() {
@@ -53,5 +55,18 @@ void NG8BitShiftRegister::shiftValue(shiftRegisterDirection direction) {
         case srdRight:
             setValue(_value >> 1);
             break;
+    }
+}
+
+void NG8BitShiftRegister::beginUpdate() {
+    _updateCount++;
+}
+
+void NG8BitShiftRegister::endUpdate() {
+    if (_updateCount > 0) {
+        _updateCount--;
+        if (_updateCount == 0) {
+            _processingValue();
+        }
     }
 }

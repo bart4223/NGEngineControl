@@ -48,6 +48,10 @@ public:
     void setDot();
     
     void resetDot();
+    
+    void beginUpdate();
+    
+    void endUpdate();
 };
 
 #endif /* NG7SegmentDisplay_h */
