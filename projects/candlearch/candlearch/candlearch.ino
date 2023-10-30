@@ -1,4 +1,4 @@
-#define PROD true //false,true
+#define PROD false //false,true
 
 #include <NGCandleArchUnitControl.h>
 #include <NGLightSensor.h>
@@ -32,12 +32,8 @@ NGLightSensor lightSensor = NGLightSensor();
 NGSerialNotification serialNotification = NGSerialNotification();
 #endif
 
-byte houseLightingArea;
-byte houseLivingRoomLight;
-byte houseFloorLight;
-byte forestLightingArea;
-byte forestBigTreeLight;
-byte forestLittleTreeLight;
+byte scenarioOne;
+byte scenarioTwo;
 
 void setup() {
   setGlobalUnit(&unitCandleArch);
@@ -46,15 +42,69 @@ void setup() {
   #else
   unitCandleArch.setLogging(false);
   #endif
+  // Light Sensor
   lightSensor.registerThreshold(LIGHTSENSORBRIGHT, tlOver, LIGHTSENSORBRIGHTID, &lightSensorCallback, LIGHTSENSORDELAY);
   lightSensor.registerThreshold(LIGHTSENSORDARK, tlUnder, LIGHTSENSORDARKID, &lightSensorCallback, LIGHTSENSORDELAY);
   lightSensor.initialize();
-  houseLightingArea = unitCandleArch.registerLightingArea(HOUSELIGHTINGLATCHPIN, HOUSELIGHTINGCLOCKPIN, HOUSELIGHTINGDATAPIN);
-  houseLivingRoomLight = unitCandleArch.registerLight(houseLightingArea);
-  houseFloorLight = unitCandleArch.registerLight(houseLightingArea);
-  forestLightingArea = unitCandleArch.registerLightingArea(FORESTLIGHTINGLATCHPIN, FORESTLIGHTINGCLOCKPIN, FORESTLIGHTINGDATAPIN);
-  forestBigTreeLight = unitCandleArch.registerLight(forestLightingArea);
-  forestLittleTreeLight = unitCandleArch.registerLight(forestLightingArea);
+  // Areas and Lights
+  byte houseArea = unitCandleArch.registerLightingArea(HOUSELIGHTINGLATCHPIN, HOUSELIGHTINGCLOCKPIN, HOUSELIGHTINGDATAPIN);
+  byte houseLivingRoomLight = unitCandleArch.registerLight(houseArea);
+  byte houseFloorLight = unitCandleArch.registerLight(houseArea);
+  byte houseThreeLight = unitCandleArch.registerLight(houseArea);
+  byte houseFourLight = unitCandleArch.registerLight(houseArea);
+  byte houseFiveLight = unitCandleArch.registerLight(houseArea);
+  byte houseSixLight = unitCandleArch.registerLight(houseArea);
+  byte houseSevenLight = unitCandleArch.registerLight(houseArea);
+  byte houseEightLight = unitCandleArch.registerLight(houseArea);
+  byte forestArea = unitCandleArch.registerLightingArea(FORESTLIGHTINGLATCHPIN, FORESTLIGHTINGCLOCKPIN, FORESTLIGHTINGDATAPIN);
+  byte forestBigTreeLight = unitCandleArch.registerLight(forestArea);
+  byte forestLittleTreeLight = unitCandleArch.registerLight(forestArea);
+  byte forestThreeTreeLight = unitCandleArch.registerLight(forestArea);
+  byte forestFourTreeLight = unitCandleArch.registerLight(forestArea);
+  byte forestFiveTreeLight = unitCandleArch.registerLight(forestArea);
+  byte forestSixTreeLight = unitCandleArch.registerLight(forestArea);
+  byte forestSevenTreeLight = unitCandleArch.registerLight(forestArea);
+  byte forestEightTreeLight = unitCandleArch.registerLight(forestArea);
+  // Scenario One
+  scenarioOne = unitCandleArch.registerScenario();
+  byte scenarioOneHouseArea = unitCandleArch.registerScenarioArea(scenarioOne, houseArea);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseLivingRoomLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseFloorLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseThreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseFourLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseFiveLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseSixLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseSevenLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseEightLight);
+  byte scenarioOneForestArea = unitCandleArch.registerScenarioArea(scenarioOne, forestArea);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestBigTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestLittleTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestThreeTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestFourTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestFiveTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestSixTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestSevenTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestEightTreeLight);
+  // Scenario Two
+  scenarioTwo = unitCandleArch.registerScenario();
+  byte scenarioTwoHouseArea = unitCandleArch.registerScenarioArea(scenarioTwo, houseArea);
+  unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseLivingRoomLight);
+  //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseFloorLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseThreeLight);
+  //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseFourLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseFiveLight);
+  //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseSixLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseSevenLight);
+  //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseEightLight);
+  byte scenarioTwoForestArea = unitCandleArch.registerScenarioArea(scenarioTwo, forestArea);
+  unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestBigTreeLight);
+  //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestLittleTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestThreeTreeLight);
+  //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestFourTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestFiveTreeLight);
+  //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestSixTreeLight);
+  unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestSevenTreeLight);
+  //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestEightTreeLight);
   unitCandleArch.initialize();
   #if (PROD == true)
   unitCandleArch.setWorkMode(wmNone);
@@ -88,11 +138,7 @@ void lightSensorCallback(byte id) {
 
 void testProcedure() {
   delay(TESTDELAY);
-  unitCandleArch.toogleLight(houseLightingArea, houseLivingRoomLight);
+  unitCandleArch.activateScenario(scenarioOne);
   delay(TESTDELAY);
-  unitCandleArch.toogleLight(houseLightingArea, houseFloorLight);
-  delay(TESTDELAY);
-  unitCandleArch.toogleLight(forestLightingArea, forestBigTreeLight);
-  delay(TESTDELAY);
-  unitCandleArch.toogleLight(forestLightingArea, forestLittleTreeLight);
+  unitCandleArch.activateScenario(scenarioTwo);
 }

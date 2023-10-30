@@ -45,6 +45,18 @@ void NGCandleArchUnitControl::_processingIRRemoteData() {
     
 }
 
+void NGCandleArchUnitControl::_beginAllAreaUpdate() {
+    for (int i = 0; i < _lightingAreaCount; i++) {
+        _lightingAreas[i].switcher->beginUpdate();
+    }
+}
+
+void NGCandleArchUnitControl::_endAllAreaUpdate() {
+    for (int i = 0; i < _lightingAreaCount; i++) {
+        _lightingAreas[i].switcher->endUpdate();
+    }
+}
+
 byte NGCandleArchUnitControl::registerLightingArea(byte switcherLatchPin, byte switcherClockPin, byte switcherDataPin) {
     byte res = _lightingAreaCount;
     if (_lightingAreaCount < MAXLIGHTINGAREACOUNT) {
@@ -82,6 +94,65 @@ byte NGCandleArchUnitControl::registerLight(byte area) {
         char log[100];
         sprintf(log, "Light %d/%d registered", area, res);
         writeInfo(log);
+    }
+    return res;
+}
+
+byte NGCandleArchUnitControl::registerScenario() {
+    byte res = _lightingScenarioCount;
+    if (_lightingScenarioCount < MAXSCENARIOCOUNT) {
+        candleArchLightingScenario cals;
+        _lightingScenarios[_lightingScenarioCount] = cals;
+        _lightingScenarioCount++;
+    } else {
+        _raiseException(ExceptionTooMuchLightingScenarioCount);
+    }
+    if (_logging) {
+        char log[100];
+        sprintf(log, "Scenario %d registered", res);
+        writeInfo(log);
+    }
+    return res;
+}
+
+byte NGCandleArchUnitControl::registerScenarioArea(byte scenario, byte area) {
+    byte res = 0;
+    if (scenario >= 0 && scenario < _lightingScenarioCount) {
+        res = _lightingScenarios[scenario].areacount;
+        if (_lightingScenarios[scenario].areacount < MAXLIGHTINGAREACOUNT) {
+            candleArchLightingScenarioArea calsa;
+            calsa.area = area;
+            _lightingScenarios[scenario].areas[_lightingScenarios[scenario].areacount] = calsa;
+            _lightingScenarios[scenario].areacount++;
+        } else {
+            _raiseException(ExceptionTooMuchLightingScenarioAreaCount);
+        }
+        if (_logging) {
+            char log[100];
+            sprintf(log, "Scenario Area %d/%d registered", scenario, res);
+            writeInfo(log);
+        }
+    }
+    return res;
+}
+
+byte NGCandleArchUnitControl::registerScenarioAreaLight(byte scenario, byte scenarioarea, byte light) {
+    byte res = 0;
+    if (scenario >= 0 && scenario < _lightingScenarioCount) {
+        if (scenarioarea >= 0 && scenarioarea < _lightingScenarios[scenario].areacount) {
+            res = _lightingScenarios[scenario].areas[scenarioarea].lightscount;
+            if (_lightingScenarios[scenario].areas[scenarioarea].lightscount < MAXLIGHTSCOUNT) {
+                _lightingScenarios[scenario].areas[scenarioarea].lights[_lightingScenarios[scenario].areas[scenarioarea].lightscount] = light;
+                _lightingScenarios[scenario].areas[scenarioarea].lightscount++;
+            } else {
+                _raiseException(ExceptionTooMuchLightingScenarioAreaLightCount);
+            }
+            if (_logging) {
+                char log[100];
+                sprintf(log, "Scenario Area Light %d/%d/%d registered", scenario, scenarioarea, res);
+                writeInfo(log);
+            }
+        }
     }
     return res;
 }
@@ -146,6 +217,42 @@ void NGCandleArchUnitControl::switchLight(byte area, byte light, bool on) {
     } else {
         _raiseException(ExceptionInvalidLightingArea);
     }
+}
+
+void NGCandleArchUnitControl::switchAllLights(bool on) {
+    for (int i = 0; i < _lightingAreaCount; i++) {
+        _lightingAreas[i].switcher->beginUpdate();
+        for (int j = 0; j < _lightingAreas[i].lightscount; j++) {
+            switchLight(i, j, on);
+        }
+        _lightingAreas[i].switcher->endUpdate();
+    }
+}
+
+void NGCandleArchUnitControl::activateScenario(int scenario) {
+    if (scenario != _activeScenario) {
+        _activeScenario = scenario;
+        if (scenario != NOACTIVESCENARIO) {
+            if (_activeScenario >= 0 && _activeScenario < _lightingScenarioCount) {
+                _beginAllAreaUpdate();
+                switchAllLights(false);
+                for (int i = 0; i < _lightingScenarios[_activeScenario].areacount; i++) {
+                    _lightingAreas[_lightingScenarios[_activeScenario].areas[i].area].switcher->beginUpdate();
+                    for (int j = 0; j < _lightingScenarios[_activeScenario].areas[i].lightscount; j++) {
+                        switchLight(_lightingScenarios[_activeScenario].areas[i].area, _lightingScenarios[_activeScenario].areas[i].lights[j], true);
+                    }
+                    _lightingAreas[_lightingScenarios[_activeScenario].areas[i].area].switcher->endUpdate();
+                }
+                _endAllAreaUpdate();
+            }
+        } else {
+            switchAllLights(false);
+        }
+    }
+}
+
+void  NGCandleArchUnitControl::activateNoScenario() {
+    activateScenario(NOACTIVESCENARIO);
 }
 
 bool NGCandleArchUnitControl::isLightOn(byte area, byte light) {
