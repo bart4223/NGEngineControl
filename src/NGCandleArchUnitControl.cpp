@@ -33,6 +33,25 @@ void NGCandleArchUnitControl::_create(char* name, byte address, int serialRate) 
     Wire.begin(_address);
 }
 
+byte NGCandleArchUnitControl::_registerScenario(candleArchLightingScenarioKind kind, byte thresholdid) {
+    byte res = _lightingScenarioCount;
+    if (_lightingScenarioCount < MAXSCENARIOCOUNT) {
+        candleArchLightingScenario cals;
+        cals.kind = kind;
+        cals.thresholdid = thresholdid;
+        _lightingScenarios[_lightingScenarioCount] = cals;
+        _lightingScenarioCount++;
+    } else {
+        _raiseException(ExceptionTooMuchLightingScenarioCount);
+    }
+    if (_logging) {
+        char log[100];
+        sprintf(log, "Scenario %d registered", res);
+        writeInfo(log);
+    }
+    return res;
+}
+
 void NGCandleArchUnitControl::_processingReceivedData() {
     
 }
@@ -99,20 +118,11 @@ byte NGCandleArchUnitControl::registerLight(byte area) {
 }
 
 byte NGCandleArchUnitControl::registerScenario() {
-    byte res = _lightingScenarioCount;
-    if (_lightingScenarioCount < MAXSCENARIOCOUNT) {
-        candleArchLightingScenario cals;
-        _lightingScenarios[_lightingScenarioCount] = cals;
-        _lightingScenarioCount++;
-    } else {
-        _raiseException(ExceptionTooMuchLightingScenarioCount);
-    }
-    if (_logging) {
-        char log[100];
-        sprintf(log, "Scenario %d registered", res);
-        writeInfo(log);
-    }
-    return res;
+    return _registerScenario(calskNone, 0);
+}
+
+byte NGCandleArchUnitControl::registerLightSensorScenario(byte thresholdid) {
+    return _registerScenario(calskLightSensor, thresholdid);
 }
 
 byte NGCandleArchUnitControl::registerScenarioArea(byte scenario, byte area) {
@@ -167,9 +177,15 @@ void NGCandleArchUnitControl::initialize() {
 
 void NGCandleArchUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
-    if (_processLightSensorId) {
-        _processLightSensorId = false;
-        Serial.println(_lastLightSensorId);
+    if (_processLightSensorThresholdId) {
+        _processLightSensorThresholdId = false;
+        for (int i = 0; i < _lightingScenarioCount; i++) {
+            if (_lightingScenarios[i].kind == calskLightSensor) {
+                if (_lightingScenarios[i].thresholdid == _lastLightSensorThresholdId) {
+                    activateScenario(i);
+                }
+            }
+        }
     }
 }
 
@@ -251,7 +267,13 @@ void NGCandleArchUnitControl::activateScenario(int scenario) {
     }
 }
 
-void  NGCandleArchUnitControl::activateNoScenario() {
+void NGCandleArchUnitControl::activateFirstScenario() {
+    if (_lightingScenarioCount > 0) {
+        activateScenario(0);
+    }
+}
+
+void NGCandleArchUnitControl::activateNoScenario() {
     activateScenario(NOACTIVESCENARIO);
 }
 
@@ -274,8 +296,8 @@ void NGCandleArchUnitControl::toogleLight(byte area, byte light) {
 }
 
 void NGCandleArchUnitControl::setLightSensorData(byte id) {
-    if (_lastLightSensorId != id) {
-        _lastLightSensorId = id;
-        _processLightSensorId = true;
+    if (_lastLightSensorThresholdId != id) {
+        _lastLightSensorThresholdId = id;
+        _processLightSensorThresholdId = true;
     }
 }

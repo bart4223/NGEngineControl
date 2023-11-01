@@ -1,4 +1,4 @@
-#define PROD false //false,true
+#define PROD true //false,true
 
 #include <NGCandleArchUnitControl.h>
 #include <NGLightSensor.h>
@@ -9,9 +9,9 @@
 #define _CANDLEARCH "Candle Arch"
 #define CANDLEARCH  (char*)_CANDLEARCH
 
-#define LIGHTSENSORBRIGHT    800
+#define LIGHTSENSORBRIGHT    300 //800
 #define LIGHTSENSORBRIGHTID 0x01
-#define LIGHTSENSORDARK      600
+#define LIGHTSENSORDARK      200 //600
 #define LIGHTSENSORDARKID   0x02
 #define LIGHTSENSORDELAY    1000
 
@@ -24,16 +24,12 @@
 #define TESTSEQUENCEPIN         9
 
 #define TESTSEQUENCEDELAY 3000
-#define TESTDELAY         1000
 
 NGCandleArchUnitControl unitCandleArch = NGCandleArchUnitControl(CANDLEARCH);
 NGLightSensor lightSensor = NGLightSensor();
 #if (PROD == false)
 NGSerialNotification serialNotification = NGSerialNotification();
 #endif
-
-byte scenarioOne;
-byte scenarioTwo;
 
 void setup() {
   setGlobalUnit(&unitCandleArch);
@@ -66,7 +62,7 @@ void setup() {
   byte forestSevenTreeLight = unitCandleArch.registerLight(forestArea);
   byte forestEightTreeLight = unitCandleArch.registerLight(forestArea);
   // Scenario One
-  scenarioOne = unitCandleArch.registerScenario();
+  byte scenarioOne = unitCandleArch.registerLightSensorScenario(LIGHTSENSORDARKID);
   byte scenarioOneHouseArea = unitCandleArch.registerScenarioArea(scenarioOne, houseArea);
   unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseLivingRoomLight);
   unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneHouseArea, houseFloorLight);
@@ -86,7 +82,7 @@ void setup() {
   unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestSevenTreeLight);
   unitCandleArch.registerScenarioAreaLight(scenarioOne, scenarioOneForestArea, forestEightTreeLight);
   // Scenario Two
-  scenarioTwo = unitCandleArch.registerScenario();
+  byte scenarioTwo = unitCandleArch.registerLightSensorScenario(LIGHTSENSORBRIGHTID);
   byte scenarioTwoHouseArea = unitCandleArch.registerScenarioArea(scenarioTwo, houseArea);
   unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseLivingRoomLight);
   //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoHouseArea, houseFloorLight);
@@ -122,23 +118,14 @@ void setup() {
   }
   unitCandleArch.startUp();
   unitCandleArch.clearInfo();
+  unitCandleArch.activateFirstScenario();
 }
 
 void loop() {
   lightSensor.processingLoop();
   unitCandleArch.processingLoop();
-  #if (PROD == false)
-  testProcedure();
-  #endif
 }
 
 void lightSensorCallback(byte id) {
   unitCandleArch.setLightSensorData(id);
-}
-
-void testProcedure() {
-  delay(TESTDELAY);
-  unitCandleArch.activateScenario(scenarioOne);
-  delay(TESTDELAY);
-  unitCandleArch.activateScenario(scenarioTwo);
 }

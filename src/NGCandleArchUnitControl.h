@@ -18,7 +18,7 @@
 #include <NGITestableComponent.h>
 #include <NG8BitShiftRegister.h>
 
-#define _VERSION "0.6"
+#define _VERSION "0.7"
 #define VERSION (char*)_VERSION
 
 #define MAXLIGHTINGAREACOUNT 3
@@ -43,8 +43,12 @@ struct candleArchLightingScenarioAreaStruct
 };
 typedef struct candleArchLightingScenarioAreaStruct candleArchLightingScenarioArea;
 
+enum candleArchLightingScenarioKind { calskNone, calskLightSensor };
+
 struct candleArchLightingScenarioStruct
 {
+    candleArchLightingScenarioKind kind;
+    byte thresholdid;
     candleArchLightingScenarioArea areas[MAXLIGHTINGAREACOUNT];
     byte areacount = 0;
 };
@@ -57,12 +61,14 @@ private:
     byte _lightingScenarioCount = 0;
     candleArchLightingArea _lightingAreas[MAXLIGHTINGAREACOUNT];
     byte _lightingAreaCount = 0;
-    byte _lastLightSensorId = 0x00;
-    bool _processLightSensorId = false;
+    byte _lastLightSensorThresholdId = 0x00;
+    bool _processLightSensorThresholdId = false;
     int _activeScenario = NOACTIVESCENARIO;
     
 protected:
     void _create(char* name, byte address, int serialRate);
+    
+    byte _registerScenario(candleArchLightingScenarioKind kind, byte thresholdid);
     
     void _processingReceivedData();
     
@@ -89,6 +95,8 @@ public:
     
     byte registerScenario();
     
+    byte registerLightSensorScenario(byte thresholdid);
+    
     byte registerScenarioArea(byte scenario, byte area);
     
     byte registerScenarioAreaLight(byte scenario, byte scenarioarea, byte light);
@@ -108,6 +116,8 @@ public:
     void switchAllLights(bool on);
     
     void activateScenario(int scenario);
+    
+    void activateFirstScenario();
     
     void activateNoScenario();
     
