@@ -189,16 +189,14 @@
 		29D0FFE428257539008B3231 /* simpleForwardTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleForwardTurns.txt; sourceTree = "<group>"; };
 		29D0FFE528257578008B3231 /* simpleBackwardTurns.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = simpleBackwardTurns.txt; sourceTree = "<group>"; };
 		29D43EE6288C5D45003AB391 /* currentmeasurementE0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = currentmeasurementE0.png; sourceTree = "<group>"; };
+		29D4C6142AF3DF36000DCE4F /* NGMemoryObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMemoryObserver.h; sourceTree = "<group>"; };
+		29D4C6152AF3DF36000DCE4F /* NGMemoryObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMemoryObserver.cpp; sourceTree = "<group>"; };
 		29D60E8B27F32D8E00FCA53A /* NGSoilMoistureSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSoilMoistureSensor.cpp; sourceTree = "<group>"; };
 		29D60E8C27F32D8E00FCA53A /* NGSoilMoistureSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSoilMoistureSensor.h; sourceTree = "<group>"; };
 		29D60E8E27F339ED00FCA53A /* soilmoisturesensor.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = soilmoisturesensor.ino; sourceTree = "<group>"; };
-		29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMemoryObserver.cpp; sourceTree = "<group>"; };
-		29D7EC30266BF4E400009403 /* NGMemoryObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMemoryObserver.h; sourceTree = "<group>"; };
 		29D7EC32266CE63000009403 /* toolunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = toolunit.ino; sourceTree = "<group>"; };
 		29D7EC332670D7D800009403 /* NGCustomUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomUnitControl.cpp; sourceTree = "<group>"; };
 		29D7EC342670D7D800009403 /* NGCustomUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomUnitControl.h; sourceTree = "<group>"; };
-		29D7EC352670DC5100009403 /* NGCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCommon.h; sourceTree = "<group>"; };
-		29D7EC362670DD2C00009403 /* NGCommon.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCommon.cpp; sourceTree = "<group>"; };
 		29D7EC372673B88300009403 /* NGCustomNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomNotification.cpp; sourceTree = "<group>"; };
 		29D7EC382673B88300009403 /* NGCustomNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomNotification.h; sourceTree = "<group>"; };
 		29D7EC392673BFB800009403 /* NGSerialNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSerialNotification.cpp; sourceTree = "<group>"; };
@@ -395,12 +393,10 @@
 		2913C93926FF554A00D0AFC6 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				29D7EC352670DC5100009403 /* NGCommon.h */,
-				29D7EC362670DD2C00009403 /* NGCommon.cpp */,
+				29D4C6142AF3DF36000DCE4F /* NGMemoryObserver.h */,
+				29D4C6152AF3DF36000DCE4F /* NGMemoryObserver.cpp */,
 				2977D31427DE0DE400F538B3 /* NGExceptionDefinitions.h */,
 				2999D3212794841C00B88B53 /* NGITestableComponent.h */,
-				29D7EC30266BF4E400009403 /* NGMemoryObserver.h */,
-				29D7EC2F266BF4E400009403 /* NGMemoryObserver.cpp */,
 				29232B43277A17B800B85C8E /* NGStrings.h */,
 				29232B42277A17B800B85C8E /* NGStrings.cpp */,
 			);
