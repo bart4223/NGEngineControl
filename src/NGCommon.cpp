@@ -19,6 +19,10 @@ bool getYesOrNo() {
 }
 
 bool IsButtonPressed(int pin) {
+    return IsSwitchOn(pin);
+}
+
+bool IsSwitchOn(int pin) {
     pinMode(pin, INPUT_PULLUP);
     return digitalRead(pin) == LOW;
 }

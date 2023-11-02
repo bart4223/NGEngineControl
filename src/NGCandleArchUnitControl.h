@@ -18,7 +18,7 @@
 #include <NGITestableComponent.h>
 #include <NG8BitShiftRegister.h>
 
-#define _VERSION "0.7"
+#define _VERSION "0.8"
 #define VERSION (char*)_VERSION
 
 #define MAXLIGHTINGAREACOUNT 3

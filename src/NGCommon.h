@@ -35,4 +35,6 @@ bool getYesOrNo();
 
 bool IsButtonPressed(int pin);
 
+bool IsSwitchOn(int pin);
+
 #endif /* NGCommon_h */
