@@ -62,7 +62,11 @@ void setup() {
   byte forestSixTreeLight = unitCandleArch.registerLight(forestArea);
   byte forestSevenTreeLight = unitCandleArch.registerLight(forestArea);
   byte forestEightTreeLight = unitCandleArch.registerLight(forestArea);
+  byte scenario1;
+  byte scenario2;
   if (!IsSwitchOn(ALTERNATIVESCENARIOSPIN)) {
+    scenario1 = 1;
+    scenario2 = 2;
     // Scenario One
     byte scenarioOne = unitCandleArch.registerLightSensorScenario(LIGHTSENSORDARKID);
     byte scenarioOneHouseArea = unitCandleArch.registerScenarioArea(scenarioOne, houseArea);
@@ -104,6 +108,8 @@ void setup() {
     unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestSevenTreeLight);
     //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestEightTreeLight);
   } else {
+    scenario1 = 3;
+    scenario2 = 4;
     // Scenario One*
     byte scenarioOne = unitCandleArch.registerLightSensorScenario(LIGHTSENSORDARKID);
     byte scenarioOneHouseArea = unitCandleArch.registerScenarioArea(scenarioOne, houseArea);
@@ -161,6 +167,11 @@ void setup() {
     unitCandleArch.writeInfo("Test sequence stopped");
   }
   unitCandleArch.startUp();
+  #if (PROD == false)
+  char log[100];
+  sprintf(log, "Scenarios %d/%d", scenario1, scenario2);
+  unitCandleArch.writeInfo(log);
+  #endif
   unitCandleArch.clearInfo();
   unitCandleArch.activateFirstScenario();
 }
