@@ -51,8 +51,6 @@
 		2917D45128DBBC440004FDD6 /* Pages.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Pages.txt; sourceTree = "<group>"; };
 		2918870C2AD6B7DA0088E95A /* AnchormanJ0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnchormanJ0.png; sourceTree = "<group>"; };
 		2918870E2AD7C5300088E95A /* AnchormanJ1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AnchormanJ1.png; sourceTree = "<group>"; };
-		291887132ADEE83E0088E95A /* NG8BitShiftRegister.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NG8BitShiftRegister.cpp; sourceTree = "<group>"; };
-		291887142ADEE83E0088E95A /* NG8BitShiftRegister.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NG8BitShiftRegister.h; sourceTree = "<group>"; };
 		291887162ADFB44B0088E95A /* 8bitshiftregister.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = 8bitshiftregister.ino; sourceTree = "<group>"; };
 		29232B392779D44C00B85C8E /* NGDuoLED.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGDuoLED.cpp; sourceTree = "<group>"; };
 		29232B3A2779D44C00B85C8E /* NGDuoLED.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGDuoLED.h; sourceTree = "<group>"; };
@@ -499,8 +497,6 @@
 				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
 				29232B4A277D87A100B85C8E /* NGRealTimeClock.h */,
 				29232B49277D87A100B85C8E /* NGRealTimeClock.cpp */,
-				291887142ADEE83E0088E95A /* NG8BitShiftRegister.h */,
-				291887132ADEE83E0088E95A /* NG8BitShiftRegister.cpp */,
 				297E229B291AD46A00E549DF /* NGSimpleKeypad.h */,
 				297E229A291AD46A00E549DF /* NGSimpleKeypad.cpp */,
 			);
