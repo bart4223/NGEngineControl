@@ -1,4 +1,4 @@
-#define PROD false //false,true
+#define PROD true //false,true
 
 #include <NGCandleArchUnitControl.h>
 #include <NGLightSensor.h>
@@ -9,9 +9,9 @@
 #define _CANDLEARCH "Candle Arch"
 #define CANDLEARCH  (char*)_CANDLEARCH
 
-#define LIGHTSENSORBRIGHT    300 //800
+#define LIGHTSENSORBRIGHT    600 //800
 #define LIGHTSENSORBRIGHTID 0x01
-#define LIGHTSENSORDARK      200 //600
+#define LIGHTSENSORDARK      500 //600
 #define LIGHTSENSORDARKID   0x02
 #define LIGHTSENSORDELAY    1000
 
@@ -24,7 +24,8 @@
 #define TESTSEQUENCEPIN           9
 #define ALTERNATIVESCENARIOSPIN  10
 
-#define TESTSEQUENCEDELAY 3000
+#define TESTSEQUENCEDELAY   3000
+#define LIGHTSENSORLOGDELAY 1000
 
 NGCandleArchUnitControl unitCandleArch = NGCandleArchUnitControl(CANDLEARCH);
 NGLightSensor lightSensor = NGLightSensor();
@@ -158,6 +159,7 @@ void setup() {
   unitCandleArch.setWorkMode(wmObserveMemory);
   #endif
   if (IsButtonPressed(TESTSEQUENCEPIN)) {
+    lightSensor.setLogging(true, LIGHTSENSORLOGDELAY);
     unitCandleArch.testSequenceStart();
     unitCandleArch.writeInfo("Test sequence started", TESTSEQUENCEDELAY);
     while (IsButtonPressed(TESTSEQUENCEPIN)) {
