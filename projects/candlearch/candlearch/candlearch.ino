@@ -9,9 +9,9 @@
 #define _CANDLEARCH "Candle Arch"
 #define CANDLEARCH  (char*)_CANDLEARCH
 
-#define LIGHTSENSORBRIGHT    600 //800
+#define LIGHTSENSORBRIGHT    800
 #define LIGHTSENSORBRIGHTID 0x01
-#define LIGHTSENSORDARK      500 //600
+#define LIGHTSENSORDARK      700
 #define LIGHTSENSORDARKID   0x02
 #define LIGHTSENSORDELAY    1000
 
@@ -159,7 +159,9 @@ void setup() {
   unitCandleArch.setWorkMode(wmObserveMemory);
   #endif
   if (IsButtonPressed(TESTSEQUENCEPIN)) {
+    #if (PROD == false)
     lightSensor.setLogging(true, LIGHTSENSORLOGDELAY);
+    #endif
     unitCandleArch.testSequenceStart();
     unitCandleArch.writeInfo("Test sequence started", TESTSEQUENCEDELAY);
     while (IsButtonPressed(TESTSEQUENCEPIN)) {
