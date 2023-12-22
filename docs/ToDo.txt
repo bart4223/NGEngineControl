@@ -13,4 +13,5 @@
         -CompassMotionControl
 -Spidy
 -CandleArch
+  -Startup
 -WeatherStation
