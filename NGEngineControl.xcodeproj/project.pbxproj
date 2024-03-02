@@ -106,6 +106,7 @@
 		294E9C9B290D5A4400A3E17A /* binaryclock.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = binaryclock.ino; sourceTree = "<group>"; };
 		294E9C9C290D5A8800A3E17A /* NGBinaryClockUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBinaryClockUnitControl.cpp; sourceTree = "<group>"; };
 		294E9C9D290D5A8800A3E17A /* NGBinaryClockUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBinaryClockUnitControl.h; sourceTree = "<group>"; };
+		2957712D2B934A2500AE64AC /* CandleArchK1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CandleArchK1.png; sourceTree = "<group>"; };
 		29620D6A29ABDE410020B874 /* NGCaterpillarSteeringControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCaterpillarSteeringControl.cpp; sourceTree = "<group>"; };
 		29620D6B29ABDE410020B874 /* NGCaterpillarSteeringControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCaterpillarSteeringControl.h; sourceTree = "<group>"; };
 		29620D6C29ABE1140020B874 /* caterpillarsteeringcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = caterpillarsteeringcontrol.ino; sourceTree = "<group>"; };
@@ -302,6 +303,7 @@
 			isa = PBXGroup;
 			children = (
 				29B5C9CF2B0288E200BC3950 /* CandleArchK0.png */,
+				2957712D2B934A2500AE64AC /* CandleArchK1.png */,
 				29B5C9CE2AFF9E6A00BC3950 /* CandleArchMainBoard.png */,
 				290158892AEBE51700D00B0C /* CandleArchMainBoardSchema.png */,
 			);
