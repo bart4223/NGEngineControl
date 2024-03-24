@@ -24,6 +24,9 @@
 		290A819F27FF3091007E7BC9 /* bonsai.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bonsai.png; sourceTree = "<group>"; };
 		290A81A027FF32F1007E7BC9 /* irrigationsystemD0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = irrigationsystemD0.png; sourceTree = "<group>"; };
 		290A81A128030A64007E7BC9 /* irrigationsystemD1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = irrigationsystemD1.png; sourceTree = "<group>"; };
+		290BB26A2BB0631C00079FE1 /* NGMulti7SegmentDisplay.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGMulti7SegmentDisplay.cpp; sourceTree = "<group>"; };
+		290BB26B2BB0631C00079FE1 /* NGMulti7SegmentDisplay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGMulti7SegmentDisplay.h; sourceTree = "<group>"; };
+		290BB26D2BB0661C00079FE1 /* multi7segmentdisplay.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = multi7segmentdisplay.ino; sourceTree = "<group>"; };
 		291070DF2A24EAE500ECFC2E /* speedyF2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedyF2.png; sourceTree = "<group>"; };
 		2913C92D26FBBAE300D0AFC6 /* ToDo.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ToDo.txt; sourceTree = "<group>"; };
 		2913C92F26FF357300D0AFC6 /* NGSoundMachine.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSoundMachine.cpp; sourceTree = "<group>"; };
@@ -350,6 +353,14 @@
 			path = 4x4keypad;
 			sourceTree = "<group>";
 		};
+		290BB26C2BB065C500079FE1 /* multi7segmentdisplay */ = {
+			isa = PBXGroup;
+			children = (
+				290BB26D2BB0661C00079FE1 /* multi7segmentdisplay.ino */,
+			);
+			path = multi7segmentdisplay;
+			sourceTree = "<group>";
+		};
 		2913C93526FF543500D0AFC6 /* sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -389,6 +400,8 @@
 				299DEBEB272C6D02004B3B59 /* NGLaserCannon.cpp */,
 				29D7EC4026741FAB00009403 /* NGLCDNotification.h */,
 				29D7EC3F26741FAB00009403 /* NGLCDNotification.cpp */,
+				290BB26B2BB0631C00079FE1 /* NGMulti7SegmentDisplay.h */,
+				290BB26A2BB0631C00079FE1 /* NGMulti7SegmentDisplay.cpp */,
 				29EA905E275F387A00F3C556 /* NGOLEDNotification.h */,
 				29EA905D275F387A00F3C556 /* NGOLEDNotification.cpp */,
 				29620D7129B1FE370020B874 /* NGIPaintableComponent.h */,
@@ -688,6 +701,7 @@
 				29C9083D290EA9A300F6A704 /* love */,
 				29232B562780CB6500B85C8E /* morsetonegenerator */,
 				29DC5F8F28A5051800CCEEB1 /* motioncontrol */,
+				290BB26C2BB065C500079FE1 /* multi7segmentdisplay */,
 				29EA905A275BAB8600F3C556 /* OLED */,
 				29E71C9027F76DC90046A707 /* pumpcontrol */,
 				29EA90612763333100F3C556 /* questiondialog */,

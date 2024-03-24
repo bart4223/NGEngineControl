@@ -110,6 +110,10 @@ void NG7SegmentDisplay::setMode(sevenSegmentMode mode) {
     _mode = mode;
 }
 
+sevenSegmentMode NG7SegmentDisplay::getMode() {
+    return _mode;
+}
+
 void NG7SegmentDisplay::setDot() {
     _shiftRegister->setValue(_shiftRegister->getValue() + 128);
 }

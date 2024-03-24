@@ -37,6 +37,8 @@ public:
     
     void setMode(sevenSegmentMode mode);
     
+    sevenSegmentMode getMode();
+    
     void setValue(byte value);
     
     byte getValue();
