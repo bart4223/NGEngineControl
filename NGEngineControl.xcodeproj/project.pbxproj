@@ -115,7 +115,7 @@
 		29620D6C29ABE1140020B874 /* caterpillarsteeringcontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = caterpillarsteeringcontrol.ino; sourceTree = "<group>"; };
 		29620D6D29B07D430020B874 /* NGColorDotMatrixDecimalDigit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixDecimalDigit.cpp; sourceTree = "<group>"; };
 		29620D6E29B07D430020B874 /* NGColorDotMatrixDecimalDigit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixDecimalDigit.h; sourceTree = "<group>"; };
-		29620D7029B07DB70020B874 /* colotdotmatrixdecimaldigit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colotdotmatrixdecimaldigit.ino; sourceTree = "<group>"; };
+		29620D7029B07DB70020B874 /* colordotmatrixdecimaldigit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colordotmatrixdecimaldigit.ino; sourceTree = "<group>"; };
 		29620D7129B1FE370020B874 /* NGIPaintableComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGIPaintableComponent.h; sourceTree = "<group>"; };
 		29620D7A29B4BD5C0020B874 /* NGCommonGraphics.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCommonGraphics.cpp; sourceTree = "<group>"; };
 		29620D7B29B4BD5C0020B874 /* NGCommonGraphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCommonGraphics.h; sourceTree = "<group>"; };
@@ -595,7 +595,7 @@
 			children = (
 				294E9C9229072EC800A3E17A /* colordotmatrix.ino */,
 				294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */,
-				29620D7029B07DB70020B874 /* colotdotmatrixdecimaldigit.ino */,
+				29620D7029B07DB70020B874 /* colordotmatrixdecimaldigit.ino */,
 				29E87305297461ED00F7BF90 /* colordotmatrixfuse.ino */,
 			);
 			path = colordotmatrix;
