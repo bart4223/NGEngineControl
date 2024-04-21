@@ -22,7 +22,6 @@ void setup() {
   //cdmdd->setColorBackground(COLOR_RED);
   //cdmdd->setRandomColor(true);
   cdmdd->setColor(COLOR_GREEN);
-  initFont();
   cdmdd->setPosX(posx);
   cdmdd->setValue(counter);
   observeMemory(0);
@@ -41,13 +40,13 @@ void loop() {
     } else {
       counter--;
     }
-    initFont();
+    randomFont();
     cdmdd->setValue(counter);
   }
   cdm->endUpdate();
 }
 
-void initFont() {
+void randomFont() {
   if (getYesOrNo()) {
     cdmdd->setFont(fontZX81);
   } else {
