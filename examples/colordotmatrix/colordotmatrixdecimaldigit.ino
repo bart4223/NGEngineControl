@@ -1,6 +1,7 @@
 #include <NGCommon.h>
 #include <NGZX81Font.h>
 #include <NGMemoryObserver.h>
+#include <NGColorDotMatrix.h>
 #include <NGColorDotMatrixDecimalDigit.h>
 
 #define DELAY 100

@@ -263,6 +263,11 @@
 		29EA905F2761ECF700F3C556 /* NGQuestionDialog.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGQuestionDialog.cpp; sourceTree = "<group>"; };
 		29EA90602761ECF700F3C556 /* NGQuestionDialog.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGQuestionDialog.h; sourceTree = "<group>"; };
 		29EA90622763336000F3C556 /* questiondialog.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = questiondialog.ino; sourceTree = "<group>"; };
+		29F15E222BD5611700F1E714 /* NGColorDotMatrixCustomDigit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixCustomDigit.cpp; sourceTree = "<group>"; };
+		29F15E232BD5611700F1E714 /* NGColorDotMatrixCustomDigit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixCustomDigit.h; sourceTree = "<group>"; };
+		29F15E242BD5665E00F1E714 /* NGColorDotMatrixCharDigit.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixCharDigit.cpp; sourceTree = "<group>"; };
+		29F15E252BD5665E00F1E714 /* NGColorDotMatrixCharDigit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixCharDigit.h; sourceTree = "<group>"; };
+		29F15E262BD5673100F1E714 /* colordotmatrixchardigit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colordotmatrixchardigit.ino; sourceTree = "<group>"; };
 		29F2A78B26C2E059009C3822 /* motomanB5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5.png; sourceTree = "<group>"; };
 		29F56DE3273AE41E00BBBB68 /* NGJingleBoot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBoot.cpp; sourceTree = "<group>"; };
 		29F56DE4273AE41E00BBBB68 /* NGJingleBoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBoot.h; sourceTree = "<group>"; };
@@ -386,6 +391,10 @@
 				294E9C8F29058EA400A3E17A /* NGColorDotMatrix.cpp */,
 				294E9C95290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.h */,
 				294E9C94290D0BC700A3E17A /* NGColorDotMatrixBinaryDigit.cpp */,
+				29F15E252BD5665E00F1E714 /* NGColorDotMatrixCharDigit.h */,
+				29F15E242BD5665E00F1E714 /* NGColorDotMatrixCharDigit.cpp */,
+				29F15E232BD5611700F1E714 /* NGColorDotMatrixCustomDigit.h */,
+				29F15E222BD5611700F1E714 /* NGColorDotMatrixCustomDigit.cpp */,
 				29620D6E29B07D430020B874 /* NGColorDotMatrixDecimalDigit.h */,
 				29620D6D29B07D430020B874 /* NGColorDotMatrixDecimalDigit.cpp */,
 				29E8730329745EF400F7BF90 /* NGColorDotMatrixFuse.h */,
@@ -595,6 +604,7 @@
 			children = (
 				294E9C9229072EC800A3E17A /* colordotmatrix.ino */,
 				294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */,
+				29F15E262BD5673100F1E714 /* colordotmatrixchardigit.ino */,
 				29620D7029B07DB70020B874 /* colordotmatrixdecimaldigit.ino */,
 				29E87305297461ED00F7BF90 /* colordotmatrixfuse.ino */,
 			);
