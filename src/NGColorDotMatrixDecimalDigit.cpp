@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 02.03.23.
 //
 
+#include "NGCommon.h"
 #include "NGColorDotMatrixDecimalDigit.h"
 
 NGColorDotMatrixDecimalDigit::NGColorDotMatrixDecimalDigit(NGIPaintableComponent *ipc) {
@@ -17,290 +18,49 @@ void NGColorDotMatrixDecimalDigit::_create(NGIPaintableComponent *ipc, byte posX
     _posY = posY;
 }
 
-byte NGColorDotMatrixDecimalDigit::_getNumeralZero(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-        case 0x07:
-            res = 0x7C;
-            break;
-        case 0x01:
-        case 0x02:
-        case 0x03:
-        case 0x04:
-        case 0x05:
-        case 0x06:
-            res = 0xCE;
-            break;
-    }
-    return res;
-}
-
-byte NGColorDotMatrixDecimalDigit::_getNumeralOne(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-        case 0x04:
-        case 0x05:
-        case 0x06:
-        case 0x07:
-            res = 0x1C;
-            break;
-        case 0x01:
-            res = 0x3C;
-            break;
-        case 0x02:
-            res = 0x7C;
-            break;
-        case 0x03:
-            res = 0xDC;
-            break;
-    }
-    return res;
-}
-
-byte NGColorDotMatrixDecimalDigit::_getNumeralTwo(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-            res = 0x7C;
-            break;
-        case 0x01:
-            res = 0xCE;
-            break;
-        case 0x02:
-            res = 0x8E;
-            break;
-        case 0x03:
-            res = 0x0E;
-            break;
-        case 0x04:
-            res = 0x1C;
-            break;
-        case 0x05:
-            res = 0x30;
-            break;
-        case 0x06:
-            res = 0x60;
-            break;
-        case 0x07:
-            res = 0xFE;
-            break;
-    }
-    return res;
-}
-
-byte NGColorDotMatrixDecimalDigit::_getNumeralThree(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-        case 0x07:
-            res = 0x7C;
-            break;
-        case 0x01:
-        case 0x06:
-            res = 0xCE;
-            break;
-        case 0x02:
-        case 0x05:
-            res = 0x8E;
-            break;
-        case 0x03:
-            res = 0x38;
-            break;
-        case 0x04:
-            res = 0x0E;
-            break;
-    }
-    return res;
-}
-
-byte NGColorDotMatrixDecimalDigit::_getNumeralFour(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-            res = 0x18;
-            break;
-        case 0x01:
-            res = 0x30;
-            break;
-        case 0x02:
-            res = 0x60;
-            break;
-        case 0x03:
-            res = 0xC0;
-            break;
-        case 0x04:
-            res = 0xDC;
-            break;
-        case 0x05:
-            res = 0xFE;
-            break;
-        case 0x06:
-        case 0x07:
-            res = 0x1C;
-            break;
-    }
-    return res;
-}
-
-byte NGColorDotMatrixDecimalDigit::_getNumeralFive(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-            res = 0xFE;
-            break;
-        case 0x01:
-        case 0x02:
-            res = 0xC0;
-            break;
-        case 0x03:
-            res = 0xFC;
-            break;
-        case 0x04:
-        case 0x05:
-            res = 0x0E;
-            break;
-        case 0x06:
-            res = 0x8E;
-            break;
-        case 0x07:
-            res = 0x7C;
-            break;
-    }
-    return res;
-}
-
-byte NGColorDotMatrixDecimalDigit::_getNumeralSix(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-            res = 0x18;
-            break;
-        case 0x01:
-            res = 0x30;
-            break;
-        case 0x02:
-            res = 0x60;
-            break;
-        case 0x03:
-        case 0x07:
-            res = 0x7C;
-            break;
-        case 0x04:
-        case 0x05:
-        case 0x06:
-            res = 0xCE;
-            break;
-    }
-    return res;
-}
-
-byte NGColorDotMatrixDecimalDigit::_getNumeralSeven(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-            res = 0xFE;
-            break;
-        case 0x01:
-        case 0x02:
-            res = 0x0E;
-            break;
-        case 0x03:
-            res = 0x0C;
-            break;
-        case 0x04:
-        case 0x05:
-            res = 0x18;
-            break;
-        case 0x06:
-            res = 0x30;
-            break;
-        case 0x07:
-            res = 0x60;
-            break;
-    }
-    return res;
-}
-
-byte NGColorDotMatrixDecimalDigit::_getNumeralEight(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-        case 0x03:
-        case 0x07:
-            res = 0x7C;
-            break;
-        case 0x01:
-        case 0x02:
-        case 0x04:
-        case 0x05:
-        case 0x06:
-            res = 0xCE;
-            break;
-    }
-    return res;
-}
-
-byte NGColorDotMatrixDecimalDigit::_getNumeralNine(byte line) {
-    byte res = 0x00;
-    switch(line) {
-        case 0x00:
-        case 0x04:
-            res = 0x7C;
-            break;
-        case 0x01:
-        case 0x02:
-        case 0x03:
-            res = 0xCE;
-            break;
-        case 0x05:
-            res = 0x0C;
-            break;
-        case 0x06:
-            res = 0x18;
-            break;
-        case 0x07:
-            res = 0x70;
-            break;
+NGCustomFont* NGColorDotMatrixDecimalDigit::_getFont() {
+    NGCustomFont *res = _font;
+    if (res == nullptr) {
+        res = getGlobalFont();
     }
     return res;
 }
 
 void NGColorDotMatrixDecimalDigit::_render() {
+    NGCustomFont *font = _getFont();
     _ipc->beginUpdate();
     for (int y = 0; y < 8; y++) {
         byte num;
         switch(_value) {
             case 0x00:
-                num = _getNumeralZero(y);
+                num = font->getCharLineValue('0', y);
                 break;
             case 0x01:
-                num = _getNumeralOne(y);
+                num = font->getCharLineValue('1', y);
                 break;
             case 0x02:
-                num = _getNumeralTwo(y);
+                num = font->getCharLineValue('2', y);
                 break;
             case 0x03:
-                num = _getNumeralThree(y);
+                num = font->getCharLineValue('3', y);
                 break;
             case 0x04:
-                num = _getNumeralFour(y);
+                num = font->getCharLineValue('4', y);
                 break;
             case 0x05:
-                num = _getNumeralFive(y);
+                num = font->getCharLineValue('5', y);
                 break;
             case 0x06:
-                num = _getNumeralSix(y);
+                num = font->getCharLineValue('6', y);
                 break;
             case 0x07:
-                num = _getNumeralSeven(y);
+                num = font->getCharLineValue('7', y);
                 break;
             case 0x08:
-                num = _getNumeralEight(y);
+                num = font->getCharLineValue('8', y);
                 break;
             case 0x09:
-                num = _getNumeralNine(y);
+                num = font->getCharLineValue('9', y);
                 break;
         }
         byte col = 0x01;
@@ -367,6 +127,14 @@ void NGColorDotMatrixDecimalDigit::setColor(colorRGB color) {
 
 colorRGB NGColorDotMatrixDecimalDigit::getColor() {
     return _color;
+}
+
+void NGColorDotMatrixDecimalDigit::setFont(NGCustomFont *font) {
+    _font = font;
+}
+
+NGCustomFont* NGColorDotMatrixDecimalDigit::getFont() {
+    return _font;
 }
 
 void NGColorDotMatrixDecimalDigit::setValue(byte value) {

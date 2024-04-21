@@ -14,6 +14,7 @@
 #include <WProgram.h>
 #endif
 
+#include "NGCustomFont.h"
 #include "NGColorDotMatrix.h"
 
 class NGColorDotMatrixDecimalDigit {
@@ -28,31 +29,14 @@ private:
     colorRGB _color = COLOR_GREEN;
     int _posX = 0;
     int _posY = 0;
+    NGCustomFont *_font = nullptr;
     
 protected:
     void _create(NGIPaintableComponent *ipc, byte posX, byte posY);
     
     void _render();
     
-    byte _getNumeralZero(byte line);
-    
-    byte _getNumeralOne(byte line);
-    
-    byte _getNumeralTwo(byte line);
-    
-    byte _getNumeralThree(byte line);
-    
-    byte _getNumeralFour(byte line);
-    
-    byte _getNumeralFive(byte line);
-    
-    byte _getNumeralSix(byte line);
-    
-    byte _getNumeralSeven(byte line);
-    
-    byte _getNumeralEight(byte line);
-    
-    byte _getNumeralNine(byte line);
+    NGCustomFont* _getFont();
     
 public:
     static const int PIXELCOUNT = 8;
@@ -74,6 +58,10 @@ public:
     void setColor(colorRGB color);
     
     colorRGB getColor();
+    
+    void setFont(NGCustomFont *font);
+    
+    NGCustomFont* getFont();
     
     void setValue(byte value);
     
