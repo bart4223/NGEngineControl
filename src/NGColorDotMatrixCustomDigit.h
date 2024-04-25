@@ -42,6 +42,8 @@ protected:
 public:
     static const int PIXELCOUNT = 8;
     
+    NGIPaintableComponent* getPaintableComponent();
+    
     void beginUpdate();
     
     void endUpdate();

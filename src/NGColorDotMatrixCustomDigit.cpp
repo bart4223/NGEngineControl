@@ -56,6 +56,10 @@ void NGColorDotMatrixCustomDigit::_render() {
     _ipc->endUpdate();
 }
 
+NGIPaintableComponent* NGColorDotMatrixCustomDigit::getPaintableComponent() {
+    return _ipc;
+}
+
 void NGColorDotMatrixCustomDigit::beginUpdate() {
     _updateCount++;
 }
