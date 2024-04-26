@@ -24,6 +24,14 @@ NGCustomFont* NGColorDotMatrixText::getFont() {
     return _digit->getFont();
 }
 
+void NGColorDotMatrixText::setColorBackground(colorRGB color) {
+    _digit->setColorBackground(color);
+}
+
+colorRGB NGColorDotMatrixText::getColorBackground() {
+    return _digit->getColorBackground();
+}
+
 void NGColorDotMatrixText::setColor(colorRGB color) {
     _digit->setColor(color);
 }

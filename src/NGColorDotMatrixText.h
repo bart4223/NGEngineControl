@@ -34,6 +34,10 @@ public:
     
     NGCustomFont* getFont();
     
+    void setColorBackground(colorRGB color);
+    
+    colorRGB getColorBackground();
+    
     void setColor(colorRGB color);
     
     colorRGB getColor();
