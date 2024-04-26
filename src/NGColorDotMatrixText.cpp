@@ -53,21 +53,22 @@ void NGColorDotMatrixText::setText(char* text) {
             isunicode = false;
         }
         if (!isunicode) {
-            byte x = 0;
-            byte y = 0;
-            x = (_posX + i - unicodes) * _digit->PIXELCOUNT;
+            int x = (_posX + i - unicodes) * _digit->PIXELCOUNT;
+            int y = 0;
             if (_wrapText) {
-                int width = _digit->getPaintableComponent()->getWidth();
-                if ((x + _digit->PIXELCOUNT * _digit->getScale()) > width) {
-                    byte x2 = (x + _digit->PIXELCOUNT * _digit->getScale()) % width;
-                    y = (x + _digit->PIXELCOUNT * _digit->getScale()) / width;
+                int width = _digit->getPaintableComponent()->getWidth() / _digit->getScale();
+                if (x >= width) {
+                    byte x2 = x % width;
+                    y = x / width;
                     x = x2;
                 }
             }
-            y = (y + _posY) * _digit->PIXELCOUNT;
+            y = _posY + y * _digit->PIXELCOUNT;
+            _digit->beginUpdate();
             _digit->setPosX(x);
             _digit->setPosY(y);
             _digit->setChar(c);
+            _digit->endUpdate();
         }
     }
 }
