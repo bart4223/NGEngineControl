@@ -268,6 +268,7 @@
 		29F15E262BD5673100F1E714 /* colordotmatrixchardigit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colordotmatrixchardigit.ino; sourceTree = "<group>"; };
 		29F15E272BD7FFCA00F1E714 /* NGColorDotMatrixText.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixText.cpp; sourceTree = "<group>"; };
 		29F15E282BD7FFCA00F1E714 /* NGColorDotMatrixText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixText.h; sourceTree = "<group>"; };
+		29F15E312BDEA55500F1E714 /* colordotmatrixbasic.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colordotmatrixbasic.ino; sourceTree = "<group>"; };
 		29F2A78B26C2E059009C3822 /* motomanB5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = motomanB5.png; sourceTree = "<group>"; };
 		29F56DE3273AE41E00BBBB68 /* NGJingleBoot.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGJingleBoot.cpp; sourceTree = "<group>"; };
 		29F56DE4273AE41E00BBBB68 /* NGJingleBoot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGJingleBoot.h; sourceTree = "<group>"; };
@@ -603,6 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				294E9C9229072EC800A3E17A /* colordotmatrix.ino */,
+				29F15E312BDEA55500F1E714 /* colordotmatrixbasic.ino */,
 				294E9C97290D0E5800A3E17A /* colordotmatrixbinarydigit.ino */,
 				29F15E262BD5673100F1E714 /* colordotmatrixchardigit.ino */,
 				29620D7029B07DB70020B874 /* colordotmatrixdecimaldigit.ino */,
