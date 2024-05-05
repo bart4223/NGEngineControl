@@ -1,15 +1,19 @@
 #include <NGMemoryObserver.h>
-#include <NGDimmableColor.h>
+#include <NGColorDotMatrixGradientPoint.h>
 #include <NGColorDotMatrix.h>
 
-#define DELAY 100
+#define DELAY 10
+#define GRADIENTSTAGES 10
 
 NGColorDotMatrix *cdm = new NGColorDotMatrix();
-NGDimmableColor *dcOne = new NGDimmableColor(COLOR_GREEN);
-//NGDimmableColor *dcTwo = new NGDimmableColor(COLOR_RED);
-NGDimmableColor *dcTwo = new NGDimmableColor(COLOR_BLUE);
+NGColorDotMatrixGradientPoint *cdmgpOne = new NGColorDotMatrixGradientPoint(cdm, COLOR_GREEN, GRADIENTSTAGES);
+NGColorDotMatrixGradientPoint *cdmgpTwo = new NGColorDotMatrixGradientPoint(cdm, COLOR_RED, GRADIENTSTAGES);
 
-bool darker = true;
+int posX = 3;
+int posY = 2;
+int gradientX = 0;
+int gradientY = 0;
+bool animation = true;
 
 void setup() {
   observeMemory(0);
@@ -17,22 +21,34 @@ void setup() {
 }
 
 void loop() {
-  delay(DELAY);
-  if (darker) {
-    dcOne->darker();
-    dcTwo->darker();
-    darker = !dcOne->isMaxDamping();
-  } else {
-    dcOne->brighter();
-    dcTwo->brighter();
-    darker = dcOne->isMinDamping();
-  }
+  //delay(DELAY);
   drawPoints();
+  if (animation) {
+    gradientX++;
+    if (gradientX >= GRADIENTSTAGES) {
+      clearPoints();
+      gradientX = 0;
+      posX++;
+      if (posX > 7) {
+        posX = 0;
+      }
+      drawPoints();
+    }
+  }
 }
 
 void drawPoints() {
-  cdm->drawPoint(0, 0, dcOne->getColorRGB());
-  cdm->drawPoint(0, 1, dcOne->getColorRGB());
-  cdm->drawPoint(1, 1, dcTwo->getColorRGB());
-  cdm->drawPoint(1, 2, dcTwo->getColorRGB());
+  cdmgpOne->beginUpdate();
+  cdmgpTwo->beginUpdate();
+  cdmgpOne->setPosition(posX, posY);
+  cdmgpOne->setGradient(gradientX, gradientY);
+  cdmgpTwo->setPosition(posX, posY + 1);
+  cdmgpTwo->setGradient(gradientX, gradientY);
+  cdmgpTwo->endUpdate();
+  cdmgpOne->endUpdate();
+}
+
+void clearPoints() {
+  cdmgpOne->clear();
+  cdmgpTwo->clear();
 }
