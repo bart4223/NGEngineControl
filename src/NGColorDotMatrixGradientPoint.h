@@ -49,6 +49,8 @@ public:
     
     void clear();
     
+    byte getGradientStages();
+    
     void setPosition(int x, int y);
     
     int getPositionX();

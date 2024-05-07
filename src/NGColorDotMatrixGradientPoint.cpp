@@ -98,6 +98,10 @@ void NGColorDotMatrixGradientPoint::clear() {
     }
 }
 
+byte NGColorDotMatrixGradientPoint::getGradientStages() {
+    return _gradientStages;
+}
+
 void NGColorDotMatrixGradientPoint::setPosition(int x, int y) {
     _x = x;
     _y = y;
