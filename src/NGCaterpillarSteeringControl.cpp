@@ -9,41 +9,36 @@
 #include "NGCaterpillarSteeringControl.h"
 
 NGCaterpillarSteeringControl::NGCaterpillarSteeringControl() {
-    _create(ENGINE_0, ENGINE_1, ENGINE_2, DEFAULTSERIALRATE);
+    _create(ENGINE_0, ENGINE_1, DEFAULTSERIALRATE);
 }
 
-NGCaterpillarSteeringControl::NGCarSteeringControl(int engineMain, int engineRight, int engineLeft) {
-    _create(engineMain, engineRight, engineLeft, DEFAULTSERIALRATE);
+NGCaterpillarSteeringControl::NGCarSteeringControl(int engineRear, int engineBow) {
+    _create(engineRear, engineBow, DEFAULTSERIALRATE);
 }
 
-void NGCaterpillarSteeringControl::_create(int engineMain, int engineRight, int engineLeft, int serialRate) {
-    _engineMain = new NGEngineControl(engineMain, serialRate);
-    _engineRight = new NGEngineControl(engineRight, serialRate);
-    _engineLeft = new NGEngineControl(engineLeft, serialRate);
-    _engineMain->setLogging(_logging);
-    _engineRight->setLogging(_logging);
-    _engineLeft->setLogging(_logging);
+void NGCaterpillarSteeringControl::_create(int engineRear, int engineBow, int serialRate) {
+    _engineRear = new NGEngineControl(engineRear, serialRate);
+    _engineBow = new NGEngineControl(engineBow, serialRate);
+    _engineRear->setLogging(_logging);
+    _engineBow->setLogging(_logging);
 }
 
 void NGCaterpillarSteeringControl::initialize() {
     char log[100];
-    _engineMain->setLogging(_logging);
-    _engineMain->initialize();
-    _engineRight->setLogging(_logging);
-    _engineRight->initialize();
-    _engineLeft->setLogging(_logging);
-    _engineLeft->initialize();
+    _engineRear->setLogging(_logging);
+    _engineRear->initialize();
+    _engineBow->setLogging(_logging);
+    _engineBow->initialize();
     _initialized = true;
     if (_logging) {
-        sprintf(log, "Caterpillar steering with main engine %d right engine %d left engine %d initialized", _engineMain->getID(),  _engineRight->getID(),  _engineLeft->getID());
+        sprintf(log, "Caterpillar steering with rear engine %d and bow engine %d initialized", _engineRear->getID(),  _engineBow->getID());
         Serial.println(log);
     }
 }
 
 void NGCaterpillarSteeringControl::stop() {
-    _engineMain->stop();
-    _engineRight->stop();
-    _engineLeft->stop();
+    _engineRear->stop();
+    _engineBow->stop();
     if (_logging) {
         Serial.println("Engines stopped");
     }
@@ -54,12 +49,10 @@ void NGCaterpillarSteeringControl::run(engineDirection direction, byte speed) {
     if (speed > NULLSPEED) {
         _speed = speed;
     }
-    _engineMain->setSpeed(_speed * 0.5);
-    _engineMain->run(direction);
-    _engineRight->setSpeed(_speed);
-    _engineRight->run(direction);
-    _engineLeft->setSpeed(_speed);
-    _engineLeft->run(direction);
+    _engineRear->setSpeed(_speed);
+    _engineRear->run(direction);
+    _engineBow->setSpeed(_speed);
+    _engineBow->run(direction);
     if (_logging) {
         if (direction == edForward) {
             sprintf(log, "Engines runs with speed %d forward", _speed);
@@ -74,22 +67,18 @@ void NGCaterpillarSteeringControl::turnForward(turnDirection turn, byte speed) {
     switch(turn) {
         case tdLeft:
         case tdLeftSoft:
-            _engineRight->setSpeed(_speed);
-            _engineRight->run(edForward);
-            _engineLeft->setSpeed(_speed);
-            _engineLeft->run(edBackward);
+            _engineRear->setSpeed(_speed);
+            _engineRear->run(edBackward);
+            _engineBow->setSpeed(_speed);
+            _engineBow->run(edForward);
             break;
         case tdRight:
         case tdRightSoft:
-            _engineRight->setSpeed(_speed);
-            _engineRight->run(edBackward);
-            _engineLeft->setSpeed(_speed);
-            _engineLeft->run(edForward);
+            _engineRear->setSpeed(_speed);
+            _engineRear->run(edForward);
+            _engineBow->setSpeed(_speed);
+            _engineBow->run(edBackward);
             break;
-    }
-    if (speed == 0) {
-        _engineMain->setSpeed(_speed);
-        _engineMain->run(edForward);
     }
 }
 
@@ -97,22 +86,18 @@ void NGCaterpillarSteeringControl::turnBackward(turnDirection turn, byte speed) 
     switch(turn) {
         case tdLeft:
         case tdLeftSoft:
-            _engineRight->setSpeed(_speed);
-            _engineRight->run(edBackward);
-            _engineLeft->setSpeed(_speed);
-            _engineLeft->run(edForward);
+            _engineRear->setSpeed(_speed);
+            _engineRear->run(edBackward);
+            _engineBow->setSpeed(_speed);
+            _engineBow->run(edForward);
             break;
         case tdRight:
         case tdRightSoft:
-            _engineRight->setSpeed(_speed);
-            _engineRight->run(edForward);
-            _engineLeft->setSpeed(_speed);
-            _engineLeft->run(edBackward);
+            _engineRear->setSpeed(_speed);
+            _engineRear->run(edBackward);
+            _engineBow->setSpeed(_speed);
+            _engineBow->run(edForward);
             break;
-    }
-    if (speed == 0) {
-        _engineMain->setSpeed(_speed);
-        _engineMain->run(edBackward);
     }
 }
 
@@ -137,5 +122,5 @@ void NGCaterpillarSteeringControl::turnBackward(turnDirection turn) {
 }
 
 bool NGCaterpillarSteeringControl::isRunning() {
-    return _engineMain->isRunning();
+    return _engineRear->isRunning();
 }

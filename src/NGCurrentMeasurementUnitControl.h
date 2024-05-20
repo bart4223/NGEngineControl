@@ -17,7 +17,7 @@
 #include <NGCustomUnitControl.h>
 #include <NGCurrentSensor.h>
 
-#define _VERSION "1.5"
+#define _VERSION "1.6"
 #define VERSION (char*)_VERSION
 
 #define MAXCURRENTSENSORCOUNT 3
@@ -60,6 +60,8 @@ protected:
     void _procesingCurrentSensors();
     
     void _displayCurrentSensors();
+    
+    void _processingIRRemoteData();
 
 public:
     NGCurrentMeasurementUnitControl();

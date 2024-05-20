@@ -19,17 +19,16 @@
 class NGCaterpillarSteeringControl : public NGCustomSteeringControl {
 
 private:
-    NGEngineControl *_engineMain;
-    NGEngineControl *_engineRight;
-    NGEngineControl *_engineLeft;
+    NGEngineControl *_engineRear;
+    NGEngineControl *_engineBow;
 
 protected:
-    void _create(int engineMain, int engineRight, int engineLeft, int serialRate);
+    void _create(int engineRear, int engineBow, int serialRate);
 
 public:
     NGCaterpillarSteeringControl();
     
-    NGCarSteeringControl(int engineMain, int engineRight, int engineLeft);
+    NGCarSteeringControl(int engineRear, int engineBow);
 
     void initialize();
     

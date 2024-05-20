@@ -65,6 +65,10 @@ void NGCurrentMeasurementUnitControl::_procesingCurrentSensors() {
     }
 }
 
+void NGCurrentMeasurementUnitControl::_processingIRRemoteData() {
+    
+}
+
 void NGCurrentMeasurementUnitControl::_displayCurrentSensors() {
     if ((millis() - _secondTick) >= _displaySensorInterval) {
         _secondTick = millis();
