@@ -166,7 +166,8 @@ protected:
     int _exceptionCount = 0;
     int _pinStartup = NOSTARTUPPIN;
     NGRealTimeClock *_rtc = nullptr;
-    NGSoundMachine *_soundMachine;
+    NGSoundMachine *_soundMachine = nullptr;
+    bool _createSoundMachine = true;
     int _jingleStartup = NOJINGLE;
     int _jingleStartupLoops = NOSTARTUPLOOPS;
     int _jingleBoot = NOJINGLE;

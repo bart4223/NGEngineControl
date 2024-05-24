@@ -27,6 +27,7 @@ NGCurrentMeasurementUnitControl::NGCurrentMeasurementUnitControl(char* name, byt
 }
 
 void NGCurrentMeasurementUnitControl::_create(char* name, byte address, int serialRate) {
+    _createSoundMachine = false;
     NGCustomUnitControl::_create(name, address, serialRate);
     _version = VERSION;
     Wire.begin(_address);

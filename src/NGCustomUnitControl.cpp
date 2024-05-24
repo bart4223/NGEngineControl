@@ -47,7 +47,9 @@ void NGCustomUnitControl::_create(char* name, byte address, int serialRate) {
     _serialRate = serialRate;
     _initialized = false;
     _logging = true;
-    _soundMachine = new NGSoundMachine();
+    if (_createSoundMachine) {
+        _soundMachine = new NGSoundMachine();
+    }
 }
 
 void NGCustomUnitControl::_clearState() {
@@ -63,7 +65,7 @@ void NGCustomUnitControl::_writeState() {
     if (_rtc != nullptr) {
         sprintf(state, "%s %s wM%d (C) by NG 2021-%s", _name, _version, _workMode, _rtc->getShortYearAsText());
     } else {
-        sprintf(state, "%s %s wM%d (C) by NG MMXXI-III", _name, _version, _workMode);
+        sprintf(state, "%s %s wM%d (C) by NG MMXXI-IV", _name, _version, _workMode);
     }
     #else
     sprintf(state, "%s %s wM%d", _name, _version, _workMode);
@@ -91,10 +93,14 @@ void NGCustomUnitControl::_raiseException(int id) {
 }
 
 int NGCustomUnitControl::_registerJingle(NGCustomJingle *jingle) {
-    if (_soundMachine->getJingleCount() < _soundMachine->getMaxJingleCount()) {
-        return _soundMachine->registerJingle(jingle);
+    if (_soundMachine != nullptr) {
+        if (_soundMachine->getJingleCount() < _soundMachine->getMaxJingleCount()) {
+            return _soundMachine->registerJingle(jingle);
+        } else {
+            _raiseException(ExceptionTooMuchJingleCount);
+        }
     } else {
-        _raiseException(ExceptionTooMuchJingleCount);
+        _raiseException(ExceptionNoSoundMachine);
     }
     return NOJINGLE;
 }
@@ -126,11 +132,15 @@ void NGCustomUnitControl::_playJingleAlarm() {
 }
 
 void NGCustomUnitControl::_initializeSoundMachine() {
-    _soundMachine->initialize();
+    if (_soundMachine != nullptr) {
+        _soundMachine->initialize();
+    }
 }
 
 void NGCustomUnitControl::_playJingle(byte jingle) {
-    _soundMachine->play(jingle);
+    if (_soundMachine != nullptr) {
+        _soundMachine->play(jingle);
+    }
 }
 
 void NGCustomUnitControl::initialize() {
