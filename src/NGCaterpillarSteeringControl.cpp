@@ -67,7 +67,7 @@ void NGCaterpillarSteeringControl::turnForward(turnDirection turn, byte speed) {
     switch(turn) {
         case tdLeft:
         case tdLeftSoft:
-            _engineRear->setSpeed(_speed);
+            _engineRear->setSpeed(_speed / 2);
             _engineRear->run(edBackward);
             _engineBow->setSpeed(_speed);
             _engineBow->run(edForward);
@@ -76,7 +76,7 @@ void NGCaterpillarSteeringControl::turnForward(turnDirection turn, byte speed) {
         case tdRightSoft:
             _engineRear->setSpeed(_speed);
             _engineRear->run(edForward);
-            _engineBow->setSpeed(_speed);
+            _engineBow->setSpeed(_speed / 2);
             _engineBow->run(edBackward);
             break;
     }
