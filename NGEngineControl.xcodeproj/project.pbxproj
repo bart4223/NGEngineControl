@@ -129,6 +129,10 @@
 		29647BCA253C5F97003CBA13 /* simple.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = simple.ino; sourceTree = "<group>"; };
 		2965FFD328984717007D5D28 /* IRremote.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = IRremote.ino; sourceTree = "<group>"; };
 		2965FFD728984A59007D5D28 /* speedyOne.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = speedyOne.ino; sourceTree = "<group>"; };
+		29680C752C286B5E00BB0F58 /* NGUltimateMachineUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUltimateMachineUnitControl.cpp; sourceTree = "<group>"; };
+		29680C762C286B5E00BB0F58 /* NGUltimateMachineUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltimateMachineUnitControl.h; sourceTree = "<group>"; };
+		29680C7A2C286E4000BB0F58 /* ultimatemachine.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = ultimatemachine.ino; sourceTree = "<group>"; };
+		29680C7B2C30121D00BB0F58 /* UltimateMachineL0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UltimateMachineL0.png; sourceTree = "<group>"; };
 		296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUltrasonicObjectRecognizer.cpp; sourceTree = "<group>"; };
 		296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltrasonicObjectRecognizer.h; sourceTree = "<group>"; };
 		296CD4E8272ED298003E27DA /* buggyC1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1a.png; sourceTree = "<group>"; };
@@ -459,6 +463,8 @@
 				29E24C7627F33F4D0009F0CF /* NGIrrigationUnitControl.cpp */,
 				2913C94F27033B8600D0AFC6 /* NGMotionUnitControl.h */,
 				2913C94E27033B8600D0AFC6 /* NGMotionUnitControl.cpp */,
+				29680C762C286B5E00BB0F58 /* NGUltimateMachineUnitControl.h */,
+				29680C752C286B5E00BB0F58 /* NGUltimateMachineUnitControl.cpp */,
 				2905F121264D385A001B4A56 /* NGUnitControl.h */,
 				292E8FF526620C690042F249 /* NGUnitControl.cpp */,
 				29DC5F9628A84F1E00CCEEB1 /* NGWirelessRemoteUnitControl.h */,
@@ -802,6 +808,31 @@
 			path = images;
 			sourceTree = "<group>";
 		};
+		29680C772C286DF700BB0F58 /* ultimatemachine */ = {
+			isa = PBXGroup;
+			children = (
+				29680C782C286E1300BB0F58 /* images */,
+				29680C792C286E2200BB0F58 /* ultimatemachine */,
+			);
+			path = ultimatemachine;
+			sourceTree = "<group>";
+		};
+		29680C782C286E1300BB0F58 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				29680C7B2C30121D00BB0F58 /* UltimateMachineL0.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
+		29680C792C286E2200BB0F58 /* ultimatemachine */ = {
+			isa = PBXGroup;
+			children = (
+				29680C7A2C286E4000BB0F58 /* ultimatemachine.ino */,
+			);
+			path = ultimatemachine;
+			sourceTree = "<group>";
+		};
 		297E229C291ADA4000E549DF /* simplekeypad */ = {
 			isa = PBXGroup;
 			children = (
@@ -940,6 +971,7 @@
 				29D60E8F27F33C1000FCA53A /* irrigationsystem */,
 				29E6BA59263C6030007BCE9F /* motoman */,
 				2965FFD428984A18007D5D28 /* speedy */,
+				29680C772C286DF700BB0F58 /* ultimatemachine */,
 				29DC5F9728A84FC800CCEEB1 /* wirelessremotecontrol */,
 			);
 			path = projects;
