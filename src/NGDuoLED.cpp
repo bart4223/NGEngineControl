@@ -22,7 +22,6 @@ void NGDuoLED::initialize() {
     turnOff();
 }
 
-
 void NGDuoLED::turnOneOff() {
     digitalWrite(_pinLEDOne, LOW);
     _isOneOn = false;

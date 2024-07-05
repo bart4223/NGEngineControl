@@ -133,6 +133,9 @@
 		29680C762C286B5E00BB0F58 /* NGUltimateMachineUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltimateMachineUnitControl.h; sourceTree = "<group>"; };
 		29680C7A2C286E4000BB0F58 /* ultimatemachine.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = ultimatemachine.ino; sourceTree = "<group>"; };
 		29680C7B2C30121D00BB0F58 /* UltimateMachineL0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = UltimateMachineL0.png; sourceTree = "<group>"; };
+		29680C7D2C3810C100BB0F58 /* NGColorLED.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorLED.cpp; sourceTree = "<group>"; };
+		29680C7E2C3810C100BB0F58 /* NGColorLED.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorLED.h; sourceTree = "<group>"; };
+		29680C802C38113900BB0F58 /* colorLED.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colorLED.ino; sourceTree = "<group>"; };
 		296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUltrasonicObjectRecognizer.cpp; sourceTree = "<group>"; };
 		296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltrasonicObjectRecognizer.h; sourceTree = "<group>"; };
 		296CD4E8272ED298003E27DA /* buggyC1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1a.png; sourceTree = "<group>"; };
@@ -411,6 +414,8 @@
 				29E8730229745EF400F7BF90 /* NGColorDotMatrixFuse.cpp */,
 				29F15E282BD7FFCA00F1E714 /* NGColorDotMatrixText.h */,
 				29F15E272BD7FFCA00F1E714 /* NGColorDotMatrixText.cpp */,
+				29680C7E2C3810C100BB0F58 /* NGColorLED.h */,
+				29680C7D2C3810C100BB0F58 /* NGColorLED.cpp */,
 				29232B3A2779D44C00B85C8E /* NGDuoLED.h */,
 				29232B392779D44C00B85C8E /* NGDuoLED.cpp */,
 				2913C94D2702DE1500D0AFC6 /* NGFlashingLight.h */,
@@ -710,6 +715,7 @@
 				291887152ADFB4250088E95A /* 8bitshiftregister */,
 				29D947E02A36F48A0018377D /* bluetooth */,
 				294E9C9129072E9900A3E17A /* colordotmatrix */,
+				29680C7F2C38110B00BB0F58 /* colorLED */,
 				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29F56DF027410D1D00BBBB68 /* contact */,
 				29232B3B2779D53F00B85C8E /* duoLED */,
@@ -831,6 +837,14 @@
 				29680C7A2C286E4000BB0F58 /* ultimatemachine.ino */,
 			);
 			path = ultimatemachine;
+			sourceTree = "<group>";
+		};
+		29680C7F2C38110B00BB0F58 /* colorLED */ = {
+			isa = PBXGroup;
+			children = (
+				29680C802C38113900BB0F58 /* colorLED.ino */,
+			);
+			path = colorLED;
 			sourceTree = "<group>";
 		};
 		297E229C291ADA4000E549DF /* simplekeypad */ = {
