@@ -17,23 +17,23 @@ NGColorLEDStrip::NGColorLEDStrip(byte pin, int pixelcount, int rowcount) {
 
 void NGColorLEDStrip::_create(byte pin, int pixelcount, int rowcount) {
     _pixelCount = pixelcount;
-    _neoPixel = new Adafruit_NeoPixel(_pixelCount, pin, NEO_GRB + NEO_KHZ800);
+    _strip = new NeoPixelBus<NeoGrbFeature, NeoWs2812xMethod>(_pixelCount, pin);
     _rowCount = rowcount;
     _colCount = _pixelCount / _rowCount;
 }
 
 void NGColorLEDStrip::_render() {
-    _neoPixel->show();
+    _strip->Show();
 }
 
 void NGColorLEDStrip::initialize() {
     initialize(DEFBRIGHTNESS);
 }
 
-void NGColorLEDStrip::initialize(byte brightness) {
-    _neoPixel->begin();
-    _neoPixel->setBrightness(brightness);
-    _neoPixel->clear();
+void NGColorLEDStrip::initialize(float brightness) {
+    _brightness = brightness;
+    _strip->Begin();
+    clear();
 }
 
 void NGColorLEDStrip::setTestColor(colorRGB testcolor) {
@@ -90,7 +90,9 @@ int NGColorLEDStrip::getHeight() {
 }
 
 void NGColorLEDStrip::clear() {
-    _neoPixel->clear();
+    for (int i = 0; i < _pixelCount; i++) {
+        _strip->SetPixelColor(i, RgbColor(_backgroundColor.blue, _backgroundColor.green, _backgroundColor.blue));
+    }
     render();
 }
 
@@ -101,7 +103,7 @@ bool NGColorLEDStrip::clearPoint(int x, int y) {
 bool NGColorLEDStrip::drawPoint(int x, int y, colorRGB color) {
     int pixel = (y + _offsetY) * _colCount + x + _offsetX;
     if (pixel >= 0 && pixel < _pixelCount) {
-        _neoPixel->setPixelColor(pixel, _neoPixel->Color(color.red,color.green,color.blue));
+        _strip->SetPixelColor(pixel, RgbColor(color.red * _brightness, color.green * _brightness, color.blue * _brightness));
         render();
     }
 }

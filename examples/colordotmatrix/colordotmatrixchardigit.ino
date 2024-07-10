@@ -1,4 +1,5 @@
-#define ZX81 // DEFAULT, ZX81, C64
+#define LEDSTRIP //DOTMATRIX, LEDSTRIP
+#define C64 // DEFAULT, ZX81, C64
 
 #include <NGCommon.h>
 #ifdef ZX81
@@ -8,12 +9,28 @@
 #include <NGC64Font.h>
 #endif
 #include <NGMemoryObserver.h>
-#include <NGColorDotMatrix.h>
 #include <NGColorDotMatrixCharDigit.h>
+#ifdef DOTMATRIX
+#include <NGColorDotMatrix.h>
+#endif
+#ifdef LEDSTRIP
+#include <NGColorLEDStrip.h>
+#define LEDSTRIPPIN           6
+#define LEDSTRIPPIXELS      100
+#define LEDSTRIPROWS         10
+#define LEDSTRIPBRIGHTNESS 0.05
+#endif
 
 #define DELAY 100
 
+#ifdef DOTMATRIX
 NGColorDotMatrix *cdm = new NGColorDotMatrix();
+#define ENDPOSX 7
+#endif
+#ifdef LEDSTRIP
+NGColorLEDStrip *cdm = new NGColorLEDStrip(LEDSTRIPPIN, LEDSTRIPPIXELS, LEDSTRIPROWS);
+#define ENDPOSX 9
+#endif
 NGColorDotMatrixCharDigit *cdmcd = new NGColorDotMatrixCharDigit(cdm);
 
 #ifdef DEFAULT
@@ -33,16 +50,21 @@ int letter = -1;
 
 void setup() {
   observeMemory(0);
+  #ifdef LEDSTRIP
+  cdm->initialize(LEDSTRIPBRIGHTNESS);
+  cdm->setOffset(1, 1);
+  #else
   cdm->initialize();
+  #endif
   //cdmcd->setRandomColorBackground(true);
   //cdmcd->setColorBackground(COLOR_RED);
   //cdmcd->setRandomColor(true);
-#ifdef ZX81
+  #ifdef ZX81
   cdmcd->setFont(fontZX81);
-#endif
-#ifdef C64
+  #endif
+  #ifdef C64
   cdmcd->setFont(fontC64);
-#endif
+  #endif
   cdmcd->setColor(COLOR_GREEN);
   cdmcd->setPosX(posx);
   initLetter();
@@ -55,7 +77,7 @@ void loop() {
   cdm->beginUpdate();
   cdm->clear();
   cdmcd->setPosX(posx);
-  if (posx == 7) {
+  if (posx == ENDPOSX) {
     posx = -1;
     initLetter();
   }

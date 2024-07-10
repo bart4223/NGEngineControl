@@ -14,18 +14,18 @@
 #include <WProgram.h>
 #endif
 
-#include "Adafruit_NeoPixel.h"
+#include <NeoPixelBus.h>
 #include "NGCommonGraphics.h"
 #include "NGITestableComponent.h"
 #include "NGIPaintableComponent.h"
 
 #define DEFROWCOUNT      1
-#define DEFBRIGHTNESS 0xFF
+#define DEFBRIGHTNESS    1
 
-class NGColorLEDStrip : public NGITestableComponent, NGIPaintableComponent {
+class NGColorLEDStrip : public NGITestableComponent, public NGIPaintableComponent {
     
 private:
-    Adafruit_NeoPixel *_neoPixel;
+    NeoPixelBus<NeoGrbFeature, NeoWs2812xMethod> *_strip;
     int _pixelCount;
     int _rowCount;
     int _colCount;
@@ -36,6 +36,7 @@ private:
     colorRGB _testColor;
     colorRGB _backgroundColor = COLOR_BLACK;
     int _scale = 1;
+    float _brightness = 1.0;
     
 protected:
     void _create(byte pin, int pixelcount, int rowcount);
@@ -48,7 +49,7 @@ public:
     
     void initialize();
     
-    void initialize(byte brightness);
+    void initialize(float brightness);
     
     void setTestColor(colorRGB testcolor);
     

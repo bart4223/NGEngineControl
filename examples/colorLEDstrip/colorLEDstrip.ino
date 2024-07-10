@@ -8,7 +8,7 @@
 #define DELAY       500
 #define TESTRUNS      5
 #define TESTDELAY   100
-#define BRIGHTNESS 0x08 //0x40
+#define BRIGHTNESS 0.05
 
 #define START 0x00
 #define STOP  0x04
