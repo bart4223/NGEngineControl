@@ -139,7 +139,6 @@
 		29680C812C3ABB7900BB0F58 /* NGColorLEDStrip.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorLEDStrip.cpp; sourceTree = "<group>"; };
 		29680C822C3ABB7900BB0F58 /* NGColorLEDStrip.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorLEDStrip.h; sourceTree = "<group>"; };
 		29680C842C3ABBD100BB0F58 /* colorLEDstrip.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = colorLEDstrip.ino; sourceTree = "<group>"; };
-		29680C852C3E548000BB0F58 /* Help.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Help.txt; sourceTree = "<group>"; };
 		296CD4E6272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGUltrasonicObjectRecognizer.cpp; sourceTree = "<group>"; };
 		296CD4E7272DA0EC003E27DA /* NGUltrasonicObjectRecognizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGUltrasonicObjectRecognizer.h; sourceTree = "<group>"; };
 		296CD4E8272ED298003E27DA /* buggyC1a.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1a.png; sourceTree = "<group>"; };
@@ -769,7 +768,6 @@
 			isa = PBXGroup;
 			children = (
 				29647BCC253C7794003CBA13 /* images */,
-				29680C852C3E548000BB0F58 /* Help.txt */,
 				2917D45128DBBC440004FDD6 /* Pages.txt */,
 				2913C92D26FBBAE300D0AFC6 /* ToDo.txt */,
 			);
