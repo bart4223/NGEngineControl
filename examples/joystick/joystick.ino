@@ -16,8 +16,8 @@
 
 #define DELAY 100
 
-#define THRESHOLDUP       512 // 100
-#define THRESHOLDDOWN     511 // 923
+#define THRESHOLDUP       510 // 100
+#define THRESHOLDDOWN     530 // 923
 #define THRESHOLDLEFT     516 // 100
 #define THRESHOLDRIGHT    515 // 923
 
@@ -26,6 +26,8 @@ NGJoystickControl jsc = NGJoystickControl(JOYSTICKID, JOYSTICKPINX, JOYSTICKPINY
 void setup() {
   observeMemory(0);
   jsc.setLogging(LOGGING);
+  //jsc.setLogXAxis(true);
+  //jsc.setLogYAxis(true);
   jsc.registerActionCallback(&joystickActionCallback);
   jsc.registerActionValueCallback(&joystickActionValueCallback);
   /*
@@ -46,6 +48,7 @@ void setup() {
   jsc.registerAction(jamMapping, jaX, jtkGreater, THRESHOLDRIGHT, DELAY, jmRight);
   jsc.registerAction(jamMappingInvers, jaY, jtkLess, THRESHOLDUP, DELAY, jmUp);
   jsc.registerAction(jamMapping, jaY, jtkGreater, THRESHOLDDOWN, DELAY, jmDown);
+  jsc.registerAction(PINFIRE, jamTriggerLOW, DELAY, jmFire);
   jsc.initialize();
   observeMemory(0);
 }
@@ -61,15 +64,34 @@ void loop() {
 }
 
 void joystickActionCallback(int id, joystickMovement joystickmovement) {
+  Serial.print("id:");
   Serial.print(id);
-  Serial.print("->");
-  Serial.println(joystickmovement);
+  Serial.print(" -> ");
+  switch(joystickmovement) {
+    case jmFire:
+      Serial.println("Fire");
+      break;
+  }
 }
 
 void joystickActionValueCallback(int id, joystickMovement joystickmovement, int value) {
+  Serial.print("id:");
   Serial.print(id);
   Serial.print(" -> ");
-  Serial.print(joystickmovement);
+  switch(joystickmovement) {
+    case jmUp:
+      Serial.print("Up");
+      break;
+    case jmDown:
+      Serial.print("Down");
+      break;
+    case jmLeft:
+      Serial.print("Left");
+      break;
+    case jmRight:
+      Serial.print("Right");
+      break;
+  }
   Serial.print(" -> ");
   Serial.println(value);
 }
