@@ -1,4 +1,5 @@
 #define LEDSTRIP //DOTMATRIX, LEDSTRIP
+#define FONTDEFAULT //FONTDEFAULT, FONTZX81
 
 #include <NGCommon.h>
 #include <NGZX81Font.h>
@@ -27,7 +28,9 @@ NGColorLEDStrip *cdm = new NGColorLEDStrip(LEDSTRIPPIN, LEDSTRIPPIXELS, LEDSTRIP
 #endif
 NGColorDotMatrixDecimalDigit *cdmdd = new NGColorDotMatrixDecimalDigit(cdm);
 
+#ifdef FONTZX81
 NGZX81Font *fontZX81 = new NGZX81Font();
+#endif
 
 #define START 0x09
 
@@ -71,7 +74,11 @@ void loop() {
 
 void randomFont() {
   if (getYesOrNo()) {
+    #ifdef FONTZX81
     cdmdd->setFont(fontZX81);
+    #else
+    cdmdd->setFont(nullptr);
+    #endif
   } else {
     cdmdd->setFont(nullptr);
   }

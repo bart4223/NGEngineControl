@@ -101,10 +101,12 @@ bool NGColorLEDStrip::clearPoint(int x, int y) {
 }
 
 bool NGColorLEDStrip::drawPoint(int x, int y, colorRGB color) {
-    int pixel = (y + _offsetY) * _colCount + x + _offsetX;
-    if (pixel >= 0 && pixel < _pixelCount) {
-        _strip->SetPixelColor(pixel, RgbColor(color.red * _brightness, color.green * _brightness, color.blue * _brightness));
-        render();
+    if (x < getWidth() && y < getHeight()) {
+        int pixel = (y + _offsetY) * _colCount + x + _offsetX;
+        if (pixel >= 0 && pixel < _pixelCount) {
+            _strip->SetPixelColor(pixel, RgbColor(color.red * _brightness, color.green * _brightness, color.blue * _brightness));
+            render();
+        }
     }
 }
 
