@@ -22,6 +22,12 @@
 #define DEFROWCOUNT      1
 #define DEFBRIGHTNESS    1
 
+#define DEFTESTMODEDELAY 100
+#define DEFLEDSTRIPKIND lskLeftRightStrict
+
+enum testMode {tmDefault, tmPixel};
+enum LEDStripKind {lskLeftRightStrict, lskLeftRightAlternate, lskUpDownStrict, lskUpDownAlternate};
+
 class NGColorLEDStrip : public NGITestableComponent, public NGIPaintableComponent {
     
 private:
@@ -37,21 +43,32 @@ private:
     colorRGB _backgroundColor = COLOR_BLACK;
     int _scale = 1;
     float _brightness = 1.0;
+    testMode _testMode = tmDefault;
+    int _testModeDelay = DEFTESTMODEDELAY;
+    LEDStripKind _stripKind = DEFLEDSTRIPKIND;
     
 protected:
-    void _create(byte pin, int pixelcount, int rowcount);
+    void _create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind);
     void _render();
     
 public:
     NGColorLEDStrip(byte pin, int pixelcount);
     
+    NGColorLEDStrip(byte pin, int pixelcount, LEDStripKind stripkind);
+    
     NGColorLEDStrip(byte pin, int pixelcount, int rowcount);
+    
+    NGColorLEDStrip(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind);
     
     void initialize();
     
     void initialize(float brightness);
     
     void setTestColor(colorRGB testcolor);
+    
+    void setTestMode(testMode testmode);
+    
+    void setTestModeDelay(int testmodedelay);
     
     void setOffset(int offsetX, int offsetY);
 

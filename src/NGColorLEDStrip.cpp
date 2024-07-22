@@ -8,14 +8,23 @@
 #include "NGColorLEDStrip.h"
 
 NGColorLEDStrip::NGColorLEDStrip(byte pin, int pixelcount) {
-    _create(pin, pixelcount, DEFROWCOUNT);
+    _create(pin, pixelcount, DEFROWCOUNT, DEFLEDSTRIPKIND);
+}
+
+NGColorLEDStrip::NGColorLEDStrip(byte pin, int pixelcount, LEDStripKind stripkind) {
+    _create(pin, pixelcount, DEFROWCOUNT, stripkind);
 }
 
 NGColorLEDStrip::NGColorLEDStrip(byte pin, int pixelcount, int rowcount) {
-    _create(pin, pixelcount, rowcount);
+    _create(pin, pixelcount, rowcount, DEFLEDSTRIPKIND);
 }
 
-void NGColorLEDStrip::_create(byte pin, int pixelcount, int rowcount) {
+NGColorLEDStrip::NGColorLEDStrip(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind) {
+    _create(pin, pixelcount, rowcount, stripkind);
+}
+
+void NGColorLEDStrip::_create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind) {
+    _stripKind = stripkind;
     _pixelCount = pixelcount;
     _strip = new NeoPixelBus<NeoGrbFeature, NeoWs2812xMethod>(_pixelCount, pin);
     _rowCount = rowcount;
@@ -41,6 +50,14 @@ void NGColorLEDStrip::setTestColor(colorRGB testcolor) {
     _hasTestColor = true;
 }
 
+void NGColorLEDStrip::setTestMode(testMode testmode) {
+    _testMode = testmode;
+}
+
+void NGColorLEDStrip::setTestModeDelay(int testmodedelay) {
+    _testModeDelay = testmodedelay;
+}
+
 void NGColorLEDStrip::setOffset(int offsetX, int offsetY) {
     _offsetX = offsetX;
     _offsetY = offsetY;
@@ -48,14 +65,36 @@ void NGColorLEDStrip::setOffset(int offsetX, int offsetY) {
 
 void NGColorLEDStrip::testSequenceStart() {
     beginUpdate();
-    for (int y = 0; y < (_rowCount - _offsetY); y++) {
-        for (int x = 0; x < (_colCount - _offsetX); x++) {
-            if (_hasTestColor) {
-                drawPoint(x, y, _testColor);
-            } else {
-                drawPoint(x, y, getRandomColor());
+    clear();
+    switch(_testMode) {
+        case tmDefault:
+            for (int y = 0; y < (_rowCount - _offsetY); y++) {
+                for (int x = 0; x < (_colCount - _offsetX); x++) {
+                    if (_hasTestColor) {
+                        drawPoint(x, y, _testColor);
+                    } else {
+                        drawPoint(x, y, getRandomColor());
+                    }
+                    if (_testModeDelay > 0) {
+                        _strip->Show();
+                        delay(_testModeDelay);
+                    }
+                }
             }
-        }
+            break;
+        case tmPixel:
+            for (int i = 0; i < _pixelCount; i++) {
+                colorRGB c = _testColor;
+                if (!_hasTestColor) {
+                    c = getRandomColor();
+                }
+                _strip->SetPixelColor(i, RgbColor(c.red * _brightness, c.green * _brightness, c.blue * _brightness));
+                if (_testModeDelay > 0) {
+                    _strip->Show();
+                    delay(_testModeDelay);
+                }
+            }
+            break;
     }
     endUpdate();
 }
@@ -101,9 +140,21 @@ bool NGColorLEDStrip::clearPoint(int x, int y) {
 }
 
 bool NGColorLEDStrip::drawPoint(int x, int y, colorRGB color) {
-    bool res = x >= 0 && x < getWidth() && y >= 0 && y < getHeight();
+    int x0 = x + _offsetX;
+    int y0 = y + _offsetY;
+    bool res = x0 >= 0 && x0 < getWidth() && y0 >= 0 && y0 < getHeight();
     if (res) {
-        int pixel = (y + _offsetY) * _colCount + x + _offsetX;
+        int pixel = -1;
+        switch(_stripKind) {
+            case lskLeftRightStrict:
+                pixel = y0 * _colCount + x0;
+                break;
+            case lskUpDownAlternate:
+                if (x0 % 2 == 1)
+                  y0 = _colCount - y0 - 1;
+                pixel = (x0 * _rowCount) + y0;
+                break;
+        }
         if (pixel >= 0 && pixel < _pixelCount) {
             _strip->SetPixelColor(pixel, RgbColor(color.red * _brightness, color.green * _brightness, color.blue * _brightness));
             render();
