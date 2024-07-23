@@ -152,7 +152,7 @@ bool NGColorLEDStrip::drawPoint(int x, int y, colorRGB color) {
             case lskUpDownAlternate:
                 if (x0 % 2 == 1)
                   y0 = _colCount - y0 - 1;
-                pixel = (x0 * _rowCount) + y0;
+                pixel = x0 * _rowCount + y0;
                 break;
         }
         if (pixel >= 0 && pixel < _pixelCount) {
