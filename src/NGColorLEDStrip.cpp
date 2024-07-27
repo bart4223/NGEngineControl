@@ -130,7 +130,7 @@ int NGColorLEDStrip::getHeight() {
 
 void NGColorLEDStrip::clear() {
     for (int i = 0; i < _pixelCount; i++) {
-        _strip->SetPixelColor(i, RgbColor(_backgroundColor.blue, _backgroundColor.green, _backgroundColor.blue));
+        _strip->SetPixelColor(i, RgbColor(_backgroundColor.red * _brightness, _backgroundColor.green * _brightness, _backgroundColor.blue * _brightness));
     }
     render();
 }
