@@ -46,6 +46,7 @@ struct joystickActionStruct
     int threshold;
     int delay;
     long int lastFire = 0;
+    int continuousFire = 0;
     joystickActionMode mode;
     joystickAxis axis;
     joystickMovement movement;
@@ -72,6 +73,7 @@ private:
     joystickActionCallbackFunc _actionCallback = nullptr;
     joystickActionValueCallbackFunc _actionValueCallback = nullptr;
     int _lastAction = NOLASTACTIONID;
+    int _continuousFireThreshold = 0;
 
 protected:
     void _create(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire);
@@ -94,6 +96,8 @@ public:
     void setLogXAxis(bool logging);
     
     void setLogYAxis(bool logging);
+    
+    void setContinuousFireThreshold(int continuousfirethreshold);
     
     void registerActionCallback(joystickActionCallbackFunc callback);
     

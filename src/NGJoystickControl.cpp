@@ -63,6 +63,10 @@ void NGJoystickControl::setLogYAxis(bool logging) {
     _logYAxis = logging;
 }
 
+void NGJoystickControl::setContinuousFireThreshold(int continuousfirethreshold) {
+    _continuousFireThreshold = continuousfirethreshold;
+}
+
 void NGJoystickControl::registerActionCallback(joystickActionCallbackFunc callback) {
     _actionCallback = callback;
 }
@@ -121,6 +125,7 @@ void NGJoystickControl::processingLoop() {
     _currentY = analogRead(_joystickPinY);
     for (int i = 0; i < _joystickActionCount; i++) {
         bool fire = false;
+        bool inDelay = false;
         int value = 0;
         switch(_joystickActions[i].axis) {
             case jaX:
@@ -166,7 +171,18 @@ void NGJoystickControl::processingLoop() {
                 break;
         }
         if (fire && _joystickActions[i].delay != NOJOYSTICKDELAY) {
-            fire = millis() - _joystickActions[i].lastFire >= _joystickActions[i].delay;
+            inDelay = millis() - _joystickActions[i].lastFire < _joystickActions[i].delay;
+            fire = !inDelay;
+        }
+        if (_continuousFireThreshold > 0) {
+            if (fire) {
+                if (_joystickActions[i].axis == jaNone) {
+                    _joystickActions[i].continuousFire++;
+                    fire = _joystickActions[i].continuousFire < _continuousFireThreshold;
+                }
+            } else if (!inDelay && _joystickActions[i].continuousFire > 0) {
+                _joystickActions[i].continuousFire--;
+            }
         }
         int val = 0;
         if (fire) {

@@ -14,12 +14,14 @@
 #define PINRIGHT  6
 #define PINFIRE   7
 
-#define DELAY 100
+#define JOYSTICKDELAY 100
 
 #define THRESHOLDUP       510 // 100
 #define THRESHOLDDOWN     530 // 923
 #define THRESHOLDLEFT     516 // 100
 #define THRESHOLDRIGHT    515 // 923
+
+#define CONTINOUSFIRETHRESHOLD 5
 
 NGJoystickControl jsc = NGJoystickControl(JOYSTICKID, JOYSTICKPINX, JOYSTICKPINY, JOYSTICKPINFIRE);
 
@@ -28,6 +30,7 @@ void setup() {
   jsc.setLogging(LOGGING);
   //jsc.setLogXAxis(true);
   //jsc.setLogYAxis(true);
+  jsc.setContinuousFireThreshold(CONTINOUSFIRETHRESHOLD);
   jsc.registerActionCallback(&joystickActionCallback);
   jsc.registerActionValueCallback(&joystickActionValueCallback);
   /*
@@ -44,11 +47,11 @@ void setup() {
   jsc.registerAction(PINDOWN, jamTriggerLOW, jaY, jtkGreater, THRESHOLDDOWN, DELAY, jmDown);
   jsc.registerAction(PINFIRE, jamTriggerLOW, DELAY, jmFire);
   */
-  jsc.registerAction(jamMappingInvers, jaX, jtkLess, THRESHOLDLEFT, DELAY, jmLeft);
-  jsc.registerAction(jamMapping, jaX, jtkGreater, THRESHOLDRIGHT, DELAY, jmRight);
-  jsc.registerAction(jamMappingInvers, jaY, jtkLess, THRESHOLDUP, DELAY, jmUp);
-  jsc.registerAction(jamMapping, jaY, jtkGreater, THRESHOLDDOWN, DELAY, jmDown);
-  jsc.registerAction(PINFIRE, jamTriggerLOW, DELAY, jmFire);
+  jsc.registerAction(jamMappingInvers, jaX, jtkLess, THRESHOLDLEFT, JOYSTICKDELAY, jmLeft);
+  jsc.registerAction(jamMapping, jaX, jtkGreater, THRESHOLDRIGHT, JOYSTICKDELAY, jmRight);
+  jsc.registerAction(jamMappingInvers, jaY, jtkLess, THRESHOLDUP, JOYSTICKDELAY, jmUp);
+  jsc.registerAction(jamMapping, jaY, jtkGreater, THRESHOLDDOWN, JOYSTICKDELAY, jmDown);
+  jsc.registerAction(PINFIRE, jamTriggerLOW, JOYSTICKDELAY, jmFire);
   jsc.initialize();
   observeMemory(0);
 }
