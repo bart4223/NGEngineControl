@@ -16,10 +16,13 @@
 
 #define DEFMAXKEYS 5
 
+enum simpleKeyMode {skmLow, skmHigh};
+
 typedef void (*simpleKeypadCallbackFunc)(byte id);
 
 struct simpleKeypadDataStruct
 {
+    simpleKeyMode mode;
     byte pin;
     byte id;
     int delay;
@@ -43,6 +46,8 @@ public:
     void registerCallback(simpleKeypadCallbackFunc callback);
     
     void registerKey(byte pin, byte id, int delay);
+    
+    void registerKey(byte pin, byte id, int delay, simpleKeyMode mode);
     
     void initialize();
     

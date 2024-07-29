@@ -20,7 +20,12 @@ void NGSimpleKeypad::registerCallback(simpleKeypadCallbackFunc callback) {
 }
 
 void NGSimpleKeypad::registerKey(byte pin, byte id, int delay) {
+    registerKey(pin, id, delay, simpleKeyMode::skmLow);
+}
+
+void NGSimpleKeypad::registerKey(byte pin, byte id, int delay, simpleKeyMode mode) {
     simpleKeypadData key;
+    key.mode = mode;
     key.pin = pin;
     key.id = id;
     key.delay = delay;
@@ -30,14 +35,30 @@ void NGSimpleKeypad::registerKey(byte pin, byte id, int delay) {
 
 void NGSimpleKeypad::initialize() {
     for (int i = 0; i < _keyCount; i++) {
-        pinMode(_keys[i].pin, INPUT_PULLUP);
+        switch(_keys[i].mode) {
+            case skmLow:
+                pinMode(_keys[i].pin, INPUT_PULLUP);
+                break;
+            case skmHigh:
+                pinMode(_keys[i].pin, INPUT);
+                break;
+        }
     }
 }
 
 void NGSimpleKeypad::processingLoop() {
     for (int i = 0; i < _keyCount; i++) {
         if ((millis() - _keys[i].last) >  _keys[i].delay) {
-            if (digitalRead(_keys[i].pin) == LOW) {
+            bool fire = false;
+            switch(_keys[i].mode) {
+                case skmLow:
+                    fire = digitalRead(_keys[i].pin) == LOW;
+                    break;
+                case skmHigh:
+                    fire = digitalRead(_keys[i].pin) == HIGH;
+                    break;
+            }
+            if (fire) {
                 if (_callback != nullptr) {
                     _callback(_keys[i].id);
                 }
