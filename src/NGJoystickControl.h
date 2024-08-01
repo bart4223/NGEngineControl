@@ -29,6 +29,7 @@
 
 #define NOJOYSTICKACTIONPIN -1
 
+enum joystickKind { jkAnalog, jkDigital };
 enum joystickAxis { jaNone, jaX, jaY };
 enum joystickThresholdKind { jtkNone, jtkLess, jtkGreater };
 enum joystickActionMode { jamNone, jamTriggerLOW, jamTriggerHIGH, jamMapping, jamMappingInvers };
@@ -61,6 +62,8 @@ class NGJoystickControl {
 private:
     byte _joystickPinX;
     byte _joystickPinY;
+    byte _joystickPinX2;
+    byte _joystickPinY2;
     byte _joystickPinFire;
     int _currentX;
     int _currentY;
@@ -74,9 +77,11 @@ private:
     joystickActionValueCallbackFunc _actionValueCallback = nullptr;
     int _lastAction = NOLASTACTIONID;
     int _continuousFireThreshold = 0;
+    joystickKind _kind;
+    byte _digitalEpsilon = 0;
 
 protected:
-    void _create(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire);
+    void _create(joystickKind kind, int id, byte joystickPinX, byte joystickPinY, byte joystickPinX2, byte joystickPinY2, byte joystickPinFire);
     
 public:
     NGJoystickControl();
@@ -86,6 +91,8 @@ public:
     NGJoystickControl(byte joystickPinX, byte joystickPinY, byte joystickPinFire);
     
     NGJoystickControl(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire);
+    
+    NGJoystickControl(int id, byte joystickPinXL, byte joystickPinXR, byte joystickPinYD, byte joystickPinYU, byte joystickPinFire);
     
     void initialize();
     

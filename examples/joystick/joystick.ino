@@ -1,12 +1,23 @@
+#define ANALOG //ANALOG, DIGITAL
+
 #include <NGMemoryObserver.h>
 #include <NGJoystickControl.h>
 
 #define LOGGING false // false
 
 #define JOYSTICKID       0
+#ifdef ANALOG
 #define JOYSTICKPINX    A0
 #define JOYSTICKPINY    A1
 #define JOYSTICKPINFIRE  8
+#endif
+#ifdef DIGITAL
+#define JOYSTICKPINXL    8
+#define JOYSTICKPINXR    9
+#define JOYSTICKPINYD   11
+#define JOYSTICKPINYU   10
+#define JOYSTICKPINFIRE 12
+#endif
 
 #define PINUP     3
 #define PINDOWN   4
@@ -16,14 +27,27 @@
 
 #define JOYSTICKDELAY 100
 
+#ifdef ANALOG
 #define THRESHOLDUP       510 // 100
 #define THRESHOLDDOWN     530 // 923
 #define THRESHOLDLEFT     516 // 100
 #define THRESHOLDRIGHT    515 // 923
+#endif
+#ifdef DIGITAL
+#define THRESHOLDUP       100
+#define THRESHOLDDOWN     923
+#define THRESHOLDLEFT     100
+#define THRESHOLDRIGHT    923
+#endif
 
 #define CONTINOUSFIRETHRESHOLD 5
 
+#ifdef ANALOG
 NGJoystickControl jsc = NGJoystickControl(JOYSTICKID, JOYSTICKPINX, JOYSTICKPINY, JOYSTICKPINFIRE);
+#endif
+#ifdef DIGITAL
+NGJoystickControl jsc = NGJoystickControl(JOYSTICKID, JOYSTICKPINXL, JOYSTICKPINXR, JOYSTICKPINYD, JOYSTICKPINYU, JOYSTICKPINFIRE);
+#endif
 
 void setup() {
   observeMemory(0);

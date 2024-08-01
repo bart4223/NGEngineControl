@@ -8,29 +8,50 @@
 #include "NGJoystickControl.h"
 
 NGJoystickControl::NGJoystickControl() {
-    _create(NOJOYSTICKID, DEFJOYSTICKPINX, DEFJOYSTICKPINY, DEFJOYSTICKPINFIRE);
+    _create(jkAnalog, NOJOYSTICKID, DEFJOYSTICKPINX, DEFJOYSTICKPINY, 0, 0, DEFJOYSTICKPINFIRE);
 }
 
 NGJoystickControl::NGJoystickControl(int id) {
-    _create(id, DEFJOYSTICKPINX, DEFJOYSTICKPINY, DEFJOYSTICKPINFIRE);
+    _create(jkAnalog, id, DEFJOYSTICKPINX, DEFJOYSTICKPINY, 0, 0, DEFJOYSTICKPINFIRE);
 }
 
 NGJoystickControl::NGJoystickControl(byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
-    _create(NOJOYSTICKID, joystickPinX, joystickPinY, joystickPinFire);
+    _create(jkAnalog, NOJOYSTICKID, joystickPinX, joystickPinY, 0, 0, joystickPinFire);
 }
 
 NGJoystickControl::NGJoystickControl(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
-    _create(id, joystickPinX, joystickPinY, joystickPinFire);
+    _create(jkAnalog, id, joystickPinX, joystickPinY, 0, 0, joystickPinFire);
 }
 
-void NGJoystickControl::_create(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
+NGJoystickControl::NGJoystickControl(int id, byte joystickPinXL, byte joystickPinXR, byte joystickPinYD, byte joystickPinYU, byte joystickPinFire) {
+    _create(jkDigital, id, joystickPinXL, joystickPinYD, joystickPinXR, joystickPinYU, joystickPinFire);
+}
+
+void NGJoystickControl::_create(joystickKind kind, int id, byte joystickPinX, byte joystickPinY, byte joystickPinX2, byte joystickPinY2, byte joystickPinFire) {
+    _kind = kind;
     _id = id;
-    _joystickPinX = joystickPinX;
-    _joystickPinY = joystickPinY;
+    switch(_kind) {
+        case jkAnalog:
+            _joystickPinX = joystickPinX;
+            _joystickPinY = joystickPinY;
+            break;
+        case jkDigital:
+            _joystickPinX = joystickPinX;
+            _joystickPinY = joystickPinY;
+            _joystickPinX2 = joystickPinX2;
+            _joystickPinY2 = joystickPinY2;
+            break;
+    }
     _joystickPinFire = joystickPinFire;
 }
 
 void NGJoystickControl::initialize() {
+    if (_kind == jkDigital) {
+        pinMode(_joystickPinX, INPUT_PULLUP);
+        pinMode(_joystickPinX2, INPUT_PULLUP);
+        pinMode(_joystickPinY, INPUT_PULLUP);
+        pinMode(_joystickPinY2, INPUT_PULLUP);
+    }
     pinMode(_joystickPinFire, INPUT_PULLUP);
     for (int i = 0; i < _joystickActionCount; i++) {
         if (_joystickActions[i].pin != NOJOYSTICKACTIONPIN) {
@@ -121,8 +142,33 @@ void NGJoystickControl::registerAction(int pin, joystickActionMode mode, joystic
 
 void NGJoystickControl::processingLoop() {
     _lastAction = NOLASTACTIONID;
-    _currentX = analogRead(_joystickPinX);
-    _currentY = analogRead(_joystickPinY);
+    // Analog 1..512..1023
+    // Digital 1+e|512|e-1023
+    switch(_kind) {
+        case jkAnalog:
+            _currentX = analogRead(_joystickPinX);
+            _currentY = analogRead(_joystickPinY);
+            break;
+        case jkDigital:
+            if (_digitalEpsilon == 0) {
+                _digitalEpsilon = random(10, 20);
+            } else {
+                _digitalEpsilon = 0;
+            }
+            _currentX = 512;
+            if (digitalRead(_joystickPinX) == LOW) {
+                _currentX = 1 + _digitalEpsilon;
+            } else if (digitalRead(_joystickPinX2) == LOW) {
+                _currentX = 1023 - _digitalEpsilon;
+            }
+            _currentY = 512;
+            if (digitalRead(_joystickPinY) == LOW) {
+                _currentY = 1 + _digitalEpsilon;
+            } else if (digitalRead(_joystickPinY2) == LOW) {
+                _currentY = 1023 - _digitalEpsilon;
+            }
+            break;
+    }
     for (int i = 0; i < _joystickActionCount; i++) {
         bool fire = false;
         bool inDelay = false;
@@ -130,7 +176,9 @@ void NGJoystickControl::processingLoop() {
         switch(_joystickActions[i].axis) {
             case jaX:
                 if (_logXAxis) {
-                    Serial.println(_currentX);
+                    char log[100];
+                    sprintf(log, "X: %d", _currentX);
+                    Serial.println(log);
                 }
                 switch(_joystickActions[i].kind) {
                     case jtkLess:
@@ -149,7 +197,9 @@ void NGJoystickControl::processingLoop() {
                 break;
             case jaY:
                 if (_logYAxis) {
-                    Serial.println(_currentY);
+                    char log[100];
+                    sprintf(log, "Y: %d", _currentY);
+                    Serial.println(log);
                 }
                 switch(_joystickActions[i].kind) {
                     case jtkLess:
