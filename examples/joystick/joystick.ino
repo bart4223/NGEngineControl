@@ -1,4 +1,4 @@
-#define DIGITAL //ANALOG, DIGITAL
+#define ANALOG //ANALOG, DIGITAL
 
 #include <NGMemoryObserver.h>
 #include <NGJoystickControl.h>
