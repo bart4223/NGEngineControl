@@ -9,15 +9,14 @@
 #ifdef ANALOG
 #define JOYSTICKPINX    A0
 #define JOYSTICKPINY    A1
-#define JOYSTICKPINFIRE  8
 #endif
 #ifdef DIGITAL
-#define JOYSTICKPINXL    8
-#define JOYSTICKPINXR    9
-#define JOYSTICKPINYD   11
-#define JOYSTICKPINYU   10
-#define JOYSTICKPINFIRE 12
+#define JOYSTICKPINXL    4
+#define JOYSTICKPINXR    5
+#define JOYSTICKPINYD    7
+#define JOYSTICKPINYU    6
 #endif
+#define JOYSTICKPINFIRE  8
 
 #define PINUP     3
 #define PINDOWN   4
