@@ -168,6 +168,7 @@ void NGColorLEDStrip::clearLine(int x1, int y1, int x2, int y2) {
 }
 
 void NGColorLEDStrip::drawLine(int x1, int y1, int x2, int y2, colorRGB color) {
+    beginUpdate();
     int dx =  abs(x2 - x1);
     int sx = x1 < x2 ? 1 : -1;
     int dy = -abs(y2 - y1);
@@ -182,6 +183,7 @@ void NGColorLEDStrip::drawLine(int x1, int y1, int x2, int y2, colorRGB color) {
         if (e2 > dy) { err += dy; x1 += sx; }
         if (e2 < dx) { err += dx; y1 += sy; }
     }
+    endUpdate();
 }
 
 void NGColorLEDStrip::clearRect(int top, int left, int bottom, int right) {
@@ -210,6 +212,7 @@ void NGColorLEDStrip::clearCircle(int x0, int y0, int radius) {
 }
 
 void NGColorLEDStrip::drawCircle(int x0, int y0, int radius, colorRGB color) {
+    beginUpdate();
     int f = 1 - radius;
     int ddF_x = 0;
     int ddF_y = -2 * radius;
@@ -237,6 +240,7 @@ void NGColorLEDStrip::drawCircle(int x0, int y0, int radius, colorRGB color) {
         drawPoint(x0 + y, y0 - x, color);
         drawPoint(x0 - y, y0 - x, color);
     }
+    endUpdate();
 }
 
 void NGColorLEDStrip::drawImage(coord2D coord[], colorRGB color, int size) {
