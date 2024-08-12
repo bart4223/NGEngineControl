@@ -14,13 +14,13 @@
 #include <WProgram.h>
 #endif
 
-#include <NGCustomNotification.h>
+#include <NGINotification.h>
 #include <NGCustomJingle.h>
 #include <NGMorseToneGenerator.h>
 
 #define DEFTEMPO 0
 
-class NGMorseToneNotification : public NGCustomNotification {
+class NGMorseToneNotification : public NGINotification {
 
 private:
     NGMorseToneGenerator *_morseToneGenerator;

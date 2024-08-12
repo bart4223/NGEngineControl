@@ -14,9 +14,9 @@
 #include <WProgram.h>
 #endif
 
-#include <NGCustomNotification.h>
+#include <NGINotification.h>
 
-class NGSerialNotification : public NGCustomNotification {
+class NGSerialNotification : public NGINotification {
 
 private:
     int _serialRate;

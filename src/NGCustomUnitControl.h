@@ -16,7 +16,7 @@
 
 #include <NGCommon.h>
 #include <NGExceptionDefinitions.h>
-#include <NGCustomNotification.h>
+#include <NGINotification.h>
 #include <NGRealTimeClock.h>
 #include <NGSoundMachine.h>
 
@@ -156,7 +156,7 @@ protected:
     bool _initialized;
     bool _logging;
     int _serialRate;
-    NGCustomNotification *_notification[NOTIFICATIONCOUNT];
+    NGINotification *_notification[NOTIFICATIONCOUNT];
     int _notificationCount = 0;
     byte _receivedData[MaxCMDLength];
     int _receivedDataCount = 0;
@@ -218,7 +218,7 @@ public:
     
     void registerRealTimeClock(NGRealTimeClock *rtc);
     
-    void registerNotification(NGCustomNotification *notification);
+    void registerNotification(NGINotification *notification);
     
     void setLogging(bool logging);
     

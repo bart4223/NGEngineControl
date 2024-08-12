@@ -17,7 +17,7 @@
 #include <SSD1306Ascii.h>
 #include <SSD1306AsciiWire.h>
 #include <NGCommon.h>
-#include <NGCustomNotification.h>
+#include <NGINotification.h>
 
 #ifdef NG_PLATFORM_MEGA
 #define MAXOLEDLINES    16
@@ -30,7 +30,7 @@
 
 enum oledTechnology {ot128x64, ot128x32};
 
-class NGOLEDNotification : public NGCustomNotification {
+class NGOLEDNotification : public NGINotification {
 
 private:
     int _columns;

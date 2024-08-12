@@ -258,7 +258,7 @@ void NGCustomUnitControl::registerRealTimeClock(NGRealTimeClock *rtc) {
     #endif
 }
 
-void NGCustomUnitControl::registerNotification(NGCustomNotification *notification) {
+void NGCustomUnitControl::registerNotification(NGINotification *notification) {
     if (_notificationCount < NOTIFICATIONCOUNT) {
         char log[100];
         _notification[_notificationCount] = notification;

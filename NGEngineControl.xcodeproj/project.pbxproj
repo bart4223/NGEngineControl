@@ -211,8 +211,6 @@
 		29D7EC32266CE63000009403 /* toolunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = toolunit.ino; sourceTree = "<group>"; };
 		29D7EC332670D7D800009403 /* NGCustomUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomUnitControl.cpp; sourceTree = "<group>"; };
 		29D7EC342670D7D800009403 /* NGCustomUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomUnitControl.h; sourceTree = "<group>"; };
-		29D7EC372673B88300009403 /* NGCustomNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGCustomNotification.cpp; sourceTree = "<group>"; };
-		29D7EC382673B88300009403 /* NGCustomNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGCustomNotification.h; sourceTree = "<group>"; };
 		29D7EC392673BFB800009403 /* NGSerialNotification.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSerialNotification.cpp; sourceTree = "<group>"; };
 		29D7EC3A2673BFB800009403 /* NGSerialNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSerialNotification.h; sourceTree = "<group>"; };
 		29D7EC3C2673CED200009403 /* centralunit.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = centralunit.ino; sourceTree = "<group>"; };
@@ -556,8 +554,6 @@
 			children = (
 				2907FE072B77B7B100DFE564 /* NG4x4Keypad.h */,
 				2907FE062B77B7B100DFE564 /* NG4x4Keypad.cpp */,
-				29D7EC382673B88300009403 /* NGCustomNotification.h */,
-				29D7EC372673B88300009403 /* NGCustomNotification.cpp */,
 				29232B4A277D87A100B85C8E /* NGRealTimeClock.h */,
 				29232B49277D87A100B85C8E /* NGRealTimeClock.cpp */,
 				297E229B291AD46A00E549DF /* NGSimpleKeypad.h */,

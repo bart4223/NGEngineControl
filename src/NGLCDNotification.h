@@ -15,9 +15,9 @@
 #endif
 
 #include <LiquidCrystal_I2C.h>
-#include <NGCustomNotification.h>
+#include <NGINotification.h>
 
-class NGLCDNotification : public NGCustomNotification {
+class NGLCDNotification : public NGINotification {
 
 private:
     int _columns;
