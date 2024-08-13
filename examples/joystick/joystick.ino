@@ -1,4 +1,4 @@
-#define ANALOG //ANALOG, DIGITAL
+#define DIGITAL //ANALOG, DIGITAL
 
 #include <NGMemoryObserver.h>
 #include <NGJoystickControl.h>
@@ -24,7 +24,7 @@
 #define PINRIGHT  6
 #define PINFIRE   7
 
-#define JOYSTICKDELAY 100
+#define JOYSTICKDELAY 50
 
 #ifdef ANALOG
 #define THRESHOLDUP       510 // 100
