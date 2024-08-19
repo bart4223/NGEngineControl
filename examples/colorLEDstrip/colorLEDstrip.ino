@@ -1,10 +1,10 @@
-#define LEDSTRIP256 //LEDSTRIP100, LEDSTRIP256
-#define TESTMODEDEFAULT //TESTMODEDEFAULT, TESTMODEPIXEL
+#define LEDSTRIP100 //LEDSTRIP100, LEDSTRIP256
+#define TESTMODEPIXEL //TESTMODEDEFAULT, TESTMODEPIXEL
 
 #include <NGCommon.h>
 #include <NGMemoryObserver.h>
 #include <NGColorLEDStrip.h>
-#define PIN           6
+#define PIN           8
 #ifdef LEDSTRIP100
 #define PIXELS      100
 #define ROWS         10
