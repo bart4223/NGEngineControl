@@ -9,19 +9,44 @@
 #include "NGSoundMachine.h"
 
 NGSoundMachine::NGSoundMachine() {
-    _create(DEFPINPIEZO);
+    _create(DEFPINPIEZO, NOACTIVATIONPIN);
 }
 
 NGSoundMachine::NGSoundMachine(int pinPiezo) {
-    _create(pinPiezo);
+    _create(pinPiezo, NOACTIVATIONPIN);
 }
 
-void NGSoundMachine::_create(int pinPiezo) {
+NGSoundMachine::NGSoundMachine(int pinPiezo, int pinActivation) {
+    _create(pinPiezo, pinActivation);
+}
+
+void NGSoundMachine::_create(int pinPiezo, int pinActivation) {
     _pinPiezo = pinPiezo;
+    _pinActivation = pinActivation;
 }
 
 void NGSoundMachine::initialize() {
     pinMode(_pinPiezo, OUTPUT);
+    if (hasActivationPin()) {
+        pinMode(_pinActivation, OUTPUT);
+        digitalWrite(_pinActivation, LOW);
+    }
+}
+
+void NGSoundMachine::activate() {
+    if (hasActivationPin()) {
+        digitalWrite(_pinActivation, HIGH);
+    }
+}
+
+void NGSoundMachine::deactivate() {
+    if (hasActivationPin()) {
+        digitalWrite(_pinActivation, LOW);
+    }
+}
+
+bool NGSoundMachine::hasActivationPin() {
+    return _pinActivation != NOACTIVATIONPIN;
 }
 
 int NGSoundMachine::registerJingle(NGCustomJingle *jingle) {

@@ -17,6 +17,7 @@
 #include <NGCustomJingle.h>
 
 #define DEFPINPIEZO 13
+#define NOACTIVATIONPIN 0
 #define MAXJINGLES  10
 
 #define NOCURRENTJINGLE -1
@@ -26,6 +27,7 @@ class NGSoundMachine {
     
 private:
     int _pinPiezo = DEFPINPIEZO; // needs PWM
+    int _pinActivation = NOACTIVATIONPIN;
     NGCustomJingle *_jingles[MAXJINGLES];
     int _jingleCount = 0;
     bool _concurrently = false;
@@ -37,14 +39,22 @@ private:
     long _lastTune = 0;
     
 protected:
-    void _create(int pinPiezo);
+    void _create(int pinPiezo, int pinActivation);
     
 public:
     NGSoundMachine();
     
     NGSoundMachine(int pinPiezo);
     
+    NGSoundMachine(int pinPiezo, int pinActivation);
+    
     void initialize();
+    
+    void activate();
+    
+    void deactivate();
+    
+    bool hasActivationPin();
     
     int registerJingle(NGCustomJingle *jingle);
     
