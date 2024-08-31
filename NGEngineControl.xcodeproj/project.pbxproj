@@ -112,6 +112,9 @@
 		295756352C8300C500616955 /* NGColorDotMatrixEffectText.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixEffectText.cpp; sourceTree = "<group>"; };
 		295756362C8300C500616955 /* NGColorDotMatrixEffectText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixEffectText.h; sourceTree = "<group>"; };
 		2957563C2C8302F000616955 /* effectText.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = effectText.ino; sourceTree = "<group>"; };
+		2957563D2C837DC800616955 /* NGSoundMachineEffect.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGSoundMachineEffect.cpp; sourceTree = "<group>"; };
+		2957563E2C837DC800616955 /* NGSoundMachineEffect.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGSoundMachineEffect.h; sourceTree = "<group>"; };
+		2957563F2C837EEA00616955 /* effectSoundMachine.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = effectSoundMachine.ino; sourceTree = "<group>"; };
 		2957712D2B934A2500AE64AC /* CandleArchK1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CandleArchK1.png; sourceTree = "<group>"; };
 		295848A52BE2334200AFEF4C /* NGColorDotMatrixGradientPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixGradientPoint.cpp; sourceTree = "<group>"; };
 		295848A62BE2334200AFEF4C /* NGColorDotMatrixGradientPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixGradientPoint.h; sourceTree = "<group>"; };
@@ -658,6 +661,8 @@
 			children = (
 				295756362C8300C500616955 /* NGColorDotMatrixEffectText.h */,
 				295756352C8300C500616955 /* NGColorDotMatrixEffectText.cpp */,
+				2957563E2C837DC800616955 /* NGSoundMachineEffect.h */,
+				2957563D2C837DC800616955 /* NGSoundMachineEffect.cpp */,
 			);
 			name = effects;
 			sourceTree = "<group>";
@@ -666,6 +671,7 @@
 			isa = PBXGroup;
 			children = (
 				2957563C2C8302F000616955 /* effectText.ino */,
+				2957563F2C837EEA00616955 /* effectSoundMachine.ino */,
 			);
 			path = effects;
 			sourceTree = "<group>";
