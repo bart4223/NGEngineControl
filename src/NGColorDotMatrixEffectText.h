@@ -34,7 +34,7 @@ private:
     int _delay = DEFNEXTCHARDELAY;
     
 protected:
-    void _create(NGIPaintableComponent *ipc, colorRGB color, NGCustomFont *font);
+    void _create(NGIPaintableComponent *ipc, colorRGB color, colorRGB colorBackground, NGCustomFont *font);
     
 public:
     NGColorDotMatrixEffectText(NGIPaintableComponent *ipc);
@@ -42,6 +42,8 @@ public:
     NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, NGCustomFont *font);
     
     NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, colorRGB color, NGCustomFont *font);
+
+    NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, colorRGB color, colorRGB colorBackground, NGCustomFont *font);
 
     void initialize();
     

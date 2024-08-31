@@ -46,7 +46,7 @@ void NGColorDotMatrixCustomDigit::_render() {
                     c.green = random(0, 256);
                     c.blue = random(0, 256);
                     _ipc->drawPoint(_posX + x, _posY + y, c);
-                } else {
+                } else if (!isSameColor(_colorBackground, COLOR_TRANSPARENT)) {
                     _ipc->drawPoint(_posX + x, _posY + y, _colorBackground);
                 }
             }
