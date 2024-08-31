@@ -109,6 +109,9 @@
 		294E9C9B290D5A4400A3E17A /* binaryclock.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = binaryclock.ino; sourceTree = "<group>"; };
 		294E9C9C290D5A8800A3E17A /* NGBinaryClockUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGBinaryClockUnitControl.cpp; sourceTree = "<group>"; };
 		294E9C9D290D5A8800A3E17A /* NGBinaryClockUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGBinaryClockUnitControl.h; sourceTree = "<group>"; };
+		295756352C8300C500616955 /* NGColorDotMatrixEffectText.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixEffectText.cpp; sourceTree = "<group>"; };
+		295756362C8300C500616955 /* NGColorDotMatrixEffectText.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixEffectText.h; sourceTree = "<group>"; };
+		2957563C2C8302F000616955 /* effectText.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = effectText.ino; sourceTree = "<group>"; };
 		2957712D2B934A2500AE64AC /* CandleArchK1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CandleArchK1.png; sourceTree = "<group>"; };
 		295848A52BE2334200AFEF4C /* NGColorDotMatrixGradientPoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGColorDotMatrixGradientPoint.cpp; sourceTree = "<group>"; };
 		295848A62BE2334200AFEF4C /* NGColorDotMatrixGradientPoint.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGColorDotMatrixGradientPoint.h; sourceTree = "<group>"; };
@@ -650,6 +653,23 @@
 			path = binaryclock;
 			sourceTree = "<group>";
 		};
+		295756342C83006A00616955 /* effects */ = {
+			isa = PBXGroup;
+			children = (
+				295756362C8300C500616955 /* NGColorDotMatrixEffectText.h */,
+				295756352C8300C500616955 /* NGColorDotMatrixEffectText.cpp */,
+			);
+			name = effects;
+			sourceTree = "<group>";
+		};
+		2957563B2C8302B000616955 /* effects */ = {
+			isa = PBXGroup;
+			children = (
+				2957563C2C8302F000616955 /* effectText.ino */,
+			);
+			path = effects;
+			sourceTree = "<group>";
+		};
 		29647BBA253C42A5003CBA13 = {
 			isa = PBXGroup;
 			children = (
@@ -669,6 +689,7 @@
 			children = (
 				2913C93926FF554A00D0AFC6 /* common */,
 				2999D31A2791CDE700B88B53 /* communication */,
+				295756342C83006A00616955 /* effects */,
 				29232B48277D874100B85C8E /* misc */,
 				2913C94727018C9800D0AFC6 /* sensors */,
 				2913C93526FF543500D0AFC6 /* sound */,
@@ -714,6 +735,7 @@
 				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29F56DF027410D1D00BBBB68 /* contact */,
 				29232B3B2779D53F00B85C8E /* duoLED */,
+				2957563B2C8302B000616955 /* effects */,
 				29E57BBE28771A46000B6C49 /* enginecontrol */,
 				29F56DF427410DBE00BBBB68 /* first */,
 				29F56DEC27410C6900BBBB68 /* flashinglight */,
