@@ -65,6 +65,7 @@ private:
     byte _joystickPinX2;
     byte _joystickPinY2;
     byte _joystickPinFire;
+    bool _joystickPinFireHigh = false;
     int _currentX;
     int _currentY;
     joystickAction _joystickActions[MAXJOYSTICKACTIONS];
@@ -81,7 +82,7 @@ private:
     byte _digitalEpsilon = 0;
 
 protected:
-    void _create(joystickKind kind, int id, byte joystickPinX, byte joystickPinY, byte joystickPinX2, byte joystickPinY2, byte joystickPinFire);
+    void _create(joystickKind kind, int id, byte joystickPinX, byte joystickPinY, byte joystickPinX2, byte joystickPinY2, byte joystickPinFire, bool joystickPinFireHigh);
     
 public:
     NGJoystickControl();
@@ -93,6 +94,8 @@ public:
     NGJoystickControl(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire);
     
     NGJoystickControl(int id, byte joystickPinXL, byte joystickPinXR, byte joystickPinYD, byte joystickPinYU, byte joystickPinFire);
+    
+    NGJoystickControl(int id, byte joystickPinXL, byte joystickPinXR, byte joystickPinYD, byte joystickPinYU, byte joystickPinFire, bool joystickPinFireHigh);
     
     void initialize();
     

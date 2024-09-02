@@ -8,26 +8,30 @@
 #include "NGJoystickControl.h"
 
 NGJoystickControl::NGJoystickControl() {
-    _create(jkAnalog, NOJOYSTICKID, DEFJOYSTICKPINX, DEFJOYSTICKPINY, 0, 0, DEFJOYSTICKPINFIRE);
+    _create(jkAnalog, NOJOYSTICKID, DEFJOYSTICKPINX, DEFJOYSTICKPINY, 0, 0, DEFJOYSTICKPINFIRE, false);
 }
 
 NGJoystickControl::NGJoystickControl(int id) {
-    _create(jkAnalog, id, DEFJOYSTICKPINX, DEFJOYSTICKPINY, 0, 0, DEFJOYSTICKPINFIRE);
+    _create(jkAnalog, id, DEFJOYSTICKPINX, DEFJOYSTICKPINY, 0, 0, DEFJOYSTICKPINFIRE, false);
 }
 
 NGJoystickControl::NGJoystickControl(byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
-    _create(jkAnalog, NOJOYSTICKID, joystickPinX, joystickPinY, 0, 0, joystickPinFire);
+    _create(jkAnalog, NOJOYSTICKID, joystickPinX, joystickPinY, 0, 0, joystickPinFire, false);
 }
 
 NGJoystickControl::NGJoystickControl(int id, byte joystickPinX, byte joystickPinY, byte joystickPinFire) {
-    _create(jkAnalog, id, joystickPinX, joystickPinY, 0, 0, joystickPinFire);
+    _create(jkAnalog, id, joystickPinX, joystickPinY, 0, 0, joystickPinFire, false);
 }
 
 NGJoystickControl::NGJoystickControl(int id, byte joystickPinXL, byte joystickPinXR, byte joystickPinYD, byte joystickPinYU, byte joystickPinFire) {
-    _create(jkDigital, id, joystickPinXL, joystickPinYD, joystickPinXR, joystickPinYU, joystickPinFire);
+    _create(jkDigital, id, joystickPinXL, joystickPinYD, joystickPinXR, joystickPinYU, joystickPinFire, false);
 }
 
-void NGJoystickControl::_create(joystickKind kind, int id, byte joystickPinX, byte joystickPinY, byte joystickPinX2, byte joystickPinY2, byte joystickPinFire) {
+NGJoystickControl::NGJoystickControl(int id, byte joystickPinXL, byte joystickPinXR, byte joystickPinYD, byte joystickPinYU, byte joystickPinFire, bool joystickPinFireHigh) {
+    _create(jkDigital, id, joystickPinXL, joystickPinYD, joystickPinXR, joystickPinYU, joystickPinFire, joystickPinFireHigh);
+}
+
+void NGJoystickControl::_create(joystickKind kind, int id, byte joystickPinX, byte joystickPinY, byte joystickPinX2, byte joystickPinY2, byte joystickPinFire, bool joystickPinFireHigh) {
     _kind = kind;
     _id = id;
     switch(_kind) {
@@ -43,6 +47,7 @@ void NGJoystickControl::_create(joystickKind kind, int id, byte joystickPinX, by
             break;
     }
     _joystickPinFire = joystickPinFire;
+    _joystickPinFireHigh = joystickPinFireHigh;
 }
 
 void NGJoystickControl::initialize() {
@@ -52,7 +57,12 @@ void NGJoystickControl::initialize() {
         pinMode(_joystickPinY, INPUT_PULLUP);
         pinMode(_joystickPinY2, INPUT_PULLUP);
     }
-    pinMode(_joystickPinFire, INPUT_PULLUP);
+    if (_joystickPinFireHigh) {
+        pinMode(_joystickPinFire, INPUT);
+    } else {
+        pinMode(_joystickPinFire, INPUT_PULLUP);
+    }
+    pinMode(_joystickPinFire, INPUT);
     for (int i = 0; i < _joystickActionCount; i++) {
         if (_joystickActions[i].pin != NOJOYSTICKACTIONPIN) {
             pinMode(_joystickActions[i].pin, OUTPUT);
@@ -217,7 +227,11 @@ void NGJoystickControl::processingLoop() {
                 }
                 break;
             case jaNone:
-                fire = digitalRead(_joystickPinFire) == LOW;
+                if (_joystickPinFireHigh) {
+                    fire = digitalRead(_joystickPinFire) == HIGH;
+                } else {
+                    fire = digitalRead(_joystickPinFire) == LOW;
+                }
                 break;
         }
         if (fire && _joystickActions[i].delay != NOJOYSTICKDELAY) {
