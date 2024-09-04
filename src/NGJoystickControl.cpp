@@ -62,7 +62,6 @@ void NGJoystickControl::initialize() {
     } else {
         pinMode(_joystickPinFire, INPUT_PULLUP);
     }
-    pinMode(_joystickPinFire, INPUT);
     for (int i = 0; i < _joystickActionCount; i++) {
         if (_joystickActions[i].pin != NOJOYSTICKACTIONPIN) {
             pinMode(_joystickActions[i].pin, OUTPUT);
