@@ -19,6 +19,7 @@
 #include <NGINotification.h>
 #include <NGRealTimeClock.h>
 #include <NGSoundMachine.h>
+#include <NGSplash.h>
 
 #define NOADDRESS           0x00
 #define REQUESTEDDATALENGTH 6
@@ -178,6 +179,7 @@ protected:
     irremotefunc _irremotefunc[IRFUNCCOUNT];
     int _irremotefuncCount = 0;
     long _lastMemoryObserved = 0;
+    NGSplash *_splash = nullptr;
     
     void _create(char* name, byte address, int serialRate);
     
@@ -197,6 +199,8 @@ protected:
 
     int _registerJingle(NGCustomJingle *jingle);
 
+    void _initializeSplash();
+    
     void _initializeSoundMachine();
     
     void _playJingle(byte jingle);
@@ -208,6 +212,8 @@ protected:
     void _playJingleBeep();
    
     void _playJingleAlarm();
+    
+    void _runSplash();
 
 public:
     void initialize();
@@ -227,6 +233,8 @@ public:
     void setWorkMode(workMode workmode);
     
     workMode getWorkMode();
+    
+    void registerSplash(NGSplash *splash);
     
     void registerStartup(NGCustomJingle *jingle);
     

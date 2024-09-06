@@ -131,6 +131,13 @@ void NGCustomUnitControl::_playJingleAlarm() {
     }
 }
 
+void NGCustomUnitControl::_initializeSplash() {
+    if (_splash != nullptr) {
+        _splash->setLogging(_logging);
+        _splash->initialize();
+    }
+}
+
 void NGCustomUnitControl::_initializeSoundMachine() {
     if (_soundMachine != nullptr) {
         _soundMachine->initialize();
@@ -143,10 +150,27 @@ void NGCustomUnitControl::_playJingle(byte jingle) {
     }
 }
 
+void NGCustomUnitControl::_runSplash() {
+    #ifdef NG_PLATFORM_MEGA
+    if (_logging) {
+        writeInfo("Splash started...");
+    }
+    #endif
+    while(!_splash->isFinished()) {
+        _splash->processingLoop();
+    }
+    #ifdef NG_PLATFORM_MEGA
+    if (_logging) {
+        writeInfo("Splash finished");
+    }
+    #endif
+}
+
 void NGCustomUnitControl::initialize() {
     if (_pinStartup != NOSTARTUPPIN) {
         pinMode(_pinStartup, INPUT_PULLUP);
     }
+    _initializeSplash();
     _initializeSoundMachine();
     _playJingleBoot();
 }
@@ -156,8 +180,13 @@ char* NGCustomUnitControl::getName() {
 }
 
 long int NGCustomUnitControl::startUp() {
+    if (_splash != nullptr) {
+        _runSplash();
+    }
     _writeState();
-    observeMemory(0);
+    if (_logging) {
+        observeMemory(0);
+    }
     if (_pinStartup != NOSTARTUPPIN) {
         while(digitalRead(_pinStartup)) {
             _processingStartupLoop();
@@ -192,6 +221,10 @@ void NGCustomUnitControl::setWorkMode(workMode workmode) {
 
 workMode NGCustomUnitControl::getWorkMode() {
     return _workMode;
+}
+
+void NGCustomUnitControl::registerSplash(NGSplash *splash) {
+    _splash = splash;
 }
 
 void NGCustomUnitControl::registerStartup(NGCustomJingle *jingle) {
