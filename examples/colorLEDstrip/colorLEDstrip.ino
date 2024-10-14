@@ -1,18 +1,18 @@
-#define LEDSTRIP100 //LEDSTRIP100, LEDSTRIP256
+#define LEDSTRIPAUTO //LEDSTRIP100, LEDSTRIP256, LEDSTRIPAUTO
 #define TESTMODEPIXEL //TESTMODEDEFAULT, TESTMODEPIXEL
 
 #include <NGCommon.h>
 #include <NGMemoryObserver.h>
 #include <NGColorLEDStrip.h>
-#define PIN           8
-#ifdef LEDSTRIP100
-#define PIXELS      100
-#define ROWS         10
-#endif
-#ifdef LEDSTRIP256
-#define PIXELS      256
-#define ROWS         16
-#endif
+
+#define PIN                   8
+#define PINAUTODETECTION     A0
+
+#define LEDSTRIP100_PIXELS  100
+#define LEDSTRIP100_ROWS     10
+#define LEDSTRIP256_PIXELS  256
+#define LEDSTRIP256_ROWS     16
+
 #define BRIGHTNESS 0.05
 
 #define DELAY        500
@@ -27,11 +27,16 @@
 #define START 0x00
 #define STOP  0x05
 
+#ifdef LEDSTRIPAUTO
+// 1K = 930 = 100 Pixel
+// 2K = 855 = 256 Pixel
+NGColorLEDStrip cls = NGColorLEDStrip(PIN, PINAUTODETECTION);
+#endif
 #ifdef LEDSTRIP100
-NGColorLEDStrip cls = NGColorLEDStrip(PIN, PIXELS, ROWS);
+NGColorLEDStrip cls = NGColorLEDStrip(PIN, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
 #endif
 #ifdef LEDSTRIP256
-NGColorLEDStrip cls = NGColorLEDStrip(PIN, PIXELS, ROWS, lskUpDownAlternate);
+NGColorLEDStrip cls = NGColorLEDStrip(PIN, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS, lskUpDownAlternate);
 #endif
 
 coord2D img[] = {{0, 0}, {1, 1}, {2, 2}};
@@ -42,6 +47,8 @@ byte step = START;
 void setup() {
   observeMemory(0);
   initGlobalRandomSeedWithAnalogInput(A5);
+  cls.registerGeometry(930, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
+  cls.registerGeometry(855, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS);
   cls.setOffset(0, 0);
   //cls.setTestColor(COLOR_WHITE);
   #ifdef TESTMODEPIXEL

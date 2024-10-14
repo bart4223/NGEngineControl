@@ -21,12 +21,26 @@
 
 #define DEFROWCOUNT      1
 #define DEFBRIGHTNESS    1
+#define DEFPIXELCOUNT    1
 
 #define DEFTESTMODEDELAY 100
 #define DEFLEDSTRIPKIND lskLeftRightStrict
 
+#define NOPINAUTODETECTION -1
+
+#define MAXGEOMETRYCOUNT 3
+
 enum testMode {tmDefault, tmPixel};
 enum LEDStripKind {lskLeftRightStrict, lskLeftRightAlternate, lskUpDownStrict, lskUpDownAlternate};
+
+struct colorLEDStripGeometryStruct
+{
+    int indicatorvalue;
+    LEDStripKind kind;
+    int pixelcount;
+    int rowcount;
+};
+typedef struct colorLEDStripGeometryStruct colorLEDStripGeometry;
 
 class NGColorLEDStrip : public NGITestableComponent, public NGIPaintableComponent {
     
@@ -46,12 +60,19 @@ private:
     testMode _testMode = tmDefault;
     int _testModeDelay = DEFTESTMODEDELAY;
     LEDStripKind _stripKind = DEFLEDSTRIPKIND;
+    byte _pin;
+    int _pinAutoDetection = NOPINAUTODETECTION;
+    colorLEDStripGeometry _geometry[MAXGEOMETRYCOUNT];
+    byte _geometryCount = 0;
     
 protected:
-    void _create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind);
+    void _create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind, int pinautodetection);
     void _render();
+    void _determineGeometry();
     
 public:
+    NGColorLEDStrip(byte pin, byte pinautodetection);
+    
     NGColorLEDStrip(byte pin, int pixelcount);
     
     NGColorLEDStrip(byte pin, int pixelcount, LEDStripKind stripkind);
@@ -63,6 +84,10 @@ public:
     void initialize();
     
     void initialize(float brightness);
+    
+    void registerGeometry(int geometryindicatorvalue, int pixelcount, int rowcount);
+    
+    void registerGeometry(int geometryindicatorvalue, LEDStripKind kind, int pixelcount, int rowcount);
     
     void setTestColor(colorRGB testcolor);
     

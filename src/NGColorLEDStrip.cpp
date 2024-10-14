@@ -7,32 +7,48 @@
 
 #include "NGColorLEDStrip.h"
 
+NGColorLEDStrip::NGColorLEDStrip(byte pin, byte pinautodetection) {
+    _create(pin, DEFPIXELCOUNT, DEFROWCOUNT, DEFLEDSTRIPKIND, pinautodetection);
+}
+
 NGColorLEDStrip::NGColorLEDStrip(byte pin, int pixelcount) {
-    _create(pin, pixelcount, DEFROWCOUNT, DEFLEDSTRIPKIND);
+    _create(pin, pixelcount, DEFROWCOUNT, DEFLEDSTRIPKIND, NOPINAUTODETECTION);
 }
 
 NGColorLEDStrip::NGColorLEDStrip(byte pin, int pixelcount, LEDStripKind stripkind) {
-    _create(pin, pixelcount, DEFROWCOUNT, stripkind);
+    _create(pin, pixelcount, DEFROWCOUNT, stripkind, NOPINAUTODETECTION);
 }
 
 NGColorLEDStrip::NGColorLEDStrip(byte pin, int pixelcount, int rowcount) {
-    _create(pin, pixelcount, rowcount, DEFLEDSTRIPKIND);
+    _create(pin, pixelcount, rowcount, DEFLEDSTRIPKIND, NOPINAUTODETECTION);
 }
 
 NGColorLEDStrip::NGColorLEDStrip(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind) {
-    _create(pin, pixelcount, rowcount, stripkind);
+    _create(pin, pixelcount, rowcount, stripkind, NOPINAUTODETECTION);
 }
 
-void NGColorLEDStrip::_create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind) {
+void NGColorLEDStrip::_create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind, int pinautodetection) {
+    _pin = pin;
+    _pinAutoDetection = pinautodetection;
     _stripKind = stripkind;
     _pixelCount = pixelcount;
-    _strip = new NeoPixelBus<NeoGrbFeature, NeoWs2812xMethod>(_pixelCount, pin);
     _rowCount = rowcount;
-    _colCount = _pixelCount / _rowCount;
 }
 
 void NGColorLEDStrip::_render() {
     _strip->Show();
+}
+
+void NGColorLEDStrip::_determineGeometry() {
+    int val = analogRead(_pinAutoDetection);
+    for (int i = 0; i < _geometryCount; i++) {
+        if ((val - 5) <= _geometry[i].indicatorvalue && _geometry[i].indicatorvalue <= (val + 5)) {
+            _stripKind = _geometry[i].kind;
+            _pixelCount = _geometry[i].pixelcount;
+            _rowCount = _geometry[i].rowcount;
+            return;
+        }
+    }
 }
 
 void NGColorLEDStrip::initialize() {
@@ -41,8 +57,27 @@ void NGColorLEDStrip::initialize() {
 
 void NGColorLEDStrip::initialize(float brightness) {
     _brightness = brightness;
+    if (_pinAutoDetection != NOPINAUTODETECTION) {
+        _determineGeometry();
+    }
+    _strip = new NeoPixelBus<NeoGrbFeature, NeoWs2812xMethod>(_pixelCount, _pin);
     _strip->Begin();
+    _colCount = _pixelCount / _rowCount;
     clear();
+}
+
+void NGColorLEDStrip::registerGeometry(int geometryindicatorvalue, int pixelcount, int rowcount) {
+    registerGeometry(geometryindicatorvalue, DEFLEDSTRIPKIND, pixelcount, rowcount);
+}
+
+void NGColorLEDStrip::registerGeometry(int geometryindicatorvalue, LEDStripKind kind, int pixelcount, int rowcount) {
+    colorLEDStripGeometry geometry;
+    geometry.indicatorvalue = geometryindicatorvalue;
+    geometry.kind = kind;
+    geometry.pixelcount = pixelcount;
+    geometry.rowcount = rowcount;
+    _geometry[_geometryCount] = geometry;
+    _geometryCount++;
 }
 
 void NGColorLEDStrip::setTestColor(colorRGB testcolor) {
