@@ -46,7 +46,7 @@ void NGColorLEDStrip::_determineGeometry(int indicatorvalue) {
         Serial.println(log);
     }
     for (int i = 0; i < _geometryCount; i++) {
-        if ((indicatorvalue - 5) <= _geometry[i].indicatorvalue && _geometry[i].indicatorvalue <= (indicatorvalue + 5)) {
+        if ((indicatorvalue - _indicatorRange) <= _geometry[i].indicatorvalue && _geometry[i].indicatorvalue <= (indicatorvalue + _indicatorRange)) {
             _stripKind = _geometry[i].kind;
             _pixelCount = _geometry[i].pixelcount;
             _rowCount = _geometry[i].rowcount;
@@ -86,6 +86,10 @@ void NGColorLEDStrip::registerGeometry(int geometryindicatorvalue, LEDStripKind 
 
 void NGColorLEDStrip::setLogging(bool logging) {
     _logging = logging;
+}
+
+void NGColorLEDStrip::setIndicatorRange(int indicatorrange) {
+    _indicatorRange = indicatorrange;
 }
 
 void NGColorLEDStrip::setTestColor(colorRGB testcolor) {

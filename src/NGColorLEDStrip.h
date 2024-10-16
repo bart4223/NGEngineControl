@@ -27,6 +27,7 @@
 #define DEFLEDSTRIPKIND lskLeftRightStrict
 
 #define NOPINAUTODETECTION -1
+#define DEFINDICATORRANGE  21
 
 #define MAXGEOMETRYCOUNT 3
 
@@ -65,6 +66,7 @@ private:
     colorLEDStripGeometry _geometry[MAXGEOMETRYCOUNT];
     byte _geometryCount = 0;
     bool _logging = false;
+    int _indicatorRange = DEFINDICATORRANGE;
     
 protected:
     void _create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind, int pinautodetection);
@@ -91,6 +93,8 @@ public:
     void registerGeometry(int geometryindicatorvalue, LEDStripKind kind, int pixelcount, int rowcount);
     
     void setLogging(bool logging);
+    
+    void setIndicatorRange(int indicatorrange);
     
     void setTestColor(colorRGB testcolor);
     

@@ -50,6 +50,7 @@ void setup() {
   observeMemory(0);
   initGlobalRandomSeedWithAnalogInput(A5);
   //cls.setLogging(true);
+  //cls.setIndicatorRange(42);
   cls.registerGeometry(LEDSTRIP100_INDICATOR, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
   cls.registerGeometry(LEDSTRIP256_INDICATOR, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS);
   cls.setOffset(0, 0);
