@@ -64,11 +64,12 @@ private:
     int _pinAutoDetection = NOPINAUTODETECTION;
     colorLEDStripGeometry _geometry[MAXGEOMETRYCOUNT];
     byte _geometryCount = 0;
+    bool _logging = false;
     
 protected:
     void _create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind, int pinautodetection);
     void _render();
-    void _determineGeometry();
+    void _determineGeometry(int indicatorvalue);
     
 public:
     NGColorLEDStrip(byte pin, byte pinautodetection);
@@ -88,6 +89,8 @@ public:
     void registerGeometry(int geometryindicatorvalue, int pixelcount, int rowcount);
     
     void registerGeometry(int geometryindicatorvalue, LEDStripKind kind, int pixelcount, int rowcount);
+    
+    void setLogging(bool logging);
     
     void setTestColor(colorRGB testcolor);
     

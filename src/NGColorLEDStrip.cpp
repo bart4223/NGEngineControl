@@ -39,10 +39,14 @@ void NGColorLEDStrip::_render() {
     _strip->Show();
 }
 
-void NGColorLEDStrip::_determineGeometry() {
-    int val = analogRead(_pinAutoDetection);
+void NGColorLEDStrip::_determineGeometry(int indicatorvalue) {
+    if (_logging) {
+        char log[100];
+        sprintf(log, "i: %d", indicatorvalue);
+        Serial.println(log);
+    }
     for (int i = 0; i < _geometryCount; i++) {
-        if ((val - 5) <= _geometry[i].indicatorvalue && _geometry[i].indicatorvalue <= (val + 5)) {
+        if ((indicatorvalue - 5) <= _geometry[i].indicatorvalue && _geometry[i].indicatorvalue <= (indicatorvalue + 5)) {
             _stripKind = _geometry[i].kind;
             _pixelCount = _geometry[i].pixelcount;
             _rowCount = _geometry[i].rowcount;
@@ -58,7 +62,7 @@ void NGColorLEDStrip::initialize() {
 void NGColorLEDStrip::initialize(float brightness) {
     _brightness = brightness;
     if (_pinAutoDetection != NOPINAUTODETECTION) {
-        _determineGeometry();
+        _determineGeometry(analogRead(_pinAutoDetection));
     }
     _strip = new NeoPixelBus<NeoGrbFeature, NeoWs2812xMethod>(_pixelCount, _pin);
     _strip->Begin();
@@ -78,6 +82,10 @@ void NGColorLEDStrip::registerGeometry(int geometryindicatorvalue, LEDStripKind 
     geometry.rowcount = rowcount;
     _geometry[_geometryCount] = geometry;
     _geometryCount++;
+}
+
+void NGColorLEDStrip::setLogging(bool logging) {
+    _logging = logging;
 }
 
 void NGColorLEDStrip::setTestColor(colorRGB testcolor) {
