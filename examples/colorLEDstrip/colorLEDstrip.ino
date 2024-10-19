@@ -11,7 +11,7 @@
 #define LEDSTRIP100_INDICATOR 930
 #define LEDSTRIP100_PIXELS    100
 #define LEDSTRIP100_ROWS       10
-#define LEDSTRIP256_INDICATOR 855
+#define LEDSTRIP256_INDICATOR 825
 #define LEDSTRIP256_PIXELS    256
 #define LEDSTRIP256_ROWS       16
 
@@ -52,7 +52,7 @@ void setup() {
   //cls.setLogging(true);
   //cls.setIndicatorRange(42);
   cls.registerGeometry(LEDSTRIP100_INDICATOR, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
-  cls.registerGeometry(LEDSTRIP256_INDICATOR, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS);
+  cls.registerGeometry(LEDSTRIP256_INDICATOR, lskUpDownAlternate, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS);
   cls.setOffset(0, 0);
   //cls.setTestColor(COLOR_WHITE);
   #ifdef TESTMODEPIXEL
