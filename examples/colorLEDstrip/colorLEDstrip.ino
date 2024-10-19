@@ -1,5 +1,5 @@
 #define LEDSTRIPAUTO //LEDSTRIP100, LEDSTRIP256, LEDSTRIPAUTO
-#define TESTMODEPIXEL //TESTMODEDEFAULT, TESTMODEPIXEL
+#define TESTMODEDEFAULT //TESTMODEDEFAULT, TESTMODEPIXEL
 
 #include <NGCommon.h>
 #include <NGMemoryObserver.h>
@@ -21,7 +21,7 @@
 #ifdef TESTMODEPIXEL
 #define TESTRUNS       1
 #else
-#define TESTRUNS       3
+#define TESTRUNS       1
 #endif
 #define TESTDELAY    100
 #define TESTMODEDELAY 20
@@ -57,8 +57,8 @@ void setup() {
   //cls.setTestColor(COLOR_WHITE);
   #ifdef TESTMODEPIXEL
   cls.setTestMode(tmPixel);
-  cls.setTestModeDelay(TESTMODEDELAY);
   #endif
+  cls.setTestModeDelay(TESTMODEDELAY);
   cls.initialize(BRIGHTNESS);
   for (int i = 0; i < TESTRUNS; i++) {
     cls.testSequenceStart();
