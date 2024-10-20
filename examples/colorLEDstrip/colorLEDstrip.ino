@@ -8,10 +8,10 @@
 #define PIN                   8
 #define PINAUTODETECTION     A0
 
-#define LEDSTRIP100_INDICATOR 930
+#define LEDSTRIP100_INDICATOR 900
 #define LEDSTRIP100_PIXELS    100
 #define LEDSTRIP100_ROWS       10
-#define LEDSTRIP256_INDICATOR 825
+#define LEDSTRIP256_INDICATOR 800
 #define LEDSTRIP256_PIXELS    256
 #define LEDSTRIP256_ROWS       16
 
@@ -50,7 +50,7 @@ void setup() {
   observeMemory(0);
   initGlobalRandomSeedWithAnalogInput(A5);
   //cls.setLogging(true);
-  //cls.setIndicatorRange(42);
+  cls.setIndicatorRange(49);
   cls.registerGeometry(LEDSTRIP100_INDICATOR, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
   cls.registerGeometry(LEDSTRIP256_INDICATOR, lskUpDownAlternate, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS);
   cls.setOffset(0, 0);
