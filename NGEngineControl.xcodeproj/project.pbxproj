@@ -150,6 +150,10 @@
 		296CD4E9272ED298003E27DA /* buggyC1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyC1.png; sourceTree = "<group>"; };
 		297E99C52709A8A800B9C9FA /* buggyMotionUnitSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = buggyMotionUnitSchema.png; sourceTree = "<group>"; };
 		298392B72A2CEEBB00BB5ACA /* SpeedyTwo.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = SpeedyTwo.ino; sourceTree = "<group>"; };
+		2988B1912CC64DA000FEE09D /* NGDigitalPotentiometer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGDigitalPotentiometer.h; sourceTree = "<group>"; };
+		2988B1922CC64DA000FEE09D /* NGDigitalPotentiometer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGDigitalPotentiometer.cpp; sourceTree = "<group>"; };
+		2988B1942CC64E2900FEE09D /* digitalpotentiometer.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = digitalpotentiometer.ino; sourceTree = "<group>"; };
+		2988B1952CC6543700FEE09D /* digitalpotionekeycontrol.ino */ = {isa = PBXFileReference; lastKnownFileType = text; path = digitalpotionekeycontrol.ino; sourceTree = "<group>"; };
 		298A66D12565501F00393741 /* eNGineShieldSchema.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = eNGineShieldSchema.png; sourceTree = "<group>"; };
 		298E641F2AC1528100CE1B85 /* NGAnchormanUnitControl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = NGAnchormanUnitControl.cpp; sourceTree = "<group>"; };
 		298E64202AC1528100CE1B85 /* NGAnchormanUnitControl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NGAnchormanUnitControl.h; sourceTree = "<group>"; };
@@ -555,6 +559,8 @@
 			children = (
 				2907FE072B77B7B100DFE564 /* NG4x4Keypad.h */,
 				2907FE062B77B7B100DFE564 /* NG4x4Keypad.cpp */,
+				2988B1912CC64DA000FEE09D /* NGDigitalPotentiometer.h */,
+				2988B1922CC64DA000FEE09D /* NGDigitalPotentiometer.cpp */,
 				29232B4A277D87A100B85C8E /* NGRealTimeClock.h */,
 				29232B49277D87A100B85C8E /* NGRealTimeClock.cpp */,
 			);
@@ -740,6 +746,7 @@
 				29680C832C3ABBAE00BB0F58 /* colorLEDstrip */,
 				29FD43C3278A0B5800EAF0D9 /* compass */,
 				29F56DF027410D1D00BBBB68 /* contact */,
+				2988B1932CC64DFC00FEE09D /* digitalpotentiometer */,
 				29232B3B2779D53F00B85C8E /* duoLED */,
 				2957563B2C8302B000616955 /* effects */,
 				29E57BBE28771A46000B6C49 /* enginecontrol */,
@@ -875,6 +882,15 @@
 				29680C842C3ABBD100BB0F58 /* colorLEDstrip.ino */,
 			);
 			path = colorLEDstrip;
+			sourceTree = "<group>";
+		};
+		2988B1932CC64DFC00FEE09D /* digitalpotentiometer */ = {
+			isa = PBXGroup;
+			children = (
+				2988B1942CC64E2900FEE09D /* digitalpotentiometer.ino */,
+				2988B1952CC6543700FEE09D /* digitalpotionekeycontrol.ino */,
+			);
+			path = digitalpotentiometer;
 			sourceTree = "<group>";
 		};
 		298E64212AC1537B00CE1B85 /* anchorman */ = {
