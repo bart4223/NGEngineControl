@@ -110,6 +110,58 @@ void NGColorLEDStrip::setOffset(int offsetX, int offsetY) {
     _offsetY = offsetY;
 }
 
+void NGColorLEDStrip::setBrightness(float brightness) {
+    _brightness = brightness;
+}
+
+float NGColorLEDStrip::getBrightness() {
+    return _brightness;
+}
+
+void NGColorLEDStrip::incrementBrightness() {
+    float brightness = getBrightness();
+    float step = 0.1;
+    if (brightness <= 0.1) {
+        step = 0.01;
+    }
+    brightness = brightness + step;
+    if (brightness > _maxBrightness) {
+        brightness = _maxBrightness;
+    }
+    setBrightness(brightness);
+}
+
+void NGColorLEDStrip::decrementBrightness() {
+    float brightness = getBrightness();
+    float step = 0.1;
+    if (brightness <= 0.1) {
+        step = 0.01;
+    }
+    brightness = brightness - step;
+    if (brightness < _minBrightness) {
+        brightness = _minBrightness;
+    }
+    setBrightness(brightness);
+}
+
+void NGColorLEDStrip::changeBrightness() {
+    if (_changeBrightnessUp) {
+        if (getBrightness() < _maxBrightness) {
+            incrementBrightness();
+        } else {
+            _changeBrightnessUp = false;
+            decrementBrightness();
+        }
+    } else {
+        if (getBrightness() > _minBrightness) {
+            decrementBrightness();
+        } else {
+            _changeBrightnessUp = true;
+            incrementBrightness();
+        }
+    }
+}
+
 void NGColorLEDStrip::testSequenceStart() {
     beginUpdate();
     clear();

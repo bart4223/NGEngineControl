@@ -31,6 +31,9 @@
 
 #define MAXGEOMETRYCOUNT 3
 
+#define DEFMINBRIGHTNESS 0.0
+#define DEFMAXBRIGHTNESS 1.0
+
 enum testMode {tmDefault, tmPixel};
 enum LEDStripKind {lskLeftRightStrict, lskLeftRightAlternate, lskUpDownStrict, lskUpDownAlternate};
 
@@ -67,6 +70,9 @@ private:
     byte _geometryCount = 0;
     bool _logging = false;
     int _indicatorRange = DEFINDICATORRANGE;
+    float _maxBrightness = DEFMAXBRIGHTNESS;
+    float _minBrightness = DEFMINBRIGHTNESS;
+    bool _changeBrightnessUp = true;
     
 protected:
     void _create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind, int pinautodetection);
@@ -103,6 +109,16 @@ public:
     void setTestModeDelay(int testmodedelay);
     
     void setOffset(int offsetX, int offsetY);
+    
+    void setBrightness(float brightness);
+    
+    float getBrightness();
+    
+    void incrementBrightness();
+    
+    void decrementBrightness();
+    
+    void changeBrightness();
 
     void testSequenceStart();
 

@@ -4,11 +4,12 @@
 #include <NGCommon.h>
 #include <NGMemoryObserver.h>
 #include <NGColorLEDStrip.h>
+#include <NGSimpleKeypad.h>
 
 #define PIN                   8
 #define PINAUTODETECTION     A0
 
-#define LEDSTRIP100_INDICATOR 900
+#define LEDSTRIP100_INDICATOR 1000
 #define LEDSTRIP100_PIXELS    100
 #define LEDSTRIP100_ROWS       10
 #define LEDSTRIP256_INDICATOR 800
@@ -41,14 +42,24 @@ NGColorLEDStrip cls = NGColorLEDStrip(PIN, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS)
 NGColorLEDStrip cls = NGColorLEDStrip(PIN, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS, lskUpDownAlternate);
 #endif
 
+#define KEY1PIN           27
+#define KEY1ID            42
+
+#define KEYDELAY 250
+
+NGSimpleKeypad skp = NGSimpleKeypad();
+
 coord2D img[] = {{0, 0}, {1, 1}, {2, 2}};
 colorRGB clr[] = {COLOR_RED, COLOR_GREEN, COLOR_BLUE};
 
 byte step = START;
+long lastUpdate = 0;
 
 void setup() {
   observeMemory(0);
   initGlobalRandomSeedWithAnalogInput(A5);
+  skp.registerCallback(&SimpleKeypadCallback);
+  skp.registerKey(KEY1PIN, KEY1ID, KEYDELAY);
   //cls.setLogging(true);
   cls.setIndicatorRange(49);
   cls.registerGeometry(LEDSTRIP100_INDICATOR, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
@@ -65,36 +76,49 @@ void setup() {
     delay(TESTDELAY);
   }
   cls.testSequenceStop();
+  skp.initialize();
   observeMemory(0);
 }
 
 void loop() {
-  cls.clear();
-  switch (step) {
-    case 0x00:
-      cls.drawLine(1, 1, 8, 6, COLOR_RED);
-      break;
-    case 0x01:
-      cls.drawRect(2, 2, 6, 7, COLOR_GREEN);
-      break;
-    case 0x02:
-      cls.fillRect(3, 3, 6, 7, COLOR_BLUE);
-      break;
-    case 0x03:
-      cls.drawCircle(5, 5, 2, COLOR_YELLOW);
-      break;
-    case 0x04:
-      cls.drawImage(img, clr, sizeof(img) / sizeof(img[0]));
-      break;
-    case 0x05:
-      cls.drawPoint(0, 0, COLOR_RED);
-      cls.drawPoint(1, 0, COLOR_GREEN);
-      cls.drawPoint(2, 0, COLOR_BLUE);
+  skp.processingLoop();
+  if (millis() - lastUpdate > DELAY) {
+    cls.clear();
+    switch (step) {
+      case 0x00:
+        cls.drawLine(1, 1, 8, 6, COLOR_RED);
+        break;
+      case 0x01:
+        cls.drawRect(2, 2, 6, 7, COLOR_GREEN);
+        break;
+      case 0x02:
+        cls.fillRect(3, 3, 6, 7, COLOR_BLUE);
+        break;
+      case 0x03:
+        cls.drawCircle(5, 5, 2, COLOR_YELLOW);
+        break;
+      case 0x04:
+        cls.drawImage(img, clr, sizeof(img) / sizeof(img[0]));
+        break;
+      case 0x05:
+        cls.drawPoint(0, 0, COLOR_RED);
+        cls.drawPoint(1, 0, COLOR_GREEN);
+        cls.drawPoint(2, 0, COLOR_BLUE);
+        break;
+    }
+    step++;
+    if (step > STOP) {
+      step = START;
+    }
+    lastUpdate = millis();
+  }
+}
+
+void SimpleKeypadCallback(byte id) {
+  switch(id) {
+    case KEY1ID:
+      cls.changeBrightness();
       break;
   }
-  step++;
-  if (step > STOP) {
-    step = START;
-  }
-  delay(DELAY);
+  observeMemory(0);
 }
