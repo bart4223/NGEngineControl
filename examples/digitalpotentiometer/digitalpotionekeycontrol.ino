@@ -1,3 +1,5 @@
+#define WITHACTIVATION // WITHOUTACTIVATION, WITHACTIVATION
+
 #include <NGMemoryObserver.h>
 #include <NGSimpleKeypad.h>
 #include <NGDigitalPotentiometer.h>
@@ -7,7 +9,9 @@
 #define ADDRESS_POTI 0x00
 #define PIN_CS 53
 
-#define KEY1PIN 23
+#define ACTIVATIONPIN 9
+
+#define KEY1PIN 26
 #define KEY1ID  42
 
 #define POTI_MAX 255
@@ -18,7 +22,12 @@
 
 NGDigitalPotentiometer dp = NGDigitalPotentiometer(PIN_CS, ADDRESS_POTI);
 NGSimpleKeypad skp = NGSimpleKeypad();
+#ifdef WITHOUTACTIVATION
 NGSoundMachine sm = NGSoundMachine();
+#endif
+#ifdef WITHACTIVATION
+NGSoundMachine sm = NGSoundMachine(DEFPINPIEZO, ACTIVATIONPIN);
+#endif
 
 void setup() {
   observeMemory(0);
@@ -32,6 +41,9 @@ void setup() {
   sm.setConcurrently(true);
   sm.registerJingle(new NGJingleBeep);
   sm.initialize();
+  #ifdef WITHACTIVATION
+  sm.activate();
+  #endif
   sm.playRandom();
   observeMemory(0);
 }
