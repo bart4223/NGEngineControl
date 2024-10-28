@@ -112,6 +112,10 @@ void NGColorLEDStrip::setOffset(int offsetX, int offsetY) {
 
 void NGColorLEDStrip::setBrightness(float brightness) {
     _brightness = brightness;
+    if (_logging) {
+        Serial.print("b: ");
+        Serial.println(_brightness);
+    }
 }
 
 float NGColorLEDStrip::getBrightness() {
@@ -121,7 +125,7 @@ float NGColorLEDStrip::getBrightness() {
 void NGColorLEDStrip::incrementBrightness() {
     float brightness = getBrightness();
     float step = 0.1;
-    if (brightness <= 0.1) {
+    if (brightness <= 0.09) {
         step = 0.01;
     }
     brightness = brightness + step;

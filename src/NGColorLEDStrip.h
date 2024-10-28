@@ -31,8 +31,8 @@
 
 #define MAXGEOMETRYCOUNT 3
 
-#define DEFMINBRIGHTNESS 0.0
-#define DEFMAXBRIGHTNESS 1.0
+#define DEFMINBRIGHTNESS 0.01
+#define DEFMAXBRIGHTNESS 1.00
 
 enum testMode {tmDefault, tmPixel};
 enum LEDStripKind {lskLeftRightStrict, lskLeftRightAlternate, lskUpDownStrict, lskUpDownAlternate};
