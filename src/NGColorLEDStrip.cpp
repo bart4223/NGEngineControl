@@ -122,6 +122,14 @@ float NGColorLEDStrip::getBrightness() {
     return _brightness;
 }
 
+bool NGColorLEDStrip::isMinBrightness() {
+    return getBrightness() == _minBrightness;
+}
+
+bool NGColorLEDStrip::isMaxBrightness() {
+    return getBrightness() == _maxBrightness;
+}
+
 void NGColorLEDStrip::incrementBrightness() {
     float brightness = getBrightness();
     float step = 0.1;

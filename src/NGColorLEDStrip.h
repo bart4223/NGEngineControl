@@ -114,6 +114,10 @@ public:
     
     float getBrightness();
     
+    bool isMinBrightness();
+    
+    bool isMaxBrightness();
+    
     void incrementBrightness();
     
     void decrementBrightness();

@@ -1,10 +1,16 @@
 #define LEDSTRIPAUTO //LEDSTRIP100, LEDSTRIP256, LEDSTRIPAUTO
 #define TESTMODEDEFAULT //TESTMODEDEFAULT, TESTMODEPIXEL
+#define WITHBEEP //WITHOUTBEEP, WITHBEEP
 
 #include <NGCommon.h>
 #include <NGMemoryObserver.h>
 #include <NGColorLEDStrip.h>
 #include <NGSimpleKeypad.h>
+#ifdef WITHBEEP
+#include <NGSoundMachine.h>
+#include <NGJingleBeep.h>
+#include <NGDigitalPotentiometer.h>
+#endif
 
 #define PIN                   8
 #define PINAUTODETECTION     A0
@@ -29,6 +35,17 @@
 
 #define START 0x00
 #define STOP  0x05
+
+#ifdef WITHBEEP
+#define SOUNDACTIVATIONPIN 9
+#define ADDRESS_POTI 0x00
+#define PIN_CS 53
+#define POTI_MAX 255
+#define POTI_MIN 225
+#define POTI_STEP  5
+NGSoundMachine *sm = new NGSoundMachine(DEFPINPIEZO, SOUNDACTIVATIONPIN);
+NGDigitalPotentiometer dp = NGDigitalPotentiometer(PIN_CS, ADDRESS_POTI);
+#endif
 
 #ifdef LEDSTRIPAUTO
 // 1K = 100 Pixel
@@ -77,11 +94,23 @@ void setup() {
   }
   cls.testSequenceStop();
   skp.initialize();
+  #ifdef WITHBEEP
+  dp.setMinValue(POTI_MIN);
+  dp.setMaxValue(POTI_MAX);
+  dp.setStepValue(POTI_STEP);
+  dp.initialize(POTI_MAX);
+  sm->setConcurrently(true);
+  sm->registerJingle(new NGJingleBeep);
+  sm->initialize();
+  sm->activate();
+  sm->playRandom();
+  #endif
   observeMemory(0);
 }
 
 void loop() {
   skp.processingLoop();
+  sm->processingLoop();
   if (millis() - lastUpdate > DELAY) {
     cls.clear();
     switch (step) {
@@ -118,6 +147,11 @@ void SimpleKeypadCallback(byte id) {
   switch(id) {
     case KEY1ID:
       cls.changeBrightness();
+      #ifdef WITHBEEP
+      if (cls.isMinBrightness() || cls.isMaxBrightness()) {
+        sm->playRandom();
+      }
+      #endif
       break;
   }
   observeMemory(0);
