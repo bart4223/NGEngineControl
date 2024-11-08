@@ -1,6 +1,6 @@
 #define LEDSTRIPAUTO //LEDSTRIP100, LEDSTRIP256, LEDSTRIPAUTO
 #define TESTMODEDEFAULT //TESTMODEDEFAULT, TESTMODEPIXEL
-#define WITHBEEP //WITHOUTBEEP, WITHBEEP
+#define WITHOUTBEEP //WITHOUTBEEP, WITHBEEP
 
 #include <NGCommon.h>
 #include <NGMemoryObserver.h>
@@ -110,7 +110,9 @@ void setup() {
 
 void loop() {
   skp.processingLoop();
+  #ifdef WITHBEEP
   sm->processingLoop();
+  #endif
   if (millis() - lastUpdate > DELAY) {
     cls.clear();
     switch (step) {
