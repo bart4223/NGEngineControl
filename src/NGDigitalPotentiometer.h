@@ -67,6 +67,10 @@ public:
     void decrementValue();
     
     void changeValue();
+    
+    bool isMinValue();
+    
+    bool isMaxValue();
 };
 
 #endif /* NGDigitalPotentiometer_h */

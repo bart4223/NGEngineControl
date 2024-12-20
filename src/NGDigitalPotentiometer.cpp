@@ -94,3 +94,11 @@ void NGDigitalPotentiometer::changeValue() {
             break;
     }
 }
+
+bool NGDigitalPotentiometer::isMinValue() {
+    return getValue() == _minValue;
+}
+
+bool NGDigitalPotentiometer::isMaxValue() {
+    return getValue() == _maxValue;
+}

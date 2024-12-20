@@ -1,6 +1,6 @@
 #define LEDSTRIPAUTO //LEDSTRIP100, LEDSTRIP256, LEDSTRIPAUTO
 #define TESTMODEDEFAULT //TESTMODEDEFAULT, TESTMODEPIXEL
-#define WITHOUTBEEP //WITHOUTBEEP, WITHBEEP
+#define WITHBEEP //WITHOUTBEEP, WITHBEEP
 
 #include <NGCommon.h>
 #include <NGMemoryObserver.h>
@@ -8,7 +8,9 @@
 #include <NGSimpleKeypad.h>
 #ifdef WITHBEEP
 #include <NGSoundMachine.h>
+#include <NGJingleBoot.h>
 #include <NGJingleBeep.h>
+#include <NGJingleAlarm.h>
 #include <NGDigitalPotentiometer.h>
 #endif
 
@@ -59,8 +61,10 @@ NGColorLEDStrip cls = NGColorLEDStrip(PIN, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS)
 NGColorLEDStrip cls = NGColorLEDStrip(PIN, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS, lskUpDownAlternate);
 #endif
 
-#define KEY1PIN           27
-#define KEY1ID            42
+#define KEYBEEPPIN        26
+#define KEYBEEPID         42
+#define KEYBRIGHTNESSPIN  27
+#define KEYBRIGHTNESSID   43
 
 #define KEYDELAY 250
 
@@ -72,11 +76,16 @@ colorRGB clr[] = {COLOR_RED, COLOR_GREEN, COLOR_BLUE};
 byte step = START;
 long lastUpdate = 0;
 
+byte jingleBootID;
+byte jingleBeepID;
+byte jingleAlarmID;
+
 void setup() {
   observeMemory(0);
   initGlobalRandomSeedWithAnalogInput(A5);
   skp.registerCallback(&SimpleKeypadCallback);
-  skp.registerKey(KEY1PIN, KEY1ID, KEYDELAY);
+  skp.registerKey(KEYBEEPPIN, KEYBEEPID, KEYDELAY);
+  skp.registerKey(KEYBRIGHTNESSPIN, KEYBRIGHTNESSID, KEYDELAY);
   //cls.setLogging(true);
   cls.setIndicatorRange(49);
   cls.registerGeometry(LEDSTRIP100_INDICATOR, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
@@ -98,12 +107,14 @@ void setup() {
   dp.setMinValue(POTI_MIN);
   dp.setMaxValue(POTI_MAX);
   dp.setStepValue(POTI_STEP);
-  dp.initialize(POTI_MAX);
+  dp.initialize(POTI_MIN);
   sm->setConcurrently(true);
-  sm->registerJingle(new NGJingleBeep);
+  jingleBootID = sm->registerJingle(new NGJingleBoot);
+  jingleBeepID = sm->registerJingle(new NGJingleBeep);
+  jingleAlarmID = sm->registerJingle(new NGJingleAlarm);
   sm->initialize();
   sm->activate();
-  sm->playRandom();
+  sm->play(jingleBootID);
   #endif
   observeMemory(0);
 }
@@ -147,11 +158,23 @@ void loop() {
 
 void SimpleKeypadCallback(byte id) {
   switch(id) {
-    case KEY1ID:
+    case KEYBEEPID:
+      #ifdef WITHBEEP
+      dp.changeValue();
+      if (dp.isMinValue() || dp.isMaxValue()) {
+        sm->play(jingleAlarmID);
+      } else {
+        sm->play(jingleBeepID);
+      }
+      #endif
+      break;
+    case KEYBRIGHTNESSID:
       cls.changeBrightness();
       #ifdef WITHBEEP
       if (cls.isMinBrightness() || cls.isMaxBrightness()) {
-        sm->playRandom();
+        sm->play(jingleAlarmID);
+      } else {
+        sm->play(jingleBeepID);
       }
       #endif
       break;
