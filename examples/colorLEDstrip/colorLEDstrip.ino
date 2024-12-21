@@ -131,7 +131,7 @@ void setup() {
   if (hasLCD) {
     lcd = new NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
     lcd->initialize();
-    lcd->writeInfo("LCD Strip", 0, 3);
+    lcd->writeInfo("LED Strip", 0, 3);
     lcd->writeInfo("Test and Debug", 1, 1);
   }
   observeMemory(0);
