@@ -13,9 +13,12 @@
 #include <NGJingleAlarm.h>
 #include <NGDigitalPotentiometer.h>
 #endif
+#include <NGLCDNotification.h>
 
-#define PIN                   8
-#define PINAUTODETECTION     A0
+#define PINLED                8
+#define PINAUTODETECTIONLED  A0
+#define PINAUTODETECTIONLCD  A1
+#define LCD_INDICATOR       900
 
 #define LEDSTRIP100_INDICATOR 900
 #define LEDSTRIP100_PIXELS    100
@@ -48,11 +51,14 @@
 NGSoundMachine *sm = new NGSoundMachine(DEFPINPIEZO, SOUNDACTIVATIONPIN);
 NGDigitalPotentiometer dp = NGDigitalPotentiometer(PIN_CS, ADDRESS_POTI);
 #endif
+#define LCDADDRESS    0x27
+#define LCDCOLUMNS    16
+#define LCDLINES      2
 
 #ifdef LEDSTRIPAUTO
 // 1K = 100 Pixel
 // 2K = 256 Pixel
-NGColorLEDStrip cls = NGColorLEDStrip(PIN, PINAUTODETECTION);
+NGColorLEDStrip cls = NGColorLEDStrip(PINLED, PINAUTODETECTIONLED);
 #endif
 #ifdef LEDSTRIP100
 NGColorLEDStrip cls = NGColorLEDStrip(PIN, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
@@ -73,12 +79,16 @@ NGSimpleKeypad skp = NGSimpleKeypad();
 coord2D img[] = {{0, 0}, {1, 1}, {2, 2}};
 colorRGB clr[] = {COLOR_RED, COLOR_GREEN, COLOR_BLUE};
 
+NGLCDNotification *lcd;
+
 byte step = START;
 long lastUpdate = 0;
 
 byte jingleBootID;
 byte jingleBeepID;
 byte jingleAlarmID;
+
+bool hasLCD;
 
 void setup() {
   observeMemory(0);
@@ -116,6 +126,14 @@ void setup() {
   sm->activate();
   sm->play(jingleBootID);
   #endif
+  int lcdValue = analogRead(PINAUTODETECTIONLCD);
+  hasLCD = lcdValue > LCD_INDICATOR - 100 && lcdValue < LCD_INDICATOR + 100;
+  if (hasLCD) {
+    lcd = new NGLCDNotification(LCDADDRESS, LCDCOLUMNS, LCDLINES);
+    lcd->initialize();
+    lcd->writeInfo("LCD Strip", 0, 3);
+    lcd->writeInfo("Test and Debug", 1, 1);
+  }
   observeMemory(0);
 }
 
