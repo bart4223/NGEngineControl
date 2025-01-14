@@ -8,12 +8,7 @@
 #ifndef NGMotionUnitControl_h
 #define NGMotionUnitControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCommon.h>
 #include <NGExceptionDefinitions.h>
 #include <NGMotionSequenceStorage.h>

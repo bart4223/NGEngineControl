@@ -16,12 +16,7 @@
 // 5. Power switch relais turn off
 // 6. Arduino shut down
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomUnitControl.h>
 #include <NGRelaisControl.h>
 #include <NGServoControl.h>

@@ -8,12 +8,7 @@
 #ifndef NGRemoteMotionControl_h
 #define NGRemoteMotionControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomMotionControl.h>
 
 class NGRemoteMotionControl : public NGCustomMotionControl {

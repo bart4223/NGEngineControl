@@ -8,13 +8,8 @@
 #ifndef NG7SegmentDisplay_h
 #define NG7SegmentDisplay_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NG8BitShiftRegister.h"
+#include <NG8BitShiftRegister.h>
 
 enum sevenSegmentMode { ssmDec, ssmHex };
 

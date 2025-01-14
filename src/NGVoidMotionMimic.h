@@ -8,13 +8,8 @@
 #ifndef NGVoidMotionMimic_h
 #define NGVoidMotionMimic_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGCustomMotionMimic.h"
+#include <NGCustomMotionMimic.h>
 
 class NGVoidMotionMimic : public NGCustomMotionMimic {
   

@@ -8,12 +8,7 @@
 #ifndef NGUnitControl_h
 #define NGUnitControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomUnitControl.h>
 #include <NGJointControl.h>
 #include <NGGripperControl.h>

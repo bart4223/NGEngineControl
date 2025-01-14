@@ -8,11 +8,7 @@
 #ifndef NGCompass_h
 #define NGCompass_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 // GY-271 - QMC5883L
 // Control-Register 0x09, 0x0A and 0x0B

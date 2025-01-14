@@ -8,12 +8,7 @@
 #ifndef NGMorseToneNotification_h
 #define NGMorseToneNotification_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGINotification.h>
 #include <NGCustomJingle.h>
 #include <NGMorseToneGenerator.h>

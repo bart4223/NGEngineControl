@@ -8,12 +8,7 @@
 #ifndef NGCarSteeringControl_h
 #define NGCarSteeringControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGServoControl.h>
 #include <NGCustomSteeringControl.h>
 

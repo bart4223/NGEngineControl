@@ -18,11 +18,7 @@
 // PIN 7 = LOW(GND)
 // PIN 8 = 5V
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define DEFADDRESS  0x00
 #define DEFMINVALUE    0

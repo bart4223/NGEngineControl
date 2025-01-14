@@ -8,12 +8,7 @@
 #ifndef NGWirelessRemoteUnitControl_h
 #define NGWirelessRemoteUnitControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomUnitControl.h>
 #include <NGJoystickControl.h>
 

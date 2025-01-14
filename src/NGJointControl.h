@@ -8,12 +8,7 @@
 #ifndef NGJointControl_h
 #define NGJointControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGEngineControl.h>
 
 #define JOINT_0             0

@@ -8,12 +8,7 @@
 #ifndef NGAnchormanUnitControl_h
 #define NGAnchormanUnitControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomUnitControl.h>
 #include <NGEngineControl.h>
 

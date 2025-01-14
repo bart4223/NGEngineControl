@@ -8,12 +8,7 @@
 #ifndef NGLaserCannon_h
 #define NGLaserCannon_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGITestableComponent.h>
 
 class NGLaserCannon : public NGITestableComponent {

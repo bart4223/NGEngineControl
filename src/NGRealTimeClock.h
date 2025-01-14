@@ -8,13 +8,8 @@
 #ifndef NGRealTimeClock_h
 #define NGRealTimeClock_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "RTClib.h"
+#include <RTClib.h>
 
 // DS3231 -> I2C 0x68
 

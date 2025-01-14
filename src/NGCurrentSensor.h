@@ -8,11 +8,7 @@
 #ifndef NGCurrentSensor_h
 #define NGCurrentSensor_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define DEFPINLIGHTSENSOR A0
 #define DEFCURRENTSENSORTECHNOLOGY cst5Ampere

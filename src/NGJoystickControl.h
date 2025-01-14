@@ -8,11 +8,7 @@
 #ifndef NGJoystickControl_h
 #define NGJoystickControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define DEFJOYSTICKPINX     A0
 #define DEFJOYSTICKPINY     A1

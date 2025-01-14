@@ -8,11 +8,7 @@
 #ifndef NGDuoLED_h
 #define NGDuoLED_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 class NGDuoLED {
 

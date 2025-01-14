@@ -8,14 +8,9 @@
 #ifndef NGColorDotMatrixFuse_h
 #define NGColorDotMatrixFuse_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGIPaintableObject.h"
-#include "NGColorDotMatrix.h"
+#include <NGIPaintableObject.h>
+#include <NGColorDotMatrix.h>
 
 #define DEFARITY 8
 #define DEFFUSEDIRECTION fdLeft

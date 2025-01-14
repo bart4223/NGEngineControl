@@ -8,12 +8,7 @@
 #ifndef NGCaterpillarSteeringControl_h
 #define NGCaterpillarSteeringControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomSteeringControl.h>
 
 class NGCaterpillarSteeringControl : public NGCustomSteeringControl {

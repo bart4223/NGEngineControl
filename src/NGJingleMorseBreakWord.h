@@ -8,12 +8,7 @@
 #ifndef NGJingleMorseBreakWord_h
 #define NGJingleMorseBreakWord_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomJingle.h>
 
 class NGJingleMorseBreakWord : public NGCustomJingle {

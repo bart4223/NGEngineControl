@@ -8,13 +8,8 @@
 #ifndef NGMulti7SegmentDisplay_h
 #define NGMulti7SegmentDisplay_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NG7SegmentDisplay.h"
+#include <NG7SegmentDisplay.h>
 
 class NGMulti7SegmentDisplay {
 

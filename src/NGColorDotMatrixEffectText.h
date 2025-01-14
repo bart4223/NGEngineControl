@@ -8,17 +8,12 @@
 #ifndef NGColorDotMatrixEffectText_h
 #define NGColorDotMatrixEffectText_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGCommonGraphics.h"
-#include "NGIEffect.h"
-#include "NGCustomFont.h"
-#include "NGIPaintableComponent.h"
-#include "NGColorDotMatrixCharDigit.h"
+#include <NGCommonGraphics.h>
+#include <NGIEffect.h>
+#include <NGCustomFont.h>
+#include <NGIPaintableComponent.h>
+#include <NGColorDotMatrixCharDigit.h>
 
 #define DEFNEXTCHARDELAY 500
 

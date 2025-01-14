@@ -8,12 +8,7 @@
 #ifndef NGCustomMotionControl_h
 #define NGCustomMotionControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCommon.h>
 #include <NGMotionSequenceStorage.h>
 #include <NGCustomMotionMimic.h>

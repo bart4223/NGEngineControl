@@ -8,12 +8,7 @@
 #ifndef NGIrrigationUnitControl_h
 #define NGIrrigationUnitControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomUnitControl.h>
 #include <NGPumpControl.h>
 #include <NGSoilMoistureSensor.h>

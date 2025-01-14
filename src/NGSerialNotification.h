@@ -8,12 +8,7 @@
 #ifndef NGSerialNotification_h
 #define NGSerialNotification_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGINotification.h>
 
 class NGSerialNotification : public NGINotification {

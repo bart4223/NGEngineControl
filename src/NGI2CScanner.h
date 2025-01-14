@@ -8,11 +8,7 @@
 #ifndef NGI2CScanner_h
 #define NGI2CScanner_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define DEFTIMEOUT 10000
 

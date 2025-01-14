@@ -8,12 +8,7 @@
 #ifndef NGMotionSequenceStorage_h
 #define NGMotionSequenceStorage_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCommon.h>
 #include <NGCustomSteeringControl.h>
 

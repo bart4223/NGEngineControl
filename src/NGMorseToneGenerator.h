@@ -8,13 +8,8 @@
 #ifndef NGMorseToneGenerator_h
 #define NGMorseToneGenerator_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGSoundMachine.h"
+#include <NGSoundMachine.h>
 
 #define DEFNOJINGLE -1
 

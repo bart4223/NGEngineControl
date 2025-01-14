@@ -8,14 +8,9 @@
 #ifndef NGColorDotMatrixGradientPoint_h
 #define NGColorDotMatrixGradientPoint_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGDimmableColor.h"
-#include "NGIPaintableComponent.h"
+#include <NGDimmableColor.h>
+#include <NGIPaintableComponent.h>
 
 #define DEFGRADIENTSTAGES 5
 

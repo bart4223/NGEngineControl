@@ -8,12 +8,7 @@
 #ifndef NGJingleAlarm_h
 #define NGJingleAlarm_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomJingle.h>
 
 class NGJingleAlarm : public NGCustomJingle {

@@ -8,12 +8,7 @@
 #ifndef NGMorseDah_h
 #define NGMorseDah_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomJingle.h>
 
 class NGJingleMorseDah : public NGCustomJingle {

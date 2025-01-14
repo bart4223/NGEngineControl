@@ -8,13 +8,8 @@
 #ifndef NGBotRetriever_h
 #define NGBotRetriever_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGCustomMotionMimic.h"
+#include <NGCustomMotionMimic.h>
 
 class NGBotRetriever : public NGCustomMotionMimic {
   

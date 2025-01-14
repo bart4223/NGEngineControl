@@ -8,11 +8,7 @@
 #ifndef NGQuestionDialog_h
 #define NGQuestionDialog_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define DLGQMAXDELAY 500
 

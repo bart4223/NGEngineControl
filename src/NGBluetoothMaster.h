@@ -8,11 +8,7 @@
 #ifndef NGBluetoothMaster_h
 #define NGBluetoothMaster_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 class NGBluetoothMaster {
     

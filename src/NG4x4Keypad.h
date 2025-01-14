@@ -8,13 +8,8 @@
 #ifndef NG4x4Keypad_h
 #define NG4x4Keypad_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "Keypad.h"
+#include <Keypad.h>
 
 #define KEYPADROWS 4
 #define KEYPADCOLS 4

@@ -8,12 +8,7 @@
 #ifndef NGSoundMachine_h
 #define NGSoundMachine_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomJingle.h>
 
 #define DEFPINPIEZO 13

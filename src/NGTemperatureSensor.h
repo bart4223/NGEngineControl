@@ -8,13 +8,8 @@
 #ifndef NGTemperatureSensor_h
 #define NGTemperatureSensor_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "DHT.h"
+#include <DHT.h>
 
 // DHT11
 // Left   = Signal

@@ -8,12 +8,7 @@
 #ifndef NGJingleChristmasSong_h
 #define NGJingleChristmasSong_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomJingle.h>
 
 class NGJingleChristmasSong : public NGCustomJingle {

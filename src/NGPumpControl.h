@@ -8,13 +8,8 @@
 #ifndef NGPumpControl_h
 #define NGPumpControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGRelaisControl.h"
+#include <NGRelaisControl.h>
 
 class NGPumpControl {
 

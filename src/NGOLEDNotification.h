@@ -8,12 +8,7 @@
 #ifndef NGOLEDNotification_h
 #define NGOLEDNotification_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <SSD1306Ascii.h>
 #include <SSD1306AsciiWire.h>
 #include <NGCommon.h>

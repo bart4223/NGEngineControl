@@ -8,12 +8,7 @@
 #ifndef NGJingleBoot_h
 #define NGJingleBoot_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomJingle.h>
 
 class NGJingleBoot : public NGCustomJingle {

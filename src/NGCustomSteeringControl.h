@@ -8,12 +8,7 @@
 #ifndef NGCustomSteeringControl_h
 #define NGCustomSteeringControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGEngineControl.h>
 
 enum turnDirection { tdNone, tdLeft, tdRight, tdLeftSoft, tdRightSoft };

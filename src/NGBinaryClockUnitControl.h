@@ -8,13 +8,8 @@
 #ifndef NGBinaryClockUnitControl_h
 #define NGBinaryClockUnitControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGColorDotMatrixBinaryDigit.h"
+#include <NGColorDotMatrixBinaryDigit.h>
 #include <NGCustomUnitControl.h>
 
 #define _VERSION "0.4"

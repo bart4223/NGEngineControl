@@ -8,12 +8,7 @@
 #ifndef NGLCDNotification_h
 #define NGLCDNotification_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <LiquidCrystal_I2C.h>
 #include <NGINotification.h>
 

@@ -8,12 +8,7 @@
 #ifndef NGServoControl_h
 #define NGServoControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <Servo.h>
 
 #define DEFSERVOPIN             8

@@ -8,12 +8,7 @@
 #ifndef NGSimpleMotionControl_h
 #define NGSimpleMotionControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomMotionControl.h>
 
 class NGSimpleMotionControl : public NGCustomMotionControl {

@@ -8,14 +8,9 @@
 #ifndef NGColorDotMatrixCustomDigit_h
 #define NGColorDotMatrixCustomDigit_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGCustomFont.h"
-#include "NGIPaintableComponent.h"
+#include <NGCustomFont.h>
+#include <NGIPaintableComponent.h>
 
 class NGColorDotMatrixCustomDigit {
     

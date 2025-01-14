@@ -8,12 +8,7 @@
 #ifndef NGJingleThinking_h
 #define NGJingleThinking_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomJingle.h>
 
 class NGJingleThinking : public NGCustomJingle {

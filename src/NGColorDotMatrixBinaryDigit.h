@@ -8,14 +8,9 @@
 #ifndef NGColorDotMatrixBinaryDigit_h
 #define NGColorDotMatrixBinaryDigit_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGIPaintableObject.h"
-#include "NGColorDotMatrix.h"
+#include <NGIPaintableObject.h>
+#include <NGColorDotMatrix.h>
 
 enum BinaryDigitDirection { bddUp, bddDown, bddLeft, bddRight };
 

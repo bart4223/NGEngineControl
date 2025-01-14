@@ -8,12 +8,7 @@
 #ifndef NGCandleArchUnitControl_h
 #define NGCandleArchUnitControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomUnitControl.h>
 #include <NGITestableComponent.h>
 #include <NG8BitShiftRegister.h>

@@ -8,13 +8,8 @@
 #ifndef NGBluetoothSlave_h
 #define NGBluetoothSlave_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGBluetooth.h"
+#include <NGBluetooth.h>
 
 typedef void (*bluetoothSlaveSwitchCallbackFunc)(byte context, bool on);
 typedef void (*bluetoothSlaveCounterCallbackFunc)(byte context, int counter);

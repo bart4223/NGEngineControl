@@ -8,11 +8,7 @@
 #ifndef NGSimpleWirelessReceiver_h
 #define NGSimpleWirelessReceiver_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define MAXSWRCALLBACKOUNT         4
 #define SWRNODELAY                 0

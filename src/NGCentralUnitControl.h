@@ -8,12 +8,7 @@
 #ifndef NGCentralUnitControl_h
 #define NGCentralUnitControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGExceptionDefinitions.h>
 #include <NGCustomUnitControl.h>
 

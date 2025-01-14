@@ -8,16 +8,11 @@
 #ifndef NGColorLEDStrip_h
 #define NGColorLEDStrip_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NeoPixelBus.h>
-#include "NGCommonGraphics.h"
-#include "NGITestableComponent.h"
-#include "NGIPaintableComponent.h"
+#include <NGCommonGraphics.h>
+#include <NGITestableComponent.h>
+#include <NGIPaintableComponent.h>
 
 #define DEFROWCOUNT      1
 #define DEFBRIGHTNESS    1

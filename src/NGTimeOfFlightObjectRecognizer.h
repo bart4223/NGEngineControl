@@ -8,12 +8,7 @@
 #ifndef NGTimeOfFlightObjectRecognizer_h
 #define NGTimeOfFlightObjectRecognizer_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <VL53L0X.h>
 #include <NGCustomObjectRecognizer.h>
 

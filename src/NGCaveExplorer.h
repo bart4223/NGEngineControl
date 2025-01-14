@@ -8,13 +8,8 @@
 #ifndef NGCaveExplorer_h
 #define NGCaveExplorer_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGCustomMotionMimic.h"
+#include <NGCustomMotionMimic.h>
 
 #define DEFBACKWARDCLOSENESS 5
 

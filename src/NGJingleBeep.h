@@ -8,12 +8,7 @@
 #ifndef NGJingleBeep_h
 #define NGJingleBeep_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomJingle.h>
 
 class NGJingleBeep : public NGCustomJingle {

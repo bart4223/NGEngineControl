@@ -8,13 +8,8 @@
 #ifndef NGColorDotMatrixCharDigit_h
 #define NGColorDotMatrixCharDigit_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
-#include "NGColorDotMatrixCustomDigit.h"
+#include <NGColorDotMatrixCustomDigit.h>
 
 class NGColorDotMatrixCharDigit : public NGColorDotMatrixCustomDigit {
     

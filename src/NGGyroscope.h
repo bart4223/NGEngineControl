@@ -8,11 +8,7 @@
 #ifndef NGGyroscope_h
 #define NGGyroscope_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define MPUADDRESS 0x68
 

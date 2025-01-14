@@ -8,11 +8,7 @@
 #ifndef NGCustomJingle_h
 #define NGCustomJingle_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define NO_NOTE   0
 #define NOTE_B0  31

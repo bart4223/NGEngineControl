@@ -8,12 +8,7 @@
 #ifndef NGJingleSuperMario_h
 #define NGJingleSuperMario_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomJingle.h>
 
 class NGJingleSuperMario : public NGCustomJingle {

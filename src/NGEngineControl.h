@@ -8,11 +8,7 @@
 #ifndef NGEngineControl_h
 #define NGEngineControl_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
 
 #define ENGINE_0           0
 #define ENGINE_0_FORWARD  10

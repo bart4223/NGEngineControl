@@ -8,12 +8,7 @@
 #ifndef NGContactObjectRecognizer_h
 #define NGContactObjectRecognizer_h
 
-#if (ARDUINO >= 100)
 #include <Arduino.h>
-#else
-#include <WProgram.h>
-#endif
-
 #include <NGCustomObjectRecognizer.h>
 
 #define DEF_INPUT_PIN A0
