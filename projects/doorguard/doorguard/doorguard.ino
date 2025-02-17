@@ -3,25 +3,36 @@
 #include <NGMemoryObserver.h>
 #include <NGHallSensor.h>
 #include <NGSimpleLED.h>
+#include <Effects/NGSimpleLEDEffect.h>
 
-#define DELAY 1000
+#define PINLED1 6
+#define PINLED2 7
+
+#define DELAY     1000
+#define STEPDELAY  150
 
 NGHallSensor hs = NGHallSensor();
-NGSimpleLED led = NGSimpleLED();
+NGSimpleLED led1 = NGSimpleLED(PINLED1);
+NGSimpleLED led2 = NGSimpleLED(PINLED2);
+NGSimpleLEDEffect se = NGSimpleLEDEffect();
 
 void setup() {
   observeMemory(0);
   hs.initialize();
-  led.initialize();
+  se.setStepDelay(STEPDELAY);
+  se.registerLED(&led1);
+  se.registerLED(&led2);
+  se.initialize();
   observeMemory(0);
 }
 
 void loop() {
   if (hs.isMagneticFieldDetected()) {
-    led.off();
+    se.effectOff();
   } else {
-    led.on();
+    se.effectOn();
   }
+  se.processingLoop();
   #if (PROD == false)
   observeMemory(DELAY);
   #endif
