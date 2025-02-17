@@ -55,6 +55,18 @@ void NGSimpleLEDEffect::setStepDelay(int stepdelay) {
     _stepDelay = stepdelay;
 }
 
+int NGSimpleLEDEffect::getStepDelay() {
+    return _stepDelay;
+}
+
+void NGSimpleLEDEffect::setKind(simpleLEDEffectKind kind) {
+    _kind = kind;
+}
+
+simpleLEDEffectKind NGSimpleLEDEffect::getKind() {
+    return _kind;
+}
+
 void NGSimpleLEDEffect::processingLoop() {
     if (_effectOn) {
         if ((millis() - _lastStep) >= _stepDelay) {

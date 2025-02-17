@@ -45,6 +45,12 @@ public:
     byte registerLED(NGSimpleLED *led);
 
     void setStepDelay(int stepdelay);
+
+    int getStepDelay();
+
+    void setKind(simpleLEDEffectKind kind);
+    
+    simpleLEDEffectKind getKind();
     
     void initialize();
 
