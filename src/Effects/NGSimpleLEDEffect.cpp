@@ -79,6 +79,7 @@ void NGSimpleLEDEffect::processingLoop() {
 void NGSimpleLEDEffect::effectOn() {
     if (!_effectOn) {
         _effectOn = true;
+        _currentStep = 0;
         _render();
     }
 }
@@ -86,7 +87,6 @@ void NGSimpleLEDEffect::effectOn() {
 void NGSimpleLEDEffect::effectOff() {
     if (_effectOn) {
         _effectOn = false;
-        _currentStep = 0;
         for (int i = 0; i < _simpleLEDCount; i++) {
             if (_simpleLEDs[i].LED->isOn()) {
                 _simpleLEDs[i].LED->off();
