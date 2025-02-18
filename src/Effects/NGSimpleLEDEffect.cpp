@@ -6,6 +6,7 @@
 //
 
 #include <Effects/NGSimpleLEDEffect.h>
+#include <NGCommon.h>
 
 NGSimpleLEDEffect::NGSimpleLEDEffect() {
     _create();
@@ -28,6 +29,15 @@ void NGSimpleLEDEffect::_render() {
             _currentStep++;
             if (_currentStep >= _simpleLEDCount) {
                 _currentStep = 0;
+            }
+            break;
+        case slekRandom:
+            for (int i = 0; i < _simpleLEDCount; i++) {
+                if (getYesOrNo()) {
+                    _simpleLEDs[i].LED->on();
+                } else {
+                    _simpleLEDs[i].LED->off();
+                }
             }
             break;
     }
