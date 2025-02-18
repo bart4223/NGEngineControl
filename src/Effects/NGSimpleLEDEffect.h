@@ -23,7 +23,7 @@ enum simpleLEDEffectKind { slekAlternate, slekRandom };
 #define MAXSIMPLELEDEFFECTCOUNT 3
 #define DEFSTEPDELAY 500
 
-class NGSimpleLEDEffect : NGIEffect {
+class NGSimpleLEDEffect : public NGIEffect {
 
 private:
     simpleLEDEffect _simpleLEDs[MAXSIMPLELEDEFFECTCOUNT];
