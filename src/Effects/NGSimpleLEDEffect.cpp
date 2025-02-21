@@ -9,11 +9,20 @@
 #include <NGCommon.h>
 
 NGSimpleLEDEffect::NGSimpleLEDEffect() {
-    _create();
+    _create(slekAlternate, DEFSTEPDELAY);
 }
 
-void NGSimpleLEDEffect::_create() {
+NGSimpleLEDEffect::NGSimpleLEDEffect(simpleLEDEffectKind kind) {
+    _create(kind, DEFSTEPDELAY);
+}
 
+NGSimpleLEDEffect::NGSimpleLEDEffect(simpleLEDEffectKind kind, int stepdelay) {
+    _create(kind, stepdelay);
+}
+
+void NGSimpleLEDEffect::_create(simpleLEDEffectKind kind, int stepdelay) {
+    _kind = kind;
+    _stepDelay = stepdelay;
 }
 
 void NGSimpleLEDEffect::_render() {

@@ -35,12 +35,16 @@ private:
     int _stepDelay = DEFSTEPDELAY;
 
 protected:
-    void _create();
+    void _create(simpleLEDEffectKind kind, int stepdelay);
 
     void _render();
 
 public:
     NGSimpleLEDEffect();
+
+    NGSimpleLEDEffect(simpleLEDEffectKind kind);
+
+    NGSimpleLEDEffect(simpleLEDEffectKind kind, int stepdelay);
 
     byte registerLED(NGSimpleLED *led);
 
