@@ -18,7 +18,7 @@ struct simpleLEDEffectStruct
 };
 typedef struct simpleLEDEffectStruct simpleLEDEffect;
 
-enum simpleLEDEffectKind { slekAlternate, slekRandom };
+enum simpleLEDEffectKind { slekNone, slekAlternate, slekRandom };
 
 #define MAXSIMPLELEDEFFECTCOUNT 3
 #define DEFSTEPDELAY 500

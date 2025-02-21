@@ -18,6 +18,11 @@ void NGSimpleLEDEffect::_create() {
 
 void NGSimpleLEDEffect::_render() {
     switch(_kind) {
+        case slekNone:
+            for (int i = 0; i < _simpleLEDCount; i++) {
+                _simpleLEDs[i].LED->off();
+            }
+            break;
         case slekAlternate:
             for (int i = 0; i < _simpleLEDCount; i++) {
                 if (i == _currentStep) {
