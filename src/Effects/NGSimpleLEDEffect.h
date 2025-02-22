@@ -35,7 +35,7 @@ private:
     int _stepDelay = DEFSTEPDELAY;
 
 protected:
-    void _create(simpleLEDEffectKind kind, int stepdelay);
+    void _create(simpleLEDEffectKind kind, int stepdelay, bool effecton);
 
     void _render();
 
