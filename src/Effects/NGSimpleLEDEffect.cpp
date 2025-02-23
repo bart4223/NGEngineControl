@@ -55,6 +55,19 @@ void NGSimpleLEDEffect::_render() {
                 }
             }
             break;
+        case slekFlash:
+            for (int i = 0; i < _simpleLEDCount; i++) {
+                if (_currentStep % 2 == 0) {
+                    _simpleLEDs[i].LED->on();
+                } else {
+                    _simpleLEDs[i].LED->off();
+                }
+            }
+            _currentStep++;
+            if (_currentStep >= _simpleLEDCount) {
+                _currentStep = 0;
+            }
+            break;
     }
 }
 
