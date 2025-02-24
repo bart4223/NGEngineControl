@@ -1,6 +1,6 @@
-#define LEDSTRIP100 //LEDSTRIP100, LEDSTRIP256, LEDSTRIPAUTO
+#define LEDSTRIP8 //LEDSTRIP8, LEDSTRIP100, LEDSTRIP256, LEDSTRIPAUTO
 #define TESTMODEDEFAULT //TESTMODEDEFAULT, TESTMODEPIXEL
-#define WITHBEEP //WITHOUTBEEP, WITHBEEP
+#define WITHOUTBEEP //WITHOUTBEEP, WITHBEEP 
 
 #include <NGCommon.h>
 #include <NGMemoryObserver.h>
@@ -20,6 +20,8 @@
 #define PINAUTODETECTIONLCD  A1
 #define LCD_INDICATOR       900
 
+#define LEDSTRIP8_PIXELS        8
+#define LEDSTRIP8_ROWS          1
 #define LEDSTRIP100_INDICATOR 900
 #define LEDSTRIP100_PIXELS    100
 #define LEDSTRIP100_ROWS       10
@@ -28,6 +30,7 @@
 #define LEDSTRIP256_ROWS       16
 
 #define BRIGHTNESS 0.05
+//#define BRIGHTNESS 0.5
 
 #define DELAY        500
 #ifdef TESTMODEPIXEL
@@ -59,6 +62,9 @@ NGDigitalPotentiometer dp = NGDigitalPotentiometer(PIN_CS, ADDRESS_POTI);
 // 1K = 100 Pixel
 // 2K = 256 Pixel
 NGColorLEDStrip cls = NGColorLEDStrip(PINLED, PINAUTODETECTIONLED);
+#endif
+#ifdef LEDSTRIP8
+NGColorLEDStrip cls = NGColorLEDStrip(PINLED, LEDSTRIP8_PIXELS, LEDSTRIP8_ROWS);
 #endif
 #ifdef LEDSTRIP100
 NGColorLEDStrip cls = NGColorLEDStrip(PINLED, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
@@ -144,6 +150,23 @@ void loop() {
   #endif
   if (millis() - lastUpdate > DELAY) {
     cls.clear();
+    #ifdef LEDSTRIP8
+    if (step % 2 == 0) {
+      colorRGB c;
+      if (getYesOrNo()) {
+        c = COLOR_RED;
+      } else {
+        c = COLOR_GREEN;
+      }
+      for(int i = 0; i < 8; i++) {
+        cls.drawPoint(i, 0, c);
+      }
+    } else {
+      for(int i = 0; i < 8; i++) {
+        cls.drawPoint(i, 0, COLOR_BLACK);
+      }      
+    }
+    #else
     switch (step) {
       case 0x00:
         cls.drawLine(1, 1, 8, 6, COLOR_RED);
@@ -166,6 +189,7 @@ void loop() {
         cls.drawPoint(2, 0, COLOR_BLUE);
         break;
     }
+    #endif
     step++;
     if (step > STOP) {
       step = START;
@@ -180,7 +204,7 @@ void SimpleKeypadCallback(byte id) {
       #ifdef WITHBEEP
       dp.changeValue();
       if (dp.isMinValue() || dp.isMaxValue()) {
-        sm->play(jingleAlarmID);
+        sm->play(jingleAlarmID);  
       } else {
         sm->play(jingleBeepID);
       }
