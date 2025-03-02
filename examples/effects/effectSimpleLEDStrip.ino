@@ -2,7 +2,7 @@
 #include <NGColorLEDStrip.h>
 #include <Effects/NGSimpleColorLEDStripEffect.h>
 
-#define PINLED              8
+#define PINLEDSTRIP         8
 #define LEDSTRIP8_PIXELS    8
 #define LEDSTRIP8_ROWS      1
 
@@ -10,7 +10,7 @@
 
 #define STEPDELAY   250
 
-NGColorLEDStrip cls = NGColorLEDStrip(PINLED, LEDSTRIP8_PIXELS, LEDSTRIP8_ROWS);
+NGColorLEDStrip cls = NGColorLEDStrip(PINLEDSTRIP, LEDSTRIP8_PIXELS, LEDSTRIP8_ROWS);
 NGSimpleColorLEDStripEffect effect = NGSimpleColorLEDStripEffect(&cls, slsekAlternate);
 
 void setup() {
