@@ -1,8 +1,8 @@
 #define PROD false //false, true
 
 #include <NGMemoryObserver.h>
-#include <NGSimpleLED.h>
-#include <Effects/NGSimpleLEDEffect.h>
+#include <NGColorLEDStrip.h>
+#include <Effects/NGSimpleColorLEDStripEffect.h>
 #include <Apps/NGDoorGuardUnitControl.h>
 #if (PROD != true)
 #include <NGSerialNotification.h>
@@ -12,8 +12,11 @@
 #define DOORDGUARD        (char*)_DOORDGUARD
 #define DOORDGUARDADDRESS 0x24
 
-#define PINLED1 6
-#define PINLED2 7
+#define PINLEDSTRIP       8
+#define LEDSTRIP8_PIXELS  8
+#define LEDSTRIP8_ROWS    1
+
+#define BRIGHTNESS 0.05
 
 #define OPENSTEPDELAY    150
 #define CLOSESTEPDELAY   500
@@ -26,25 +29,22 @@ NGSerialNotification serialNotification = NGSerialNotification();
 #endif
 
 NGHallSensor hs = NGHallSensor();
-NGSimpleLED led1 = NGSimpleLED(PINLED1);
-NGSimpleLED led2 = NGSimpleLED(PINLED2);
-NGSimpleLEDEffect seCloseOn = NGSimpleLEDEffect(slekFlash, CLOSESTEPDELAY);
-NGSimpleLEDEffect seCloseOff = NGSimpleLEDEffect(slekNone);
-NGSimpleLEDEffect seOpenOn = NGSimpleLEDEffect(slekAlternate, OPENSTEPDELAY);
-NGSimpleLEDEffect seOpenOff = NGSimpleLEDEffect(slekNone);
+NGColorLEDStrip cls = NGColorLEDStrip(PINLEDSTRIP, LEDSTRIP8_PIXELS, LEDSTRIP8_ROWS);
+NGSimpleColorLEDStripEffect seCloseOn = NGSimpleColorLEDStripEffect(&cls, slsekFlash);
+NGSimpleColorLEDStripEffect seCloseOff = NGSimpleColorLEDStripEffect(&cls, slsekNone);
+NGSimpleColorLEDStripEffect seOpenOn = NGSimpleColorLEDStripEffect(&cls, slsekFlash);
+NGSimpleColorLEDStripEffect seOpenOff = NGSimpleColorLEDStripEffect(&cls, slsekNone);
 
 void setup() {
   observeMemory(0);
   setGlobalUnit(&unitDoordGuard);
+  // LED Strip
+  cls.setBrightness(BRIGHTNESS);
   // Effects
-  seOpenOn.registerLED(&led1);
-  seOpenOn.registerLED(&led2);
-  seOpenOff.registerLED(&led1);
-  seOpenOff.registerLED(&led2);
-  seCloseOn.registerLED(&led1);
-  seCloseOn.registerLED(&led2);
-  seCloseOff.registerLED(&led1);
-  seCloseOff.registerLED(&led2);
+  seCloseOn.setStepDelay(CLOSESTEPDELAY);
+  seCloseOn.setEffectColors(COLOR_GREEN);
+  seOpenOn.setStepDelay(OPENSTEPDELAY);
+  seOpenOn.setEffectColors(COLOR_RED);
   // App
   #if (PROD != true)
     unitDoordGuard.registerNotification(&serialNotification);
