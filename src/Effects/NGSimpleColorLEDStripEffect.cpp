@@ -24,6 +24,7 @@ void NGSimpleColorLEDStripEffect::_render() {
     _LEDStrip->beginUpdate();
     switch(_kind) {
         case slsekNone:
+            _LEDStrip->setBackground(_colorOff);
             _LEDStrip->clear();
             break;
         case slsekFlash:

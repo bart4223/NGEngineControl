@@ -1,4 +1,4 @@
-#define PROD false //false, true
+#define PROD true //false, true
 
 #include <NGMemoryObserver.h>
 #include <NGColorLEDStrip.h>
@@ -16,7 +16,11 @@
 #define LEDSTRIP8_PIXELS  8
 #define LEDSTRIP8_ROWS    1
 
+#if (PROD != true)
 #define BRIGHTNESS 0.05
+#else
+#define BRIGHTNESS 0.25
+#endif
 
 #define OPENSTEPDELAY    150
 #define CLOSESTEPDELAY   500
