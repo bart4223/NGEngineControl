@@ -55,7 +55,7 @@ private:
     colorRGB _testColor;
     colorRGB _backgroundColor = COLOR_BLACK;
     int _scale = 1;
-    float _brightness = 1.0;
+    float _brightness = 0.0;
     testMode _testMode = tmDefault;
     int _testModeDelay = DEFTESTMODEDELAY;
     LEDStripKind _stripKind = DEFLEDSTRIPKIND;

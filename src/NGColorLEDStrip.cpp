@@ -56,7 +56,11 @@ void NGColorLEDStrip::_determineGeometry(int indicatorvalue) {
 }
 
 void NGColorLEDStrip::initialize() {
-    initialize(DEFBRIGHTNESS);
+    float brightness = _brightness;
+    if (brightness == 0.0) {
+        brightness = DEFBRIGHTNESS;
+    }
+    initialize(brightness);
 }
 
 void NGColorLEDStrip::initialize(float brightness) {
