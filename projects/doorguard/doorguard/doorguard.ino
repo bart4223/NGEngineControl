@@ -13,7 +13,7 @@
 #define DOORDGUARDADDRESS 0x24
 
 #define PINLEDSTRIP       8
-#define LEDSTRIP8_PIXELS  8
+#define LEDSTRIP8_PIXELS 12
 #define LEDSTRIP8_ROWS    1
 
 #if (PROD != true)
@@ -36,7 +36,7 @@ NGHallSensor hs = NGHallSensor();
 NGColorLEDStrip cls = NGColorLEDStrip(PINLEDSTRIP, LEDSTRIP8_PIXELS, LEDSTRIP8_ROWS);
 NGSimpleColorLEDStripEffect seCloseOn = NGSimpleColorLEDStripEffect(&cls, slsekFlash);
 NGSimpleColorLEDStripEffect seCloseOff = NGSimpleColorLEDStripEffect(&cls, slsekNone);
-NGSimpleColorLEDStripEffect seOpenOn = NGSimpleColorLEDStripEffect(&cls, slsekFlash);
+NGSimpleColorLEDStripEffect seOpenOn = NGSimpleColorLEDStripEffect(&cls, slsekAlternate);
 NGSimpleColorLEDStripEffect seOpenOff = NGSimpleColorLEDStripEffect(&cls, slsekNone);
 
 void setup() {
