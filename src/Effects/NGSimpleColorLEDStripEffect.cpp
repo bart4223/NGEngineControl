@@ -55,6 +55,21 @@ void NGSimpleColorLEDStripEffect::_render() {
                 _currentStep = 0;
             }
             break;
+        case slsekRunning:
+            for (int y = 0; y < _LEDStrip->getHeight(); y++) {
+                for (int x = 0; x < _LEDStrip->getWidth(); x++) {
+                    if (x == _currentStep) {
+                        _LEDStrip->drawPoint(x, y, _colorOn);                      
+                    } else {
+                        _LEDStrip->drawPoint(x, y, _colorOff);
+                    }           
+                }
+            }
+            _currentStep++;
+            if (_currentStep >= _LEDStrip->getWidth()) {
+                _currentStep = 0;
+            }
+            break;
     }
     _LEDStrip->endUpdate();
 }

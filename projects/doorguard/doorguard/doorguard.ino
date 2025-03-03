@@ -36,7 +36,7 @@ NGHallSensor hs = NGHallSensor();
 NGColorLEDStrip cls = NGColorLEDStrip(PINLEDSTRIP, LEDSTRIP8_PIXELS, LEDSTRIP8_ROWS);
 NGSimpleColorLEDStripEffect seCloseOn = NGSimpleColorLEDStripEffect(&cls, slsekFlash);
 NGSimpleColorLEDStripEffect seCloseOff = NGSimpleColorLEDStripEffect(&cls, slsekNone);
-NGSimpleColorLEDStripEffect seOpenOn = NGSimpleColorLEDStripEffect(&cls, slsekAlternate);
+NGSimpleColorLEDStripEffect seOpenOn = NGSimpleColorLEDStripEffect(&cls, slsekRunning);
 NGSimpleColorLEDStripEffect seOpenOff = NGSimpleColorLEDStripEffect(&cls, slsekNone);
 
 void setup() {
