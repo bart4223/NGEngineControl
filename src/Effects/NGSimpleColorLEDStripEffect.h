@@ -37,6 +37,8 @@ public:
     
     NGSimpleColorLEDStripEffect(NGColorLEDStrip *LEDStrip, simpleLEDStripEffectKind kind);
     
+    void setKind(simpleLEDStripEffectKind kind);
+    
     void setStepDelay(int stepdelay);
 
     int getStepDelay();

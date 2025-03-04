@@ -74,6 +74,10 @@ void NGSimpleColorLEDStripEffect::_render() {
     _LEDStrip->endUpdate();
 }
 
+void NGSimpleColorLEDStripEffect::setKind(simpleLEDStripEffectKind kind) {
+    _kind = kind;
+}
+
 void NGSimpleColorLEDStripEffect::setStepDelay(int stepdelay) {
     _stepDelay = stepdelay;
 }
