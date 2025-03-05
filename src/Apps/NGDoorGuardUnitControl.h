@@ -13,7 +13,7 @@
 #include <NGHallSensor.h>
 #include <NGIEffect.h>
 
-#define _VERSION "0.9"
+#define _VERSION "1.1"
 #define VERSION (char*)_VERSION
 
 enum doorEffectKind{ dekInfinite, dekFinite };

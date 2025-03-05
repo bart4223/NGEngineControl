@@ -4,6 +4,7 @@
 #include <NGColorLEDStrip.h>
 #include <Effects/NGSimpleColorLEDStripEffect.h>
 #include <Apps/NGDoorGuardUnitControl.h>
+#include <Sensors/NGSimpleDigitalSensor.h>
 #if (PROD != true)
 #include <NGSerialNotification.h>
 #endif
@@ -16,16 +17,20 @@
 #define LEDSTRIP8_PIXELS 12
 #define LEDSTRIP8_ROWS    1
 
+#define PINDSONE  5
+#define PINDSTWO  6
+
 #if (PROD != true)
 #define BRIGHTNESS 0.05
 #else
 #define BRIGHTNESS 0.25
 #endif
 
-#define OPENSTEPDELAY    150
-#define CLOSESTEPDELAY   500
-#define DOOROPENDELAY  10000
-#define DOORCLOSEDELAY  2000
+#define OPENSTEPDELAYFAST   50
+#define OPENSTEPDELAY      150
+#define CLOSESTEPDELAY     500
+#define DOOROPENDELAY    10000
+#define DOORCLOSEDELAY    2000
 
 NGDoorGuardUnitControl unitDoordGuard = NGDoorGuardUnitControl(DOORDGUARD);
 #if (PROD != true)
@@ -34,14 +39,19 @@ NGSerialNotification serialNotification = NGSerialNotification();
 
 NGHallSensor hs = NGHallSensor();
 NGColorLEDStrip cls = NGColorLEDStrip(PINLEDSTRIP, LEDSTRIP8_PIXELS, LEDSTRIP8_ROWS);
+NGSimpleDigitalSensor dsOne = NGSimpleDigitalSensor(PINDSONE);
+NGSimpleDigitalSensor dsTwo = NGSimpleDigitalSensor(PINDSTWO);
 NGSimpleColorLEDStripEffect seCloseOn = NGSimpleColorLEDStripEffect(&cls, slsekFlash);
-NGSimpleColorLEDStripEffect seCloseOff = NGSimpleColorLEDStripEffect(&cls, slsekNone);
-NGSimpleColorLEDStripEffect seOpenOn = NGSimpleColorLEDStripEffect(&cls, slsekRunning);
-NGSimpleColorLEDStripEffect seOpenOff = NGSimpleColorLEDStripEffect(&cls, slsekNone);
+NGSimpleColorLEDStripEffect seCloseOff = NGSimpleColorLEDStripEffect(&cls);
+NGSimpleColorLEDStripEffect seOpenOn = NGSimpleColorLEDStripEffect(&cls);
+NGSimpleColorLEDStripEffect seOpenOff = NGSimpleColorLEDStripEffect(&cls);
 
 void setup() {
   observeMemory(0);
   setGlobalUnit(&unitDoordGuard);
+  // Digital sensors
+  dsOne.initialize();
+  dsTwo.initialize();
   // LED Strip
   cls.setBrightness(BRIGHTNESS);
   // Effects
@@ -49,6 +59,16 @@ void setup() {
   seCloseOn.setEffectColors(COLOR_GREEN);
   seOpenOn.setStepDelay(OPENSTEPDELAY);
   seOpenOn.setEffectColors(COLOR_RED);
+  if (dsOne.isOn()) {
+    seOpenOn.setKind(slsekRunning);
+    seOpenOn.setStepDelay(OPENSTEPDELAYFAST);
+  } else if (dsTwo.isOn()) {
+    seOpenOn.setKind(slsekRandom);
+    seOpenOn.setStepDelay(OPENSTEPDELAY);
+  } else {
+    seOpenOn.setKind(slsekAlternate);
+    seOpenOn.setStepDelay(OPENSTEPDELAY);
+  }
   // App
   #if (PROD != true)
     unitDoordGuard.registerNotification(&serialNotification);
