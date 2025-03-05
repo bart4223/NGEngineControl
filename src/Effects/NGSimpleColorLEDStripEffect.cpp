@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 01.03.25.
 //
 
+#include <NGCommon.h>
 #include <Effects/NGSimpleColorLEDStripEffect.h>
 
 NGSimpleColorLEDStripEffect::NGSimpleColorLEDStripEffect(NGColorLEDStrip *LEDStrip) {
@@ -68,6 +69,17 @@ void NGSimpleColorLEDStripEffect::_render() {
             _currentStep++;
             if (_currentStep >= _LEDStrip->getWidth()) {
                 _currentStep = 0;
+            }
+            break;
+        case slsekRandom:
+            for (int y = 0; y < _LEDStrip->getHeight(); y++) {
+                for (int x = 0; x < _LEDStrip->getWidth(); x++) {
+                    if (getYesOrNo()) {
+                        _LEDStrip->drawPoint(x, y, _colorOn);                      
+                    } else {
+                        _LEDStrip->drawPoint(x, y, _colorOff);
+                    }           
+                }
             }
             break;
     }

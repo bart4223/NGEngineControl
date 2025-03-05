@@ -12,7 +12,7 @@
 #include <NGIEffect.h>
 #include <NGColorLEDStrip.h>
 
-enum simpleLEDStripEffectKind { slsekNone, slsekFlash, slsekAlternate, slsekRunning };
+enum simpleLEDStripEffectKind { slsekNone, slsekFlash, slsekAlternate, slsekRunning, slsekRandom };
 
 #define DEFSTEPDELAY 500
 
