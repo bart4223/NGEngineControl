@@ -17,8 +17,8 @@
 #define LEDSTRIP8_PIXELS 12
 #define LEDSTRIP8_ROWS    1
 
-#define PINDSONE  4
-#define PINDSTWO  5
+#define PINDSONE   9
+#define PINDSTWO  10
 
 #if (PROD != true)
 #define BRIGHTNESS 0.05
