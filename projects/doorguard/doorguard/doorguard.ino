@@ -13,12 +13,12 @@
 #define DOORDGUARD        (char*)_DOORDGUARD
 #define DOORDGUARDADDRESS 0x24
 
-#define PINLEDSTRIP       8
+#define PINLEDSTRIP       7
 #define LEDSTRIP8_PIXELS 12
 #define LEDSTRIP8_ROWS    1
 
-#define PINDSONE  5
-#define PINDSTWO  6
+#define PINDSONE  4
+#define PINDSTWO  5
 
 #if (PROD != true)
 #define BRIGHTNESS 0.05
