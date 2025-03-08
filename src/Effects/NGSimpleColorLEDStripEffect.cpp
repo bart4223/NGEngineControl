@@ -29,46 +29,55 @@ void NGSimpleColorLEDStripEffect::_render() {
             _LEDStrip->clear();
             break;
         case slsekFlash:
-            if (_currentStep % 2 == 0) {
+            if (_currentStep[0] % 2 == 0) {
                 _LEDStrip->setBackground(_colorOn);
                 _LEDStrip->clear();
             } else {
                 _LEDStrip->setBackground(_colorOff);
                 _LEDStrip->clear();
             }
-            _currentStep++;
-            if (_currentStep >= 2) {
-                _currentStep = 0;
+            _currentStep[0]++;
+            if (_currentStep[0] >= 2) {
+                _currentStep[0] = 0;
             }
             break;
         case slsekAlternate:
             for (int y = 0; y < _LEDStrip->getHeight(); y++) {
                 for (int x = 0; x < _LEDStrip->getWidth(); x++) {
-                    if ((_currentStep + x) % 2 == 0) {
+                    if ((_currentStep[0] + x) % 2 == 0) {
                         _LEDStrip->drawPoint(x, y, _colorOn);
                     } else {
                         _LEDStrip->drawPoint(x, y, _colorOff);
                     }                
                 }
             }
-            _currentStep++;
-            if (_currentStep >= 2) {
-                _currentStep = 0;
+            _currentStep[0]++;
+            if (_currentStep[0] >= 2) {
+                _currentStep[0] = 0;
             }
             break;
         case slsekRunning:
             for (int y = 0; y < _LEDStrip->getHeight(); y++) {
                 for (int x = 0; x < _LEDStrip->getWidth(); x++) {
-                    if (x == _currentStep) {
+                    bool draw = false;
+                    for (int i = 0; i < _currentStepCount; i++) {
+                        draw = x == _currentStep[i];
+                        if (draw) {
+                            break;
+                        }
+                    }
+                    if (draw) {
                         _LEDStrip->drawPoint(x, y, _colorOn);                      
                     } else {
                         _LEDStrip->drawPoint(x, y, _colorOff);
                     }           
                 }
             }
-            _currentStep++;
-            if (_currentStep >= _LEDStrip->getWidth()) {
-                _currentStep = 0;
+            for (int i = 0; i < _currentStepCount; i++) {
+                _currentStep[i]++;
+                if (_currentStep[i] >= _LEDStrip->getWidth()) {
+                    _currentStep[i] = 0;
+                }
             }
             break;
         case slsekRandom:
@@ -98,6 +107,13 @@ int NGSimpleColorLEDStripEffect::getStepDelay() {
     return _stepDelay;
 }
 
+void NGSimpleColorLEDStripEffect::setCurrentStepCount(int currentstepcount) {
+    _currentStepCount = currentstepcount;
+    if (_currentStepCount > MAXCURRENTSTEPS) {
+        _currentStepCount = MAXCURRENTSTEPS;
+    }
+}
+
 void NGSimpleColorLEDStripEffect::setEffectColors(colorRGB colorOn) {
     setEffectColors(colorOn, COLOR_BLACK);
 }
@@ -109,6 +125,11 @@ void NGSimpleColorLEDStripEffect::setEffectColors(colorRGB colorOn, colorRGB col
 
 void NGSimpleColorLEDStripEffect::initialize() {
     _LEDStrip->initialize();
+    int index = 0;
+    for (int i = 0; i < _currentStepCount; i++) {
+        _currentStep[i] = index;
+        index--;
+    }
     _lastStep = millis();
 }
 

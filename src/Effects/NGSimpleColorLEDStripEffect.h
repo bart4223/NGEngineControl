@@ -14,7 +14,8 @@
 
 enum simpleLEDStripEffectKind { slsekNone, slsekFlash, slsekAlternate, slsekRunning, slsekRandom };
 
-#define DEFSTEPDELAY 500
+#define DEFSTEPDELAY    500
+#define MAXCURRENTSTEPS  10
 
 class NGSimpleColorLEDStripEffect : public NGIEffect {
 
@@ -23,7 +24,8 @@ private:
     simpleLEDStripEffectKind _kind = slsekNone;
     long _lastStep;
     int _stepDelay = DEFSTEPDELAY;
-    byte _currentStep = 0;
+    int _currentStep[MAXCURRENTSTEPS];
+    byte _currentStepCount = 1;
     colorRGB _colorOff = COLOR_BLACK;
     colorRGB _colorOn = COLOR_BLACK;
 
@@ -42,6 +44,8 @@ public:
     void setStepDelay(int stepdelay);
 
     int getStepDelay();
+
+    void setCurrentStepCount(int currentstepcount);
 
     void setEffectColors(colorRGB colorOn);
 

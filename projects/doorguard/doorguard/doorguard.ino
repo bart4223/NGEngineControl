@@ -14,11 +14,12 @@
 #define DOORDGUARDADDRESS 0x24
 
 #define PINLEDSTRIP       7
-#define LEDSTRIP8_PIXELS 12
-#define LEDSTRIP8_ROWS    1
+#define LEDSTRIP_PIXELS  12
+#define LEDSTRIP_ROWS     1
 
-#define PINDSONE   9
-#define PINDSTWO  10
+#define PINDSONE     9
+#define PINDSTWO    10
+#define PINDSTHREE  11
 
 #if (PROD != true)
 #define BRIGHTNESS 0.05
@@ -38,9 +39,10 @@ NGSerialNotification serialNotification = NGSerialNotification();
 #endif
 
 NGHallSensor hs = NGHallSensor();
-NGColorLEDStrip cls = NGColorLEDStrip(PINLEDSTRIP, LEDSTRIP8_PIXELS, LEDSTRIP8_ROWS);
+NGColorLEDStrip cls = NGColorLEDStrip(PINLEDSTRIP, LEDSTRIP_PIXELS, LEDSTRIP_ROWS);
 NGSimpleDigitalSensor dsOne = NGSimpleDigitalSensor(PINDSONE);
 NGSimpleDigitalSensor dsTwo = NGSimpleDigitalSensor(PINDSTWO);
+NGSimpleDigitalSensor dsThree = NGSimpleDigitalSensor(PINDSTHREE);
 NGSimpleColorLEDStripEffect seCloseOn = NGSimpleColorLEDStripEffect(&cls, slsekFlash);
 NGSimpleColorLEDStripEffect seCloseOff = NGSimpleColorLEDStripEffect(&cls);
 NGSimpleColorLEDStripEffect seOpenOn = NGSimpleColorLEDStripEffect(&cls);
@@ -52,6 +54,7 @@ void setup() {
   // Digital sensors
   dsOne.initialize();
   dsTwo.initialize();
+  dsThree.initialize();
   // LED Strip
   cls.setBrightness(BRIGHTNESS);
   // Effects
@@ -61,8 +64,13 @@ void setup() {
   seOpenOn.setEffectColors(COLOR_RED);
   if (dsOne.isOn()) {
     seOpenOn.setKind(slsekRunning);
+    seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 4);
     seOpenOn.setStepDelay(OPENSTEPDELAYFAST);
   } else if (dsTwo.isOn()) {
+    seOpenOn.setKind(slsekRunning);
+    seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 2);
+    seOpenOn.setStepDelay(OPENSTEPDELAY);
+  } else if (dsThree.isOn()) {
     seOpenOn.setKind(slsekRandom);
     seOpenOn.setStepDelay(OPENSTEPDELAY);
   } else {
