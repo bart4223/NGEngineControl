@@ -63,19 +63,19 @@ void setup() {
   seOpenOn.setStepDelay(OPENSTEPDELAY);
   seOpenOn.setEffectColors(COLOR_RED);
   if (dsOne.isOn()) {
+    seOpenOn.setKind(slsekAlternate);
+    seOpenOn.setStepDelay(OPENSTEPDELAY);
+  } else if (dsTwo.isOn()) {
     seOpenOn.setKind(slsekRunning);
     seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 4);
     seOpenOn.setStepDelay(OPENSTEPDELAYFAST);
-  } else if (dsTwo.isOn()) {
-    seOpenOn.setKind(slsekRunning);
-    seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 2);
-    seOpenOn.setStepDelay(OPENSTEPDELAY);
   } else if (dsThree.isOn()) {
     seOpenOn.setKind(slsekRandom);
     seOpenOn.setStepDelay(OPENSTEPDELAY);
   } else {
-    seOpenOn.setKind(slsekAlternate);
-    seOpenOn.setStepDelay(OPENSTEPDELAY);
+    seOpenOn.setKind(slsekRunning);
+    seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 2);
+    seOpenOn.setStepDelay(OPENSTEPDELAYFAST);
   }
   // App
   #if (PROD != true)
