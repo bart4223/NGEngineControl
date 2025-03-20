@@ -12,7 +12,7 @@
 #include <NGIEffect.h>
 #include <NGColorLEDStrip.h>
 
-enum simpleLEDStripEffectKind { slsekNone, slsekFlash, slsekAlternate, slsekRunning, slsekRandom };
+enum simpleLEDStripEffectKind { slsekNone, slsekFlash, slsekAlternate, slsekRunning, slsekRandom, slsekRainbow };
 
 #define DEFSTEPDELAY    500
 #define MAXCURRENTSTEPS  10
@@ -25,6 +25,7 @@ private:
     long _lastStep;
     int _stepDelay = DEFSTEPDELAY;
     int _currentStep[MAXCURRENTSTEPS];
+    colorRGB _currentColor[MAXCURRENTSTEPS];
     byte _currentStepCount = 1;
     colorRGB _colorOff = COLOR_BLACK;
     colorRGB _colorOn = COLOR_BLACK;

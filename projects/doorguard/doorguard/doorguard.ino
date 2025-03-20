@@ -70,8 +70,9 @@ void setup() {
     seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 4);
     seOpenOn.setStepDelay(OPENSTEPDELAYFAST);
   } else if (dsThree.isOn()) {
-    seOpenOn.setKind(slsekRandom);
-    seOpenOn.setStepDelay(OPENSTEPDELAY);
+    seOpenOn.setKind(slsekRainbow);
+    seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 2);
+    seOpenOn.setStepDelay(OPENSTEPDELAYFAST);
   } else {
     seOpenOn.setKind(slsekRunning);
     seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 2);

@@ -57,17 +57,23 @@ void NGSimpleColorLEDStripEffect::_render() {
             }
             break;
         case slsekRunning:
+        case slsekRainbow:
             for (int y = 0; y < _LEDStrip->getHeight(); y++) {
                 for (int x = 0; x < _LEDStrip->getWidth(); x++) {
+                    int i;
                     bool draw = false;
-                    for (int i = 0; i < _currentStepCount; i++) {
+                    for (i = 0; i < _currentStepCount; i++) {
                         draw = x == _currentStep[i];
                         if (draw) {
                             break;
                         }
                     }
                     if (draw) {
-                        _LEDStrip->drawPoint(x, y, _colorOn);                      
+                        if (_kind == slsekRainbow) {
+                            _LEDStrip->drawPoint(x, y, _currentColor[i]);                      
+                        } else {
+                            _LEDStrip->drawPoint(x, y, _colorOn); 
+                        }
                     } else {
                         _LEDStrip->drawPoint(x, y, _colorOff);
                     }           
@@ -128,6 +134,30 @@ void NGSimpleColorLEDStripEffect::initialize() {
     int index = 0;
     for (int i = 0; i < _currentStepCount; i++) {
         _currentStep[i] = index;
+        switch (i) {
+            case 0:
+            case 6:
+                _currentColor[i] = COLOR_GREEN;
+                break;
+            case 1:
+            case 7:
+                _currentColor[i] = COLOR_YELLOW;
+                break;
+            case 2:
+            case 8:
+                _currentColor[i] = COLOR_ORANGE;
+                break;
+            case 3:
+            case 9:
+                _currentColor[i] = COLOR_RED;
+                break;
+            case 4:
+                _currentColor[i] = COLOR_PURPLE;
+                break;
+            case 5:
+                _currentColor[i] = COLOR_BLUE;
+                break;
+        }
         index--;
     }
     _lastStep = millis();
