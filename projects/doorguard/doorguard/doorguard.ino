@@ -1,4 +1,5 @@
 #define PROD true //false, true
+#define RGB24 // RGB8, RGB12, RGB24
 
 #include <NGMemoryObserver.h>
 #include <NGColorLEDStrip.h>
@@ -14,7 +15,15 @@
 #define DOORDGUARDADDRESS 0x24
 
 #define PINLEDSTRIP       7
+#ifdef RGB8
+#define LEDSTRIP_PIXELS   8
+#endif
+#ifdef RGB12
 #define LEDSTRIP_PIXELS  12
+#endif
+#ifdef RGB24
+#define LEDSTRIP_PIXELS  24
+#endif
 #define LEDSTRIP_ROWS     1
 
 #define PINDSONE     9
@@ -58,6 +67,12 @@ void setup() {
   // LED Strip
   cls.setBrightness(BRIGHTNESS);
   // Effects
+  byte currentStepCount; 
+  if (LEDSTRIP_PIXELS > 20) {
+    currentStepCount = LEDSTRIP_PIXELS / 3;
+  } else {
+    currentStepCount = LEDSTRIP_PIXELS / 2;      
+  }
   seCloseOn.setStepDelay(CLOSESTEPDELAY);
   seCloseOn.setEffectColors(COLOR_GREEN);
   seOpenOn.setStepDelay(OPENSTEPDELAY);
@@ -71,11 +86,11 @@ void setup() {
     seOpenOn.setStepDelay(OPENSTEPDELAYFAST);
   } else if (dsThree.isOn()) {
     seOpenOn.setKind(slsekRainbow);
-    seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 2);
+    seOpenOn.setCurrentStepCount(currentStepCount);
     seOpenOn.setStepDelay(OPENSTEPDELAYFAST);
   } else {
     seOpenOn.setKind(slsekRunning);
-    seOpenOn.setCurrentStepCount(LEDSTRIP_PIXELS / 2);
+    seOpenOn.setCurrentStepCount(currentStepCount);
     seOpenOn.setStepDelay(OPENSTEPDELAYFAST);
   }
   // App
