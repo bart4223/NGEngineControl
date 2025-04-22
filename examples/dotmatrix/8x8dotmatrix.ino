@@ -1,5 +1,5 @@
-#define NOTEST //TEST, NOTEST
-#define RECT //LINE, RECT, CIRCLE, IMAGE
+#define TEST //NOTEST, TEST
+#define NONE //NONE, LINE, RECT, CIRCLE, IMAGE
 
 #define Metrics8x8 //Metrics8x8
 
@@ -30,7 +30,9 @@ void setup() {
 }
 
 void loop() {
+  #ifndef NONE
   observeMemory(DELAY);
+  #endif
   #ifdef LINE
   dm.drawLine(0, 0, 7, 7, COLOR_RED);
   #endif
@@ -45,7 +47,9 @@ void loop() {
   #ifdef IMAGE
   dm.drawImage(img, COLOR_RED, sizeof(img) / sizeof(img[0]));
   #endif
+  #ifndef NONE
   observeMemory(DELAY);
+  #endif
   #ifdef LINE
   dm.clearLine(0, 0, 7, 7);  
   #endif
