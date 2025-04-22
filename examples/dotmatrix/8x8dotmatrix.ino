@@ -1,5 +1,5 @@
-#define TEST //NOTEST, TEST
-#define NONE //NONE, LINE, RECT, CIRCLE, IMAGE
+#define NOTEST //NOTEST, TEST
+#define RECT //NONE, LINE, RECT, CIRCLE, IMAGE
 
 #define Metrics8x8 //Metrics8x8
 
