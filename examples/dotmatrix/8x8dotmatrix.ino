@@ -1,17 +1,21 @@
 #define NOTEST //TEST, NOTEST
-#define IMAGE //LINE, RECT, CIRCLE, IMAGE
+#define RECT //LINE, RECT, CIRCLE, IMAGE
 
-#define Size8x8 
+#define Metrics8x8 //Metrics8x8
 
 #include <NGMemoryObserver.h>
 #include <Visuals/NG8x8DotMatrix.h>
 
-#ifdef Size8x8
-NG8x8DotMatrix dm = NG8x8DotMatrix();
+#ifdef Metrics8x8
+#define MODULECOUNT 1
+#define ROWCOUNT    8
+#define COLCOUNT    8
 #endif
 
 #define BRIGHTNESS 0.05
 #define DELAY 500
+
+NG8x8DotMatrix dm = NG8x8DotMatrix(MODULECOUNT, ROWCOUNT, COLCOUNT);
 
 coord2D img[] = {{0, 0}, {1, 1}, {2, 2}};
 
