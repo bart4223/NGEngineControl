@@ -8,29 +8,39 @@
 #include <Visuals/NG8x8DotMatrix.h>
 
 NG8x8DotMatrix::NG8x8DotMatrix() {
-    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, DEFMAX7219COUNT, DEFMAX7219ROWCOUNT, DEFMAX7219COLCOUNT);
+    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, DEFMAX7219COUNT, DEFMAX7219ROWCOUNT, DEFMAX7219COLCOUNT, DEFADDRESSINGMODE);
 }
 
 NG8x8DotMatrix::NG8x8DotMatrix(byte count, byte rowcount, byte colcount) {
-    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, count, rowcount, colcount);
+    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, count, rowcount, colcount, DEFADDRESSINGMODE);
+}
+
+NG8x8DotMatrix::NG8x8DotMatrix(byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode) {
+    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, count, rowcount, colcount, adressingmode);
 }
 
 NG8x8DotMatrix::NG8x8DotMatrix(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount) {
-    _create(pinCS, pinCLK, pinDIN, count, rowcount, colcount);
+    _create(pinCS, pinCLK, pinDIN, count, rowcount, colcount, DEFADDRESSINGMODE);
 }
 
-void NG8x8DotMatrix::_create(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount) {
+void NG8x8DotMatrix::_create(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode) {
     _lc = new LedControl(pinDIN, pinCLK, pinCS, count);
     _rowCount = rowcount;
-    _colCount = colcount; 
+    _colCount = colcount;
+    _adressingMode = adressingmode; 
 }
 
 void NG8x8DotMatrix::_renderLED(int x, int y, bool ledOn) {
     int xx = x + _offsetX;
     int yy = y + _offsetY;
     if (xx >= 0 && xx < _colCount && yy >= 0 && yy < _rowCount) {
-        byte addr = (xx / DEFMAX7219COLCOUNT + 1) * (yy / DEFMAX7219ROWCOUNT + 1);
-        _lc->setLed(addr - 1, yy % DEFMAX7219ROWCOUNT, xx % DEFMAX7219COLCOUNT, ledOn);
+        byte addr = (xx / DEFMAX7219COLCOUNT + 1) * (yy / DEFMAX7219ROWCOUNT + 1) - 1;
+        switch(_adressingMode) {
+            case dmamInverse:
+                addr = _lc->getDeviceCount() - addr - 1;
+                break;
+        }
+        _lc->setLed(addr, yy % DEFMAX7219ROWCOUNT, xx % DEFMAX7219COLCOUNT, ledOn);
     }
 }
 

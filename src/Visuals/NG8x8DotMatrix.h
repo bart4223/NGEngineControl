@@ -24,9 +24,13 @@
 #define DEFCOLOR     COLOR_RED
 #define DEFBACKCOLOR COLOR_BLACK
 
-#define DEFBRIGHTNESS   1
+#define DEFBRIGHTNESS 1
 
 #define DEFTESTMODEDELAY  50
+
+enum dotmatrixAddressingMode { dmamNormal, dmamInverse };
+
+#define DEFADDRESSINGMODE dmamNormal
 
 class NG8x8DotMatrix : public NGITestableComponent, public NGIPaintableComponent {
 
@@ -39,9 +43,10 @@ private:
     int _offsetY = 0;
     int _scale = 1;
     int _testModeDelay = DEFTESTMODEDELAY;
+    dotmatrixAddressingMode _adressingMode = DEFADDRESSINGMODE;
 
 protected:
-    void _create(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount);
+    void _create(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode);
 
     void _renderLED(int x, int y, bool ledOn);
 
@@ -50,6 +55,8 @@ public:
     
     NG8x8DotMatrix(byte count, byte rowcount, byte colcount);
 
+    NG8x8DotMatrix(byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode);
+    
     NG8x8DotMatrix(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount);
     
     void initialize();
