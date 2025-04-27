@@ -12,7 +12,7 @@
 #include <NGCustomUnitControl.h>
 #include <Specs/NGCustomWatchDial.h>
 
-#define _VERSION "0.8"
+#define _VERSION "1.3"
 #define VERSION (char*)_VERSION
 
 #define DEFWATCHDELAY 1000
@@ -21,7 +21,7 @@ class NGLittleBigClockUnitControl : public NGCustomUnitControl {
 
 private:
     long _lastRefresh = 0;
-    bool _init = false;
+    bool _initWatchDial = false;
     NGCustomWatchDial *_watchDial = nullptr;
 
 protected:
@@ -47,6 +47,8 @@ public:
     void initialize();
     
     void processingLoop();
+
+    void invalidWatchDial();
     
     void requestData(byte* data);
 };

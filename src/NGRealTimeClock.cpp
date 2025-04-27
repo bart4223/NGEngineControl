@@ -73,3 +73,56 @@ bool NGRealTimeClock::isXMas() {
     DateTime dt = getNow();
     return (dt.month() == 12 && dt.day() > 23 && dt.day() < 27);
 }
+
+int NGRealTimeClock::getSecond() {
+    DateTime dt = getNow();
+    return dt.second();
+}
+
+void NGRealTimeClock::resetSeconds() {
+    DateTime dt = getNow();
+    _rtc->adjust(DateTime(dt.year(), dt.month(), dt.day(), dt.hour(), dt.minute(), 0));
+}
+
+int NGRealTimeClock::getMinute() {
+    DateTime dt = getNow();
+    return dt.minute();
+}
+
+void  NGRealTimeClock::setMinute(int minute) {
+    DateTime dt = getNow();
+    _rtc->adjust(DateTime(dt.year(), dt.month(), dt.day(), dt.hour(), minute, dt.second()));
+}
+
+void NGRealTimeClock::incrementMinute() {
+    incrementMinute(true);
+}
+
+void NGRealTimeClock::incrementMinute(bool withresetseconds) {
+    int minute = getMinute() + 1;
+    if (minute > 59) {
+        minute = 0;
+    }
+    setMinute(minute);
+    if (withresetseconds) {
+        resetSeconds();
+    }
+}
+
+int NGRealTimeClock::getHour() {
+    DateTime dt = getNow();
+    return dt.hour();
+}
+
+void  NGRealTimeClock::setHour(int hour) {
+    DateTime dt = getNow();
+    _rtc->adjust(DateTime(dt.year(), dt.month(), dt.day(), hour, dt.minute(), dt.second()));
+}
+
+void NGRealTimeClock::incrementHour() {
+    int hour = getHour() + 1;
+    if (hour > 23) {
+        hour = 0;
+    }
+    setHour(hour);
+}

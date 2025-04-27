@@ -46,6 +46,24 @@ public:
     char* getTimeAsText();
     
     bool isXMas();
+
+    int getSecond();
+
+    void resetSeconds();
+
+    int getMinute();
+
+    void setMinute(int minute);
+
+    void incrementMinute();
+    
+    void incrementMinute(bool withresetseconds);
+
+    int getHour();
+
+    void setHour(int hour);
+
+    void incrementHour();
 };
 
 #endif /* NGRealTimeClock_h */

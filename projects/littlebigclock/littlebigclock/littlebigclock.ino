@@ -2,6 +2,7 @@
 #define FONTZX81 //FONTDEFAULT, FONTZX81, FONTZXSPECTRUM, FONTC64
 
 #include <NGMemoryObserver.h>
+#include <NGSimpleKeypad.h>
 #include <Visuals/NG8x8DotMatrix.h>
 #include <Specs/NGDotMatrixWatchDial.h>
 #include <Apps/NGLittleBigClockUnitControl.h>
@@ -27,7 +28,15 @@
 #define DOTMATRIXROWS   8
 #define DOTMATRIXCOLS  32
 
+#define KEYMINUTEPIN  14
+#define KEYMINUTEID   42
+#define KEYHOURPIN    15
+#define KEYHOURID     43
+
+#define KEYDELAY     500
+
 NGRealTimeClock rtc = NGRealTimeClock();
+NGSimpleKeypad skp = NGSimpleKeypad();
 NG8x8DotMatrix *cdm = new NG8x8DotMatrix(DOTMATRIXCOUNT, DOTMATRIXROWS, DOTMATRIXCOLS, dmamInverse);
 NGColorDotMatrixDecimalDigit *ddHourOne = new NGColorDotMatrixDecimalDigit(cdm);
 NGColorDotMatrixDecimalDigit *ddHourTens = new NGColorDotMatrixDecimalDigit(cdm);
@@ -54,6 +63,11 @@ void setup() {
   setGlobalUnit(&unitLittleBigClock);
   // RTC
   rtc.initialize(false);
+  // Keypad
+  skp.registerCallback(&keypadCallback);
+  skp.registerKey(KEYMINUTEPIN, KEYMINUTEID, KEYDELAY);
+  skp.registerKey(KEYHOURPIN, KEYHOURID, KEYDELAY);
+  skp.initialize();
   // DotMatrix
   cdm->initialize(DOTMATRIXBRIGHTNESS);
   // Decimal Digits
@@ -90,5 +104,17 @@ void setup() {
 }
 
 void loop() {
+  skp.processingLoop();
   unitLittleBigClock.processingLoop();
+}
+
+void keypadCallback(byte id) {
+  switch (id) {
+    case KEYMINUTEID:
+      rtc.incrementMinute();
+      break;
+    case KEYHOURID:
+      rtc.incrementHour();
+      break;    
+  }
 }
