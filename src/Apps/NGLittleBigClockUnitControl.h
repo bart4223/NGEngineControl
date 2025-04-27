@@ -12,8 +12,10 @@
 #include <NGCustomUnitControl.h>
 #include <Specs/NGCustomWatchDial.h>
 
-#define _VERSION "0.7"
+#define _VERSION "0.8"
 #define VERSION (char*)_VERSION
+
+#define DEFWATCHDELAY 1000
 
 class NGLittleBigClockUnitControl : public NGCustomUnitControl {
 

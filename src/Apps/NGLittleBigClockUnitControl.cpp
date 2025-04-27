@@ -55,12 +55,10 @@ void NGLittleBigClockUnitControl::initialize() {
 
 void NGLittleBigClockUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
-    if (millis() - _lastRefresh > 1000 || !_init) {
-        if (_rtc != nullptr) {
+    if (millis() - _lastRefresh > DEFWATCHDELAY || !_init) {
+        if (_rtc != nullptr && _watchDial != nullptr) {
             DateTime now = _rtc->getNow();
-            if (_watchDial != nullptr) {
-                _watchDial->setTime(now.hour(), now.minute(), now.second());
-            }
+            _watchDial->setTime(now.hour(), now.minute(), now.second());
         }
         _init = true;
         _lastRefresh = millis();
