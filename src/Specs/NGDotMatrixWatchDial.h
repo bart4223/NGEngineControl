@@ -41,6 +41,18 @@ public:
     void setSecond(int second);
 
     void setTime(int hour, int minute, int second);
+
+    void setDecimalDigitHourPosition(int xTen, int yTen, int xOne, int yOne);
+
+    void setDecimalDigitMinutePosition(int xTen, int yTen, int xOne, int yOne);
+
+    void setDecimalDigitSecondPosition(int xTen, int yTen, int xOne, int yOne);
+
+    void setDecimalDigitHourFont(NGCustomFont *fontTen, NGCustomFont *fontOne);
+
+    void setDecimalDigitMinuteFont(NGCustomFont *fontTen, NGCustomFont *fontOne);
+
+    void setDecimalDigitSecondFont(NGCustomFont *fontTen, NGCustomFont *fontOne);
 };
 
 #endif /* NGDotMatrixWatchDialh */

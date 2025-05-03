@@ -3,7 +3,6 @@
 #include <NGMemoryObserver.h>
 #include <NGZX81Font.h>
 #include <NGC64Font.h>
-#include <NGSimpleKeypad.h>
 #include <Visuals/NG8x8DotMatrix.h>
 #include <Specs/NGDotMatrixWatchDial.h>
 #include <Apps/NGLittleBigClockUnitControl.h>
@@ -56,18 +55,13 @@ void setup() {
   skp.registerKey(KEYFONTPIN, KEYFONTID, KEYDELAY);
   // DotMatrix
   cdm->initialize(DOTMATRIXBRIGHTNESS);
-  // Decimal Digits
-  ddHourTens->setFont(fontZX81);
-  ddHourOne->setFont(fontZX81);
-  ddMinuteTens->setFont(fontZX81);
-  ddMinuteOne->setFont(fontZX81);
-  ddHourTens->setPosX(0);
-  ddHourOne->setPosX(8);
-  ddMinuteTens->setPosX(16);
-  ddMinuteOne->setPosX(24);
   // Watch Dial
   wd.registerDecimalDigitHour(ddHourOne, ddHourTens);
   wd.registerDecimalDigitMinute(ddMinuteOne, ddMinuteTens);
+  wd.setDecimalDigitHourFont(fontZX81, fontZX81);
+  wd.setDecimalDigitMinuteFont(fontZX81, fontZX81);
+  wd.setDecimalDigitHourPosition(0, 0, 8, 0);
+  wd.setDecimalDigitMinutePosition(16, 0, 24, 0);
   // App
   unitLittleBigClock.registerRealTimeClock(&rtc, true, false);
   unitLittleBigClock.registerKeypad(&skp);
@@ -89,7 +83,6 @@ void setup() {
 }
 
 void loop() {
-  skp.processingLoop();
   unitLittleBigClock.processingLoop();
 }
 
@@ -117,10 +110,8 @@ void keypadCallback(byte id) {
           font = fontC64;
           break;
       }
-      ddHourTens->setFont(font);
-      ddHourOne->setFont(font);
-      ddMinuteTens->setFont(font);
-      ddMinuteOne->setFont(font);
+      wd.setDecimalDigitHourFont(font, font);
+      wd.setDecimalDigitMinuteFont(font, font);
       unitLittleBigClock.invalidWatchDial();
       break;  
   }
