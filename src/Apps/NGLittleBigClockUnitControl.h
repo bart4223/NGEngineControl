@@ -12,7 +12,7 @@
 #include <NGCustomUnitControl.h>
 #include <Specs/NGCustomWatchDial.h>
 
-#define _VERSION "1.4"
+#define _VERSION "1.5"
 #define VERSION (char*)_VERSION
 
 #define DEFWATCHDELAY 1000

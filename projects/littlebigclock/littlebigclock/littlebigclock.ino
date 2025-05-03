@@ -1,4 +1,4 @@
-#define PROD false //false, true
+#define PROD true //false, true
 
 #include <NGMemoryObserver.h>
 #include <NGZX81Font.h>
@@ -20,11 +20,11 @@
 #define DOTMATRIXROWS   8
 #define DOTMATRIXCOLS  32
 
-#define KEYMINUTEPIN  14
+#define KEYMINUTEPIN   5
 #define KEYMINUTEID   42
-#define KEYHOURPIN    15
+#define KEYHOURPIN     6
 #define KEYHOURID     43
-#define KEYFONTPIN    16
+#define KEYFONTPIN     7
 #define KEYFONTID     44
 
 #define KEYDELAY     500
