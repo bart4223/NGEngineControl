@@ -13,6 +13,7 @@
 #include <NGExceptionDefinitions.h>
 #include <NGINotification.h>
 #include <NGRealTimeClock.h>
+#include <NGSimpleKeypad.h>
 #include <NGSoundMachine.h>
 #include <NGSplash.h>
 
@@ -162,6 +163,9 @@ protected:
     int _exceptionCount = 0;
     int _pinStartup = NOSTARTUPPIN;
     NGRealTimeClock *_rtc = nullptr;
+    bool _rtcInitialize = false;
+    bool _rtcAdjust = false;
+    NGSimpleKeypad *_keypad = nullptr;
     NGSoundMachine *_soundMachine = nullptr;
     bool _createSoundMachine = true;
     int _jingleStartup = NOJINGLE;
@@ -197,6 +201,10 @@ protected:
     void _initializeSplash();
     
     void _initializeSoundMachine();
+
+    void _initializeRTC();
+
+    void _initializeKeypad();
     
     void _playJingle(byte jingle);
     
@@ -218,7 +226,13 @@ public:
     long int startUp();
     
     void registerRealTimeClock(NGRealTimeClock *rtc);
+
+    void registerRealTimeClock(NGRealTimeClock *rtc, bool initialize);
+
+    void registerRealTimeClock(NGRealTimeClock *rtc, bool initialize, bool adjust);
     
+    void registerKeypad(NGSimpleKeypad *keypad);
+
     void registerNotification(NGINotification *notification);
     
     void setLogging(bool logging);

@@ -144,6 +144,18 @@ void NGCustomUnitControl::_initializeSoundMachine() {
     }
 }
 
+void NGCustomUnitControl::_initializeRTC() {
+    if (_rtc != nullptr && _rtcInitialize) {
+        _rtc->initialize(_rtcAdjust);
+    }
+}
+
+void NGCustomUnitControl::_initializeKeypad() {
+    if (_keypad != nullptr) {
+        _keypad->initialize();
+    }
+}
+
 void NGCustomUnitControl::_playJingle(byte jingle) {
     if (_soundMachine != nullptr) {
         _soundMachine->play(jingle);
@@ -172,6 +184,8 @@ void NGCustomUnitControl::initialize() {
     }
     _initializeSplash();
     _initializeSoundMachine();
+    _initializeRTC();
+    _initializeKeypad();
     _playJingleBoot();
 }
 
@@ -198,6 +212,9 @@ long int NGCustomUnitControl::startUp() {
 }
 
 void NGCustomUnitControl::processingLoop() {
+    if (_keypad != nullptr) {
+        _keypad->processingLoop();
+    }
     if (_irremotedataReceived) {
         _processingIRRemoteData();
         _irremotedataReceived = false;
@@ -283,10 +300,29 @@ void NGCustomUnitControl::registerIRRemoteFunction(byte remote, functionType typ
 }
 
 void NGCustomUnitControl::registerRealTimeClock(NGRealTimeClock *rtc) {
+    registerRealTimeClock(rtc, false);
+}
+
+void NGCustomUnitControl::registerRealTimeClock(NGRealTimeClock *rtc, bool initialize) {
+    registerRealTimeClock(rtc, initialize, false);
+}
+    
+void NGCustomUnitControl::registerRealTimeClock(NGRealTimeClock *rtc, bool initialize, bool adjust) {
     _rtc = rtc;
+    _rtcInitialize = initialize;
+    _rtcAdjust = adjust;
     #ifdef NG_PLATFORM_MEGA
     char log[100];
     sprintf(log, "RTC registered");
+    writeInfo(log);
+    #endif
+}
+
+void NGCustomUnitControl::registerKeypad(NGSimpleKeypad *keypad) {
+    _keypad = keypad;
+    #ifdef NG_PLATFORM_MEGA
+    char log[100];
+    sprintf(log, "Keypad registered");
     writeInfo(log);
     #endif
 }

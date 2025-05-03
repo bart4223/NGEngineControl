@@ -49,14 +49,11 @@ NGSerialNotification serialNotification = NGSerialNotification();
 void setup() {
   observeMemory(0);
   setGlobalUnit(&unitLittleBigClock);
-  // RTC
-  rtc.initialize(false);
   // Keypad
   skp.registerCallback(&keypadCallback);
   skp.registerKey(KEYMINUTEPIN, KEYMINUTEID, KEYDELAY);
   skp.registerKey(KEYHOURPIN, KEYHOURID, KEYDELAY);
   skp.registerKey(KEYFONTPIN, KEYFONTID, KEYDELAY);
-  skp.initialize();
   // DotMatrix
   cdm->initialize(DOTMATRIXBRIGHTNESS);
   // Decimal Digits
@@ -72,7 +69,8 @@ void setup() {
   wd.registerDecimalDigitHour(ddHourOne, ddHourTens);
   wd.registerDecimalDigitMinute(ddMinuteOne, ddMinuteTens);
   // App
-  unitLittleBigClock.registerRealTimeClock(&rtc);
+  unitLittleBigClock.registerRealTimeClock(&rtc, true, false);
+  unitLittleBigClock.registerKeypad(&skp);
   #if (PROD != true)
   unitLittleBigClock.registerNotification(&serialNotification);
   #endif
