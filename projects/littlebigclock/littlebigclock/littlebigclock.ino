@@ -5,6 +5,7 @@
 #include <NGC64Font.h>
 #include <Visuals/NG8x8DotMatrix.h>
 #include <Specs/NGDotMatrixWatchDial.h>
+#include <Specs/NGDotMatrixWatchCompilationSecondIndicator.h>
 #include <Apps/NGLittleBigClockUnitControl.h>
 #if (PROD != true)
 #include <NGSerialNotification.h>
@@ -36,6 +37,7 @@ NGColorDotMatrixDecimalDigit *ddHourTens = new NGColorDotMatrixDecimalDigit(cdm)
 NGColorDotMatrixDecimalDigit *ddMinuteOne = new NGColorDotMatrixDecimalDigit(cdm);
 NGColorDotMatrixDecimalDigit *ddMinuteTens = new NGColorDotMatrixDecimalDigit(cdm);
 NGDotMatrixWatchDial wd = NGDotMatrixWatchDial(cdm);
+NGDotMatrixWatchCompilationSecondIndicator *wcSecondIndicator = new NGDotMatrixWatchCompilationSecondIndicator(cdm);
 NGCustomFont *fontZX81 = new NGZX81Font();
 NGCustomFont *fontC64 = new NGC64Font();
 byte fontIndex = 1;
@@ -62,6 +64,7 @@ void setup() {
   wd.setDecimalDigitMinuteFont(fontZX81, fontZX81);
   wd.setDecimalDigitHourPosition(0, 0, 8, 0);
   wd.setDecimalDigitMinutePosition(16, 0, 24, 0);
+  wd.registerComplication(wcSecondIndicator, 500);
   // App
   unitLittleBigClock.registerRealTimeClock(&rtc, true, false);
   unitLittleBigClock.registerKeypad(&skp);

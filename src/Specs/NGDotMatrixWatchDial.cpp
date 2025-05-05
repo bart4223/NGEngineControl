@@ -72,12 +72,6 @@ void NGDotMatrixWatchDial::setSecond(int second) {
     if (_digitSecondTens != nullptr) {
         _digitSecondTens->setValue(second / 10);
     }
-    _secondIndicator = !_secondIndicator;
-    if (_secondIndicator) {
-        _ipc->drawPoint(_ipc->getWidth() / 2 - 1, _ipc->getHeight() - 1, COLOR_RED);
-    } else {
-        _ipc->clearPoint(_ipc->getWidth() / 2 - 1, _ipc->getHeight() - 1);
-    }
 }
 
 void NGDotMatrixWatchDial::setTime(int hour, int minute, int second) {

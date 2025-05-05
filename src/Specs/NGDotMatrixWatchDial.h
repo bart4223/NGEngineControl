@@ -15,7 +15,6 @@
 class NGDotMatrixWatchDial : public NGCustomWatchDial {
 
 private:
-    bool _secondIndicator = false;
     NGColorDotMatrixDecimalDigit *_digitHourOne = nullptr;
     NGColorDotMatrixDecimalDigit *_digitHourTens = nullptr;
     NGColorDotMatrixDecimalDigit *_digitMinuteOne = nullptr;
