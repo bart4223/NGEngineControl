@@ -28,6 +28,13 @@
 #define KEYFONTID     44
 
 #define KEYDELAY     500
+#define SECONDINDICATORDELAY 500
+
+#define DIGITALDIGITPOSY           0
+#define DIGITALDIGITHOURTENPOSX    0
+#define DIGITALDIGITHOURONEPOSX    8
+#define DIGITALDIGITMINUTETENPOSX 16
+#define DIGITALDIGITMINUTEONEPOSX 24
 
 NGRealTimeClock rtc = NGRealTimeClock();
 NGSimpleKeypad skp = NGSimpleKeypad();
@@ -60,11 +67,11 @@ void setup() {
   // Watch Dial
   wd.registerDecimalDigitHour(ddHourOne, ddHourTens);
   wd.registerDecimalDigitMinute(ddMinuteOne, ddMinuteTens);
-  wd.registerComplication(wcSecondIndicator, 500);
+  wd.registerComplication(wcSecondIndicator, SECONDINDICATORDELAY);
   wd.setDecimalDigitHourFont(fontZX81, fontZX81);
   wd.setDecimalDigitMinuteFont(fontZX81, fontZX81);
-  wd.setDecimalDigitHourPosition(0, 0, 8, 0);
-  wd.setDecimalDigitMinutePosition(16, 0, 24, 0);
+  wd.setDecimalDigitHourPosition(DIGITALDIGITHOURTENPOSX, DIGITALDIGITPOSY, DIGITALDIGITHOURONEPOSX, DIGITALDIGITPOSY);
+  wd.setDecimalDigitMinutePosition(DIGITALDIGITMINUTETENPOSX, DIGITALDIGITPOSY, DIGITALDIGITMINUTEONEPOSX, DIGITALDIGITPOSY);
   // App
   unitLittleBigClock.registerRealTimeClock(&rtc, true, false);
   unitLittleBigClock.registerKeypad(&skp);
