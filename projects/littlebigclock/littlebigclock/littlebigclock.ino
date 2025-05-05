@@ -36,8 +36,8 @@ NGColorDotMatrixDecimalDigit *ddHourOne = new NGColorDotMatrixDecimalDigit(cdm);
 NGColorDotMatrixDecimalDigit *ddHourTens = new NGColorDotMatrixDecimalDigit(cdm);
 NGColorDotMatrixDecimalDigit *ddMinuteOne = new NGColorDotMatrixDecimalDigit(cdm);
 NGColorDotMatrixDecimalDigit *ddMinuteTens = new NGColorDotMatrixDecimalDigit(cdm);
-NGDotMatrixWatchDial wd = NGDotMatrixWatchDial(cdm);
 NGDotMatrixWatchCompilationSecondIndicator *wcSecondIndicator = new NGDotMatrixWatchCompilationSecondIndicator(cdm);
+NGDotMatrixWatchDial wd = NGDotMatrixWatchDial(cdm);
 NGCustomFont *fontZX81 = new NGZX81Font();
 NGCustomFont *fontC64 = new NGC64Font();
 byte fontIndex = 1;
@@ -60,11 +60,11 @@ void setup() {
   // Watch Dial
   wd.registerDecimalDigitHour(ddHourOne, ddHourTens);
   wd.registerDecimalDigitMinute(ddMinuteOne, ddMinuteTens);
+  wd.registerComplication(wcSecondIndicator, 500);
   wd.setDecimalDigitHourFont(fontZX81, fontZX81);
   wd.setDecimalDigitMinuteFont(fontZX81, fontZX81);
   wd.setDecimalDigitHourPosition(0, 0, 8, 0);
   wd.setDecimalDigitMinutePosition(16, 0, 24, 0);
-  wd.registerComplication(wcSecondIndicator, 500);
   // App
   unitLittleBigClock.registerRealTimeClock(&rtc, true, false);
   unitLittleBigClock.registerKeypad(&skp);
