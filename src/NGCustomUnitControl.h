@@ -13,7 +13,7 @@
 #include <NGExceptionDefinitions.h>
 #include <NGINotification.h>
 #include <NGRealTimeClock.h>
-#include <NGSimpleKeypad.h>
+#include <Misc/NGSimpleKeypad.h>
 #include <NGSoundMachine.h>
 #include <NGSplash.h>
 
