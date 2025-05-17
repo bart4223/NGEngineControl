@@ -11,7 +11,7 @@
 #include <Arduino.h>
 #include <NGCustomUnitControl.h>
 #include <NGITestableComponent.h>
-#include <NG8BitShiftRegister.h>
+#include <Misc/NG8BitShiftRegister.h>
 
 #define _VERSION "0.8"
 #define VERSION (char*)_VERSION

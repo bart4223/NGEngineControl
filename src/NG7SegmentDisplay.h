@@ -9,7 +9,7 @@
 #define NG7SegmentDisplay_h
 
 #include <Arduino.h>
-#include <NG8BitShiftRegister.h>
+#include <Misc/NG8BitShiftRegister.h>
 
 enum sevenSegmentMode { ssmDec, ssmHex };
 
