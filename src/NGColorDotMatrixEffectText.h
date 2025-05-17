@@ -11,7 +11,7 @@
 #include <Arduino.h>
 #include <NGCommonGraphics.h>
 #include <NGIEffect.h>
-#include <NGCustomFont.h>
+#include <Fonts/NGCustomFont.h>
 #include <NGIPaintableComponent.h>
 #include <NGColorDotMatrixCharDigit.h>
 

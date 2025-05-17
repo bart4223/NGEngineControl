@@ -9,7 +9,7 @@
 #define NGColorDotMatrixCustomDigit_h
 
 #include <Arduino.h>
-#include <NGCustomFont.h>
+#include <Fonts/NGCustomFont.h>
 #include <NGIPaintableComponent.h>
 
 class NGColorDotMatrixCustomDigit {
