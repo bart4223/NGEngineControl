@@ -5,7 +5,7 @@
 //  Created by Nils Grimmer on 30.12.21.
 //
 
-#include "NGStrings.h"
+#include "Common/NGStrings.h"
 #include "NGRealTimeClock.h"
 
 NGRealTimeClock::NGRealTimeClock() {

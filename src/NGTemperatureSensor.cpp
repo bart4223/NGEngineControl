@@ -5,7 +5,7 @@
 //  Created by Nils Grimmer on 27.12.21.
 //
 
-#include "NGStrings.h"
+#include "Common/NGStrings.h"
 #include "NGTemperatureSensor.h"
 
 NGTemperatureSensor::NGTemperatureSensor(int pinSensor) {
