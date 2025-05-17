@@ -1,8 +1,6 @@
 #define PROD true //false, true
 
-#include <NGMemoryObserver.h>
-#include <NGZX81Font.h>
-#include <NGC64Font.h>
+#include <NGEngineCore.h>
 #include <Visuals/NG8x8DotMatrix.h>
 #include <Specs/NGDotMatrixWatchDial.h>
 #include <Specs/NGDotMatrixWatchCompilationSecondIndicator.h>
