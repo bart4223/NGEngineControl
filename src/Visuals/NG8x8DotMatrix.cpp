@@ -53,11 +53,10 @@ void NG8x8DotMatrix::initialize() {
 }
 
 void NG8x8DotMatrix::initialize(float brightness) {
-    _brightness = brightness;
     for (int i = 0; i < _lc->getDeviceCount(); i++) {
         _lc->shutdown(i, false);
-        _lc->setIntensity(i, _brightness * 15);
     }
+    setBrightness(brightness);
     clear();
 }
 
@@ -73,6 +72,10 @@ void NG8x8DotMatrix::testSequenceStart() {
     
 void NG8x8DotMatrix::testSequenceStop() {
     clear();
+}
+
+void NG8x8DotMatrix::setLogging(bool logging) {
+    _logging = logging;
 }
 
 int NG8x8DotMatrix::getWidth() {
@@ -220,4 +223,71 @@ colorRGB NG8x8DotMatrix::getBackground() {
 void NG8x8DotMatrix::setOffset(int offsetX, int offsetY) {
     _offsetX = offsetX;
     _offsetY = offsetY;
+}
+
+void NG8x8DotMatrix::setBrightness(float brightness) {
+    _brightness = brightness;
+    if (_logging) {
+        Serial.print("b: ");
+        Serial.println(_brightness);
+    }
+    for (int i = 0; i < _lc->getDeviceCount(); i++) {
+        _lc->setIntensity(i, _brightness * 15);
+    }
+}
+
+float NG8x8DotMatrix::getBrightness() {
+    return _brightness;
+}
+
+bool NG8x8DotMatrix::isMinBrightness() {
+    return getBrightness() == _minBrightness;
+}
+
+bool NG8x8DotMatrix::isMaxBrightness() {
+    return getBrightness() == _maxBrightness;
+}
+
+void NG8x8DotMatrix::incrementBrightness() {
+    float brightness = getBrightness();
+    float step = 0.1;
+    if (brightness <= 0.09) {
+        step = 0.01;
+    }
+    brightness = brightness + step;
+    if (brightness > _maxBrightness) {
+        brightness = _maxBrightness;
+    }
+    setBrightness(brightness);
+}
+
+void NG8x8DotMatrix::decrementBrightness() {
+    float brightness = getBrightness();
+    float step = 0.1;
+    if (brightness <= 0.1) {
+        step = 0.01;
+    }
+    brightness = brightness - step;
+    if (brightness < _minBrightness) {
+        brightness = _minBrightness;
+    }
+    setBrightness(brightness);
+}
+
+void NG8x8DotMatrix::changeBrightness() {
+    if (_changeBrightnessUp) {
+        if (getBrightness() < _maxBrightness) {
+            incrementBrightness();
+        } else {
+            _changeBrightnessUp = false;
+            decrementBrightness();
+        }
+    } else {
+        if (getBrightness() > _minBrightness) {
+            decrementBrightness();
+        } else {
+            _changeBrightnessUp = true;
+            incrementBrightness();
+        }
+    }
 }

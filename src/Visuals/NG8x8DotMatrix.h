@@ -24,7 +24,9 @@
 #define DEFCOLOR     COLOR_RED
 #define DEFBACKCOLOR COLOR_BLACK
 
-#define DEFBRIGHTNESS 1
+#define DEFBRIGHTNESS    1.00
+#define DEFMINBRIGHTNESS 0.01
+#define DEFMAXBRIGHTNESS 1.00
 
 #define DEFTESTMODEDELAY  50
 
@@ -44,6 +46,10 @@ private:
     int _scale = 1;
     int _testModeDelay = DEFTESTMODEDELAY;
     dotmatrixAddressingMode _adressingMode = DEFADDRESSINGMODE;
+    float _maxBrightness = DEFMAXBRIGHTNESS;
+    float _minBrightness = DEFMINBRIGHTNESS;
+    bool _changeBrightnessUp = true;
+    bool _logging = false;
 
 protected:
     void _create(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode);
@@ -66,6 +72,8 @@ public:
     void testSequenceStart();
     
     void testSequenceStop();
+
+    void setLogging(bool logging);
 
     int getWidth();
     
@@ -108,6 +116,20 @@ public:
     colorRGB getBackground();
     
     void setOffset(int offsetX, int offsetY);
+
+    void setBrightness(float brightness);
+    
+    float getBrightness();
+    
+    bool isMinBrightness();
+    
+    bool isMaxBrightness();
+    
+    void incrementBrightness();
+    
+    void decrementBrightness();
+    
+    void changeBrightness();
 };
 
 #endif /* NG8x8DotMatrix_h */

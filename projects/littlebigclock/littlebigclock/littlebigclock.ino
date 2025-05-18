@@ -18,12 +18,14 @@
 #define DOTMATRIXROWS   8
 #define DOTMATRIXCOLS  32
 
-#define KEYMINUTEPIN   5
-#define KEYMINUTEID   42
-#define KEYHOURPIN     6
-#define KEYHOURID     43
-#define KEYFONTPIN     7
-#define KEYFONTID     44
+#define KEYBRIGHTNESSPIN   4
+#define KEYBRIGHTNESSID   41
+#define KEYMINUTEPIN       5
+#define KEYMINUTEID       42
+#define KEYHOURPIN         6
+#define KEYHOURID         43
+#define KEYFONTPIN         7
+#define KEYFONTID         44
 
 #define KEYDELAY     500
 #define SECONDINDICATORDELAY 500
@@ -57,11 +59,15 @@ void setup() {
   setGlobalUnit(&unitLittleBigClock);
   // Keypad
   skp.registerCallback(&keypadCallback);
+  skp.registerKey(KEYBRIGHTNESSPIN, KEYBRIGHTNESSID, KEYDELAY);
   skp.registerKey(KEYMINUTEPIN, KEYMINUTEID, KEYDELAY);
   skp.registerKey(KEYHOURPIN, KEYHOURID, KEYDELAY);
   skp.registerKey(KEYFONTPIN, KEYFONTID, KEYDELAY);
   // DotMatrix
   cdm->initialize(DOTMATRIXBRIGHTNESS);
+  #if (PROD != true)
+  cdm->setLogging(true);
+  #endif
   // Watch Dial
   wd.registerDecimalDigitHour(ddHourOne, ddHourTens);
   wd.registerDecimalDigitMinute(ddMinuteOne, ddMinuteTens);
@@ -96,6 +102,10 @@ void loop() {
 
 void keypadCallback(byte id) {
   switch (id) {
+    case KEYBRIGHTNESSID:
+      cdm->changeBrightness();
+      unitLittleBigClock.invalidWatchDial();
+      break;
     case KEYMINUTEID:
       rtc.incrementMinute();
       unitLittleBigClock.invalidWatchDial();
