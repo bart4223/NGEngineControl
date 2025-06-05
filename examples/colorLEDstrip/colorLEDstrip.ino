@@ -2,10 +2,8 @@
 #define TESTMODEDEFAULT //TESTMODEDEFAULT, TESTMODEPIXEL
 #define WITHOUTBEEP //WITHOUTBEEP, WITHBEEP 
 
-#include <NGCommon.h>
-#include <NGMemoryObserver.h>
+#include <NGEngineCore.h>
 #include <NGColorLEDStrip.h>
-#include <NGSimpleKeypad.h>
 #ifdef WITHBEEP
 #include <NGSoundMachine.h>
 #include <NGJingleBoot.h>
