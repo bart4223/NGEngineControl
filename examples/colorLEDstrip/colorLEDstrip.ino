@@ -241,6 +241,8 @@ void SimpleKeypadCallback(byte id) {
       break;
     case KEYBRIGHTNESSID:
       cls.changeBrightness();
+      cls.drawPoint(0, 0, COLOR_RED);
+      delay(KEYDELAY);
       #ifdef WITHBEEP
       if (cls.isMinBrightness() || cls.isMaxBrightness()) {
         sm->play(jingleAlarmID);
