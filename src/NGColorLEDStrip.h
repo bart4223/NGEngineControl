@@ -30,7 +30,7 @@
 #define DEFMAXBRIGHTNESS 1.00
 
 enum testMode {tmDefault, tmPixel};
-enum LEDStripKind {lskLeftRightStrict, lskLeftRightAlternate, lskUpDownStrict, lskUpDownAlternate};
+enum LEDStripKind {lskLeftRightStrict, lskLeftRightAlternate, lskUpDownStrict, lskUpDownAlternate, lskCircle};
 
 struct colorLEDStripGeometryStruct
 {
