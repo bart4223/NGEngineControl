@@ -1,8 +1,9 @@
-#include <NGCommon.h>
-#include <NG8BitShiftRegister.h>
-
 #define SHIFTREGISTERONE
-#define SHIFTREGISTERTWO
+//#define SHIFTREGISTERTWO
+//#define RANDOMIZE
+
+#include <NGEngineCore.h>
+#include <Misc/NG8BitShiftRegister.h>
 
 #ifdef NG_PLATFORM_AVR
 #include <NGMemoryObserver.h>
@@ -21,7 +22,6 @@
 #endif
 
 #define DELAY 1000
-//#define RANDOMIZE
 
 #ifdef SHIFTREGISTERONE
 NG8BitShiftRegister srOne = NG8BitShiftRegister(LATCHPINONE, CLOCKPINONE, DATAPINONE);
