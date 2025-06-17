@@ -5,7 +5,7 @@
 #define WITHOUTLCD //WITHLCD, WITHOUTLCD
 
 #include <NGEngineCore.h>
-#include <NGColorLEDStrip.h>
+#include <Visuals/NGColorLEDStrip.h>
 #ifdef WITHBEEP
 #include <NGSoundMachine.h>
 #include <NGJingleBoot.h>

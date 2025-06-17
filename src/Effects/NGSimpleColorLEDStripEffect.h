@@ -10,7 +10,7 @@
 
 #include <Arduino.h>
 #include <NGIEffect.h>
-#include <NGColorLEDStrip.h>
+#include <Visuals/NGColorLEDStrip.h>
 
 enum simpleLEDStripEffectKind { slsekNone, slsekFlash, slsekAlternate, slsekRunning, slsekRandom, slsekRainbow };
 
