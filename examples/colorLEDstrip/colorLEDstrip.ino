@@ -6,6 +6,7 @@
 
 #include <NGEngineCore.h>
 #include <Visuals/NGColorLEDStrip.h>
+#include <Visuals/NGCircleLEDStrip.h>
 #ifdef WITHBEEP
 #include <NGSoundMachine.h>
 #include <NGJingleBoot.h>
@@ -36,13 +37,6 @@
 #define LEDSTRIP256_ROWS        16
 #define LEDSTRIPCIRCLE7_PIXELS 113
 #define LEDSTRIPCIRCLE7_RADIUS   7
-//Radius 1  1
-//Radius 2  8
-//Radius 3 12
-//Radius 4 16
-//Radius 5 20
-//Radius 6 24
-//Radius 7 32
 
 #define BRIGHTNESS 0.05
 //#define BRIGHTNESS 0.5
@@ -54,7 +48,11 @@
 #define TESTRUNS       1
 #endif
 #define TESTDELAY    100
+#ifdef LEDSTRIPCIRCLE7
+#define TESTMODEDELAY 200
+#else
 #define TESTMODEDELAY 20
+#endif
 
 #define START 0x00
 #define STOP  0x05
@@ -93,7 +91,7 @@ NGColorLEDStrip cls = NGColorLEDStrip(PINLED, LEDSTRIP100_PIXELS, LEDSTRIP100_RO
 NGColorLEDStrip cls = NGColorLEDStrip(PINLED, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS, lskUpDownAlternate);
 #endif
 #ifdef LEDSTRIPCIRCLE7
-NGColorLEDStrip cls = NGColorLEDStrip(PINLED, LEDSTRIPCIRCLE7_PIXELS, 1);
+NGCircleLEDStrip cls = NGCircleLEDStrip(PINLED, LEDSTRIPCIRCLE7_PIXELS, LEDSTRIPCIRCLE7_RADIUS);
 #endif
 
 #ifdef ARDUINO_MEGA
@@ -131,15 +129,26 @@ bool hasLCD;
 void setup() {
   observeMemory(0);
   initGlobalRandomSeedWithAnalogInput(A5);
+  // Keypad
   skp.registerCallback(&SimpleKeypadCallback);
   skp.registerKey(KEYBEEPPIN, KEYBEEPID, KEYDELAY);
   skp.registerKey(KEYBRIGHTNESSPIN, KEYBRIGHTNESSID, KEYDELAY);
+  // LED Strip
   //cls.setLogging(true);
   cls.setIndicatorRange(49);
   cls.registerGeometry(LEDSTRIP100_INDICATOR, LEDSTRIP100_PIXELS, LEDSTRIP100_ROWS);
   cls.registerGeometry(LEDSTRIP256_INDICATOR, lskUpDownAlternate, LEDSTRIP256_PIXELS, LEDSTRIP256_ROWS);
   cls.setOffset(0, 0);
   //cls.setTestColor(COLOR_WHITE);
+  #ifdef LEDSTRIPCIRCLE7
+  cls.registerRadius(1, 0);  // 1 Pixel
+  cls.registerRadius(2, 1);  // 8 Pixel
+  cls.registerRadius(3, 9);  // 12 Pixel
+  cls.registerRadius(4, 21); // 16 Pixel
+  cls.registerRadius(5, 37); // 20 Pixel
+  cls.registerRadius(6, 57); // 24 Pixel
+  cls.registerRadius(7, 81); // 32 Pixel
+  #endif
   #ifdef TESTMODEPIXEL
   cls.setTestMode(tmPixel);
   #endif
@@ -201,7 +210,7 @@ void loop() {
       }      
     }
     #else
-    switch (step) {
+    switch(step) {
       case 0x00:
         cls.drawLine(1, 1, 8, 6, COLOR_RED);
         break;
@@ -212,7 +221,11 @@ void loop() {
         cls.fillRect(3, 3, 6, 7, COLOR_BLUE);
         break;
       case 0x03:
+        #ifdef LEDSTRIPCIRCLE7
+        cls.drawCircle(5, 5, 5, COLOR_YELLOW);
+        #else
         cls.drawCircle(5, 5, 2, COLOR_YELLOW);
+        #endif
         break;
       case 0x04:
         cls.drawImage(img, clr, sizeof(img) / sizeof(img[0]));

@@ -14,6 +14,8 @@
 #include <NGITestableComponent.h>
 #include <NGIPaintableComponent.h>
 
+#define DEFLEDSTRIPPIN   8
+
 #define DEFROWCOUNT      1
 #define DEFBRIGHTNESS    1
 #define DEFPIXELCOUNT    1
@@ -30,7 +32,7 @@
 #define DEFMAXBRIGHTNESS 1.00
 
 enum testMode {tmDefault, tmPixel};
-enum LEDStripKind {lskLeftRightStrict, lskLeftRightAlternate, lskUpDownStrict, lskUpDownAlternate};
+enum LEDStripKind {lskLeftRightStrict, lskLeftRightAlternate, lskUpDownStrict, lskUpDownAlternate, lskCircle};
 
 struct colorLEDStripGeometryStruct
 {
@@ -43,7 +45,7 @@ typedef struct colorLEDStripGeometryStruct colorLEDStripGeometry;
 
 class NGColorLEDStrip : public NGITestableComponent, public NGIPaintableComponent {
     
-private:
+protected:
     NeoPixelBus<NeoGrbFeature, NeoWs2812xMethod> *_strip;
     int _pixelCount;
     int _rowCount;
@@ -69,12 +71,13 @@ private:
     float _minBrightness = DEFMINBRIGHTNESS;
     bool _changeBrightnessUp = true;
     
-protected:
     void _create(byte pin, int pixelcount, int rowcount, LEDStripKind stripkind, int pinautodetection);
     void _render();
     void _determineGeometry(int indicatorvalue);
     
 public:
+    NGColorLEDStrip();
+
     NGColorLEDStrip(byte pin, byte pinautodetection);
     
     NGColorLEDStrip(byte pin, int pixelcount);

@@ -7,6 +7,10 @@
 
 #include "NGColorLEDStrip.h"
 
+NGColorLEDStrip::NGColorLEDStrip() {
+    _create(DEFLEDSTRIPPIN, DEFPIXELCOUNT, DEFROWCOUNT, DEFLEDSTRIPKIND, NOPINAUTODETECTION);
+}
+
 NGColorLEDStrip::NGColorLEDStrip(byte pin, byte pinautodetection) {
     _create(pin, DEFPIXELCOUNT, DEFROWCOUNT, DEFLEDSTRIPKIND, pinautodetection);
 }
