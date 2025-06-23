@@ -35,6 +35,10 @@ int NGCircleLEDStrip::_getRadiusPixelCount(int radius) {
     return 0;
 }
 
+int NGCircleLEDStrip::getRadiusCount() {
+    return _radiusCount;
+}
+
 void NGCircleLEDStrip::registerRadius(int radius, int startpixel) {
     if (radius > 0 && radius <= _radiusCount) {
         _radius[radius - 1].startpixel = startpixel;

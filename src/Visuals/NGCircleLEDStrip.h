@@ -38,6 +38,8 @@ public:
 
     NGCircleLEDStrip(byte pin, int pixelcount, int radiuscount);
 
+    int getRadiusCount();
+
     void registerRadius(int radius, int startpixel);
 
     void testSequenceStart();
