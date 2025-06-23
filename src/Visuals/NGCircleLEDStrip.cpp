@@ -112,8 +112,8 @@ void NGCircleLEDStrip::drawCircleSection(int x0, int y0, int radius, int startAn
         }
         sa = (sa + _angleOffset) % 360;
         ea = (ea + _angleOffset) % 360;
-        int start = _radius[radius - 1].startpixel + _getRadiusPixelCount(radius) * sa / 360;
-        int end = _radius[radius - 1].startpixel + _getRadiusPixelCount(radius) * ea / 360;
+        int start = _radius[radius - 1].startpixel + round(_getRadiusPixelCount(radius) * sa / 360);
+        int end = _radius[radius - 1].startpixel + round(_getRadiusPixelCount(radius) * ea / 360);
         int i = start;
         int loopCount = 1;
         if (start == end) {
