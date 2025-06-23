@@ -23,6 +23,18 @@ void NGCircleLEDStrip::_create(byte pin, int pixelcount, int radiuscount, int pi
     }
 }
 
+int NGCircleLEDStrip::_getRadiusPixelCount(int radius) {
+    if (radius > 0 && radius <= _radiusCount) {
+        if (radius < _radiusCount) {
+            return _radius[radius].startpixel - _radius[radius - 1].startpixel;
+        } else {
+            return _pixelCount - _radius[radius - 1].startpixel;
+        }
+        return _radius[radius - 1].startpixel;
+    }
+    return 0;
+}
+
 void NGCircleLEDStrip::registerRadius(int radius, int startpixel) {
     if (radius > 0 && radius <= _radiusCount) {
         _radius[radius - 1].startpixel = startpixel;
@@ -76,4 +88,48 @@ void NGCircleLEDStrip::drawCircle(int x0, int y0, int radius, colorRGB color) {
         }
     }
     endUpdate();
+}
+
+void NGCircleLEDStrip::drawCircleSection(int x0, int y0, int radius, int startAngle, int endAngle, colorRGB color) {
+    beginUpdate();
+    if (radius > 0 && radius <= _radiusCount) {
+        int sa = (startAngle + _angleOffset) % 360;
+        int ea = (endAngle + _angleOffset) % 360;
+        if (sa > ea) {
+            int temp = sa;
+            sa = ea;
+            ea = temp;
+        }
+        int start = _radius[radius - 1].startpixel + _getRadiusPixelCount(radius) * sa / 360;
+        int end = _radius[radius - 1].startpixel + _getRadiusPixelCount(radius) * ea / 360;
+        int i = start;
+        int loopCount = 1;
+        if (start == end) {
+            loopCount++;
+        }
+        bool breakLoop = false;
+        while (!breakLoop) {
+            _strip->SetPixelColor(i, RgbColor(color.red * _brightness, color.green * _brightness, color.blue * _brightness));
+            breakLoop = (i == end);
+            if (breakLoop) {
+                loopCount--;
+                breakLoop = (loopCount <= 0);
+            }
+            if (!breakLoop) {
+                int nextend = _pixelCount;
+                if (radius < _radiusCount) {
+                    nextend = _radius[radius].startpixel;
+                }
+                i++;
+                if (i >= nextend) {
+                    i = _radius[radius - 1].startpixel; 
+                }
+            }
+        }
+    }
+    endUpdate();
+}
+    
+void NGCircleLEDStrip::setAngleOffset(int angleOffset) {
+    _angleOffset = angleOffset;
 }

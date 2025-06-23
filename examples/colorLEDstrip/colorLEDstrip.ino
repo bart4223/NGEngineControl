@@ -148,6 +148,7 @@ void setup() {
   cls.registerRadius(5, 37); // 20 Pixel
   cls.registerRadius(6, 57); // 24 Pixel
   cls.registerRadius(7, 81); // 32 Pixel
+  cls.setAngleOffset(180);
   #endif
   #ifdef TESTMODEPIXEL
   cls.setTestMode(tmPixel);
@@ -212,28 +213,48 @@ void loop() {
     #else
     switch(step) {
       case 0x00:
+        #ifdef LEDSTRIPCIRCLE7
+        cls.drawCircle(0, 0, 2, COLOR_RED);
+        #else
         cls.drawLine(1, 1, 8, 6, COLOR_RED);
+        #endif
         break;
       case 0x01:
+        #ifdef LEDSTRIPCIRCLE7
+        cls.drawCircleSection(0, 0, 3, 0, 90, COLOR_GREEN);
+        #else
         cls.drawRect(2, 2, 6, 7, COLOR_GREEN);
+        #endif
         break;
       case 0x02:
+        #ifdef LEDSTRIPCIRCLE7
+        cls.drawCircleSection(0, 0, 4, 0, 180, COLOR_BLUE);
+        #else
         cls.fillRect(3, 3, 6, 7, COLOR_BLUE);
+        #endif
         break;
       case 0x03:
         #ifdef LEDSTRIPCIRCLE7
-        cls.drawCircle(5, 5, 5, COLOR_YELLOW);
+        cls.drawCircleSection(0, 0, 5, 0, 270, COLOR_YELLOW);
         #else
         cls.drawCircle(5, 5, 2, COLOR_YELLOW);
         #endif
         break;
       case 0x04:
+        #ifdef LEDSTRIPCIRCLE7
+        cls.drawCircleSection(0, 0, 6, 0, 360, COLOR_ORANGE);
+        #else
         cls.drawImage(img, clr, sizeof(img) / sizeof(img[0]));
+        #endif
         break;
       case 0x05:
+        #ifdef LEDSTRIPCIRCLE7
+        cls.drawCircleSection(0, 0, 7, 45, 135, COLOR_PURPLE);
+        #else
         cls.drawPoint(0, 0, COLOR_RED);
         cls.drawPoint(1, 0, COLOR_GREEN);
         cls.drawPoint(2, 0, COLOR_BLUE);
+        #endif
         break;
     }
     #endif
