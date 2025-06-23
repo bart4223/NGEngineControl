@@ -55,7 +55,11 @@
 #endif
 
 #define START 0x00
+#ifdef LEDSTRIPCIRCLE7
+#define STOP  0x06
+#else
 #define STOP  0x05
+#endif
 
 #ifdef WITHBEEP
 #define SOUNDACTIVATIONPIN 9
@@ -249,12 +253,15 @@ void loop() {
         break;
       case 0x05:
         #ifdef LEDSTRIPCIRCLE7
-        cls.drawCircleSection(0, 0, 7, 45, 135, COLOR_PURPLE);
+        cls.fillCircle(0, 0, 7, COLOR_PURPLE);
         #else
         cls.drawPoint(0, 0, COLOR_RED);
         cls.drawPoint(1, 0, COLOR_GREEN);
         cls.drawPoint(2, 0, COLOR_BLUE);
         #endif
+        break;
+      case 0x06:
+        cls.fillCircleSection(0, 0, 1, 6, 45, 135, COLOR_BLUE);
         break;
     }
     #endif

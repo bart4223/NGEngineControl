@@ -90,6 +90,16 @@ void NGCircleLEDStrip::drawCircle(int x0, int y0, int radius, colorRGB color) {
     endUpdate();
 }
 
+void NGCircleLEDStrip::fillCircle(int x0, int y0, int radius, colorRGB color) {
+    beginUpdate();
+    if (radius > 0 && radius <= _radiusCount) {
+        for (int i = 1; i <= radius; i++) {
+            drawCircle(x0, x0, i, color);
+        }
+    }
+    endUpdate();
+}
+
 void NGCircleLEDStrip::drawCircleSection(int x0, int y0, int radius, int startAngle, int endAngle, colorRGB color) {
     beginUpdate();
     if (radius > 0 && radius <= _radiusCount) {
@@ -127,6 +137,16 @@ void NGCircleLEDStrip::drawCircleSection(int x0, int y0, int radius, int startAn
                     i = _radius[radius - 1].startpixel; 
                 }
             }
+        }
+    }
+    endUpdate();
+}
+
+void NGCircleLEDStrip::fillCircleSection(int x0, int y0, int startRadius, int endRadius, int startAngle, int endAngle, colorRGB color) {
+    beginUpdate();
+    if (startRadius > 0 && startRadius <= _radiusCount && endRadius > 0 && endRadius <= _radiusCount) {
+        for (int i = startRadius; i <= endRadius; i++) {
+            drawCircleSection(x0, y0, i, startAngle, endAngle, color);
         }
     }
     endUpdate();

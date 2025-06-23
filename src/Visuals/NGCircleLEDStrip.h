@@ -44,7 +44,11 @@ public:
 
     void drawCircle(int x0, int y0, int radius, colorRGB color);
 
+    void fillCircle(int x0, int y0, int radius, colorRGB color);
+    
     void drawCircleSection(int x0, int y0, int radius, int startAngle, int endAngle, colorRGB color);
+ 
+    void fillCircleSection(int x0, int y0, int startRadius, int endRadius, int startAngle, int endAngle, colorRGB color);
     
     void setAngleOffset(int angleOffset);
 };
