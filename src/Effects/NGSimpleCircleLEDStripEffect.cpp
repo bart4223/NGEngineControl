@@ -27,7 +27,7 @@ void NGSimpleCircleLEDStripEffect::_render() {
             _clear();
             _circleLEDStrip->drawCircle(0, 0, _currentStep[0], _colorOn);
             _currentStep[0]++;
-            if (_currentStep[0] > _circleLEDStrip->getRadiusCount()) {
+            if (_currentStep[0] > _getRadius()) {
                 _currentStep[0] = 0;
             }
             break;   
@@ -40,10 +40,14 @@ void NGSimpleCircleLEDStripEffect::_render() {
 
 void NGSimpleCircleLEDStripEffect::_clear() {
     _circleLEDStrip->beginUpdate();
-    for(int i = 1; i <= _circleLEDStrip->getRadiusCount(); i++) {
+    for(int i = 1; i <= _getRadius(); i++) {
         _circleLEDStrip->drawCircle(0, 0, i, _colorOff);
     }
     _circleLEDStrip->endUpdate();
+}
+
+int NGSimpleCircleLEDStripEffect::_getRadius() {
+    return _circleLEDStrip->getRadiusCount();
 }
 
 void NGSimpleCircleLEDStripEffect::initialize() {

@@ -36,6 +36,8 @@ protected:
 
     void _clear();
 
+    int _getRadius();
+
 public:
     NGSimpleCircleLEDStripEffect(NGCircleLEDStrip *circleLEDStrip);
 
