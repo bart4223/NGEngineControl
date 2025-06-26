@@ -1,7 +1,8 @@
-#define EFFECTTWO //EFFECTONE, EFFECTTWO
+#define EFFECTTHREE //EFFECTONE, EFFECTTWO, EFFECTTHREE
 
 #include <NGEngineCore.h>
 #include <Effects/NGSimpleCircleLEDStripEffect.h>
+#include <Effects/NGSymbolCircleLEDStripEffect.h>
 
 #define PINLEDSTRIP        8
 #define LEDSTRIP_PIXELS  113
@@ -9,7 +10,15 @@
 
 #define BRIGHTNESS 0.05
 
+#ifdef EFFECTONE
 #define STEPDELAY  50
+#endif
+#ifdef EFFECTTWO
+#define STEPDELAY  50
+#endif
+#ifdef EFFECTTHREE
+#define STEPDELAY  500
+#endif
 
 NGCircleLEDStrip cls = NGCircleLEDStrip(PINLEDSTRIP, LEDSTRIP_PIXELS, LEDSTRIP_RADIUS);
 #ifdef EFFECTONE
@@ -17,6 +26,9 @@ NGSimpleCircleLEDStripEffect effect = NGSimpleCircleLEDStripEffect(&cls, sclsekP
 #endif
 #ifdef EFFECTTWO
 NGSimpleCircleLEDStripEffect effect = NGSimpleCircleLEDStripEffect(&cls, sclsekPulse);
+#endif
+#ifdef EFFECTTHREE
+NGSymbolCircleLEDStripEffect effect = NGSymbolCircleLEDStripEffect(&cls, syclsekOnAir);
 #endif
 
 void setup() {
@@ -38,6 +50,8 @@ void setup() {
   #endif
   #ifdef EFFECTTWO
   effect.setEffectColors(COLOR_BLUE, COLOR_YELLOW);
+  #endif
+  #ifdef EFFECTTHREE
   #endif
   effect.initialize();
   observeMemory(0);
