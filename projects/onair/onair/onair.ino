@@ -52,6 +52,8 @@ NGSimpleCircleLEDStripEffect *effectOne = new NGSimpleCircleLEDStripEffect(&cls)
 NGSimpleCircleLEDStripEffect *effectTwo = new NGSimpleCircleLEDStripEffect(&cls, sclsekPulse);
 NGSimpleCircleLEDStripEffect *effectThree = new NGSimpleCircleLEDStripEffect(&cls, sclsekPulse);
 
+int effectIndex[3];
+
 void setup() {
   observeMemory(0);
   setGlobalUnit(&unitOnAir);
@@ -85,9 +87,9 @@ void setup() {
   #if (PROD != true)
   unitOnAir.registerNotification(&serialNotification);
   #endif
-  unitOnAir.registerEffect(effectOne);
-  unitOnAir.registerEffect(effectTwo);
-  unitOnAir.registerEffect(effectThree);
+  effectIndex[0] = unitOnAir.registerEffect(effectOne);
+  effectIndex[1] = unitOnAir.registerEffect(effectTwo);
+  effectIndex[2] = unitOnAir.registerEffect(effectThree);
   unitOnAir.initialize();
   #if (PROD == true)
   unitOnAir.setLogging(false);
@@ -109,17 +111,17 @@ void loop() {
 void RadioButtonsCallback(byte id) {
   switch(id) {
     case KEY1ID:
-      unitOnAir.setCurrentEffect(0);  
+      unitOnAir.setCurrentEffect(effectIndex[0]);  
       rbOne.resetRadioButtons();
       break;
     case KEY2ID:
-      unitOnAir.setCurrentEffect(1);
+      unitOnAir.setCurrentEffect(effectIndex[1]);
       break;
     case KEY3ID:
-      unitOnAir.setCurrentEffect(2);
+      unitOnAir.setCurrentEffect(effectIndex[2]);
       break;
     case KEY4ID:
-      unitOnAir.setCurrentEffect(0);
+      unitOnAir.setCurrentEffect(effectIndex[0]);
       break;
   }
 }
