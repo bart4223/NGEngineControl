@@ -27,23 +27,23 @@ void NGSymbolCircleLEDStripEffect::_render() {
             switch(_currentStep[0]) {
                 case 0:
                     _circleLEDStrip->clear();
-                    _circleLEDStrip->drawCircleSection(0, 0, 2, 0, 90, COLOR_PURPLE);
-                    _circleLEDStrip->drawCircleSection(0, 0, 2, 180, 360, COLOR_PURPLE);
+                    _circleLEDStrip->drawCircleSection(0, 0, 2, 0, 90, _colorOne);
+                    _circleLEDStrip->drawCircleSection(0, 0, 2, 180, 360, _colorOne);
                     _currentStep[0]++;
                     break;
                 case 1:
-                    _circleLEDStrip->drawCircleSection(0, 0, 3, 45, 155, COLOR_WHITE);
-                    _circleLEDStrip->drawCircleSection(0, 0, 3, 235, 335, COLOR_WHITE);
+                    _circleLEDStrip->drawCircleSection(0, 0, 3, 45, 155, _colorTwo);
+                    _circleLEDStrip->drawCircleSection(0, 0, 3, 235, 335, _colorTwo);
                     _currentStep[0]++;
                     break;
                 case 2:
-                    _circleLEDStrip->drawCircleSection(0, 0, 5, 45, 145, COLOR_WHITE);
-                    _circleLEDStrip->drawCircleSection(0, 0, 5, 225, 325, COLOR_WHITE);
+                    _circleLEDStrip->drawCircleSection(0, 0, 5, 45, 145, _colorTwo);
+                    _circleLEDStrip->drawCircleSection(0, 0, 5, 225, 325, _colorTwo);
                     _currentStep[0]++;
                     break;
                 case 3:
-                    _circleLEDStrip->drawCircleSection(0, 0, 7, 45, 135, COLOR_WHITE);
-                    _circleLEDStrip->drawCircleSection(0, 0, 7, 225, 315, COLOR_WHITE);
+                    _circleLEDStrip->drawCircleSection(0, 0, 7, 45, 135, _colorTwo);
+                    _circleLEDStrip->drawCircleSection(0, 0, 7, 225, 315, _colorTwo);
                     _currentStep[0] = 0;
                     break;
             }
@@ -73,6 +73,11 @@ void NGSymbolCircleLEDStripEffect::setStepDelay(int stepdelay) {
 
 int NGSymbolCircleLEDStripEffect::getStepDelay() {
     return _stepDelay;
+}
+
+void NGSymbolCircleLEDStripEffect::setColors(colorRGB colorOne, colorRGB colorTwo) {
+    _colorOne = colorOne;
+    _colorTwo = colorTwo;
 }
 
 void NGSymbolCircleLEDStripEffect::processingLoop() {

@@ -52,6 +52,7 @@ void setup() {
   effect.setEffectColors(COLOR_BLUE, COLOR_YELLOW);
   #endif
   #ifdef EFFECTTHREE
+  effect.setColors(COLOR_PURPLE, COLOR_WHITE);
   #endif
   effect.initialize();
   observeMemory(0);

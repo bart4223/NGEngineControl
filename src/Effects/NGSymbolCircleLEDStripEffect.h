@@ -26,6 +26,8 @@ private:
     int _stepDelay = DEFSTEPDELAY;
     int _currentStep[MAXCURRENTSTEPS];
     byte _currentStepCount = 1;
+    colorRGB _colorOne = COLOR_BLACK;
+    colorRGB _colorTwo = COLOR_BLACK;
 
 protected:
     void _create(NGCircleLEDStrip *circleLEDStrip, symbolCircleLEDStripEffectKind kind);
@@ -44,6 +46,8 @@ public:
     void setStepDelay(int stepdelay);
 
     int getStepDelay();
+
+    void setColors(colorRGB colorOne, colorRGB colorTwo);
 
     void processingLoop();
 };
