@@ -52,6 +52,11 @@ int NGSimpleCircleLEDStripEffect::_getRadius() {
 
 void NGSimpleCircleLEDStripEffect::initialize() {
     _circleLEDStrip->initialize();
+    reset();
+}
+
+void NGSimpleCircleLEDStripEffect::reset() {
+    _circleLEDStrip->clear();
     for (int i = 0; i < _currentStepCount; i++) {
         _currentStep[i] = 0;
     }

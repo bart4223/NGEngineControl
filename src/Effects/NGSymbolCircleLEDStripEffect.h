@@ -43,11 +43,13 @@ public:
     
     void initialize();
 
+    void reset();
+
     void setStepDelay(int stepdelay);
 
     int getStepDelay();
 
-    void setColors(colorRGB colorOne, colorRGB colorTwo);
+    void setSymbolColors(colorRGB colorOne, colorRGB colorTwo);
 
     void processingLoop();
 };

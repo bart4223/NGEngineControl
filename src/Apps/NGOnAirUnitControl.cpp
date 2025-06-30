@@ -57,7 +57,7 @@ byte NGOnAirUnitControl::registerEffect(NGIEffect *effect) {
 void NGOnAirUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     for (int i = 0; i < _effectCount; i++) {
-        //_effects[i]->initialize();
+        _effects[i]->initialize();
     }
 }
 

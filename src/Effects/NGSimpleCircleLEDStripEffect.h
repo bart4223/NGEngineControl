@@ -45,6 +45,8 @@ public:
     
     void initialize();
 
+    void reset();
+
     void setStepDelay(int stepdelay);
 
     int getStepDelay();

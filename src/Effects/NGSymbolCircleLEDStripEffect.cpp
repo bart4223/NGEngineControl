@@ -61,6 +61,11 @@ int NGSymbolCircleLEDStripEffect::_getRadius() {
 
 void NGSymbolCircleLEDStripEffect::initialize() {
     _circleLEDStrip->initialize();
+    reset();
+}
+
+void NGSymbolCircleLEDStripEffect::reset() {
+    _circleLEDStrip->clear();
     for (int i = 0; i < _currentStepCount; i++) {
         _currentStep[i] = 0;
     }
@@ -75,7 +80,7 @@ int NGSymbolCircleLEDStripEffect::getStepDelay() {
     return _stepDelay;
 }
 
-void NGSymbolCircleLEDStripEffect::setColors(colorRGB colorOne, colorRGB colorTwo) {
+void NGSymbolCircleLEDStripEffect::setSymbolColors(colorRGB colorOne, colorRGB colorTwo) {
     _colorOne = colorOne;
     _colorTwo = colorTwo;
 }

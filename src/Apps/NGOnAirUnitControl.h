@@ -12,7 +12,7 @@
 #include <NGCustomUnitControl.h>
 #include <NGIEffect.h>
 
-#define _VERSION "0.6"
+#define _VERSION "0.7"
 #define VERSION (char*)_VERSION
 
 #define MAXEFFECTCOUNT 4

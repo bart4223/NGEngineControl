@@ -4,6 +4,7 @@
 #include <Visuals/NGCircleLEDStrip.h>
 #include <Apps/NGOnAirUnitControl.h>
 #include <Effects/NGSimpleCircleLEDStripEffect.h>
+#include <Effects/NGSymbolCircleLEDStripEffect.h>
 #if (PROD != true)
 #include <NGSerialNotification.h>
 #endif
@@ -51,8 +52,9 @@ NGSerialNotification serialNotification = NGSerialNotification();
 NGSimpleCircleLEDStripEffect *effectOne = new NGSimpleCircleLEDStripEffect(&cls);
 NGSimpleCircleLEDStripEffect *effectTwo = new NGSimpleCircleLEDStripEffect(&cls, sclsekPulse);
 NGSimpleCircleLEDStripEffect *effectThree = new NGSimpleCircleLEDStripEffect(&cls, sclsekPulse);
+NGSymbolCircleLEDStripEffect *effectFour = new NGSymbolCircleLEDStripEffect(&cls, syclsekOnAir);
 
-int effectIndex[3];
+int effectIndex[4];
 
 void setup() {
   observeMemory(0);
@@ -83,6 +85,7 @@ void setup() {
   effectTwo->setEffectColors(COLOR_GREEN);
   effectThree->setStepDelay(EFFECTTHREE_STEPDELAY);
   effectThree->setEffectColors(COLOR_BLUE, COLOR_YELLOW);
+  effectFour->setSymbolColors(COLOR_PURPLE, COLOR_WHITE);
   // App
   #if (PROD != true)
   unitOnAir.registerNotification(&serialNotification);
@@ -90,6 +93,7 @@ void setup() {
   effectIndex[0] = unitOnAir.registerEffect(effectOne);
   effectIndex[1] = unitOnAir.registerEffect(effectTwo);
   effectIndex[2] = unitOnAir.registerEffect(effectThree);
+  effectIndex[3] = unitOnAir.registerEffect(effectFour);
   unitOnAir.initialize();
   #if (PROD == true)
   unitOnAir.setLogging(false);
@@ -111,17 +115,21 @@ void loop() {
 void RadioButtonsCallback(byte id) {
   switch(id) {
     case KEY1ID:
-      unitOnAir.setCurrentEffect(effectIndex[0]);  
+      effectOne->reset();  
+      unitOnAir.setCurrentEffect(effectIndex[0]);
       rbOne.resetRadioButtons();
       break;
     case KEY2ID:
+      effectTwo->reset();
       unitOnAir.setCurrentEffect(effectIndex[1]);
       break;
     case KEY3ID:
+      effectThree->reset();
       unitOnAir.setCurrentEffect(effectIndex[2]);
       break;
     case KEY4ID:
-      unitOnAir.setCurrentEffect(effectIndex[0]);
+      effectFour->reset();
+      unitOnAir.setCurrentEffect(effectIndex[3]);
       break;
   }
 }
