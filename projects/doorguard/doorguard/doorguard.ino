@@ -1,8 +1,8 @@
 #define PROD true //false, true
 #define RGB24 // RGB8, RGB12, RGB24
 
-#include <NGMemoryObserver.h>
-#include <NGColorLEDStrip.h>
+#include <NGEngineCore.h>
+#include <Visuals/NGColorLEDStrip.h>
 #include <Effects/NGSimpleColorLEDStripEffect.h>
 #include <Apps/NGDoorGuardUnitControl.h>
 #include <Sensors/NGSimpleDigitalSensor.h>
