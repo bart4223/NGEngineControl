@@ -1,3 +1,5 @@
+#define SERIALDISPLAY // SERIALDISPLAY, OLEDDISPLAY
+
 #include <NGEngineCore.h>   
 #include <Sensors/NGOneWireTemperatureSensor.h>
 
@@ -16,6 +18,8 @@ void loop(void)
 {
   char log[100];
   sprintf(log, "Temperature: %s °C", owts.getTemperatureAsChar());
+  #ifdef SERIALDISPLAY
   Serial.println(log);
+  #endif
   observeMemory(DELAY);
 }
