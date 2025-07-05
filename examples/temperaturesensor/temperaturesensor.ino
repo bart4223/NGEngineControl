@@ -1,8 +1,8 @@
-#include <NGMemoryObserver.h>
-#include <NGTemperatureSensor.h>
+#include <NGEngineCore.h>
+#include <Sensors/NGTemperatureSensor.h>
 
 #define PINSENSOR 2
-#define DELAY 5000
+#define DELAY  5000
 
 NGTemperatureSensor ts = NGTemperatureSensor(PINSENSOR);
 

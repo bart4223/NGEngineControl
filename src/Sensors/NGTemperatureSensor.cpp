@@ -6,7 +6,7 @@
 //
 
 #include "Common/NGStrings.h"
-#include "NGTemperatureSensor.h"
+#include "Sensors/NGTemperatureSensor.h"
 
 NGTemperatureSensor::NGTemperatureSensor(int pinSensor) {
     _create(pinSensor, DEFTEMPSENSORTYPE);
