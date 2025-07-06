@@ -1,8 +1,8 @@
-#include <NGMemoryObserver.h>
+#include <NGEngineCore.h>
 #include <NGOLEDNotification.h>
 
-//#define OLED32
-#define OLED64
+#define OLED32
+//#define OLED64
 
 #define DELAY 5000
 
@@ -13,8 +13,8 @@
 #define OLEDLINEFACTOR 4
 #endif
 #ifdef OLED32
-#define OLEDLINES      4
-#define OLEDLINEFACTOR 2
+#define OLEDLINES      4 
+#define OLEDLINEFACTOR 2 
 #endif
 
 NGOLEDNotification *oled;
