@@ -1,4 +1,4 @@
-#define NOTEST //NOTEST, TEST
+#define TEST //NOTEST, TEST
 #define RECT //NONE, LINE, RECT, CIRCLE, IMAGE
 
 #define Metrics8x32 //Metrics8x8, Metrics8x32
@@ -30,8 +30,10 @@ void setup() {
   observeMemory(0);
   dm.initialize(BRIGHTNESS);
   #ifdef TEST
+  Serial.println("Start Test");
   dm.testSequenceStart();
   dm.testSequenceStop();
+  Serial.println("...End Test");
   #endif
   observeMemory(0);
 }
