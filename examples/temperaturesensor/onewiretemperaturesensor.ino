@@ -16,7 +16,7 @@
 #define OLEDLINEFACTOR 2 
 #endif
 
-#define DELAY 1000
+#define DELAY 500
 
 NGOneWireTemperatureSensor owts = NGOneWireTemperatureSensor();
 
@@ -26,6 +26,8 @@ NGSerialNotification *disp;
 #ifdef OLEDDISPLAY
 NGOLEDNotification *disp;
 #endif
+
+bool blink = true;
 
 void setup(void)
 {
@@ -45,7 +47,12 @@ void loop(void)
 {
   char log[100];
   disp->writeInfo("Temperature:", 0);
-  sprintf(log, "%s °C    ", owts.getTemperatureAsChar());
+  if(blink) {
+    sprintf(log, "%s Degree.    ", owts.getTemperatureAsChar());  
+  } else {
+    sprintf(log, "%s Degree     ", owts.getTemperatureAsChar());
+  }
   disp->writeInfo(log, 1);
-  observeMemory(DELAY);
+  blink = !blink;
+  delay(DELAY);
 }
