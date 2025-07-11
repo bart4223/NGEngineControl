@@ -47,10 +47,12 @@ void loop(void)
 {
   char log[100];
   disp->writeInfo("Temperature:", 0);
+  char temp_str[10];
+  dtostrf(owts.getTemperatureAsFloat(), 5, 2, temp_str);
   if(blink) {
-    sprintf(log, "%s Degree.    ", owts.getTemperatureAsChar());  
+    sprintf(log, "%s.Degree     ", temp_str);  
   } else {
-    sprintf(log, "%s Degree     ", owts.getTemperatureAsChar());
+    sprintf(log, "%s Degree     ", temp_str);
   }
   disp->writeInfo(log, 1);
   blink = !blink;

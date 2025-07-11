@@ -25,10 +25,13 @@ void NGOneWireTemperatureSensor::initialize() {
      _sensor->begin();
 }
 
-char* NGOneWireTemperatureSensor::getTemperatureAsChar() {
+float NGOneWireTemperatureSensor::getTemperatureAsFloat() {
     _sensor->requestTemperatures();
-    float temperature = _sensor->getTempCByIndex(0);
-    unsigned char *temp = FloatToChar(temperature);
+    return _sensor->getTempCByIndex(0);
+}
+
+char* NGOneWireTemperatureSensor::getTemperatureAsChar() {
+    unsigned char *temp = FloatToChar(getTemperatureAsFloat());
     memcpy(_temperatureAsText, temp, strlen(temp));
     free(temp);
     return _temperatureAsText;

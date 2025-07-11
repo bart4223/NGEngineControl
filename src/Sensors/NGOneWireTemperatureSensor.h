@@ -29,6 +29,8 @@ public:
     
     void initialize();
 
+    float getTemperatureAsFloat();
+    
     char* getTemperatureAsChar();
 };
 
