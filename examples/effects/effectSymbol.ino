@@ -47,6 +47,7 @@ NGWingDingsFont *font = new NGWingDingsFont();
 NGZX81Font *font = new NGZX81Font();
 #endif
 NGColorDotMatrixEffectText *effect = new NGColorDotMatrixEffectText(cdm, COLOR_RED, font);
+//NGColorDotMatrixEffectText *effect = new NGColorDotMatrixEffectText(cdm, COLOR_RED, COLOR_TRANSPARENT, font);
 
 int posx = -8;
 
@@ -59,7 +60,7 @@ void setup() {
   #endif
   effect->initialize();
   effect->setDelay(DELAYTEXT);
-  effect->setText("SsCB");
+  effect->setText("SsCBsCSB");
   observeMemory(0);
 }
 
