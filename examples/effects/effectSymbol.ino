@@ -1,10 +1,12 @@
 #define DOTMATRIX //LEDSTRIP100, LEDSTRIP256, DOTMATRIX
-
+#define FONTWINGDINGS //FONTZX81, FONTWINGDINGS
+ 
 #include <NGMemoryObserver.h>
 #include <Visuals/NGColorLEDStrip.h>
 #include <Visuals/NG8x8DotMatrix.h>
 #include <NGColorDotMatrixEffectText.h>
 #include <Fonts/NGWingDingsFont.h>
+#include <Fonts/NGZX81Font.h>
 
 #ifdef LEDSTRIP256
 #define LEDSTRIPPIN           8
@@ -35,7 +37,12 @@ NGColorLEDStrip *cdm = new NGColorLEDStrip(LEDSTRIPPIN, LEDSTRIPPIXELS, LEDSTRIP
 NG8x8DotMatrix *cdm = new NG8x8DotMatrix(DOTMATRIXCOUNT, DOTMATRIXROWS, DOTMATRIXCOLS, dmamInverse);
 #endif
 
-NGCustomFont *font = new NGWingDingsFont();
+#ifdef FONTWINGDINGS
+NGWingDingsFont *font = new NGWingDingsFont();
+#endif
+#ifdef FONTZX81
+NGZX81Font *font = new NGZX81Font();
+#endif
 NGColorDotMatrixEffectText *effect = new NGColorDotMatrixEffectText(cdm, COLOR_RED, font);
 
 void setup() {
@@ -47,7 +54,7 @@ void setup() {
   #endif
   effect->initialize();
   effect->setPosition(8, 0);
-  //effect->setDelay(100);
+  effect->setDelay(100);
   effect->setText("S");
   observeMemory(0);
 }
