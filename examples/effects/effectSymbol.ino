@@ -4,7 +4,7 @@
 #include <NGMemoryObserver.h>
 #include <Visuals/NGColorLEDStrip.h>
 #include <Visuals/NG8x8DotMatrix.h>
-#include <NGColorDotMatrixEffectText.h>
+#include <Effects/NGColorDotMatrixEffectText.h>
 #include <Fonts/NGWingDingsFont.h>
 #include <Fonts/NGZX81Font.h>
 
@@ -27,6 +27,9 @@
 #define DOTMATRIXCOLS  32
 #endif
 
+#define DELAY      150
+#define DELAYTEXT 1000
+
 #ifdef LEDSTRIP256
 NGColorLEDStrip *cdm = new NGColorLEDStrip(LEDSTRIPPIN, LEDSTRIPPIXELS, LEDSTRIPROWS, lskUpDownAlternate);
 #endif
@@ -45,6 +48,8 @@ NGZX81Font *font = new NGZX81Font();
 #endif
 NGColorDotMatrixEffectText *effect = new NGColorDotMatrixEffectText(cdm, COLOR_RED, font);
 
+int posx = -8;
+
 void setup() {
   observeMemory(0);
   #ifdef DOTMATRIX
@@ -53,12 +58,18 @@ void setup() {
   cdm->initialize(LEDSTRIPBRIGHTNESS);
   #endif
   effect->initialize();
-  effect->setPosition(8, 0);
-  effect->setDelay(100);
-  effect->setText("S");
+  effect->setDelay(DELAYTEXT);
+  effect->setText("SsCB");
   observeMemory(0);
 }
 
 void loop() {
+  effect->setPosition(posx, 0);
   effect->processingLoop();
+  cdm->drawLine(posx - 1, 0, posx - 1, 7, COLOR_BLACK);
+  posx++;
+  if (posx > 32) {
+    posx = -8;
+  }
+  delay(DELAY);
 }

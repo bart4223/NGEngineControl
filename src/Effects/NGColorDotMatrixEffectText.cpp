@@ -33,7 +33,7 @@ void NGColorDotMatrixEffectText::_create(NGIPaintableComponent *ipc, colorRGB co
 }
 
 void NGColorDotMatrixEffectText::initialize() {
-    
+    _lastStep = millis();
 }
 
 void NGColorDotMatrixEffectText::setPosition(int posx, int posy) {
@@ -50,10 +50,7 @@ void NGColorDotMatrixEffectText::setText(char *text) {
 }
 
 void NGColorDotMatrixEffectText::processingLoop() {
-    if (_lastStep == 0) {
-        _lastStep = millis();
-    }
-    if (_currentPos < strlen(_text)) {
+    if (_currentPos >= 0 && _currentPos < strlen(_text)) {
         _charDigit->beginUpdate();
         _charDigit->setPosX(_posX);
         _charDigit->setPosY(_posY);
