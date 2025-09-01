@@ -28,7 +28,7 @@
 #endif
 
 #define DELAY      150
-#define DELAYTEXT 1000
+#define DELAYTEXT 2000
 
 #ifdef LEDSTRIP256
 NGColorLEDStrip *cdm = new NGColorLEDStrip(LEDSTRIPPIN, LEDSTRIPPIXELS, LEDSTRIPROWS, lskUpDownAlternate);
@@ -60,7 +60,7 @@ void setup() {
   #endif
   effect->initialize();
   effect->setDelay(DELAYTEXT);
-  effect->setText("SsCBsCSB");
+  effect->setText("SsSCTsCSBt");
   observeMemory(0);
 }
 
