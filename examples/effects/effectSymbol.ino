@@ -60,7 +60,7 @@ void setup() {
   #endif
   effect->initialize();
   effect->setDelay(DELAYTEXT);
-  effect->setText("SsShCHTsCSBhtH");
+  effect->setText("SsEShCHTsCSBhEtH");
   observeMemory(0);
 }
 
