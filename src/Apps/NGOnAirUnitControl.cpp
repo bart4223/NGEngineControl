@@ -42,6 +42,21 @@ void NGOnAirUnitControl::_processingIRRemoteData() {
     
 }
 
+void NGOnAirUnitControl::_observeTemperature() {
+    if (_oneWireTemperatureSensor != nullptr) {
+        char log[100];
+        char temp_str[10];
+        dtostrf(_oneWireTemperatureSensor->getTemperatureAsFloat(), 4, 1, temp_str);
+        if(_indicator) {
+            sprintf(log, "%s:GradCelsius", temp_str);  
+        } else {
+            sprintf(log, "%s GradCelsius", temp_str);
+        }
+        writeInfo(log);
+        _indicator = !_indicator;
+    }            
+}
+
 byte NGOnAirUnitControl::registerEffect(NGIEffect *effect) {
     if (_effectCount < MAXEFFECTCOUNT) {
         int res = _effectCount;
@@ -76,18 +91,7 @@ void NGOnAirUnitControl::processingLoop() {
     }
     if (_currentEffectIndex < 1) {
         if (millis() - _lastTemperatureObserved > DEFTEMPERATUREOBSERVETIME) {
-            if (_oneWireTemperatureSensor != nullptr) {
-                char log[100];
-                char temp_str[10];
-                dtostrf(_oneWireTemperatureSensor->getTemperatureAsFloat(), 4, 1, temp_str);
-                if(_indicator) {
-                    sprintf(log, "%s:GradCelsius", temp_str);  
-                } else {
-                    sprintf(log, "%s GradCelsius", temp_str);
-                }
-                writeInfo(log);
-                _indicator = !_indicator;
-            }
+            _observeTemperature();
             _lastTemperatureObserved = millis();
         }
     }

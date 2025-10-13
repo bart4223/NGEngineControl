@@ -13,7 +13,7 @@
 #include <NGIEffect.h>
 #include <Sensors/NGOneWireTemperatureSensor.h>
 
-#define _VERSION "0.9"
+#define _VERSION "1.0"
 #define VERSION (char*)_VERSION
 
 #define MAXEFFECTCOUNT 4
@@ -38,6 +38,8 @@ protected:
     void _processingStartupLoop();
     
     void _processingIRRemoteData();
+
+    void _observeTemperature();
 
 public:
     NGOnAirUnitControl();
