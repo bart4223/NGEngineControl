@@ -79,11 +79,11 @@ void NGOnAirUnitControl::processingLoop() {
             if (_oneWireTemperatureSensor != nullptr) {
                 char log[100];
                 char temp_str[10];
-                dtostrf(_oneWireTemperatureSensor->getTemperatureAsFloat(), 5, 2, temp_str);
+                dtostrf(_oneWireTemperatureSensor->getTemperatureAsFloat(), 4, 1, temp_str);
                 if(_indicator) {
-                    sprintf(log, "%s.Grad     ", temp_str);  
+                    sprintf(log, "%s:GradCelsius", temp_str);  
                 } else {
-                    sprintf(log, "%s Grad     ", temp_str);
+                    sprintf(log, "%s GradCelsius", temp_str);
                 }
                 writeInfo(log);
                 _indicator = !_indicator;
