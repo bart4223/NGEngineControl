@@ -5,6 +5,7 @@
 #include <Apps/NGOnAirUnitControl.h>
 #include <Effects/NGSimpleCircleLEDStripEffect.h>
 #include <Effects/NGSymbolCircleLEDStripEffect.h>
+#include <NGOLEDNotification.h>
 #if (PROD != true)
 #include <NGSerialNotification.h>
 #endif
@@ -12,6 +13,12 @@
 #define _ONAIR       "OnAir"
 #define ONAIR        (char*)_ONAIR
 #define ONAIRADDRESS 0x26
+
+#define OLEDADDRESS       0x3C
+#define OLEDCOLUMNS       16
+#define OLEDTYPE          ot128x32
+#define OLEDLINES         4
+#define OLEDLINEFACTOR    2 
 
 #define SR_LATCHPIN  4
 #define SR_CLOCKPIN  5
@@ -45,6 +52,7 @@ NGRadioButtons rbOne = NGRadioButtons(srRBOne, RBONE_KEYOFFSET, RBONE_STARTKEY);
 
 NGCircleLEDStrip cls = NGCircleLEDStrip(LEDSTRIP_PIN, LEDSTRIP_PIXELS, LEDSTRIP_RADIUS);
 NGOnAirUnitControl unitOnAir = NGOnAirUnitControl(ONAIR);
+NGOLEDNotification *oledNotification;
 #if (PROD != true)
 NGSerialNotification serialNotification = NGSerialNotification();
 #endif
@@ -53,6 +61,8 @@ NGSimpleCircleLEDStripEffect *effectOne = new NGSimpleCircleLEDStripEffect(&cls)
 NGSimpleCircleLEDStripEffect *effectTwo = new NGSimpleCircleLEDStripEffect(&cls, sclsekPulse);
 NGSimpleCircleLEDStripEffect *effectThree = new NGSimpleCircleLEDStripEffect(&cls, sclsekPulse);
 NGSymbolCircleLEDStripEffect *effectFour = new NGSymbolCircleLEDStripEffect(&cls, syclsekOnAir);
+
+NGOneWireTemperatureSensor owts = NGOneWireTemperatureSensor();
 
 int effectIndex[4];
 
@@ -87,6 +97,8 @@ void setup() {
   effectThree->setEffectColors(COLOR_BLUE, COLOR_YELLOW);
   effectFour->setSymbolColors(COLOR_PURPLE, COLOR_WHITE);
   // App
+  oledNotification = new NGOLEDNotification(OLEDTYPE, OLEDADDRESS, OLEDCOLUMNS, OLEDLINES, OLEDLINEFACTOR);
+  unitOnAir.registerNotification(oledNotification);
   #if (PROD != true)
   unitOnAir.registerNotification(&serialNotification);
   #endif
@@ -94,6 +106,7 @@ void setup() {
   effectIndex[1] = unitOnAir.registerEffect(effectTwo);
   effectIndex[2] = unitOnAir.registerEffect(effectThree);
   effectIndex[3] = unitOnAir.registerEffect(effectFour);
+  unitOnAir.registerOneWireTemperatureSensor(&owts);
   unitOnAir.initialize();
   #if (PROD == true)
   unitOnAir.setLogging(false);

@@ -54,17 +54,42 @@ byte NGOnAirUnitControl::registerEffect(NGIEffect *effect) {
     return -1;
 }
 
+void NGOnAirUnitControl::registerOneWireTemperatureSensor(NGOneWireTemperatureSensor *sensor) {
+    _oneWireTemperatureSensor = sensor;
+}
+
 void NGOnAirUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     for (int i = 0; i < _effectCount; i++) {
         _effects[i]->initialize();
     }
+    if (_oneWireTemperatureSensor != nullptr) {
+        _oneWireTemperatureSensor->initialize();
+    }
+    _lastTemperatureObserved = millis();
 }
 
 void NGOnAirUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
     if (_currentEffectIndex >= 0 && _currentEffectIndex < _effectCount) {
         _effects[_currentEffectIndex]->processingLoop();
+    }
+    if (_currentEffectIndex < 1) {
+        if (millis() - _lastTemperatureObserved > DEFTEMPERATUREOBSERVETIME) {
+            if (_oneWireTemperatureSensor != nullptr) {
+                char log[100];
+                char temp_str[10];
+                dtostrf(_oneWireTemperatureSensor->getTemperatureAsFloat(), 5, 2, temp_str);
+                if(_indicator) {
+                    sprintf(log, "%s.Grad     ", temp_str);  
+                } else {
+                    sprintf(log, "%s Grad     ", temp_str);
+                }
+                writeInfo(log);
+                _indicator = !_indicator;
+            }
+            _lastTemperatureObserved = millis();
+        }
     }
 }
 

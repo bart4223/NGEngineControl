@@ -11,18 +11,24 @@
 #include <Arduino.h>
 #include <NGCustomUnitControl.h>
 #include <NGIEffect.h>
+#include <Sensors/NGOneWireTemperatureSensor.h>
 
-#define _VERSION "0.7"
+#define _VERSION "0.8"
 #define VERSION (char*)_VERSION
 
 #define MAXEFFECTCOUNT 4
+#define DEFTEMPERATUREOBSERVETIME 500
+#define NOCURRENTEFFECT -1
 
 class NGOnAirUnitControl : public NGCustomUnitControl {
 
 private:
     NGIEffect *_effects[MAXEFFECTCOUNT];
+    NGOneWireTemperatureSensor *_oneWireTemperatureSensor = nullptr;
     int _effectCount = 0;
-    int _currentEffectIndex = -1;
+    int _currentEffectIndex = NOCURRENTEFFECT;
+    long _lastTemperatureObserved = 0;
+    bool _indicator = false;
 
 protected:
     void _create(char* name, byte address, int serialRate);
@@ -42,7 +48,9 @@ public:
     
     NGOnAirUnitControl(char* name, byte address, int serialRate);
 
-    byte registerEffect(NGIEffect *effect);    
+    byte registerEffect(NGIEffect *effect);
+    
+    void registerOneWireTemperatureSensor(NGOneWireTemperatureSensor *sensor);
     
     void initialize();
     
