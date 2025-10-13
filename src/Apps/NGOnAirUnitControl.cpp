@@ -106,3 +106,7 @@ void NGOnAirUnitControl::setCurrentEffect(int effectIndex) {
         _currentEffectIndex = effectIndex;
     }
 }
+
+int NGOnAirUnitControl::getCurrentEffect() {
+    return _currentEffectIndex;
+}

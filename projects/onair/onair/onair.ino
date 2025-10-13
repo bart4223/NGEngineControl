@@ -1,4 +1,4 @@
-#define PROD false //false, true
+#define PROD true //false, true
 
 #include <NGEngineCore.h>
 #include <Visuals/NGCircleLEDStrip.h>
@@ -135,21 +135,29 @@ void loop() {
 void RadioButtonsCallback(byte id) {
   switch(id) {
     case KEY1ID:
-      effectOne->reset();  
-      unitOnAir.setCurrentEffect(effectIndex[0]);
-      rbOne.resetRadioButtons();
-      break;
+      if (unitOnAir.getCurrentEffect() != effectIndex[0]) {
+        effectOne->reset();  
+        unitOnAir.setCurrentEffect(effectIndex[0]);
+        rbOne.resetRadioButtons();
+      }
+      break;       
     case KEY2ID:
-      effectTwo->reset();
-      unitOnAir.setCurrentEffect(effectIndex[1]);
+      if (unitOnAir.getCurrentEffect() != effectIndex[1]) {
+        effectTwo->reset();
+        unitOnAir.setCurrentEffect(effectIndex[1]);
+      }
       break;
     case KEY3ID:
-      effectThree->reset();
-      unitOnAir.setCurrentEffect(effectIndex[2]);
+      if (unitOnAir.getCurrentEffect() != effectIndex[2]) {
+        effectThree->reset();
+        unitOnAir.setCurrentEffect(effectIndex[2]);
+      }
       break;
     case KEY4ID:
-      effectFour->reset();
-      unitOnAir.setCurrentEffect(effectIndex[3]);
+      if (unitOnAir.getCurrentEffect() != effectIndex[3]) {
+        effectFour->reset();
+        unitOnAir.setCurrentEffect(effectIndex[3]);
+      }
       break;
   }
 }
