@@ -102,5 +102,7 @@ void NGOnAirUnitControl::requestData(byte* data) {
 }
 
 void NGOnAirUnitControl::setCurrentEffect(int effectIndex) {
-    _currentEffectIndex = effectIndex;
+    if (_currentEffectIndex != effectIndex) {
+        _currentEffectIndex = effectIndex;
+    }
 }

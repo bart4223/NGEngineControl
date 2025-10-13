@@ -38,10 +38,13 @@
 
 #define KEYDELAY    500
 
-#define LEDSTRIP_PIN           8
-#define LEDSTRIP_PIXELS      113
-#define LEDSTRIP_RADIUS        7
-#define LEDSTRIP_BRIGHTNESS 0.05
+#define KEYBRIGHTNESSPIN            7
+
+#define LEDSTRIP_PIN                8
+#define LEDSTRIP_PIXELS           113
+#define LEDSTRIP_RADIUS             7
+#define LEDSTRIP_BRIGHTNESS      0.05
+#define LEDSTRIP_BRIGHTNESS_HIGH 0.25
 
 #define EFFECTONE_STEPDELAY   1000
 #define EFFECTTWO_STEPDELAY     50
@@ -85,7 +88,11 @@ void setup() {
   cls.registerRadius(6, 57); // 24 Pixel
   cls.registerRadius(7, 81); // 32 Pixel
   cls.setAngleOffset(180);
-  cls.initialize(LEDSTRIP_BRIGHTNESS);
+  if (IsSwitchOn(KEYBRIGHTNESSPIN)) {
+    cls.initialize(LEDSTRIP_BRIGHTNESS_HIGH);    
+  } else {
+    cls.initialize(LEDSTRIP_BRIGHTNESS);
+  }
   #if (PROD != true)
   cls.setLogging(true);
   #endif
