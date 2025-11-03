@@ -38,7 +38,7 @@
 
 #define KEYDELAY    500
 
-#define KEYBRIGHTNESSPIN            7
+#define KEYBRIGHTNESSPIN            6
 
 #define LEDSTRIP_PIN                8
 #define LEDSTRIP_PIXELS           113

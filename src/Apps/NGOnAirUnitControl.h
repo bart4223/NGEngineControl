@@ -13,7 +13,7 @@
 #include <NGIEffect.h>
 #include <Sensors/NGOneWireTemperatureSensor.h>
 
-#define _VERSION "1.3"
+#define _VERSION "1.4"
 #define VERSION (char*)_VERSION
 
 #define MAXEFFECTCOUNT 4
