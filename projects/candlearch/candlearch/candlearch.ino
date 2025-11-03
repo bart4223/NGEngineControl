@@ -1,5 +1,6 @@
 #define PROD true //false,true
 
+#include <NGEngineCore.h>
 #include <NGCandleArchUnitControl.h>
 #include <NGLightSensor.h>
 #if (PROD == false)
@@ -34,6 +35,7 @@ NGSerialNotification serialNotification = NGSerialNotification();
 #endif
 
 void setup() {
+  observeMemory(0);
   setGlobalUnit(&unitCandleArch);
   #if (PROD != true)
   unitCandleArch.registerNotification(&serialNotification);
@@ -63,8 +65,8 @@ void setup() {
   byte forestSixTreeLight = unitCandleArch.registerLight(forestArea);
   byte forestSevenTreeLight = unitCandleArch.registerLight(forestArea);
   byte forestEightTreeLight = unitCandleArch.registerLight(forestArea);
-  byte scenario1;
-  byte scenario2;
+  byte scenario1; 
+  byte scenario2; 
   if (!IsSwitchOn(ALTERNATIVESCENARIOSPIN)) {
     scenario1 = 1;
     scenario2 = 2;
@@ -150,7 +152,7 @@ void setup() {
     unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestFiveTreeLight);
     //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestSixTreeLight);
     unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestSevenTreeLight);
-    //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestEightTreeLight);
+    //unitCandleArch.registerScenarioAreaLight(scenarioTwo, scenarioTwoForestArea, forestEightTreeLight);    
   }
   unitCandleArch.initialize();
   #if (PROD == true)
@@ -178,6 +180,7 @@ void setup() {
   #endif
   unitCandleArch.clearInfo();
   unitCandleArch.activateFirstScenario();
+  observeMemory(0);
 }
 
 void loop() {
