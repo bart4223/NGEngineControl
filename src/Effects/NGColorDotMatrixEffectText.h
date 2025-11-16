@@ -15,7 +15,10 @@
 #include <NGIPaintableComponent.h>
 #include <NGColorDotMatrixCharDigit.h>
 
+enum simpleEffectTextKind { setkSingle, setkFull };
+
 #define DEFNEXTCHARDELAY 500
+#define DEFSIMPLEEFFECTKIND setkSingle
 
 class NGColorDotMatrixEffectText: public NGIEffect {
     
@@ -27,16 +30,23 @@ private:
     int _currentPos = 0;
     long _lastStep = 0;
     int _delay = DEFNEXTCHARDELAY;
+    simpleEffectTextKind _kind = DEFSIMPLEEFFECTKIND;
     
 protected:
-    void _create(NGIPaintableComponent *ipc, colorRGB color, colorRGB colorBackground, NGCustomFont *font);
+    void _create(NGIPaintableComponent *ipc, colorRGB color, colorRGB colorBackground, NGCustomFont *font, simpleEffectTextKind kind);
     
+    void _renderEffectKindSingle();
+
+    void _renderEffectKindFull();
+
 public:
     NGColorDotMatrixEffectText(NGIPaintableComponent *ipc);
     
     NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, NGCustomFont *font);
     
     NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, colorRGB color, NGCustomFont *font);
+
+    NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, colorRGB color, NGCustomFont *font, simpleEffectTextKind kind);
 
     NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, colorRGB color, colorRGB colorBackground, NGCustomFont *font);
 
