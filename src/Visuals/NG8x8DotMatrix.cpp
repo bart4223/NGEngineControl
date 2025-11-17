@@ -8,31 +8,48 @@
 #include <Visuals/NG8x8DotMatrix.h>
 
 NG8x8DotMatrix::NG8x8DotMatrix() {
-    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, DEFMAX7219COUNT, DEFMAX7219ROWCOUNT, DEFMAX7219COLCOUNT, DEFADDRESSINGMODE);
+    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, DEFMAX7219COUNT, DEFMAX7219ROWCOUNT, DEFMAX7219COLCOUNT, DEFADDRESSINGMODE, DEFRENDERMODE);
 }
 
 NG8x8DotMatrix::NG8x8DotMatrix(byte count, byte rowcount, byte colcount) {
-    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, count, rowcount, colcount, DEFADDRESSINGMODE);
+    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, count, rowcount, colcount, DEFADDRESSINGMODE, DEFRENDERMODE);
 }
 
 NG8x8DotMatrix::NG8x8DotMatrix(byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode) {
-    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, count, rowcount, colcount, adressingmode);
+    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, count, rowcount, colcount, adressingmode, DEFRENDERMODE);
+}
+
+NG8x8DotMatrix::NG8x8DotMatrix(byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode, dotmatrixRenderMode rendermode) {
+    _create(DEFPINCS, DEFPINCLK, DEFPINDIN, count, rowcount, colcount, adressingmode, rendermode);
 }
 
 NG8x8DotMatrix::NG8x8DotMatrix(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount) {
-    _create(pinCS, pinCLK, pinDIN, count, rowcount, colcount, DEFADDRESSINGMODE);
+    _create(pinCS, pinCLK, pinDIN, count, rowcount, colcount, DEFADDRESSINGMODE, DEFRENDERMODE);
 }
 
-void NG8x8DotMatrix::_create(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode) {
+void NG8x8DotMatrix::_create(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode, dotmatrixRenderMode rendermode) {
     _lc = new LedControl(pinDIN, pinCLK, pinCS, count);
     _rowCount = rowcount;
     _colCount = colcount;
-    _adressingMode = adressingmode; 
+    _adressingMode = adressingmode;
+    _renderMode = rendermode; 
 }
 
 void NG8x8DotMatrix::_renderLED(int x, int y, bool ledOn) {
     int xx = x + _offsetX;
-    int yy = y + _offsetY;
+    int yy = y + _offsetY;           
+    switch(_renderMode) {
+        case dmrMirroredX:
+            xx = (DEFMAX7219COLCOUNT * _lc->getDeviceCount()) - xx - 1;
+            break;
+        case dmrMirroredY:
+            yy = DEFMAX7219ROWCOUNT - yy - 1;
+            break;
+        case dmrMirroredXY:
+            xx = (DEFMAX7219COLCOUNT * _lc->getDeviceCount()) - xx - 1;
+            yy = DEFMAX7219ROWCOUNT - yy - 1;
+            break;
+    }
     if (xx >= 0 && xx < _colCount && yy >= 0 && yy < _rowCount) {
         byte addr = (xx / DEFMAX7219COLCOUNT + 1) * (yy / DEFMAX7219ROWCOUNT + 1) - 1;
         switch(_adressingMode) {

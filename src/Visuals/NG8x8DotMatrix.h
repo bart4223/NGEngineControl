@@ -31,8 +31,10 @@
 #define DEFTESTMODEDELAY  50
 
 enum dotmatrixAddressingMode { dmamNormal, dmamInverse };
+enum dotmatrixRenderMode { dmrNormal, dmrMirroredX, dmrMirroredY, dmrMirroredXY };
 
 #define DEFADDRESSINGMODE dmamNormal
+#define DEFRENDERMODE     dmrNormal
 
 class NG8x8DotMatrix : public NGITestableComponent, public NGIPaintableComponent {
 
@@ -46,13 +48,14 @@ private:
     int _scale = 1;
     int _testModeDelay = DEFTESTMODEDELAY;
     dotmatrixAddressingMode _adressingMode = DEFADDRESSINGMODE;
+    dotmatrixRenderMode _renderMode = DEFRENDERMODE;
     float _maxBrightness = DEFMAXBRIGHTNESS;
     float _minBrightness = DEFMINBRIGHTNESS;
     bool _changeBrightnessUp = true;
     bool _logging = false;
 
 protected:
-    void _create(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode);
+    void _create(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode, dotmatrixRenderMode rendermode);
 
     void _renderLED(int x, int y, bool ledOn);
 
@@ -62,6 +65,8 @@ public:
     NG8x8DotMatrix(byte count, byte rowcount, byte colcount);
 
     NG8x8DotMatrix(byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode);
+    
+    NG8x8DotMatrix(byte count, byte rowcount, byte colcount, dotmatrixAddressingMode adressingmode, dotmatrixRenderMode rendermode);
     
     NG8x8DotMatrix(byte pinCS, byte pinCLK, byte pinDIN, byte count, byte rowcount, byte colcount);
     

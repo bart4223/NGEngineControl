@@ -22,7 +22,8 @@
 			"string_view": "cpp",
 			"unordered_map": "cpp",
 			"vector": "cpp",
-			"print": "cpp"
+			"print": "cpp",
+			"algorithm": "cpp"
 		}
 	}
 }
