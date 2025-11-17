@@ -1,5 +1,5 @@
 #define DOTMATRIX //LEDSTRIP100, LEDSTRIP256, DOTMATRIX
-#define SINGLE //SINGLE, SCROLLING
+#define SCROLLING //SINGLE, SCROLLING
 #define FONTZX81 //FONTZX81
 
 #include <NGMemoryObserver.h>
@@ -22,13 +22,13 @@
 #define LEDSTRIPBRIGHTNESS 0.05
 #endif
 #ifdef DOTMATRIX
-#define DOTMATRIXCOUNT  4
-#define DOTMATRIXROWS   8
-#define DOTMATRIXCOLS  32
+#define DOTMATRIXCOUNT         4
+#define DOTMATRIXROWS          8
+#define DOTMATRIXCOLS         32
 #define DOTMATRIXBRIGHTNESS 0.05
 #endif
 
-#define DELAY      150
+#define DELAY   150
 
 #ifdef LEDSTRIP256
 NGColorLEDStrip *cdm = new NGColorLEDStrip(LEDSTRIPPIN, LEDSTRIPPIXELS, LEDSTRIPROWS, lskUpDownAlternate);
@@ -47,10 +47,11 @@ NGZX81Font *font = new NGZX81Font();
 NGColorDotMatrixEffectText *effect = new NGColorDotMatrixEffectText(cdm, COLOR_RED, font);
 #endif
 #ifdef SCROLLING
-NGColorDotMatrixEffectText *effect = new NGColorDotMatrixEffectText(cdm, COLOR_RED, font, setkFull);
+NGColorDotMatrixEffectText *effectOne = new NGColorDotMatrixEffectText(cdm, COLOR_RED, font, setkFull);
+NGColorDotMatrixEffectText *effectTwo = new NGColorDotMatrixEffectText(cdm, COLOR_RED, font, setkFull);
 #endif
 
-int posx = 33;
+int posx[2] = {33, 97};
 
 void setup() {
   observeMemory(0);
@@ -59,27 +60,42 @@ void setup() {
   #else
   cdm->initialize(LEDSTRIPBRIGHTNESS);
   #endif
-  effect->initialize();
   #ifdef SINGLE
+  effect->initialize();
   effect->setPosition(0, 0);
   //effect->setDelay(100);
   effect->setText("ARDCADE");
   #endif
   #ifdef SCROLLING
-  effect->setText("SBC MAN");
+  effectOne->initialize();
+  effectTwo->initialize();
+  effectOne->setText("SBC MAN");
+  effectTwo->setText("SBC MAN");
   #endif
   observeMemory(0);
 }
 
 void loop() {
-  #ifdef SCROLLING
-  effect->setPosition(posx, 0);
-  #endif
+  #ifdef SINGLE
   effect->processingLoop();
+  #endif
   #ifdef SCROLLING
-  posx--;
-  if (posx < -56) {
-    posx = 33;
+  effectOne->setPosition(posx[0], 0);
+  effectTwo->setPosition(posx[1], 0);
+  effectOne->processingLoop();
+  effectTwo->processingLoop();
+  for(int i = 0; i < 2; i++) {
+    posx[i]--;
+    if(posx[i] < -56) {
+      switch(i) {
+        case 0:
+          posx[i] = posx[1] + 64;
+          break;
+        case 1:
+          posx[i] = posx[0] + 64;
+          break;
+      }
+    }
   }
   #endif
   delay(DELAY);
