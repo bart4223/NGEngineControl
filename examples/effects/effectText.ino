@@ -68,8 +68,8 @@ void setup() {
   #endif
   #ifdef SCROLLING
   effectOne->initialize();
-  effectTwo->initialize();
   effectOne->setText("SBC MAN");
+  effectTwo->initialize();
   effectTwo->setText("SBC MAN");
   #endif
   observeMemory(0);

@@ -56,11 +56,15 @@ void NGColorDotMatrixEffectText::_renderEffectKindSingle() {
 
 void NGColorDotMatrixEffectText::_renderEffectKindFull() {
     for (int i = 0; i < strlen(_text); i++) {
-        _charDigit->beginUpdate();
-        _charDigit->setPosX(_posX + (i * _charDigit->getScale() * _charDigit->PIXELCOUNT));
-        _charDigit->setPosY(_posY);
-        _charDigit->setChar(_text[i]);
-        _charDigit->endUpdate();
+        int x = _posX + (i * _charDigit->getScale() * _charDigit->PIXELCOUNT);
+        int y = _posY;
+        if ((x < _charDigit->getPaintableComponent()->getWidth()) && (y < _charDigit->getPaintableComponent()->getHeight())) {
+            _charDigit->beginUpdate();
+            _charDigit->setPosX(x);
+            _charDigit->setPosY(y);
+            _charDigit->setChar(_text[i]);
+            _charDigit->endUpdate();
+        }
     }
 }
 
