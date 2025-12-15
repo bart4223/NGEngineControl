@@ -47,8 +47,8 @@ void NGTFTDisplay::testSequenceStart() {
     }
     setScale(1);
     drawLine(0, 5, getWidth() - 1, getHeight() - 1, COLOR_RED);
-    drawRect(15, 10, getHeight() - 10, getWidth() - 10, COLOR_GREEN);
-    fillRect(25, 20, getHeight() - 20, getWidth() - 20, COLOR_BLUE);
+    drawRect(15, 10, getHeight() - 11, getWidth() - 11, COLOR_GREEN);
+    fillRect(25, 20, getHeight() - 21, getWidth() - 21, COLOR_BLUE);
     drawCircle(getWidth() / 2, getHeight() / 2, min(getWidth(), getHeight()) / 4, COLOR_YELLOW);
 }
     
