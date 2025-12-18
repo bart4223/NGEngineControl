@@ -36,6 +36,8 @@
 #define DIGITALDIGITMINUTETENPOSX 16
 #define DIGITALDIGITMINUTEONEPOSX 24
 
+#define DEFFONTINDEX 3
+
 NGRealTimeClock rtc = NGRealTimeClock();
 NGSimpleKeypad skp = NGSimpleKeypad();
 NG8x8DotMatrix *cdm = new NG8x8DotMatrix(DOTMATRIXCOUNT, DOTMATRIXROWS, DOTMATRIXCOLS, dmamInverse);
@@ -47,7 +49,7 @@ NGDotMatrixWatchCompilationSecondIndicator *wcSecondIndicator = new NGDotMatrixW
 NGDotMatrixWatchDial wd = NGDotMatrixWatchDial(cdm);
 NGCustomFont *fontZX81 = new NGZX81Font();
 NGCustomFont *fontC64 = new NGC64Font();
-byte fontIndex = 1;
+byte fontIndex = DEFFONTINDEX;
 
 NGLittleBigClockUnitControl unitLittleBigClock = NGLittleBigClockUnitControl(LITTLEBIGCLOCK);
 #if (PROD != true)
