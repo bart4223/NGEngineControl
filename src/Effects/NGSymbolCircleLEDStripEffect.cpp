@@ -27,8 +27,7 @@ void NGSymbolCircleLEDStripEffect::_render() {
             switch(_currentStep[0]) {
                 case 0:
                     _circleLEDStrip->clear();
-                    _circleLEDStrip->drawCircleSection(0, 0, 2, 0, 90, _colorOne);
-                    _circleLEDStrip->drawCircleSection(0, 0, 2, 180, 360, _colorOne);
+                    _circleLEDStrip->drawCircle(0, 0, 2, _colorOne);
                     _currentStep[0]++;
                     break;
                 case 1:
@@ -42,8 +41,8 @@ void NGSymbolCircleLEDStripEffect::_render() {
                     _currentStep[0]++;
                     break;
                 case 3:
-                    _circleLEDStrip->drawCircleSection(0, 0, 7, 45, 135, _colorTwo);
-                    _circleLEDStrip->drawCircleSection(0, 0, 7, 225, 315, _colorTwo);
+                    _circleLEDStrip->drawCircleSection(0, 0, 7, 40, 150, _colorTwo);
+                    _circleLEDStrip->drawCircleSection(0, 0, 7, 220, 330, _colorTwo);
                     _currentStep[0] = 0;
                     break;
             }
