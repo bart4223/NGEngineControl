@@ -36,7 +36,7 @@
 #define DIGITALDIGITMINUTETENPOSX 16
 #define DIGITALDIGITMINUTEONEPOSX 24
 
-#define DEFFONTINDEX 3
+#define DEFFONTINDEX 0
 
 NGRealTimeClock rtc = NGRealTimeClock();
 NGSimpleKeypad skp = NGSimpleKeypad();
@@ -74,10 +74,9 @@ void setup() {
   wd.registerDecimalDigitHour(ddHourOne, ddHourTens);
   wd.registerDecimalDigitMinute(ddMinuteOne, ddMinuteTens);
   wd.registerComplication(wcSecondIndicator, SECONDINDICATORDELAY);
-  wd.setDecimalDigitHourFont(fontZX81, fontZX81);
-  wd.setDecimalDigitMinuteFont(fontZX81, fontZX81);
   wd.setDecimalDigitHourPosition(DIGITALDIGITHOURTENPOSX, DIGITALDIGITPOSY, DIGITALDIGITHOURONEPOSX, DIGITALDIGITPOSY);
   wd.setDecimalDigitMinutePosition(DIGITALDIGITMINUTETENPOSX, DIGITALDIGITPOSY, DIGITALDIGITMINUTEONEPOSX, DIGITALDIGITPOSY);
+  setWatchDialFontByIndex(fontIndex);
   // App
   unitLittleBigClock.registerRealTimeClock(&rtc, true, false);
   unitLittleBigClock.registerKeypad(&skp);
@@ -117,22 +116,27 @@ void keypadCallback(byte id) {
       unitLittleBigClock.invalidWatchDial();
       break;  
     case KEYFONTID:
-      NGCustomFont *font = nullptr;
       fontIndex++;
       if (fontIndex > 2) {
         fontIndex = 0;
       }
-      switch (fontIndex) {
-        case 1:
-          font = fontZX81;
-          break;
-        case 2:
-          font = fontC64;
-          break;
-      }
-      wd.setDecimalDigitHourFont(font, font);
-      wd.setDecimalDigitMinuteFont(font, font);
+      setWatchDialFontByIndex(fontIndex);
       unitLittleBigClock.invalidWatchDial();
       break;  
   }
+}
+
+
+void setWatchDialFontByIndex(int index) {
+  NGCustomFont *font = nullptr;
+  switch (index) {
+    case 1:
+      font = fontZX81;
+      break;
+    case 2:
+      font = fontC64;
+      break;
+  }
+  wd.setDecimalDigitHourFont(font, font);
+  wd.setDecimalDigitMinuteFont(font, font);
 }
