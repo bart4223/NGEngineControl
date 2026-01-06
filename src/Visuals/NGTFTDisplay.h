@@ -26,9 +26,11 @@ private:
     int _offsetX = 0;
     int _offsetY = 0;
     int _scale = 1;
+    int _updateCount = 0;
     
 protected:
     void _create(byte pinCS, byte pinDC, byte pinRST);
+    int _convertColor(colorRGB color);
 
 public:
     NGTFTDisplay();

@@ -19,6 +19,10 @@ void NGTFTDisplay::_create(byte pinCS, byte pinDC, byte pinRST) {
     _TFTScreen = new TFT(pinCS, pinDC, pinRST);
 }
 
+int NGTFTDisplay::_convertColor(colorRGB color) {
+    return _TFTScreen->Color565(color.blue, color.green, color.red);
+}
+
 void NGTFTDisplay::initialize() {
     _TFTScreen->begin();
     clear();
@@ -50,6 +54,7 @@ void NGTFTDisplay::testSequenceStart() {
     drawRect(15, 10, getHeight() - 11, getWidth() - 11, COLOR_GREEN);
     fillRect(25, 20, getHeight() - 21, getWidth() - 21, COLOR_BLUE);
     drawCircle(getWidth() / 2, getHeight() / 2, min(getWidth(), getHeight()) / 4, COLOR_YELLOW);
+    fillCircle(getWidth() / 2, getHeight() / 2, min(getWidth(), getHeight()) / 8, getRandomColor());
 }
     
 void NGTFTDisplay::testSequenceStop() {
@@ -65,15 +70,23 @@ int NGTFTDisplay::getHeight() {
 }
     
 void NGTFTDisplay::beginUpdate() {
-    // n/a
+    if (_updateCount == 0) {
+        _TFTScreen->startWrite();
+    }
+    _updateCount++;
 }
     
 void NGTFTDisplay::endUpdate() {
-    // n/a
+    if (_updateCount > 0) {
+        _updateCount--;
+    }
+    if (_updateCount == 0) {
+        _TFTScreen->endWrite();
+    }
 }
     
 void NGTFTDisplay::clear() {
-    _TFTScreen->background(0, 0, 0);
+    _TFTScreen->fillScreen(_convertColor(_backgroundColor));
 }
     
 bool NGTFTDisplay::clearPoint(int x, int y) {
@@ -81,14 +94,12 @@ bool NGTFTDisplay::clearPoint(int x, int y) {
 }
     
 bool NGTFTDisplay::drawPoint(int x, int y, colorRGB color) {
-    int x0 = x + _offsetX;
-    int y0 = y + _offsetY;
-    _TFTScreen->stroke(color.blue, color.green, color.red);
+    int x_ = (x + _offsetX) * _scale;
+    int y_ = (y + _offsetY) * _scale;
     if (_scale > 1) {
-        _TFTScreen->fill(color.blue, color.green, color.red);
-        _TFTScreen->rect(x0 * _scale, y0 * _scale, _scale, _scale);
+        _TFTScreen->fillRect(x_, y_, _scale, _scale, _convertColor(color));
     } else {
-        _TFTScreen->point(x0, y0);
+        _TFTScreen->drawPixel(x_, y_, _convertColor(color));
     }
 }
     
@@ -97,12 +108,24 @@ void NGTFTDisplay::clearLine(int x1, int y1, int x2, int y2) {
 }
     
 void NGTFTDisplay::drawLine(int x1, int y1, int x2, int y2, colorRGB color) {
-    int x1_ = x1 + _offsetX;
-    int y1_ = y1 + _offsetY;
-    int x2_ = x2 + _offsetX;
-    int y2_ = y2 + _offsetY;
-    _TFTScreen->stroke(color.blue, color.green, color.red);
-    _TFTScreen->line(x1_ * _scale,  y1_ * _scale, x2_ * _scale, y2_ * _scale);
+    int x1_ = (x1 + _offsetX) * _scale;
+    int y1_ = (y1 + _offsetY) * _scale;
+    int x2_ = (x2 + _offsetX) * _scale;
+    int y2_ = (y2 + _offsetY) * _scale;
+    int dx =  abs(x2_ - x1_);
+    int sx = x1_ < x2_ ? 1 : -1;
+    int dy = -abs(y2_ - y1_);
+    int sy = y1_ < y2_ ? 1 : -1;
+    int err = dx + dy;
+    int e2;
+    for(;;){
+        drawPoint(x1_, y1_, color);
+        if (x1_ == x2_ && y1_ == y2_)
+            break;
+        e2 = 2 * err;
+        if (e2 > dy) { err += dy; x1_ += sx; }
+        if (e2 < dx) { err += dx; y1_ += sy; }
+    }
 }
     
 void NGTFTDisplay::clearRect(int top, int left, int bottom, int right) {
@@ -119,13 +142,11 @@ void NGTFTDisplay::drawRect(int top, int left, int bottom, int right, colorRGB c
 }
 
 void NGTFTDisplay::fillRect(int top, int left, int bottom, int right, colorRGB color) {
-    int left_ = left + _offsetX;
-    int top_ = top + _offsetY;
-    int right_ = right + _offsetX;
-    int bottom_ = bottom + _offsetY;
-    _TFTScreen->stroke(color.blue, color.green, color.red);
-    _TFTScreen->fill(color.blue, color.green, color.red);
-    _TFTScreen->rect(left_ * _scale, top_ * _scale, (right_ - left_) * _scale, (bottom_ - top_) * _scale);
+    int left_ = (left + _offsetX) * _scale;
+    int top_ = (top + _offsetY) * _scale;
+    int right_ = (right + _offsetX) * _scale;
+    int bottom_ = (bottom + _offsetY) * _scale;
+    _TFTScreen->fillRect(left_, top_, (right_ - left_), (bottom_ - top_), _convertColor(color));
 }
     
 void NGTFTDisplay::clearCircle(int x0, int y0, int radius) {
@@ -134,15 +155,17 @@ void NGTFTDisplay::clearCircle(int x0, int y0, int radius) {
     
 void NGTFTDisplay::drawCircle(int x0, int y0, int radius, colorRGB color) {
     beginUpdate();
+    int x0_ = (x0 + _offsetX) * _scale;
+    int y0_ = (y0 + _offsetY) * _scale;
     int f = 1 - radius;
     int ddF_x = 0;
     int ddF_y = -2 * radius;
     int x = 0;
     int y = radius;
-    drawPoint(x0, y0 + radius, color);
-    drawPoint(x0, y0 - radius, color);
-    drawPoint(x0 + radius, y0, color);
-    drawPoint(x0 - radius, y0, color);
+    drawPoint(x0_, y0_ + radius, color);
+    drawPoint(x0_, y0_ - radius, color);
+    drawPoint(x0_ + radius, y0_, color);
+    drawPoint(x0_ - radius, y0_, color);
     while (x < y) {
         if (f >= 0) {
             y--;
@@ -152,24 +175,43 @@ void NGTFTDisplay::drawCircle(int x0, int y0, int radius, colorRGB color) {
         x++;
         ddF_x += 2;
         f += ddF_x + 1;
-        drawPoint(x0 + x, y0 + y, color);
-        drawPoint(x0 - x, y0 + y, color);
-        drawPoint(x0 + x, y0 - y, color);
-        drawPoint(x0 - x, y0 - y, color);
-        drawPoint(x0 + y, y0 + x, color);
-        drawPoint(x0 - y, y0 + x, color);
-        drawPoint(x0 + y, y0 - x, color);
-        drawPoint(x0 - y, y0 - x, color);
+        drawPoint(x0_ + x, y0_ + y, color);
+        drawPoint(x0_ - x, y0_ + y, color);
+        drawPoint(x0_ + x, y0_ - y, color);
+        drawPoint(x0_ - x, y0_ - y, color);
+        drawPoint(x0_ + y, y0_ + x, color);
+        drawPoint(x0_ - y, y0_ + x, color);
+        drawPoint(x0_ + y, y0_ - x, color);
+        drawPoint(x0_ - y, y0_ - x, color);
     }
     endUpdate();
 }    
 
 void NGTFTDisplay::fillCircle(int x0, int y0, int radius, colorRGB color) {
-    int x0_ = x0 + _offsetX;
-    int y0_ = y0 + _offsetY;
-    _TFTScreen->stroke(color.blue, color.green, color.red);
-    _TFTScreen->fill(color.blue, color.green, color.red);
-    _TFTScreen->circle(x0_ * _scale, y0_ * _scale, radius * _scale);
+    beginUpdate();
+    int x0_ = (x0 + _offsetX) * _scale;
+    int y0_ = (y0 + _offsetY) * _scale;
+    int f = 1 - radius;
+    int ddF_x = 0;
+    int ddF_y = -2 * radius;
+    int x = 0;
+    int y = radius;
+    drawLine(x0_ - radius, y0_, x0_ + radius, y0_, color);
+    while (x < y) {
+        if (f >= 0) {
+            y--;
+            ddF_y += 2;
+            f += ddF_y;
+        }
+        x++;
+        ddF_x += 2;
+        f += ddF_x + 1;
+        drawLine(x0_ - x, y0_ + y, x0_ + x, y0_ + y, color);
+        drawLine(x0_ - x, y0_ - y, x0_ + x, y0_ - y, color);
+        drawLine(x0_ + y, y0_ + x, x0_ - y, y0_ + x, color);
+        drawLine(x0_ + y, y0_ - x, x0_ - y, y0_ - x, color);
+    }
+    endUpdate();
 }
     
 void NGTFTDisplay::drawImage(coord2D coord[], colorRGB color, int size) {
@@ -194,7 +236,6 @@ int NGTFTDisplay::getScale() {
     
 void NGTFTDisplay::setBackground(colorRGB color) {
     _backgroundColor = color;
-    _TFTScreen->background(_backgroundColor.red, _backgroundColor.green, _backgroundColor.blue);
 }
     
 colorRGB NGTFTDisplay::getBackground() {
