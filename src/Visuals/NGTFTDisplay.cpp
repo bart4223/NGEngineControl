@@ -8,15 +8,16 @@
 #include <Visuals/NGTFTDisplay.h>
 
 NGTFTDisplay::NGTFTDisplay() {
-    _create(DEFPINTFTCS, DEFPINTFTDC, DEFPINTFTRST);
+    _create(DEFPINTFTCS, DEFPINTFTDC, DEFPINTFTRST, DEFTFTDISPLAYDIRECTION);
 }
 
 NGTFTDisplay::NGTFTDisplay(byte pinCS, byte pinDC, byte pinRST) {
-    _create(pinCS, pinDC, pinRST);
+    _create(pinCS, pinDC, pinRST, DEFTFTDISPLAYDIRECTION);
 }
 
-void NGTFTDisplay::_create(byte pinCS, byte pinDC, byte pinRST) {
+void NGTFTDisplay::_create(byte pinCS, byte pinDC, byte pinRST, TFTDisplayDirection direction) {
     _TFTScreen = new TFT(pinCS, pinDC, pinRST);
+    _direction = direction;
 }
 
 int NGTFTDisplay::_convertColor(colorRGB color) {
@@ -61,6 +62,14 @@ void NGTFTDisplay::testSequenceStop() {
     clear();
 }
 
+void NGTFTDisplay::setDisplayDirection(TFTDisplayDirection direction) {
+    _direction = direction;
+}
+
+TFTDisplayDirection NGTFTDisplay::getDisplayDirection() {
+    return _direction;
+}
+
 int NGTFTDisplay::getWidth() {
     return _TFTScreen->width();
 }
@@ -96,6 +105,14 @@ bool NGTFTDisplay::clearPoint(int x, int y) {
 bool NGTFTDisplay::drawPoint(int x, int y, colorRGB color) {
     int x_ = (x + _offsetX) * _scale;
     int y_ = (y + _offsetY) * _scale;
+    switch(_direction) {
+        case tddHorizontal:
+            _TFTScreen->setRotation(1);
+            break;
+        case tddVertical:
+            _TFTScreen->setRotation(4);
+            break;
+    }
     if (_scale > 1) {
         _TFTScreen->fillRect(x_, y_, _scale, _scale, _convertColor(color));
     } else {

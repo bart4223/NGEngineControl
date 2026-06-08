@@ -18,6 +18,10 @@
 #define DEFPINTFTDC     9
 #define DEFPINTFTRST    8
 
+#define DEFTFTDISPLAYDIRECTION tddHorizontal
+
+enum TFTDisplayDirection { tddHorizontal, tddVertical };
+
 class NGTFTDisplay : public NGITestableComponent, public NGIPaintableComponent{
 
 private:
@@ -27,9 +31,10 @@ private:
     int _offsetY = 0;
     int _scale = 1;
     int _updateCount = 0;
+    TFTDisplayDirection _direction = DEFTFTDISPLAYDIRECTION;
     
 protected:
-    void _create(byte pinCS, byte pinDC, byte pinRST);
+    void _create(byte pinCS, byte pinDC, byte pinRST, TFTDisplayDirection direction);
     int _convertColor(colorRGB color);
 
 public:
@@ -42,6 +47,10 @@ public:
     void testSequenceStart();
     
     void testSequenceStop();
+
+    void setDisplayDirection(TFTDisplayDirection direction);
+
+    TFTDisplayDirection getDisplayDirection();
 
     int getWidth();
     
