@@ -20,12 +20,24 @@ void NGTFTDisplay::_create(byte pinCS, byte pinDC, byte pinRST, TFTDisplayDirect
     _direction = direction;
 }
 
+void NGTFTDisplay::_initDisplayDirection() {
+    switch (_direction) {
+        case tddHorizontal:
+            _TFTScreen->setRotation(1);
+            break;
+        case tddVertical:
+            _TFTScreen->setRotation(0);
+            break;
+    }
+}
+
 int NGTFTDisplay::_convertColor(colorRGB color) {
     return _TFTScreen->Color565(color.blue, color.green, color.red);
 }
 
 void NGTFTDisplay::initialize() {
     _TFTScreen->begin();
+    _initDisplayDirection();
     clear();
 }
 
@@ -64,6 +76,7 @@ void NGTFTDisplay::testSequenceStop() {
 
 void NGTFTDisplay::setDisplayDirection(TFTDisplayDirection direction) {
     _direction = direction;
+    _initDisplayDirection();
 }
 
 TFTDisplayDirection NGTFTDisplay::getDisplayDirection() {
@@ -105,14 +118,6 @@ bool NGTFTDisplay::clearPoint(int x, int y) {
 bool NGTFTDisplay::drawPoint(int x, int y, colorRGB color) {
     int x_ = (x + _offsetX) * _scale;
     int y_ = (y + _offsetY) * _scale;
-    switch(_direction) {
-        case tddHorizontal:
-            _TFTScreen->setRotation(1);
-            break;
-        case tddVertical:
-            _TFTScreen->setRotation(4);
-            break;
-    }
     if (_scale > 1) {
         _TFTScreen->fillRect(x_, y_, _scale, _scale, _convertColor(color));
     } else {

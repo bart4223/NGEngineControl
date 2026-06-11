@@ -35,6 +35,7 @@ private:
     
 protected:
     void _create(byte pinCS, byte pinDC, byte pinRST, TFTDisplayDirection direction);
+    void _initDisplayDirection();
     int _convertColor(colorRGB color);
 
 public:
