@@ -8,9 +8,9 @@
 #define LEDSTRIPPIXELS  24
 #define LEDSTRIPROWS     2
 
-#define KEYMODEPIN     9
-#define KEYMODEID     42
-#define KEYDELAY     500
+#define KEYEFFECTPIN     9
+#define KEYEFFECTID     42
+#define KEYDELAY       500
 
 #define BRIGHTNESS_LOW_PIN    7
 #define BRIGHTNESS_MEDIUM_PIN 6
@@ -37,7 +37,7 @@ void setup() {
   observeMemory(0);
   // Keypad
   skp.registerCallback(&keypadCallback);
-  skp.registerKey(KEYMODEPIN, KEYMODEID, KEYDELAY);
+  skp.registerKey(KEYEFFECTPIN, KEYEFFECTID, KEYDELAY);
   // Color LED Strip
   #if (PROD == false)
   cls.setTestModeDelay(TESTMODEDELAY);
@@ -69,7 +69,7 @@ void loop() {
 
 void keypadCallback(byte id) {
   switch (id) {
-    case KEYMODEID:
+    case KEYEFFECTID:
       break;
   }
 }
