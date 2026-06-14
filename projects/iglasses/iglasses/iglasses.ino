@@ -34,7 +34,9 @@ NGSimpleKeypad skp = NGSimpleKeypad();
 NGColorLEDStrip cls = NGColorLEDStrip(LEDSTRIPPIN, LEDSTRIPPIXELS, LEDSTRIPROWS);
 
 void setup() {
+  #if (PROD == false)
   observeMemory(0);
+  #endif
   // Keypad
   skp.registerCallback(&keypadCallback);
   skp.registerKey(KEYEFFECTPIN, KEYEFFECTID, KEYDELAY);
@@ -60,7 +62,9 @@ void setup() {
     cls.initialize(BRIGHTNESS_DEFAULT);
   }
   #endif
+  #if (PROD == false)
   observeMemory(0);
+  #endif
 }
 
 void loop() {
