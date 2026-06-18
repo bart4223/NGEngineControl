@@ -84,11 +84,11 @@ TFTDisplayDirection NGTFTDisplay::getDisplayDirection() {
 }
 
 int NGTFTDisplay::getWidth() {
-    return _TFTScreen->width();
+    return _TFTScreen->width() / _scale;
 }
     
 int NGTFTDisplay::getHeight() {
-    return _TFTScreen->height();
+    return _TFTScreen->height() / _scale;
 }
     
 void NGTFTDisplay::beginUpdate() {
