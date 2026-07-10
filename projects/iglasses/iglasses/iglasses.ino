@@ -83,7 +83,7 @@ void loop() {
 }
 
 void keypadCallback(byte id) {
-  switch(id) {
+  switch (id) {
     case KEYSTARTID:
       break;
     case KEYHOTID:
