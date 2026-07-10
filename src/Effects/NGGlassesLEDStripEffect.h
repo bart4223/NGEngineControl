@@ -2,7 +2,7 @@
 //  NGGlassesLEDStripEffect.h
 //  NGEngineControl
 //
-//  Created by Nils Grimmer on 10.06.26.
+//  Created by Nils Grimmer on 10.07.26.
 //
 
 #ifndef NGGlassesLEDStripEffect_h

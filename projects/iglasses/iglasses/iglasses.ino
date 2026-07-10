@@ -1,8 +1,13 @@
 #define PROD false //false, true
 
 #include <NGEngineCore.h>
+#include <Apps/NGiGlassesUnitControl.h>
 #include <NGSerialNotification.h>
 #include <Visuals/NGColorLEDStrip.h>
+
+#define _APP       "iGlasses"
+#define APP        (char*)_APP
+#define APPADDRESS 0x27
 
 #define LEDSTRIPPIN      8
 #define LEDSTRIPPIXELS  24
@@ -19,31 +24,33 @@
 
 #define KEYDELAY       500
 
-#define BRIGHTNESS_LOW_PIN      9
-#define BRIGHTNESS_MEDIUM_PIN  10
-#define BRIGHTNESS_HIGH_PIN    11
-#define BRIGHTNESS_ULTRA_PIN   12
+#define BRIGHTNESS_LOW_PIN       9
+#define BRIGHTNESS_MEDIUM_PIN   10
+#define BRIGHTNESS_HIGH_PIN     11
+#define BRIGHTNESS_ULTRA_PIN    12
 
-#define BRIGHTNESS_DEFAULT 0.05
-#define BRIGHTNESS_LOW     0.25
-#define BRIGHTNESS_MEDIUM  0.5
-#define BRIGHTNESS_HIGH    0.75
-#define BRIGHTNESS_ULTRA   1.00
+#define BRIGHTNESS_DEFAULT  0.05
+#define BRIGHTNESS_LOW      0.25
+#define BRIGHTNESS_MEDIUM   0.5
+#define BRIGHTNESS_HIGH     0.75
+#define BRIGHTNESS_ULTRA    1.00
 
 #define TESTMODEDELAY     40
 #define TESTDELAY       2000
-#define TESTRUNS           2
+#define TESTRUNS           1
 
 #if (PROD == false)
 NGSerialNotification serialNotification = NGSerialNotification();
 #endif
 NGSimpleKeypad skp = NGSimpleKeypad();
 NGColorLEDStrip cls = NGColorLEDStrip(LEDSTRIPPIN, LEDSTRIPPIXELS, LEDSTRIPROWS);
+NGiGlassesUnitControl app = NGiGlassesUnitControl(APP);
 
 void setup() {
   #if (PROD == false)
   observeMemory(0);
   #endif
+  setGlobalUnit(&app);
   // Keypad
   skp.registerCallback(&keypadCallback);
   skp.registerKey(KEYSTARTPIN, KEYSTARTID, KEYDELAY);
@@ -73,24 +80,43 @@ void setup() {
     cls.initialize(BRIGHTNESS_DEFAULT);
   }
   #endif
+  // App
+  #if (PROD != true)
+  app.registerNotification(&serialNotification);
+  #endif
+  app.registerKeypad(&skp);
+  app.initialize();
+  #if (PROD == true)
+  app.setLogging(false);
+  app.setWorkMode(wmNone);
+  #else
+  app.setLogging(true);
+  app.setWorkMode(wmObserveMemory);
+  #endif
+  app.startUp();
+  app.clearInfo();
   #if (PROD == false)
   observeMemory(0);
   #endif
 }
 
 void loop() {
-
+  app.processingLoop();
 }
 
 void keypadCallback(byte id) {
   switch (id) {
     case KEYSTARTID:
+      Serial.println("Press Start/Stop");
       break;
     case KEYHOTID:
+      Serial.println("Press Hot Effect");
       break;
     case KEYEFFECTID:
+      Serial.println("Press Effect");
       break;
     case KEYCOLORID:
+      Serial.println("Press Color");
       break;
   }
 }
