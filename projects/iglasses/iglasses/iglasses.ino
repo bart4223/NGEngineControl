@@ -8,18 +8,21 @@
 #define LEDSTRIPPIXELS  24
 #define LEDSTRIPROWS     2
 
-#define KEYEFFECTPIN        9
-#define KEYEFFECTID        42
-#define KEYHOTEFFECTPIN    10
-#define KEYHOTEFFECTID     43
-#define KEYCOLORPIN        11
-#define KEYCOLORID         44
-#define KEYDELAY          500
+#define KEYSTARTPIN      7
+#define KEYSTARTID      45
+#define KEYHOTPIN        6
+#define KEYHOTID        44
+#define KEYEFFECTPIN     5
+#define KEYEFFECTID     43
+#define KEYCOLORPIN      4
+#define KEYCOLORID      42
 
-#define BRIGHTNESS_LOW_PIN      7
-#define BRIGHTNESS_MEDIUM_PIN   6
-#define BRIGHTNESS_HIGH_PIN     5
-#define BRIGHTNESS_ULTRA_PIN    4
+#define KEYDELAY       500
+
+#define BRIGHTNESS_LOW_PIN      9
+#define BRIGHTNESS_MEDIUM_PIN  10
+#define BRIGHTNESS_HIGH_PIN    11
+#define BRIGHTNESS_ULTRA_PIN   12
 
 #define BRIGHTNESS_DEFAULT 0.05
 #define BRIGHTNESS_LOW     0.25
@@ -27,9 +30,9 @@
 #define BRIGHTNESS_HIGH    0.75
 #define BRIGHTNESS_ULTRA   1.00
 
-#define TESTMODEDELAY     20
-#define TESTDELAY        100
-#define TESTRUNS           1
+#define TESTMODEDELAY     40
+#define TESTDELAY       2000
+#define TESTRUNS           2
 
 #if (PROD == false)
 NGSerialNotification serialNotification = NGSerialNotification();
@@ -43,11 +46,13 @@ void setup() {
   #endif
   // Keypad
   skp.registerCallback(&keypadCallback);
+  skp.registerKey(KEYSTARTPIN, KEYSTARTID, KEYDELAY);
+  skp.registerKey(KEYHOTPIN, KEYHOTID, KEYDELAY);
   skp.registerKey(KEYEFFECTPIN, KEYEFFECTID, KEYDELAY);
-  skp.registerKey(KEYHOTEFFECTPIN, KEYHOTEFFECTID, KEYDELAY);
   skp.registerKey(KEYCOLORPIN, KEYCOLORID, KEYDELAY);
   // Color LED Strip
   #if (PROD == false)
+  initGlobalRandomSeedWithAnalogInput(A0);
   cls.setTestModeDelay(TESTMODEDELAY);
   cls.initialize(BRIGHTNESS_DEFAULT);
   for (int i = 0; i < TESTRUNS; i++) {
@@ -78,10 +83,12 @@ void loop() {
 }
 
 void keypadCallback(byte id) {
-  switch (id) {
-    case KEYEFFECTID:
+  switch(id) {
+    case KEYSTARTID:
       break;
-    case KEYHOTEFFECTID:
+    case KEYHOTID:
+      break;
+    case KEYEFFECTID:
       break;
     case KEYCOLORID:
       break;
