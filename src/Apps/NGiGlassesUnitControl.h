@@ -16,7 +16,6 @@
 #define VERSION (char*)_VERSION
 
 #define MAXEFFECTCOUNT 4
-#define DEFTEMPERATUREOBSERVETIME 500
 #define NOCURRENTEFFECT -1
 
 class NGiGlassesUnitControl : public NGCustomUnitControl {
