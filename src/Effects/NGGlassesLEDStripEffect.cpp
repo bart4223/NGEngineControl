@@ -28,6 +28,7 @@ void NGGlassesLEDStripEffect::_render() {
             _colorLEDStrip->clear();
             break;
         case glekSolid:
+            _colorLEDStrip->setBackground(_color);
             _colorLEDStrip->clear();
             break;
     }
@@ -48,7 +49,11 @@ void NGGlassesLEDStripEffect::setKind(glassesLEDStripEffectKind kind) {
 }
 
 void NGGlassesLEDStripEffect::setColor(colorRGB color) {
-    _colorLEDStrip->setBackground(color);
+    _color = color;
+}
+
+colorRGB NGGlassesLEDStripEffect::getColor() {
+    return _color;
 }
 
 void NGGlassesLEDStripEffect::processingLoop() {

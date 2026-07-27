@@ -9,17 +9,18 @@
 #define NGGlassesLEDStripEffect_h
 
 #include <Arduino.h>
-#include <NGIEffect.h>
+#include <Effects/NGIGlassesEffect.h>
 #include <Visuals/NGColorLEDStrip.h>
 
 #define DEFAULTGLASSESLEDSTRIPEFFECTKIND glekNone
 
 enum glassesLEDStripEffectKind { glekNone, glekSolid };
 
-class NGGlassesLEDStripEffect : public NGIEffect {
+class NGGlassesLEDStripEffect : public NGIGlassesEffect {
 
 private:
     NGColorLEDStrip *_colorLEDStrip;
+    colorRGB _color = COLOR_BLACK;
     glassesLEDStripEffectKind _kind = DEFAULTGLASSESLEDSTRIPEFFECTKIND;
 
 protected:
@@ -39,6 +40,8 @@ public:
     void setKind(glassesLEDStripEffectKind kind);
 
     void setColor(colorRGB color);
+
+    colorRGB getColor();
 
     void processingLoop();
 };
