@@ -14,30 +14,30 @@
 
 #define DEFAULTGLASSESLEDSTRIPEFFECTKIND glekNone
 
-enum glassesLEDStripEffectKind { glekNone, glekSolid };
-
 class NGGlassesLEDStripEffect : public NGIGlassesEffect {
 
 private:
     NGColorLEDStrip *_colorLEDStrip;
     colorRGB _color = COLOR_BLACK;
-    glassesLEDStripEffectKind _kind = DEFAULTGLASSESLEDSTRIPEFFECTKIND;
+    glassesEffectKind _kind = DEFAULTGLASSESLEDSTRIPEFFECTKIND;
 
 protected:
-    void _create(NGColorLEDStrip *colorLEDStrip, glassesLEDStripEffectKind kind);
+    void _create(NGColorLEDStrip *colorLEDStrip, glassesEffectKind kind);
 
     void _render();
 
 public:
     NGGlassesLEDStripEffect(NGColorLEDStrip *colorLEDStrip);
 
-    NGGlassesLEDStripEffect(NGColorLEDStrip *colorLEDStrip, glassesLEDStripEffectKind kind);
+    NGGlassesLEDStripEffect(NGColorLEDStrip *colorLEDStrip, glassesEffectKind kind);
 
     void initialize();
 
     void reset();
 
-    void setKind(glassesLEDStripEffectKind kind);
+    void setKind(glassesEffectKind kind);
+
+    glassesEffectKind getKind();
 
     void setColor(colorRGB color);
 

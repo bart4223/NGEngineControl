@@ -12,7 +12,7 @@
 #include <NGCustomUnitControl.h>
 #include <Effects/NGIGlassesEffect.h>
 
-#define _VERSION "0.2"
+#define _VERSION "0.3"
 #define VERSION (char*)_VERSION
 
 #define MAXEFFECTCOUNT 10
@@ -22,6 +22,7 @@
 struct glassesEffectItemStruct
 {    
     NGIGlassesEffect *effect;
+    glassesEffectKind kind = glekNone;
 };
 typedef struct glassesEffectItemStruct glassesEffectItem;
 
@@ -54,9 +55,9 @@ public:
     
     NGiGlassesUnitControl(char* name, byte address, int serialRate);
 
-    byte registerEffect(NGIGlassesEffect *effect);
+    byte registerEffect(NGIGlassesEffect *effect, glassesEffectKind kind);
 
-    byte registerEffect(NGIGlassesEffect *effect, bool hotEffect);
+    byte registerEffect(NGIGlassesEffect *effect, glassesEffectKind kind, bool hotEffect);
     
     void initialize();
     

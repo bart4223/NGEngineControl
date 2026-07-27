@@ -11,11 +11,11 @@ NGGlassesLEDStripEffect::NGGlassesLEDStripEffect(NGColorLEDStrip *colorLEDStrip)
      _create(colorLEDStrip, DEFAULTGLASSESLEDSTRIPEFFECTKIND);
 }
 
-NGGlassesLEDStripEffect::NGGlassesLEDStripEffect(NGColorLEDStrip *colorLEDStrip, glassesLEDStripEffectKind kind) {
+NGGlassesLEDStripEffect::NGGlassesLEDStripEffect(NGColorLEDStrip *colorLEDStrip, glassesEffectKind kind) {
     _create(colorLEDStrip, kind);
 }
 
-void NGGlassesLEDStripEffect::_create(NGColorLEDStrip *colorLEDStrip, glassesLEDStripEffectKind kind) {
+void NGGlassesLEDStripEffect::_create(NGColorLEDStrip *colorLEDStrip, glassesEffectKind kind) {
     _colorLEDStrip = colorLEDStrip;
     _kind = kind;
 }
@@ -44,8 +44,12 @@ void NGGlassesLEDStripEffect::reset() {
     _colorLEDStrip->clear();
 }
 
-void NGGlassesLEDStripEffect::setKind(glassesLEDStripEffectKind kind) {
+void NGGlassesLEDStripEffect::setKind(glassesEffectKind kind) {
     _kind = kind;
+}
+
+glassesEffectKind NGGlassesLEDStripEffect::getKind() {
+    return _kind;
 }
 
 void NGGlassesLEDStripEffect::setColor(colorRGB color) {

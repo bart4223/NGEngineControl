@@ -42,15 +42,16 @@ void NGiGlassesUnitControl::_processingIRRemoteData() {
     
 }
 
-byte NGiGlassesUnitControl::registerEffect(NGIGlassesEffect *effect) {
-    return registerEffect(effect, false);
+byte NGiGlassesUnitControl::registerEffect(NGIGlassesEffect *effect, glassesEffectKind kind) {
+    return registerEffect(effect, kind, false);
 }
 
-byte NGiGlassesUnitControl::registerEffect(NGIGlassesEffect *effect, bool hotEffect) {
+byte NGiGlassesUnitControl::registerEffect(NGIGlassesEffect *effect, glassesEffectKind kind, bool hotEffect) {
     if (_effectCount < MAXEFFECTCOUNT) {
         int res = _effectCount;
         glassesEffectItem gei;
         gei.effect = effect;
+        gei.kind = kind;
         _effects[res] = gei;
         _effectCount++;
         if (hotEffect) {
@@ -86,6 +87,9 @@ void NGiGlassesUnitControl::requestData(byte* data) {
 void NGiGlassesUnitControl::setCurrentEffect(int effectIndex) {
     if (_currentEffectIndex != effectIndex) {
         _currentEffectIndex = effectIndex;
+       if (_currentEffectIndex >= 0 && _currentEffectIndex < _effectCount) {
+            _effects[_currentEffectIndex].effect->setKind(_effects[_currentEffectIndex].kind);
+        }
     }
 }
 

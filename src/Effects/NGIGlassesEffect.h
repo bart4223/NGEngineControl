@@ -11,9 +11,15 @@
 #include <NGCommonGraphics.h>
 #include <NGIEffect.h>
 
+enum glassesEffectKind { glekNone, glekSolid };
+
 class NGIGlassesEffect : public NGIEffect {
     
 public:
+    virtual void setKind(glassesEffectKind kind);
+
+    virtual glassesEffectKind getKind();
+
     virtual void setColor(colorRGB color);
 
     virtual colorRGB getColor();
