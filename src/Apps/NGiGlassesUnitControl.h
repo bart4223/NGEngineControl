@@ -12,18 +12,27 @@
 #include <NGCustomUnitControl.h>
 #include <Effects/NGIGlassesEffect.h>
 
-#define _VERSION "0.1"
+#define _VERSION "0.2"
 #define VERSION (char*)_VERSION
 
-#define MAXEFFECTCOUNT 4
+#define MAXEFFECTCOUNT 10
 #define NOCURRENTEFFECT -1
+#define NOHOTEFFECT -1
+
+struct glassesEffectItemStruct
+{    
+    NGIGlassesEffect *effect;
+};
+typedef struct glassesEffectItemStruct glassesEffectItem;
 
 class NGiGlassesUnitControl : public NGCustomUnitControl {
 
 private:
-    NGIGlassesEffect *_effects[MAXEFFECTCOUNT];
+    glassesEffectItem _effects[MAXEFFECTCOUNT];
     int _effectCount = 0;
     int _currentEffectIndex = NOCURRENTEFFECT;
+    bool _effectRunning = false;
+    int _hotEffectIndex = NOHOTEFFECT;
 
 protected:
     void _create(char* name, byte address, int serialRate);
@@ -46,6 +55,8 @@ public:
     NGiGlassesUnitControl(char* name, byte address, int serialRate);
 
     byte registerEffect(NGIGlassesEffect *effect);
+
+    byte registerEffect(NGIGlassesEffect *effect, bool hotEffect);
     
     void initialize();
     
@@ -56,6 +67,22 @@ public:
     void setCurrentEffect(int effectIndex);
 
     int getCurrentEffect();
+
+    void firstEffect();
+
+    void nextEffect();
+
+    void hotEffect();
+
+    bool hasCurrentEffect();
+
+    void startEffectRunning();
+
+    void stopEffectRunning();
+
+    void toggleEffectRunning();
+
+    bool isEffectRunning();
 };
 
 #endif /* NGiGlassesUnitControl_h */
