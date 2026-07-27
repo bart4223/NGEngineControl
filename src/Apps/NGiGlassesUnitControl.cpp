@@ -64,6 +64,10 @@ byte NGiGlassesUnitControl::registerEffect(NGIGlassesEffect *effect, glassesEffe
     return -1;
 }
 
+bool NGiGlassesUnitControl::hasEffects() {
+    return _effectCount > 0;
+}
+
 void NGiGlassesUnitControl::initialize() {
     NGCustomUnitControl::initialize();
     for (int i = 0; i < _effectCount; i++) {

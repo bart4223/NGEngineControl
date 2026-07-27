@@ -4,6 +4,7 @@
 #include <Apps/NGiGlassesUnitControl.h>
 #include <NGSerialNotification.h>
 #include <Visuals/NGColorLEDStrip.h>
+#include <Effects/NGGlassesLEDStripEffect.h>
 
 #define _APP       "iGlasses"
 #define APP        (char*)_APP
@@ -44,6 +45,7 @@ NGSerialNotification serialNotification = NGSerialNotification();
 #endif
 NGSimpleKeypad skp = NGSimpleKeypad();
 NGColorLEDStrip cls = NGColorLEDStrip(LEDSTRIPPIN, LEDSTRIPPIXELS, LEDSTRIPROWS);
+NGGlassesLEDStripEffect effect = NGGlassesLEDStripEffect(&cls);
 NGiGlassesUnitControl app = NGiGlassesUnitControl(APP);
 
 void setup() {
@@ -85,6 +87,9 @@ void setup() {
   app.registerNotification(&serialNotification);
   #endif
   app.registerKeypad(&skp);
+  // Effects
+  app.registerEffect(&effect, glekNone);
+  app.registerEffect(&effect, glekSolid, true);
   app.initialize();
   #if (PROD == true)
   app.setLogging(false);
@@ -95,6 +100,10 @@ void setup() {
   #endif
   app.startUp();
   app.clearInfo();
+  if (app.hasEffects() && !app.hasCurrentEffect()) {
+    app.firstEffect();
+    app.startEffectRunning();
+  }
   #if (PROD == false)
   observeMemory(0);
   #endif
@@ -107,13 +116,13 @@ void loop() {
 void keypadCallback(byte id) {
   switch (id) {
     case KEYSTARTID:
-      Serial.println("Press Start/Stop");
+      app.toggleEffectRunning();
       break;
     case KEYHOTID:
-      Serial.println("Press Hot Effect");
+      app.hotEffect();
       break;
     case KEYEFFECTID:
-      Serial.println("Press Effect");
+      app.nextEffect();
       break;
     case KEYCOLORID:
       Serial.println("Press Color");
