@@ -42,7 +42,7 @@ void NGiGlassesUnitControl::_processingIRRemoteData() {
     
 }
 
-byte NGiGlassesUnitControl::registerEffect(NGIEffect *effect) {
+byte NGiGlassesUnitControl::registerEffect(NGIGlassesEffect *effect) {
     if (_effectCount < MAXEFFECTCOUNT) {
         int res = _effectCount;
         _effects[res] = effect;

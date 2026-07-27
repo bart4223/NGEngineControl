@@ -10,7 +10,7 @@
 
 #include <Arduino.h>
 #include <NGCustomUnitControl.h>
-#include <NGIEffect.h>
+#include <Effects/NGIGlassesEffect.h>
 
 #define _VERSION "0.1"
 #define VERSION (char*)_VERSION
@@ -21,7 +21,7 @@
 class NGiGlassesUnitControl : public NGCustomUnitControl {
 
 private:
-    NGIEffect *_effects[MAXEFFECTCOUNT];
+    NGIGlassesEffect *_effects[MAXEFFECTCOUNT];
     int _effectCount = 0;
     int _currentEffectIndex = NOCURRENTEFFECT;
 
@@ -45,7 +45,7 @@ public:
     
     NGiGlassesUnitControl(char* name, byte address, int serialRate);
 
-    byte registerEffect(NGIEffect *effect);
+    byte registerEffect(NGIGlassesEffect *effect);
     
     void initialize();
     
