@@ -123,6 +123,10 @@ void NGiGlassesUnitControl::hotEffect() {
     }
 }
 
+bool NGiGlassesUnitControl::hasHotEffect() {
+    return _hotEffectIndex > NOHOTEFFECT && _hotEffectIndex < _effectCount;
+}
+
 bool NGiGlassesUnitControl::hasCurrentEffect() {
     return _currentEffectIndex != NOCURRENTEFFECT;
 }

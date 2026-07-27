@@ -12,7 +12,7 @@
 #include <NGCustomUnitControl.h>
 #include <Effects/NGIGlassesEffect.h>
 
-#define _VERSION "0.4"
+#define _VERSION "0.5"
 #define VERSION (char*)_VERSION
 
 #define MAXEFFECTCOUNT 10
@@ -76,6 +76,8 @@ public:
     void nextEffect();
 
     void hotEffect();
+
+    bool hasHotEffect();
 
     bool hasCurrentEffect();
 

@@ -88,6 +88,7 @@ void setup() {
   #endif
   app.registerKeypad(&skp);
   // Effects
+  effect.setColor(COLOR_YELLOW);
   app.registerEffect(&effect, glekNone);
   app.registerEffect(&effect, glekSolid, true);
   app.initialize();
@@ -101,7 +102,11 @@ void setup() {
   app.startUp();
   app.clearInfo();
   if (app.hasEffects() && !app.hasCurrentEffect()) {
-    app.firstEffect();
+    if (app.hasHotEffect()) {
+      app.hotEffect();
+    } else {
+      app.firstEffect();
+    }
     app.startEffectRunning();
   }
   #if (PROD == false)
