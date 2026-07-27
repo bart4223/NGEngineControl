@@ -114,12 +114,18 @@ void NGiGlassesUnitControl::nextEffect() {
             nextIndex = 0;
         }
         setCurrentEffect(nextIndex);
+        if (!isEffectRunning()) {
+            startEffectRunning();
+        }
     }
 }
 
 void NGiGlassesUnitControl::hotEffect() {
     if (_hotEffectIndex > NOHOTEFFECT && _hotEffectIndex < _effectCount) {
         setCurrentEffect(_hotEffectIndex);
+        if (!isEffectRunning()) {
+            startEffectRunning();
+        }
     }
 }
 

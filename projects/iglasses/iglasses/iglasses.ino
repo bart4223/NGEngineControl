@@ -125,15 +125,9 @@ void keypadCallback(byte id) {
       break;
     case KEYHOTID:
       app.hotEffect();
-      if (!app.isEffectRunning()) {
-        app.startEffectRunning();
-      }
       break;
     case KEYEFFECTID:
       app.nextEffect();
-      if (!app.isEffectRunning()) {
-        app.startEffectRunning();
-      }
       break;
     case KEYCOLORID:
       Serial.println("Press Color");
