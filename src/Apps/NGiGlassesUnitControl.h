@@ -12,7 +12,7 @@
 #include <NGCustomUnitControl.h>
 #include <Effects/NGIGlassesEffect.h>
 
-#define _VERSION "1.0"
+#define _VERSION "1.2"
 #define VERSION (char*)_VERSION
 
 #define MAXEFFECTCOUNT 10
@@ -23,14 +23,15 @@
 
 struct glassesEffectItemStruct
 {    
-    NGIGlassesEffect *effect;
     glassesEffectKind kind = glekNone;
+    int delay = 0;
 };
 typedef struct glassesEffectItemStruct glassesEffectItem;
 
 class NGiGlassesUnitControl : public NGCustomUnitControl {
 
 private:
+    NGIGlassesEffect *_effectImplementation = nullptr;
     glassesEffectItem _effects[MAXEFFECTCOUNT];
     int _effectCount = 0;
     int _currentEffectIndex = NOCURRENTEFFECT;
@@ -60,11 +61,17 @@ public:
     
     NGiGlassesUnitControl(char* name, byte address, int serialRate);
 
-    byte registerEffect(NGIGlassesEffect *effect);
+    void setEffectImplementation(NGIGlassesEffect *effect);
 
-    byte registerEffect(NGIGlassesEffect *effect, glassesEffectKind kind);
+    bool hasEffectImplementation();
 
-    byte registerEffect(NGIGlassesEffect *effect, glassesEffectKind kind, bool hotEffect);
+    byte registerEffect(glassesEffectKind kind);
+
+    byte registerEffect(glassesEffectKind kind, int delay);
+
+    byte registerEffect(glassesEffectKind kind, bool hotEffect);
+
+    byte registerEffect(glassesEffectKind kind, bool hotEffect, int delay);
     
     byte registerColor(colorRGB color);
 

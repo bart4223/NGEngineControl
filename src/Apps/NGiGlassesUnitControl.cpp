@@ -42,20 +42,32 @@ void NGiGlassesUnitControl::_processingIRRemoteData() {
     
 }
 
-byte NGiGlassesUnitControl::registerEffect(NGIGlassesEffect *effect) {
-    return registerEffect(effect, glekNone, false);
+void NGiGlassesUnitControl::setEffectImplementation(NGIGlassesEffect *effect) {
+    _effectImplementation = effect;
 }
 
-byte NGiGlassesUnitControl::registerEffect(NGIGlassesEffect *effect, glassesEffectKind kind) {
-    return registerEffect(effect, kind, false);
+bool NGiGlassesUnitControl::hasEffectImplementation() {
+    return _effectImplementation != nullptr;
 }
 
-byte NGiGlassesUnitControl::registerEffect(NGIGlassesEffect *effect, glassesEffectKind kind, bool hotEffect) {
+byte NGiGlassesUnitControl::registerEffect(glassesEffectKind kind) {
+    return registerEffect(kind, false);
+}
+
+byte NGiGlassesUnitControl::registerEffect(glassesEffectKind kind, int delay) {
+    return registerEffect(kind, false, delay);
+}
+
+byte NGiGlassesUnitControl::registerEffect(glassesEffectKind kind, bool hotEffect) {
+    return registerEffect(kind, hotEffect, 0);
+}
+
+byte NGiGlassesUnitControl::registerEffect(glassesEffectKind kind, bool hotEffect, int delay) {
     if (_effectCount < MAXEFFECTCOUNT) {
         int res = _effectCount;
         glassesEffectItem gei;
-        gei.effect = effect;
         gei.kind = kind;
+        gei.delay = delay;
         _effects[res] = gei;
         _effectCount++;
         if (hotEffect) {
@@ -82,16 +94,16 @@ byte NGiGlassesUnitControl::registerColor(colorRGB color) {
 
 void NGiGlassesUnitControl::initialize() {
     NGCustomUnitControl::initialize();
-    for (int i = 0; i < _effectCount; i++) {
-        _effects[i].effect->initialize();
+    if (hasEffectImplementation()) {
+        _effectImplementation->initialize();
     }
 }
 
 void NGiGlassesUnitControl::processingLoop() {
     NGCustomUnitControl::processingLoop();
-    if (isEffectRunning()) {
+    if (isEffectRunning() && hasEffectImplementation()) {
         if (_currentEffectIndex >= 0 && _currentEffectIndex < _effectCount) {
-            _effects[_currentEffectIndex].effect->processingLoop();
+            _effectImplementation->processingLoop();
         }
     }
 }
@@ -107,8 +119,9 @@ bool NGiGlassesUnitControl::hasEffects() {
 void NGiGlassesUnitControl::setCurrentEffect(int effectIndex) {
     if (_currentEffectIndex != effectIndex) {
         _currentEffectIndex = effectIndex;
-       if (_currentEffectIndex >= 0 && _currentEffectIndex < _effectCount) {
-            _effects[_currentEffectIndex].effect->setKind(_effects[_currentEffectIndex].kind);
+       if (hasEffectImplementation() && _currentEffectIndex >= 0 && _currentEffectIndex < _effectCount) {
+            _effectImplementation->setKind(_effects[_currentEffectIndex].kind);
+            _effectImplementation->setDelay(_effects[_currentEffectIndex].delay);
             if (hasCurrentColor()) {
                 setCurrentColor(_currentColorIndex);
             }
@@ -163,8 +176,8 @@ bool NGiGlassesUnitControl::hasColors() {
 void NGiGlassesUnitControl::setCurrentColor(int colorIndex) {
     if (hasCurrentEffect() && _currentColorIndex != colorIndex) {
         _currentColorIndex = colorIndex;
-       if (_currentColorIndex >= 0 && _currentColorIndex < _colorCount) {
-            _effects[_currentEffectIndex].effect->setColor(_colors[_currentColorIndex]);
+       if (hasEffectImplementation() && _currentColorIndex >= 0 && _currentColorIndex < _colorCount) {
+            _effectImplementation->setColor(_colors[_currentColorIndex]);
         }
     }
 }

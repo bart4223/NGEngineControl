@@ -1,5 +1,7 @@
 #define PROD false //false, true
 
+#define SCENARIO_DEFAULT //SCENARIO_DEFAULT
+
 #include <NGEngineCore.h>
 #include <Apps/NGiGlassesUnitControl.h>
 #include <NGSerialNotification.h>
@@ -88,14 +90,20 @@ void setup() {
   #endif
   app.registerKeypad(&skp);
   // Colors
+  #ifdef SCENARIO_DEFAULT
   app.registerColor(COLOR_RED);
   app.registerColor(COLOR_GREEN);
   app.registerColor(COLOR_BLUE);
   app.registerColor(COLOR_YELLOW);
+  app.registerColor(COLOR_WHITE);
   // Effects
-  app.registerEffect(&effect, glekNone);
-  app.registerEffect(&effect, glekSolid, true);
-  app.registerEffect(&effect, glekSolid);
+  app.setEffectImplementation(&effect);
+  app.registerEffect(glekNone);
+  app.registerEffect(glekSolid);
+  app.registerEffect(glekRotateOne, 75);
+  app.registerEffect(glekRotateTwo, true, 50);
+  app.registerEffect(glekRotateThree, 25);
+  #endif
   app.initialize();
   #if (PROD == true)
   app.setLogging(false);
