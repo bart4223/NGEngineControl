@@ -87,10 +87,15 @@ void setup() {
   app.registerNotification(&serialNotification);
   #endif
   app.registerKeypad(&skp);
+  // Colors
+  app.registerColor(COLOR_RED);
+  app.registerColor(COLOR_GREEN);
+  app.registerColor(COLOR_BLUE);
+  app.registerColor(COLOR_YELLOW);
   // Effects
-  effect.setColor(COLOR_YELLOW);
   app.registerEffect(&effect, glekNone);
   app.registerEffect(&effect, glekSolid, true);
+  app.registerEffect(&effect, glekSolid);
   app.initialize();
   #if (PROD == true)
   app.setLogging(false);
@@ -99,6 +104,7 @@ void setup() {
   app.setLogging(true);
   app.setWorkMode(wmObserveMemory);
   #endif
+  // Startup
   app.startUp();
   app.clearInfo();
   if (app.hasEffects() && !app.hasCurrentEffect()) {
@@ -106,6 +112,9 @@ void setup() {
       app.hotEffect();
     } else {
       app.firstEffect();
+    }
+    if (app.hasColors()) {
+      app.firstColor();
     }
     app.startEffectRunning();
   }
@@ -130,7 +139,7 @@ void keypadCallback(byte id) {
       app.nextEffect();
       break;
     case KEYCOLORID:
-      Serial.println("Press Color");
+      app.nextColor();
       break;
   }
 }
