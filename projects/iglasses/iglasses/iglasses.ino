@@ -1,6 +1,6 @@
-#define PROD false //false, true
+#define PROD true //false, true
 
-#define SCENARIO_DEFAULT //SCENARIO_DEFAULT
+#define SCENARIO_DEFAULT //SCENARIO_NONE, SCENARIO_DEFAULT
 
 #include <NGEngineCore.h>
 #include <Apps/NGiGlassesUnitControl.h>
@@ -126,9 +126,7 @@ void setup() {
     }
     app.startEffectRunning();
   }
-  #if (PROD == false)
   observeMemory(0);
-  #endif
 }
 
 void loop() {
