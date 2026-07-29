@@ -11,7 +11,7 @@
 #include <NGCommonGraphics.h>
 #include <NGIEffect.h>
 
-enum glassesEffectKind { glekNone, glekSolid };
+enum glassesEffectKind { glekNone, glekSolid, glekRotateOne, glekRotateTwo, glekRotateThree };
 
 class NGIGlassesEffect : public NGIEffect {
     
@@ -23,6 +23,10 @@ public:
     virtual void setColor(colorRGB color);
 
     virtual colorRGB getColor();
+
+    virtual void setDelay(int delay);
+
+    virtual int getDelay();
 };
 
 #endif /* NGIGlassesEffect_h */

@@ -13,6 +13,7 @@
 #include <Visuals/NGColorLEDStrip.h>
 
 #define DEFAULTGLASSESLEDSTRIPEFFECTKIND glekNone
+#define DEFAULTDELAY 500
 
 class NGGlassesLEDStripEffect : public NGIGlassesEffect {
 
@@ -20,6 +21,9 @@ private:
     NGColorLEDStrip *_colorLEDStrip;
     colorRGB _color = COLOR_BLACK;
     glassesEffectKind _kind = DEFAULTGLASSESLEDSTRIPEFFECTKIND;
+    int _rotationPosition = 0;
+    long _lastRenderTime = 0;
+    int _delay = DEFAULTDELAY;
 
 protected:
     void _create(NGColorLEDStrip *colorLEDStrip, glassesEffectKind kind);
@@ -42,6 +46,10 @@ public:
     void setColor(colorRGB color);
 
     colorRGB getColor();
+
+    void setDelay(int delay);
+
+    int getDelay();
 
     void processingLoop();
 };

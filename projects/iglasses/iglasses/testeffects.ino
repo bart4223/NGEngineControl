@@ -15,8 +15,9 @@ void setup() {
   observeMemory(0);
   cls.initialize(BRIGHTNESS_DEFAULT);
   effect.initialize();
-  effect.setKind(glekSolid);
+  effect.setKind(glekRotateThree);
   effect.setColor(COLOR_YELLOW);
+  effect.setDelay(50);
   observeMemory(0);
 }
 
