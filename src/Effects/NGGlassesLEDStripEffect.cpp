@@ -34,29 +34,48 @@ void NGGlassesLEDStripEffect::_render() {
         case glekRotateOne:
         case glekRotateTwo:
         case glekRotateThree:
+        case glekOppositeRotateOne:
+        case glekOppositeRotateTwo:
+        case glekOppositeRotateThree:
             _colorLEDStrip->setBackground(COLOR_BLACK);
-            for (int i = 0; i < _colorLEDStrip->getWidth(); i++) {
+            for (int x = 0; x < _colorLEDStrip->getWidth(); x++) {
                 colorRGB color = COLOR_BLACK;
-                if (i == _rotationPosition) {
+                if (x == _rotationPosition) {
                     color = _color;
                 }
-                _colorLEDStrip->drawPoint(i, 0, color);
-                _colorLEDStrip->drawPoint(i, 1, color);
+                _colorLEDStrip->drawPoint(x, 0, color);
+                if (_kind == glekOppositeRotateOne || _kind == glekOppositeRotateTwo || _kind == glekOppositeRotateThree) {
+                    if (x == (_colorLEDStrip->getWidth() - _rotationPosition) || (x == 0 && _rotationPosition == 0)) {
+                        color = _color;
+                    } else {
+                        color = COLOR_BLACK;
+                    }
+                }
+                _colorLEDStrip->drawPoint(x, 1, color);
                 switch (_kind) {
                     case glekRotateTwo:
                     case glekRotateThree:
-                        if (i == (_rotationPosition + 1) % _colorLEDStrip->getWidth()) {
+                    case glekOppositeRotateTwo:
+                    case glekOppositeRotateThree:
+                        if (x == (_rotationPosition + 1) % _colorLEDStrip->getWidth()) {
                             color = _color;
                         }
-                        _colorLEDStrip->drawPoint(i, 0, color);
-                        _colorLEDStrip->drawPoint(i, 1, color);
+                        _colorLEDStrip->drawPoint(x, 0, color);
+                        if (_kind == glekOppositeRotateTwo || _kind == glekOppositeRotateThree) {
+                            if (x == (_colorLEDStrip->getWidth() - 1 - _rotationPosition + 1) % _colorLEDStrip->getWidth()) {
+                                color = _color;
+                            } else {
+                                color = COLOR_BLACK;
+                            }
+                        }
+                        _colorLEDStrip->drawPoint(x, 1, color);
                         switch (_kind) {
                             case glekRotateThree:
-                                if (i == (_rotationPosition + 2) % _colorLEDStrip->getWidth()) {
+                                if (x == (_rotationPosition + 2) % _colorLEDStrip->getWidth()) {
                                     color = _color;
                                 }
-                                _colorLEDStrip->drawPoint(i, 0, color);
-                                _colorLEDStrip->drawPoint(i, 1, color);
+                                _colorLEDStrip->drawPoint(x, 0, color);
+                                _colorLEDStrip->drawPoint(x, 1, color);
                                 break;
                         }
                         break;                    
@@ -67,7 +86,7 @@ void NGGlassesLEDStripEffect::_render() {
                 _rotationPosition = 0;
             }
             break;
-    }
+    }       
     _colorLEDStrip->endUpdate();
 }
 
