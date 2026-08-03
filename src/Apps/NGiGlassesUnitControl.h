@@ -12,7 +12,7 @@
 #include <NGCustomUnitControl.h>
 #include <Effects/NGIGlassesEffect.h>
 
-#define _VERSION "1.2"
+#define _VERSION "1.3"
 #define VERSION (char*)_VERSION
 
 #define MAXEFFECTCOUNT 10
