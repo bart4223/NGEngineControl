@@ -15,9 +15,14 @@ void setup() {
   observeMemory(0);
   cls.initialize(BRIGHTNESS_DEFAULT);
   effect.initialize();
-  effect.setKind(glekOppositeRotateTwo);
+  //effect.setKind(glekRotateOne);
+  //effect.setKind(glekOppositeRotateOne);
+  //effect.setKind(glekRotateTwo);
+  //effect.setKind(glekOppositeRotateTwo);
+  //effect.setKind(glekRotateThree);
+  effect.setKind(glekOppositeRotateThree);
   effect.setColor(COLOR_YELLOW);
-  effect.setDelay(50);
+  effect.setDelay(500);
   observeMemory(0);
 }
 
