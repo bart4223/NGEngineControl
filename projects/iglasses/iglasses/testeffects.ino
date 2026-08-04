@@ -20,7 +20,9 @@ void setup() {
   //effect.setKind(glekRotateTwo);
   //effect.setKind(glekOppositeRotateTwo);
   //effect.setKind(glekRotateThree);
-  effect.setKind(glekOppositeRotateThree);
+  //effect.setKind(glekOppositeRotateThree);
+  //effect.setKind(glekRandom);
+  effect.setKind(glekOppositeRandom);
   effect.setColor(COLOR_YELLOW);
   effect.setDelay(500);
   observeMemory(0);

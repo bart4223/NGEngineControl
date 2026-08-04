@@ -106,6 +106,8 @@ void setup() {
   app.registerEffect(glekOppositeRotateOne, 75);
   app.registerEffect(glekOppositeRotateTwo, 50);
   app.registerEffect(glekOppositeRotateThree, 25);
+  app.registerEffect(glekRandom, 50);
+  app.registerEffect(glekOppositeRandom, 50);
   #endif
   app.initialize();
   #if (PROD == true)

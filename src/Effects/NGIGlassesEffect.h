@@ -11,7 +11,7 @@
 #include <NGCommonGraphics.h>
 #include <NGIEffect.h>
 
-enum glassesEffectKind { glekNone, glekSolid, glekRotateOne, glekRotateTwo, glekRotateThree, glekOppositeRotateOne, glekOppositeRotateTwo, glekOppositeRotateThree };
+enum glassesEffectKind { glekNone, glekSolid, glekRotateOne, glekRotateTwo, glekRotateThree, glekOppositeRotateOne, glekOppositeRotateTwo, glekOppositeRotateThree, glekRandom, glekOppositeRandom };
 
 class NGIGlassesEffect : public NGIEffect {
     

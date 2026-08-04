@@ -5,6 +5,7 @@
 //  Created by Nils Grimmer on 10.07.26.
 //
 
+#include <NGCommon.h>
 #include <Effects/NGGlassesLEDStripEffect.h>
 
 NGGlassesLEDStripEffect::NGGlassesLEDStripEffect(NGColorLEDStrip *colorLEDStrip) {
@@ -69,6 +70,25 @@ void NGGlassesLEDStripEffect::_render() {
             _rotationPosition++;
             if (_rotationPosition >= _colorLEDStrip->getWidth()) {
                 _rotationPosition = 0;
+            }
+            break;
+        case glekRandom:
+        case glekOppositeRandom:
+            _colorLEDStrip->setBackground(COLOR_BLACK);
+            _colorLEDStrip->clear();
+            for (int x = 0; x < _colorLEDStrip->getWidth(); x++) {
+                colorRGB color = _color;
+                if (getYesOrNo()) {
+                    color = getRandomColor();
+                } 
+                _colorLEDStrip->drawPoint(x, 0, color);
+                if (_kind == glekOppositeRandom) {
+                    color = _color;
+                    if (getYesOrNo()) {
+                        color = getRandomColor();
+                    } 
+                }
+                _colorLEDStrip->drawPoint(x, 1, color);
             }
             break;
     }       
