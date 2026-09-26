@@ -8,15 +8,20 @@
 #include <Visuals/NGTFTDisplay.h>
 
 NGTFTDisplay::NGTFTDisplay() {
-    _create(DEFPINTFTCS, DEFPINTFTDC, DEFPINTFTRST, DEFTFTDISPLAYDIRECTION);
+    _create(DEFPINTFTCS, DEFPINTFTDC, DEFPINTFTRST, DEFTFTDISPLAYDIRECTION, DEFTFTSPIRATE);
 }
 
 NGTFTDisplay::NGTFTDisplay(byte pinCS, byte pinDC, byte pinRST) {
-    _create(pinCS, pinDC, pinRST, DEFTFTDISPLAYDIRECTION);
+    _create(pinCS, pinDC, pinRST, DEFTFTDISPLAYDIRECTION, DEFTFTSPIRATE);
 }
 
-void NGTFTDisplay::_create(byte pinCS, byte pinDC, byte pinRST, TFTDisplayDirection direction) {
-    _TFTScreen = new TFT(pinCS, pinDC, pinRST);
+NGTFTDisplay::NGTFTDisplay(byte pinCS, byte pinDC, byte pinRST, long SPIRate) {
+    _create(pinCS, pinDC, pinRST, DEFTFTDISPLAYDIRECTION, SPIRate);
+}
+
+void NGTFTDisplay::_create(byte pinCS, byte pinDC, byte pinRST, TFTDisplayDirection direction, long SPIRate) {
+    _TFTScreen = new Adafruit_ST7735(pinCS, pinDC, pinRST);
+    _TFTScreen->setSPISpeed(SPIRate);
     _direction = direction;
 }
 
@@ -32,11 +37,11 @@ void NGTFTDisplay::_initDisplayDirection() {
 }
 
 int NGTFTDisplay::_convertColor(colorRGB color) {
-    return _TFTScreen->Color565(color.blue, color.green, color.red);
+    return _TFTScreen->color565(color.red, color.green, color.blue);
 }
 
 void NGTFTDisplay::initialize() {
-    _TFTScreen->begin();
+    _TFTScreen->initR(INITR_BLACKTAB);
     _initDisplayDirection();
     clear();
 }

@@ -9,7 +9,8 @@
 #define NGTFTDisplay_h
 
 #include <Arduino.h>
-#include <TFT.h> 
+#include <Adafruit_GFX.h>
+#include <Adafruit_ST7735.h>
 #include <SPI.h>
 #include <NGITestableComponent.h>
 #include <NGIPaintableComponent.h>
@@ -19,13 +20,14 @@
 #define DEFPINTFTRST    8
 
 #define DEFTFTDISPLAYDIRECTION tddHorizontal
+#define DEFTFTSPIRATE 15000000
 
 enum TFTDisplayDirection { tddHorizontal, tddVertical };
 
 class NGTFTDisplay : public NGITestableComponent, public NGIPaintableComponent{
 
 private:
-    TFT *_TFTScreen;
+    Adafruit_ST7735 *_TFTScreen;
     colorRGB _backgroundColor = COLOR_BLACK;
     int _offsetX = 0;
     int _offsetY = 0;
@@ -34,7 +36,7 @@ private:
     TFTDisplayDirection _direction = DEFTFTDISPLAYDIRECTION;
     
 protected:
-    void _create(byte pinCS, byte pinDC, byte pinRST, TFTDisplayDirection direction);
+    void _create(byte pinCS, byte pinDC, byte pinRST, TFTDisplayDirection direction, long SPIRate);
     void _initDisplayDirection();
     int _convertColor(colorRGB color);
 
@@ -42,6 +44,8 @@ public:
     NGTFTDisplay();
     
     NGTFTDisplay(byte pinCS, byte pinDC, byte pinRST);
+
+    NGTFTDisplay(byte pinCS, byte pinDC, byte pinRST, long SPIRate);
     
     void initialize();
 
