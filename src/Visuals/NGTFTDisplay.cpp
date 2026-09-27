@@ -135,10 +135,10 @@ void NGTFTDisplay::clearLine(int x1, int y1, int x2, int y2) {
 }
     
 void NGTFTDisplay::drawLine(int x1, int y1, int x2, int y2, colorRGB color) {
-    int x1_ = (x1 + _offsetX) * _scale;
-    int y1_ = (y1 + _offsetY) * _scale;
-    int x2_ = (x2 + _offsetX) * _scale;
-    int y2_ = (y2 + _offsetY) * _scale;
+    int x1_ = x1;
+    int y1_ = y1;
+    int x2_ = x2;
+    int y2_ = y2;
     int dx =  abs(x2_ - x1_);
     int sx = x1_ < x2_ ? 1 : -1;
     int dy = -abs(y2_ - y1_);
