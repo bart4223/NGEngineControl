@@ -50,6 +50,8 @@ public:
 
     NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, colorRGB color, colorRGB colorBackground, NGCustomFont *font);
 
+    NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, colorRGB color, colorRGB colorBackground, NGCustomFont *font, simpleEffectTextKind kind);
+
     void initialize();
     
     void setPosition(int posx, int posy);

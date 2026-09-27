@@ -27,6 +27,10 @@ NGColorDotMatrixEffectText::NGColorDotMatrixEffectText(NGIPaintableComponent *ip
     _create(ipc, color, colorBackground, font, DEFSIMPLEEFFECTKIND);
 }
 
+NGColorDotMatrixEffectText::NGColorDotMatrixEffectText(NGIPaintableComponent *ipc, colorRGB color, colorRGB colorBackground, NGCustomFont *font, simpleEffectTextKind kind) {
+    _create(ipc, color, colorBackground, font, kind);
+}
+
 void NGColorDotMatrixEffectText::_create(NGIPaintableComponent *ipc, colorRGB color, colorRGB colorBackground, NGCustomFont *font, simpleEffectTextKind kind) {
     _charDigit = new NGColorDotMatrixCharDigit(ipc);
     _charDigit->setColor(color);
