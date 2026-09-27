@@ -60,9 +60,9 @@ void NGColorDotMatrixEffectText::_renderEffectKindSingle() {
 
 void NGColorDotMatrixEffectText::_renderEffectKindFull() {
     for (int i = 0; i < strlen(_text); i++) {
-        int x = _posX + (i * _charDigit->getScale() * _charDigit->PIXELCOUNT);
-        int y = _posY;
-        if ((x < _charDigit->getPaintableComponent()->getWidth()) && (y < _charDigit->getPaintableComponent()->getHeight())) {
+        int x = _posX + i * _charDigit->PIXELCOUNT;
+        int y = _posY + _charDigit->PIXELCOUNT;
+        if ((x < _charDigit->getPaintableComponent()->getWidth() * _charDigit->PIXELCOUNT) && (y < _charDigit->getPaintableComponent()->getHeight() * _charDigit->PIXELCOUNT)) {
             _charDigit->beginUpdate();
             _charDigit->setPosX(x);
             _charDigit->setPosY(y);

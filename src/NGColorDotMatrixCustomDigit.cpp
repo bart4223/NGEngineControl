@@ -25,6 +25,9 @@ NGCustomFont* NGColorDotMatrixCustomDigit::_getFont() {
 void NGColorDotMatrixCustomDigit::_render() {
     NGCustomFont *font = _getFont();
     _ipc->beginUpdate();
+    int saveScale = _ipc->getScale();
+    int scale =  saveScale / 8 + 1;
+    _ipc->setScale(scale);
     for (int y = 0; y < 8; y++) {
         byte num = font->getCharLineValue(_value, y);
         byte col = 0x01;
@@ -53,6 +56,7 @@ void NGColorDotMatrixCustomDigit::_render() {
             col = col << 1;
         }
     }
+    _ipc->setScale(saveScale);
     _ipc->endUpdate();
 }
 
